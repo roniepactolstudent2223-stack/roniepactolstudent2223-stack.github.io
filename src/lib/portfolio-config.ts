@@ -11,8 +11,8 @@ export const PORTFOLIO_IDENTITY = {
   isAvailable: true,
   resumeUrl: '/resume.pdf',
   externalLinks: [
-    { label: 'LinkedIn', href: 'https://linkedin.com/in/janedoe' },
-    { label: 'GitHub', href: 'https://github.com/janedoe' },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/ronie-pactol-6888092a6/' },
+    { label: 'GitHub', href: 'https://github.com/NiessenWaffer' },
   ],
   // Homepage orientation
   orientation: {
