@@ -1,0 +1,14 @@
+{
+  "slug": "editorial-portfolio",
+  "title": "Editorial Portfolio",
+  "year": 2026,
+  "category": "web",
+  "description": "A portfolio site designed as an editorial layout, blending print design sensibilities with modern web interactions.",
+  "tags": ["next.js", "tailwind", "editorial", "parallel-routes"],
+  "coverImage": "/images/projects/editorial-portfolio/cover.jpg",
+  "images": [
+    "/images/projects/editorial-portfolio/hero.jpg"
+  ],
+  "role": "Designer & Developer",
+  "url": "https://example.com"
+}

@@ -1,0 +1,13 @@
+{
+  "slug": "mobile-banking-app",
+  "title": "Mobile Banking App",
+  "year": 2024,
+  "category": "product",
+  "description": "A mobile banking experience focused on financial literacy and actionable insights rather than raw transaction data.",
+  "tags": ["mobile", "fintech", "ios", "android"],
+  "coverImage": "/images/projects/mobile-banking-app/cover.jpg",
+  "images": [
+    "/images/projects/mobile-banking-app/hero.jpg"
+  ],
+  "role": "Product Designer"
+}

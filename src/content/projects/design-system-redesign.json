@@ -1,0 +1,15 @@
+{
+  "slug": "design-system-redesign",
+  "title": "Design System Redesign",
+  "year": 2025,
+  "category": "product",
+  "description": "A comprehensive overhaul of the internal design system serving 12 product teams across the organization.",
+  "tags": ["design-system", "tokens", "figma", "react"],
+  "coverImage": "/images/projects/design-system-redesign/cover.jpg",
+  "images": [
+    "/images/projects/design-system-redesign/hero.jpg",
+    "/images/projects/design-system-redesign/tokens.jpg"
+  ],
+  "role": "Lead Designer",
+  "client": "Internal"
+}
