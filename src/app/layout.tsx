@@ -27,10 +27,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-  detail,
 }: Readonly<{
   children: React.ReactNode
-  detail: React.ReactNode
 }>) {
   const projects = getProjects()
 
@@ -40,7 +38,7 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} h-full antialiased`}
     >
       <body className="flex h-screen overflow-hidden">
-        <PortfolioLayout projects={projects} detail={detail}>
+        <PortfolioLayout projects={projects}>
           {children}
         </PortfolioLayout>
       </body>

@@ -2,16 +2,16 @@
 
 import LeftSidebar from '@/components/sidebar/LeftSidebar'
 import ScrollToTop from '@/components/layout/ScrollToTop'
+import DetailPanel from '@/components/layout/DetailPanel'
 import { PortfolioProvider } from '@/contexts/PortfolioContext'
 import type { Project } from '@/lib/types'
 
 interface PortfolioLayoutProps {
   children: React.ReactNode
-  detail: React.ReactNode
   projects: Project[]
 }
 
-function PortfolioContent({ children, detail }: Omit<PortfolioLayoutProps, 'projects'>) {
+function PortfolioContent({ children, projects }: Omit<PortfolioLayoutProps, 'projects'> & { projects: Project[] }) {
   return (
     <>
       <ScrollToTop />
@@ -25,7 +25,7 @@ function PortfolioContent({ children, detail }: Omit<PortfolioLayoutProps, 'proj
       </main>
 
       <div className="hidden w-[420px] shrink-0 overflow-y-auto border-l border-neutral-200 xl:block">
-        {detail}
+        <DetailPanel projects={projects} />
       </div>
     </>
   )
@@ -34,7 +34,7 @@ function PortfolioContent({ children, detail }: Omit<PortfolioLayoutProps, 'proj
 export default function PortfolioLayout(props: PortfolioLayoutProps) {
   return (
     <PortfolioProvider initialProjects={props.projects}>
-      <PortfolioContent detail={props.detail}>{props.children}</PortfolioContent>
+      <PortfolioContent projects={props.projects}>{props.children}</PortfolioContent>
     </PortfolioProvider>
   )
 }
