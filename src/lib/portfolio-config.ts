@@ -29,7 +29,7 @@ export const PORTFOLIO_IDENTITY = {
   },
   // Homepage orientation
   orientation: {
-    headline: 'Strong fundamentals in Laravel, Vue.js, and relational database systems.',
+    headline: 'Strong fundamentals in Laravel, Vue.js.',
     subtext: '6 months of internal enterprise software development at Wilcon Depot, creator of the Word of Hope live attendance system, and active WordPress Philippines volunteer.',
   },
   featuredProject: {
