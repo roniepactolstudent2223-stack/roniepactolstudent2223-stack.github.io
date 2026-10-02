@@ -2,6 +2,7 @@
 
 import Masthead from '@/components/home/Masthead'
 import FeaturedProject from '@/components/home/FeaturedProject'
+import WOHSpotlight from '@/components/home/WOHSpotlight'
 import DiscoveryPaths from '@/components/home/DiscoveryPaths'
 import ProjectGrid from '@/components/projects/ProjectGrid'
 import Footer from '@/components/layout/Footer'
@@ -10,6 +11,7 @@ import { usePortfolio } from '@/contexts/PortfolioContext'
 import { getWorkDomains, PORTFOLIO_IDENTITY } from '@/lib/portfolio-config'
 
 const PLACEHOLDER_IMAGES: Record<string, string> = {
+  'woh-attendance-system': '/woh-pilot.png',
   'design-system-redesign': 'https://picsum.photos/seed/designsystem/800/600',
   'editorial-portfolio': 'https://picsum.photos/seed/editorial/800/600',
   'mobile-banking-app': 'https://picsum.photos/seed/banking/800/600',
@@ -39,6 +41,9 @@ export default function Home() {
           </div>
         </section>
       )}
+
+      {/* WOH Spotlight — real project, personal story */}
+      <WOHSpotlight />
 
       {/* Discovery + Projects — spacious → dense */}
       <section id="home" className="px-6 py-10">

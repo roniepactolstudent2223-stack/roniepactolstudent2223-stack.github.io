@@ -16,12 +16,12 @@ export const PORTFOLIO_IDENTITY = {
   ],
   // Homepage orientation
   orientation: {
-    headline: 'Enterprise systems. Frontend architecture. Production software.',
-    subtext: 'Explore projects, technical decisions, and engineering process.',
+    headline: 'I build software that solves real problems for real people.',
+    subtext: 'Junior developer at Wilcon Depot by day. On weekends, I build tools for my church — because technology should serve communities, not just companies.',
   },
   featuredProject: {
-    slug: 'design-system-redesign',
-    label: 'Design System Redesign',
+    slug: 'woh-attendance-system',
+    label: 'WOH Attendance System',
   },
   // About page
   about: {
@@ -198,12 +198,12 @@ export const PORTFOLIO_IDENTITY = {
   ] as const,
   // Sidebar feature data
   stats: [
-    { value: '6+', label: 'Years' },
-    { value: '12', label: 'Teams' },
-    { value: '40+', label: 'Components' },
+    { value: 'Mar 2025', label: 'In production' },
+    { value: 'Laravel', label: '+ Vue.js' },
+    { value: 'QR Scan', label: 'Check-in' },
   ],
-  skills: ['React', 'Figma', 'TypeScript', 'Next.js', 'Tailwind', 'Design Systems'],
-  currently: 'Building a component library for a health-tech product',
+  skills: ['Laravel', 'Vue.js', 'PHP', 'MySQL', 'Next.js', 'Tailwind'],
+  currently: 'Continuing to develop the WOH Attendance System for Word of Hope Caloocan',
 } as const
 
 export const SECTIONS = [
