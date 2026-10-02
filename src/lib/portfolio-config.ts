@@ -2,7 +2,7 @@ import type { Project } from '@/lib/types'
 
 export const PORTFOLIO_IDENTITY = {
   name: 'Ronie Pactol',
-  role: 'Junior System Developer',
+  role: 'Full Stack Junior System Developer',
   seniority: 'Junior Developer · 2025 Graduate',
   location: 'Balingasa, Quezon City',
   email: 'roniepactol@gmail.com',
@@ -17,7 +17,7 @@ export const PORTFOLIO_IDENTITY = {
   // Homepage orientation
   orientation: {
     headline: 'Building production web applications and serving real communities.',
-    subtext: 'Junior System Developer at Wilcon Depot by day. Word of Hope church attendance system creator and active WordPress Philippines volunteer.',
+    subtext: 'Full Stack Junior System Developer at Wilcon Depot (6 mos). Word of Hope church attendance system creator and active WordPress Philippines volunteer.',
   },
   featuredProject: {
     slug: 'woh-attendance-system',
@@ -70,21 +70,23 @@ export const PORTFOLIO_IDENTITY = {
     {
       company: 'Wilcon Depot, Inc.',
       companyDescription: 'Leading home improvement and construction supply retailer in the Philippines',
-      role: 'Junior System Developer',
-      period: 'May 2026 – Present',
+      role: 'Full Stack Junior System Developer',
+      period: 'May 2026 – Oct 2026 (6 months)',
+      duration: '6 mos',
       location: 'Quezon City, Philippines · On-site',
       logoUrl: undefined,
       teamSize: 'Internal software development team',
       metric: undefined as { value: string; label: string } | undefined,
-      highlight: 'Develop and maintain internal enterprise applications using Laravel and Vue.js',
+      highlight: '6 months as a Full Stack Junior System Developer building and maintaining internal enterprise applications using Laravel, Vue.js, and Infor M3 ERP APIs',
       evidence: [
-        { label: 'Development', detail: 'Build and maintain internal enterprise web applications using Laravel and Vue.js, covering both frontend and backend' },
-        { label: 'Integration', detail: 'Work on ERP integrations including Infor M3 API and financial voucher processing workflows' },
+        { label: 'Full-Stack', detail: 'Build and maintain internal enterprise web applications using Laravel and Vue.js, covering both frontend and backend' },
+        { label: 'ERP Integration', detail: 'Work on ERP integrations including Infor M3 API and financial voucher processing workflows' },
         { label: 'Collaboration', detail: 'Collaborate with senior developers on production systems, module maintenance, and new feature implementation' },
       ],
-      insight: 'Enterprise systems taught me that reliability matters more than novelty — production code must serve real business needs every day.',
-      technologies: ['Laravel', 'Vue.js', 'PHP', 'JavaScript', 'MySQL', 'Git'],
+      insight: '6 months of enterprise systems taught me that reliability matters more than novelty — production code must serve real business needs every day.',
+      technologies: ['Laravel', 'Vue.js', 'PHP', 'JavaScript', 'MySQL', 'Infor M3', 'Git'],
       project: 'wilcon-enterprise-systems',
+      photos: ['/wilcon-workstation.jpg', '/wilcon-building.png'] as readonly string[] | undefined,
       progression: undefined,
     },
     {

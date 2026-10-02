@@ -186,7 +186,7 @@ export default function WorkPage() {
         {/* Role cards */}
         <div className="mt-16 space-y-6">
           {workExperience.map((role, index) => {
-            const duration = calculateDuration(role.period)
+            const duration = (role as { duration?: string }).duration || calculateDuration(role.period)
 
             return (
               <article
@@ -296,6 +296,21 @@ export default function WorkPage() {
                     {role.insight}
                   </p>
                 </div>
+
+                {/* Workplace Photos (e.g. Wilcon workstation & building) */}
+                {(role as { photos?: readonly string[] }).photos && ((role as { photos?: readonly string[] }).photos?.length ?? 0) > 0 && (
+                  <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-3 overflow-hidden rounded-xl">
+                    {(role as { photos?: readonly string[] }).photos?.map((src: string, pIdx: number) => (
+                      <div key={pIdx} className="aspect-[16/10] overflow-hidden rounded-lg border border-neutral-100 bg-neutral-100">
+                        <img
+                          src={src}
+                          alt={`${role.company} photo ${pIdx + 1}`}
+                          className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                )}
 
                 {/* Technologies */}
                 <div className="mt-5 flex flex-wrap gap-1.5">
