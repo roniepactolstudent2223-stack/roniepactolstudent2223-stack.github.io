@@ -7,6 +7,7 @@
   "tags": ["laravel", "vue.js", "rest-api", "qr-code", "mysql"],
   "coverImage": "/woh-pilot.webp",
   "images": [
+    "/woh-website.webp",
     "/woh-admin.webp",
     "/woh-pilot.webp"
   ],

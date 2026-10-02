@@ -93,7 +93,7 @@ const PROJECT_HIGHLIGHTS: Record<string, FeatureHighlight[]> = {
 }
 
 const TAB_LABELS: Record<string, string[]> = {
-  'woh-attendance-system': ['Admin Management Dashboard', 'On-Site Check-in Kiosk'],
+  'woh-attendance-system': ['Main Church Website (wohcaloocan.org)', 'Admin Management Dashboard', 'On-Site Check-in Kiosk'],
   'wordpress-ph-community': ['Meetup & Tech Gathering', 'Community Co-Working Space'],
   'wilcon-enterprise-systems': ['Workstation & Setup at Wilcon', 'Wilcon Depot Building'],
 }
