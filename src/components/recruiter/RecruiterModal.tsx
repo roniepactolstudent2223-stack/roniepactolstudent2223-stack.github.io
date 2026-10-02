@@ -31,6 +31,7 @@ export default function RecruiterModal({ isOpen, onClose }: RecruiterModalProps)
 Role: Junior System Developer (Full Stack)
 Core Stack: Laravel, Vue.js, MySQL, PHP, Infor M3 APIs
 Experience: 6 months at Wilcon Depot (Enterprise ERP & Voucher workflows) + Solo developer of live WOH Attendance System
+Reference: John Carlo Pattugan (IT Operations Administrator, LevelUp - https://levelup.support/) | +63 905 1779 250
 Availability: Immediate (0-day notice) | Location: Balingasa, Quezon City | SSS & PhilHealth ready
 Contact: 0993 126 3221 (Viber) | roniepactol@gmail.com
 Portfolio: https://roniepactolstudent2223-stack.github.io/
@@ -204,7 +205,16 @@ Resume PDF: https://roniepactolstudent2223-stack.github.io/resume.pdf`
           </p>
           <div className="mt-1 flex flex-col sm:flex-row sm:items-center justify-between text-xs gap-1">
             <span className="font-medium text-neutral-900">
-              {PORTFOLIO_IDENTITY.reference.name} · {PORTFOLIO_IDENTITY.reference.role}, {PORTFOLIO_IDENTITY.reference.company}
+              {PORTFOLIO_IDENTITY.reference.name} · {PORTFOLIO_IDENTITY.reference.role},{' '}
+              <a
+                href={PORTFOLIO_IDENTITY.reference.companyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:underline text-neutral-800 hover:text-neutral-950 font-semibold inline-flex items-center gap-0.5"
+              >
+                {PORTFOLIO_IDENTITY.reference.company}
+                <span aria-hidden="true" className="text-[10px] text-neutral-400">↗</span>
+              </a>
             </span>
             <a
               href={`tel:${PORTFOLIO_IDENTITY.reference.phone.replace(/[^0-9+]/g, '')}`}

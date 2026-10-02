@@ -30,6 +30,7 @@ export default function ContactPage() {
 Role: Junior System Developer (Full Stack)
 Core Stack: Laravel, Vue.js, MySQL, PHP, Infor M3 APIs
 Experience: 6 months at Wilcon Depot (Enterprise ERP & Voucher workflows) + Solo developer of live WOH Attendance System
+Reference: John Carlo Pattugan (IT Operations Administrator, LevelUp - https://levelup.support/) | +63 905 1779 250
 Availability: Immediate (0-day notice) | Location: Balingasa, Quezon City | SSS & PhilHealth ready
 Contact: 0993 126 3221 (Viber) | roniepactol@gmail.com
 Portfolio: https://roniepactolstudent2223-stack.github.io/
@@ -193,7 +194,16 @@ Resume PDF: https://roniepactolstudent2223-stack.github.io/resume.pdf`
               <div>
                 <p className="text-sm font-bold text-neutral-900">{PORTFOLIO_IDENTITY.reference.name}</p>
                 <p className="text-xs text-neutral-600 mt-0.5">
-                  {PORTFOLIO_IDENTITY.reference.role} · {PORTFOLIO_IDENTITY.reference.company}
+                  {PORTFOLIO_IDENTITY.reference.role} ·{' '}
+                  <a
+                    href={PORTFOLIO_IDENTITY.reference.companyUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-neutral-900 hover:underline inline-flex items-center gap-0.5 font-medium text-neutral-800"
+                  >
+                    {PORTFOLIO_IDENTITY.reference.company}
+                    <span aria-hidden="true" className="text-[10px] text-neutral-400">↗</span>
+                  </a>
                 </p>
               </div>
               <a

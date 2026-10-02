@@ -24,6 +24,7 @@ export const PORTFOLIO_IDENTITY = {
     name: 'John Carlo Pattugan',
     role: 'IT Operations Administrator',
     company: 'LevelUp Outsourcing Ph Inc.',
+    companyUrl: 'https://levelup.support/',
     phone: '+63 905 1779 250',
   },
   // Homepage orientation
