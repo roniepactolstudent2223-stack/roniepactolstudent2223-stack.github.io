@@ -21,7 +21,7 @@ export default function SidebarIdentity({ compact = false }: SidebarIdentityProp
       <img
         src="/Profile.jpg"
         alt={PORTFOLIO_IDENTITY.name}
-        className="h-20 w-20 shrink-0 rounded-lg object-cover object-top"
+        className="h-20 w-20 shrink-0 rounded-lg object-cover object-[center_42%]"
       />
       <div className="min-w-0">
         <h1 className="text-sm font-medium text-neutral-900 truncate">
