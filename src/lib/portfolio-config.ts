@@ -6,7 +6,7 @@ export const PORTFOLIO_IDENTITY = {
   seniority: 'Junior Developer · 2025 Graduate',
   location: 'Balingasa, Quezon City',
   email: 'roniepactol@gmail.com',
-  availability: 'Open to Junior / Mid-level roles',
+  availability: 'Open to Junior Developer roles',
   targetIntent: 'Full-time',
   isAvailable: true,
   resumeUrl: '/resume.pdf',
@@ -62,7 +62,7 @@ export const PORTFOLIO_IDENTITY = {
     ],
     lookingFor: {
       headline: 'What I\'m looking for',
-      body: 'Junior to mid-level roles where I can grow as a developer. I want to work with teams that value learning, give honest feedback, and build software that matters.',
+      body: 'Junior Developer roles where I can continue to learn, contribute to real production software, work with seasoned mentors, and build tools that make a difference.',
     },
   },
   // Work experience
