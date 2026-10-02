@@ -1,6 +1,10 @@
+'use client'
+
+import { useState } from 'react'
 import Link from 'next/link'
 import { PORTFOLIO_IDENTITY } from '@/lib/portfolio-config'
 import { LinkedInIcon, GitHubIcon } from '@/components/ui/Icons'
+import RecruiterModal from '@/components/recruiter/RecruiterModal'
 
 const SOCIAL_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   LinkedIn: LinkedInIcon,
@@ -8,8 +12,21 @@ const SOCIAL_ICONS: Record<string, React.ComponentType<{ className?: string }>> 
 }
 
 export default function SidebarHiringZone() {
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
   return (
-    <div className="space-y-4">
+    <div className="space-y-3.5">
+      {/* Recruiter Summary Trigger — clean, understated, planned */}
+      <button
+        type="button"
+        onClick={() => setIsModalOpen(true)}
+        className="flex w-full items-center justify-between rounded-lg border border-neutral-200 bg-neutral-50 px-3 py-2 text-xs font-semibold text-neutral-800 transition-colors hover:border-neutral-400 hover:bg-neutral-100"
+      >
+        <span>Recruiter Overview</span>
+        <span className="font-mono text-[10px] text-neutral-400">snapshot →</span>
+      </button>
+
+      <RecruiterModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
       {/* Contact CTA — understated text link, not a heavy button */}
       <div className="flex items-center justify-between">
         <Link

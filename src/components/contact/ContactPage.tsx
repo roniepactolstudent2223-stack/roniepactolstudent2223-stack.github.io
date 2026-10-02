@@ -17,11 +17,27 @@ const FORMSPREE_ID = process.env.NEXT_PUBLIC_FORMSPREE_ID || 'mppwevqd'
 export default function ContactPage() {
   const containerRef = useRef<HTMLDivElement>(null)
   const [copied, setCopied] = useState(false)
+  const [summaryCopied, setSummaryCopied] = useState(false)
 
   const handleCopyNumber = () => {
     navigator.clipboard.writeText('09931263221')
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
+  }
+
+  const copyCandidateSummary = () => {
+    const summaryText = `Candidate: Ronie Pactol
+Role: Junior System Developer (Full Stack)
+Core Stack: Laravel, Vue.js, MySQL, PHP, Infor M3 APIs
+Experience: 6 months at Wilcon Depot (Enterprise ERP & Voucher workflows) + Solo developer of live WOH Attendance System
+Availability: Immediate (0-day notice) | Location: Balingasa, Quezon City | SSS & PhilHealth ready
+Contact: 0993 126 3221 (Viber) | roniepactol@gmail.com
+Portfolio: https://roniepactolstudent2223-stack.github.io/
+Resume PDF: https://roniepactolstudent2223-stack.github.io/resume.pdf`
+
+    navigator.clipboard.writeText(summaryText)
+    setSummaryCopied(true)
+    setTimeout(() => setSummaryCopied(false), 2500)
   }
 
   useEffect(() => {
@@ -151,6 +167,17 @@ export default function ContactPage() {
                 <span aria-hidden="true" className="text-xs">↗</span>
               </a>
             )}
+            <button
+              type="button"
+              onClick={copyCandidateSummary}
+              className={`inline-flex items-center gap-2 rounded-xl border px-4 py-2.5 text-xs font-semibold transition-all ${
+                summaryCopied
+                  ? 'border-emerald-600 bg-emerald-50 text-emerald-800'
+                  : 'border-neutral-300 bg-white text-neutral-800 hover:border-neutral-400 hover:bg-neutral-50'
+              }`}
+            >
+              <span>{summaryCopied ? '✓ Summary Copied for Team' : 'Copy Summary for Hiring Team'}</span>
+            </button>
           </div>
           <p className="mt-2.5 text-xs text-neutral-400">
             Statutory benefits ready: SSS, PhilHealth, and Pag-IBIG.
