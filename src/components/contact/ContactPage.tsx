@@ -1,9 +1,9 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { PORTFOLIO_IDENTITY } from '@/lib/portfolio-config'
-import { LinkedInIcon, GitHubIcon } from '@/components/ui/Icons'
+import { LinkedInIcon, GitHubIcon, PhoneIcon, ViberIcon } from '@/components/ui/Icons'
 import ContactForm from '@/components/contact/ContactForm'
 
 const SOCIAL_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -15,6 +15,13 @@ const FORMSPREE_ID = process.env.NEXT_PUBLIC_FORMSPREE_ID || 'mppwevqd'
 
 export default function ContactPage() {
   const containerRef = useRef<HTMLDivElement>(null)
+  const [copied, setCopied] = useState(false)
+
+  const handleCopyNumber = () => {
+    navigator.clipboard.writeText('09931263221')
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
 
   useEffect(() => {
     const el = containerRef.current
@@ -53,7 +60,58 @@ export default function ContactPage() {
           <div className="mt-6 h-px w-16 bg-neutral-900" />
         </header>
 
-        <section className="mt-14" data-reveal>
+        {/* Direct Call & Viber Card */}
+        <section className="mt-10 rounded-2xl border border-neutral-200 bg-neutral-50/80 p-6 sm:p-7" data-reveal>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-5">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2">
+                <span className="inline-flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="text-[10px] font-mono uppercase tracking-[0.1em] text-neutral-500 font-semibold">
+                  Phone & Viber · Available for Calls
+                </span>
+              </div>
+              <h2 className="text-2xl font-bold tracking-tight text-neutral-900">
+                0993 126 3221
+              </h2>
+              <p className="text-xs text-neutral-500">
+                Direct mobile line (+63 993 126 3221). Call anytime or message on Viber / SMS.
+              </p>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-2.5">
+              <a
+                href={PORTFOLIO_IDENTITY.phoneTel}
+                className="inline-flex items-center gap-2 rounded-xl bg-neutral-900 px-4 py-2.5 text-xs font-semibold text-white shadow-sm hover:bg-neutral-800 transition-colors"
+              >
+                <PhoneIcon className="h-4 w-4" />
+                Call Now
+              </a>
+
+              <a
+                href={PORTFOLIO_IDENTITY.viberUrl}
+                className="inline-flex items-center gap-2 rounded-xl border border-neutral-300 bg-white px-4 py-2.5 text-xs font-semibold text-neutral-800 hover:bg-neutral-50 hover:border-neutral-400 transition-colors"
+              >
+                <ViberIcon className="h-4 w-4 text-[#7360F2]" />
+                Viber
+              </a>
+
+              <button
+                type="button"
+                onClick={handleCopyNumber}
+                className="inline-flex items-center gap-1.5 rounded-xl border border-neutral-200 bg-white px-3 py-2.5 text-xs font-medium text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900 transition-colors"
+                title="Copy phone number"
+              >
+                {copied ? '✓ Copied' : 'Copy'}
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section className="mt-12" data-reveal>
+          <div className="mb-4">
+            <h3 className="text-sm font-semibold text-neutral-900">Send a direct message</h3>
+            <p className="text-xs text-neutral-500">Fill out the form below or send an email directly.</p>
+          </div>
           <ContactForm formspreeId={FORMSPREE_ID} />
         </section>
 

@@ -231,6 +231,23 @@ function ContactSidebar() {
             <span className="font-semibold text-neutral-800 mt-0.5 block">{PORTFOLIO_IDENTITY.location}</span>
           </div>
           <div className="rounded-lg border border-neutral-200 p-3">
+            <div className="flex items-center justify-between">
+              <span className="text-neutral-400 block text-[10px] uppercase font-mono">Direct Line / Viber</span>
+              <span className="text-[10px] text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded font-medium">Available</span>
+            </div>
+            <a href="tel:+639931263221" className="font-semibold text-neutral-900 hover:underline mt-1 block">
+              0993 126 3221
+            </a>
+            <div className="mt-2 flex items-center gap-3 text-[11px]">
+              <a href="tel:+639931263221" className="font-semibold text-neutral-900 underline hover:text-neutral-600">
+                Call now →
+              </a>
+              <a href="viber://chat?number=%2B639931263221" className="font-semibold text-[#7360F2] hover:underline">
+                Viber chat ↗
+              </a>
+            </div>
+          </div>
+          <div className="rounded-lg border border-neutral-200 p-3">
             <span className="text-neutral-400 block text-[10px] uppercase font-mono">Email</span>
             <a href={`mailto:${PORTFOLIO_IDENTITY.email}`} className="font-semibold text-neutral-900 hover:underline mt-0.5 block">
               {PORTFOLIO_IDENTITY.email}
