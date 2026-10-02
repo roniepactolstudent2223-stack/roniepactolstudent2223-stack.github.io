@@ -105,20 +105,6 @@ export default function Masthead() {
           {PORTFOLIO_IDENTITY.orientation.subtext}
         </p>
 
-        {/* Stat strip */}
-        <div className="mt-8 flex items-center gap-6" data-reveal>
-          {PORTFOLIO_IDENTITY.stats.map((stat) => (
-            <div key={stat.label} className="flex items-baseline gap-1.5">
-              <span className="font-mono text-sm font-semibold text-neutral-900">
-                {stat.value}
-              </span>
-              <span className="text-xs text-neutral-500">
-                {stat.label}
-              </span>
-            </div>
-          ))}
-        </div>
-
         <div className="mt-10 flex items-center gap-3" data-reveal>
           <a
             ref={(el) => { ctaRefs.current[0] = el }}

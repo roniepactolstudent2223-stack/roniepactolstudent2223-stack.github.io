@@ -2,12 +2,11 @@
 
 import Masthead from '@/components/home/Masthead'
 import FeaturedProject from '@/components/home/FeaturedProject'
-import DiscoveryPaths from '@/components/home/DiscoveryPaths'
 import ProjectGrid from '@/components/projects/ProjectGrid'
 import Footer from '@/components/layout/Footer'
 import MobileNavigation from '@/components/navigation/MobileNavigation'
 import { usePortfolio } from '@/contexts/PortfolioContext'
-import { getWorkDomains, PORTFOLIO_IDENTITY } from '@/lib/portfolio-config'
+import { PORTFOLIO_IDENTITY } from '@/lib/portfolio-config'
 
 const PLACEHOLDER_IMAGES: Record<string, string> = {
   'woh-attendance-system': '/woh-pilot.webp',
@@ -16,10 +15,9 @@ const PLACEHOLDER_IMAGES: Record<string, string> = {
 }
 
 export default function Home() {
-  const { projects, filteredProjects, selectedDomain, setSelectedDomain } = usePortfolio()
+  const { projects } = usePortfolio()
 
   const featured = projects.find((p) => p.slug === PORTFOLIO_IDENTITY.featuredProject.slug)
-  const domains = getWorkDomains(projects)
 
   return (
     <div>
@@ -40,26 +38,18 @@ export default function Home() {
         </section>
       )}
 
-      {/* Discovery + Projects — spacious → dense */}
-      <section id="home" className="px-6 py-10">
+      {/* Enterprise & Community Systems */}
+      <section id="work-systems" className="px-6 py-12">
         <div className="max-w-4xl">
-          <DiscoveryPaths
-            domains={domains}
-            onSelectDomain={setSelectedDomain}
-            activeDomain={selectedDomain}
-          />
-
-          <div className="mt-12">
-            <div className="mb-6 flex items-baseline justify-between">
-              <p className="text-[10px] font-medium uppercase tracking-[0.1em] text-neutral-500">
-                {selectedDomain ? 'Filtered projects' : 'All projects'}
-              </p>
-              <p className="text-[10px] text-neutral-500">
-                {filteredProjects.length} projects
-              </p>
-            </div>
-            <ProjectGrid projects={filteredProjects.filter(p => p.slug !== featured?.slug)} />
+          <div className="mb-6 flex items-baseline justify-between border-b border-neutral-200 pb-3">
+            <p className="text-[10px] font-mono font-semibold uppercase tracking-[0.14em] text-neutral-400">
+              Enterprise & Community Work
+            </p>
+            <p className="text-[10px] font-mono text-neutral-400">
+              {projects.length} systems
+            </p>
           </div>
+          <ProjectGrid projects={projects.filter(p => p.slug !== featured?.slug)} />
         </div>
       </section>
 

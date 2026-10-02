@@ -28,8 +28,8 @@ export const PORTFOLIO_IDENTITY = {
   },
   // Homepage orientation
   orientation: {
-    headline: 'Building production web applications and serving real communities.',
-    subtext: 'Full Stack Junior System Developer at Wilcon Depot (6 mos). Word of Hope church attendance system creator and active WordPress Philippines volunteer.',
+    headline: 'Strong fundamentals in Laravel, Vue.js, and relational database systems.',
+    subtext: '6 months of internal enterprise software development at Wilcon Depot, creator of the Word of Hope live attendance system, and active WordPress Philippines volunteer.',
   },
   featuredProject: {
     slug: 'woh-attendance-system',
