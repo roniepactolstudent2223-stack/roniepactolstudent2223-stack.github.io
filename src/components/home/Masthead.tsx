@@ -77,9 +77,8 @@ export default function Masthead() {
       <div className="max-w-4xl" ref={containerRef}>
         <div className="mb-6 flex items-center gap-2" data-reveal>
           <span
-            className={`h-1.5 w-1.5 rounded-full ${
-              PORTFOLIO_IDENTITY.isAvailable ? 'bg-emerald-500' : 'bg-neutral-300'
-            }`}
+            className={`h-1.5 w-1.5 rounded-full ${PORTFOLIO_IDENTITY.isAvailable ? 'bg-emerald-500' : 'bg-neutral-300'
+              }`}
             aria-hidden="true"
           />
           <p className="text-[10px] font-medium uppercase tracking-[0.1em] text-neutral-500">
@@ -105,22 +104,6 @@ export default function Masthead() {
           {PORTFOLIO_IDENTITY.orientation.subtext}
         </p>
 
-        <div className="mt-10 flex items-center gap-3" data-reveal>
-          <a
-            ref={(el) => { ctaRefs.current[0] = el }}
-            href="#production-systems"
-            className="inline-flex items-center gap-2 rounded-full bg-neutral-900 px-6 py-3 text-sm font-medium text-white transition-shadow duration-300 hover:shadow-lg hover:shadow-neutral-300/50"
-          >
-            View Production Systems
-          </a>
-          <a
-            ref={(el) => { ctaRefs.current[1] = el }}
-            href={`mailto:${PORTFOLIO_IDENTITY.email}`}
-            className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white px-6 py-3 text-sm font-medium text-neutral-700 transition-all duration-300 hover:border-neutral-300 hover:bg-neutral-50"
-          >
-            Get in touch
-          </a>
-        </div>
       </div>
     </header>
   )
