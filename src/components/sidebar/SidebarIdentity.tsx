@@ -41,8 +41,10 @@ export default function SidebarIdentity({ compact = false }: SidebarIdentityProp
           title="Click to view full photo"
         >
           <img
-            src="/Profile.jpg"
+            src="/Profile.webp"
             alt={PORTFOLIO_IDENTITY.name}
+            decoding="async"
+            fetchPriority="high"
             className="h-full w-full object-cover object-[center_42%] transition-transform duration-300 group-hover:scale-110"
           />
           <div className="absolute inset-0 flex items-center justify-center bg-neutral-950/40 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
@@ -89,8 +91,10 @@ export default function SidebarIdentity({ compact = false }: SidebarIdentityProp
             {/* Complete Image */}
             <div className="relative aspect-[2/3] w-full bg-neutral-950 flex items-center justify-center overflow-hidden">
               <img
-                src="/Profile.jpg"
+                src="/Profile.webp"
                 alt={PORTFOLIO_IDENTITY.name}
+                decoding="async"
+                loading="lazy"
                 className="h-full w-full object-contain"
               />
             </div>

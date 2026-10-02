@@ -27,12 +27,12 @@ export default function DiscoveryPaths({ domains, onSelectDomain, activeDomain }
 
     const ctx = gsap.context(() => {
       gsap.from(items, {
-        x: -16,
+        x: -10,
         opacity: 0,
-        duration: 0.5,
-        stagger: 0.08,
+        duration: 0.3,
+        stagger: 0.04,
         ease: 'power2.out',
-        delay: 0.3,
+        delay: 0.05,
       })
     }, containerRef)
 

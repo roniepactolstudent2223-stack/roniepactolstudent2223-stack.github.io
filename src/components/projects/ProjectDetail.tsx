@@ -213,6 +213,8 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
               <img
                 src={project.images[selectedImageIndex] || project.images[0]}
                 alt={`${project.title} screenshot ${selectedImageIndex + 1}`}
+                decoding="async"
+                fetchPriority="high"
                 className="max-h-full max-w-full object-contain rounded-lg"
               />
             </div>

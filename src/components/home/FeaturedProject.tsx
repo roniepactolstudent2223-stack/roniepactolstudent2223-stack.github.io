@@ -20,11 +20,11 @@ export default function FeaturedProject({ project, imageUrl }: FeaturedProjectPr
 
     const ctx = gsap.context(() => {
       gsap.from(el, {
-        y: 40,
+        y: 20,
         opacity: 0,
-        duration: 0.9,
-        ease: 'power3.out',
-        delay: 0.2,
+        duration: 0.4,
+        ease: 'power2.out',
+        delay: 0.05,
       })
     }, containerRef)
 
@@ -73,6 +73,8 @@ export default function FeaturedProject({ project, imageUrl }: FeaturedProjectPr
               <img
                 src={imageUrl}
                 alt={`${project.title} cover`}
+                decoding="async"
+                fetchPriority="high"
                 className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
               />
             </div>

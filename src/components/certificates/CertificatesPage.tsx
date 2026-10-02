@@ -23,21 +23,21 @@ export default function CertificatesPage() {
 
     const ctx = gsap.context(() => {
       gsap.from(el.querySelectorAll('[data-reveal]'), {
-        y: 30,
+        y: 20,
         opacity: 0,
-        duration: 0.7,
-        stagger: 0.1,
-        ease: 'power3.out',
-        delay: 0.1,
+        duration: 0.35,
+        stagger: 0.05,
+        ease: 'power2.out',
+        delay: 0.05,
       })
 
       gsap.from(el.querySelectorAll('[data-cert-card]'), {
-        y: 40,
+        y: 20,
         opacity: 0,
-        duration: 0.7,
-        stagger: 0.1,
-        ease: 'power3.out',
-        delay: 0.3,
+        duration: 0.35,
+        stagger: 0.05,
+        ease: 'power2.out',
+        delay: 0.08,
       })
     }, containerRef)
 
@@ -136,6 +136,8 @@ export default function CertificatesPage() {
                       <img
                         src={cert.imageUrl}
                         alt={`${cert.title} certificate`}
+                        loading="lazy"
+                        decoding="async"
                         className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                       />
                     </div>
@@ -217,6 +219,7 @@ export default function CertificatesPage() {
                 <img
                   src={selectedCert.imageUrl}
                   alt={selectedCert.title}
+                  decoding="async"
                   className="w-full object-contain sm:max-h-[80vh]"
                 />
               )}

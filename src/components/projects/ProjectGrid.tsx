@@ -10,8 +10,8 @@ interface ProjectGridProps {
 }
 
 const PLACEHOLDER_IMAGES: Record<string, string> = {
-  'woh-attendance-system': '/woh-pilot.png',
-  'wordpress-ph-community': '/wp-community-1.png',
+  'woh-attendance-system': '/woh-pilot.webp',
+  'wordpress-ph-community': '/wp-community-1.webp',
   'wilcon-enterprise-systems': '/wilcon-enterprise.svg',
 }
 
@@ -33,12 +33,12 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
 
     const ctx = gsap.context(() => {
       gsap.from(cards, {
-        y: 50,
+        y: 20,
         opacity: 0,
-        duration: 0.7,
-        stagger: 0.1,
-        ease: 'power3.out',
-        delay: 0.3,
+        duration: 0.35,
+        stagger: 0.06,
+        ease: 'power2.out',
+        delay: 0.05,
       })
     }, gridRef)
 
@@ -109,6 +109,8 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
                 <img
                   src={imageUrl}
                   alt={`${project.title} cover`}
+                  loading="lazy"
+                  decoding="async"
                   className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                 />
               </div>

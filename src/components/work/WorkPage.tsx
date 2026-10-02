@@ -44,88 +44,27 @@ export default function WorkPage() {
       const cards = el.querySelectorAll('[data-work-card]')
 
       gsap.from(headerEls, {
-        y: 30,
+        y: 20,
         opacity: 0,
-        duration: 0.7,
-        stagger: 0.1,
-        ease: 'power3.out',
-        delay: 0.1,
+        duration: 0.35,
+        stagger: 0.05,
+        ease: 'power2.out',
+        delay: 0.05,
       })
 
       gsap.from(cards, {
-        y: 50,
+        y: 25,
         opacity: 0,
-        duration: 0.8,
-        stagger: 0.15,
-        ease: 'power3.out',
-        delay: 0.4,
+        duration: 0.4,
+        stagger: 0.08,
+        ease: 'power2.out',
+        delay: 0.08,
       })
     }, containerRef)
 
     return () => ctx.revert()
   }, [])
 
-  // Interior stagger per card
-  useEffect(() => {
-    const cards = cardsRef.current.filter(Boolean) as HTMLElement[]
-    const cleanups: (() => void)[] = []
-
-    cards.forEach((card) => {
-      const metric = card.querySelector('[data-metric]')
-      const highlight = card.querySelector('[data-highlight]')
-      const evidenceItems = card.querySelectorAll('[data-evidence]')
-      const progression = card.querySelector('[data-progression]')
-      const insight = card.querySelector('[data-insight]')
-      const techTags = card.querySelectorAll('[data-tech]')
-      const projectLink = card.querySelector('[data-project-link]')
-
-      const animateEls = [
-        ...(metric ? [metric] : []),
-        ...(highlight ? [highlight] : []),
-        ...evidenceItems,
-        ...(progression ? [progression] : []),
-        ...(insight ? [insight] : []),
-        ...techTags,
-        ...(projectLink ? [projectLink] : []),
-      ]
-
-      gsap.set(animateEls, { y: 15, opacity: 0 })
-
-      const tl = gsap.timeline({ delay: 0.7 })
-
-      if (metric) {
-        tl.to(metric, { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' })
-      }
-
-      if (highlight) {
-        tl.to(highlight, { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }, '-=0.2')
-      }
-
-      tl.to(evidenceItems, {
-        y: 0, opacity: 1, duration: 0.5, stagger: 0.08, ease: 'power2.out',
-      }, '-=0.2')
-
-      if (progression) {
-        tl.to(progression, { y: 0, opacity: 1, duration: 0.4, ease: 'power2.out' }, '-=0.2')
-      }
-
-      if (insight) {
-        tl.to(insight, { y: 0, opacity: 1, duration: 0.4, ease: 'power2.out' }, '-=0.2')
-      }
-
-      tl.to(techTags, {
-        y: 0, opacity: 1, duration: 0.4, stagger: 0.05, ease: 'power2.out',
-      }, '-=0.2')
-
-      if (projectLink) {
-        tl.to(projectLink, { y: 0, opacity: 1, duration: 0.4, ease: 'power2.out' }, '-=0.2')
-      }
-
-      cleanups.push(() => tl.kill())
-    })
-
-    return () => cleanups.forEach((fn) => fn())
-  }, [])
 
   // Hover lift per card
   useEffect(() => {
@@ -305,6 +244,8 @@ export default function WorkPage() {
                         <img
                           src={src}
                           alt={`${role.company} photo ${pIdx + 1}`}
+                          loading="lazy"
+                          decoding="async"
                           className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
                         />
                       </div>

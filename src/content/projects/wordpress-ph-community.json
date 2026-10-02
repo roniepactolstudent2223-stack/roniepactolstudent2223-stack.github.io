@@ -5,10 +5,10 @@
   "category": "web",
   "description": "Active community involvement with WordPress Philippines. Began as an attendee in 2025 eager to learn from seasoned engineers and web creators. In 2026, stepped forward to serve as an official volunteer photographer for community meetups and tech gatherings, documenting events and supporting the local developer ecosystem.",
   "tags": ["community", "wordpress", "volunteering", "photography", "open-source"],
-  "coverImage": "/wp-community-1.png",
+  "coverImage": "/wp-community-1.webp",
   "images": [
-    "/wp-community-1.png",
-    "/wp-community-2.png"
+    "/wp-community-1.webp",
+    "/wp-community-2.webp"
   ],
   "role": "Volunteer & Event Photographer",
   "client": "WordPress Philippines",

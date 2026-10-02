@@ -10,8 +10,8 @@ import { usePortfolio } from '@/contexts/PortfolioContext'
 import { getWorkDomains, PORTFOLIO_IDENTITY } from '@/lib/portfolio-config'
 
 const PLACEHOLDER_IMAGES: Record<string, string> = {
-  'woh-attendance-system': '/woh-pilot.png',
-  'wordpress-ph-community': '/wp-community-1.png',
+  'woh-attendance-system': '/woh-pilot.webp',
+  'wordpress-ph-community': '/wp-community-1.webp',
   'wilcon-enterprise-systems': '/wilcon-enterprise.svg',
 }
 
