@@ -93,58 +93,59 @@ function AboutSidebar() {
   return (
     <aside className="sticky top-0 h-screen overflow-y-auto p-8 space-y-8 animate-in fade-in duration-200">
       <div>
-        <p className="text-[10px] font-medium uppercase tracking-[0.1em] text-neutral-400">
-          Background Overview
+        <p className="text-[10px] font-medium uppercase tracking-[0.1em] text-neutral-400 font-mono">
+          Quick Reference
         </p>
-        <h2 className="mt-1 text-lg font-bold text-neutral-900">
-          Personal Profile
+        <h2 className="mt-1.5 text-base font-bold text-neutral-900">
+          Ronie Pactol
         </h2>
-        <p className="mt-2 text-xs leading-relaxed text-neutral-600">
-          From self-funded working student to Full Stack Junior System Developer building production applications.
-        </p>
+        <p className="mt-0.5 text-xs text-neutral-500">Full Stack Junior System Developer</p>
       </div>
 
-      <div className="space-y-4 border-t border-neutral-200 pt-6">
-        <p className="text-[10px] font-medium uppercase tracking-[0.1em] text-neutral-400">
-          Education & Degree
-        </p>
-        <div className="rounded-xl border border-neutral-200 bg-neutral-50/50 p-4">
-          <p className="text-xs font-bold text-neutral-900">Access Computer College</p>
-          <p className="text-xs text-neutral-600 mt-1">Bachelor of Science in Information Technology (BSIT)</p>
-          <p className="text-[10px] text-neutral-400 font-mono mt-1">2021 – 2025 · Graduated</p>
+      <div className="space-y-2 border-t border-neutral-200 pt-6">
+        <p className="text-[10px] font-medium uppercase tracking-[0.1em] text-neutral-400 font-mono">Facts</p>
+        <div className="space-y-px rounded-xl border border-neutral-200 overflow-hidden text-xs">
+          {[
+            { k: 'Experience', v: '6 mos · Wilcon Depot' },
+            { k: 'Education', v: 'BSIT · ACC 2025' },
+            { k: 'Location', v: 'Quezon City' },
+            { k: 'Status', v: 'Open to Junior roles' },
+          ].map(({ k, v }) => (
+            <div key={k} className="flex items-center justify-between bg-white px-3 py-2.5 gap-3">
+              <span className="font-mono text-[10px] uppercase tracking-wide text-neutral-400 shrink-0">{k}</span>
+              <span className="font-medium text-neutral-900 text-right">{v}</span>
+            </div>
+          ))}
         </div>
       </div>
 
-      <div className="space-y-3 border-t border-neutral-200 pt-6">
-        <p className="text-[10px] font-medium uppercase tracking-[0.1em] text-neutral-400">
-          Core Principles
-        </p>
-        <div className="space-y-2.5">
-          <div className="rounded-lg border border-neutral-100 p-3 bg-white">
-            <span className="font-mono text-[10px] font-bold text-neutral-400">01</span>
-            <p className="text-xs font-semibold text-neutral-900 mt-0.5">Consistency over perfection</p>
-            <p className="text-[11px] text-neutral-500 mt-1 leading-normal">Showing up and coding daily beats natural talent alone.</p>
-          </div>
-          <div className="rounded-lg border border-neutral-100 p-3 bg-white">
-            <span className="font-mono text-[10px] font-bold text-neutral-400">02</span>
-            <p className="text-xs font-semibold text-neutral-900 mt-0.5">Learn by building real tools</p>
-            <p className="text-[11px] text-neutral-500 mt-1 leading-normal">Real production code solving real problems teaches the most.</p>
-          </div>
-          <div className="rounded-lg border border-neutral-100 p-3 bg-white">
-            <span className="font-mono text-[10px] font-bold text-neutral-400">03</span>
-            <p className="text-xs font-semibold text-neutral-900 mt-0.5">Technology serving community</p>
-            <p className="text-[11px] text-neutral-500 mt-1 leading-normal">Software should make people feel cared for and truly belong.</p>
-          </div>
+      <div className="space-y-2 border-t border-neutral-200 pt-6">
+        <p className="text-[10px] font-medium uppercase tracking-[0.1em] text-neutral-400 font-mono">Stack</p>
+        <div className="flex flex-wrap gap-1.5">
+          {['Laravel', 'Vue.js', 'PHP', 'MySQL', 'Git', 'Infor M3'].map((tech) => (
+            <span key={tech} className="rounded bg-neutral-100 px-2 py-0.5 font-mono text-[10px] text-neutral-700">
+              {tech}
+            </span>
+          ))}
         </div>
       </div>
 
-      <div className="border-t border-neutral-200 pt-6">
-        <Link
-          href="/contact"
-          className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-neutral-300 bg-white px-4 py-2.5 text-xs font-semibold text-neutral-800 hover:bg-neutral-50 transition-colors"
+      <div className="border-t border-neutral-200 pt-6 space-y-2">
+        <a
+          href={PORTFOLIO_IDENTITY.phoneTel}
+          className="flex items-center justify-between rounded-lg border border-neutral-200 px-3 py-2.5 text-xs font-semibold text-neutral-800 hover:bg-neutral-50 transition-colors"
         >
-          Get in Touch →
-        </Link>
+          <span>{PORTFOLIO_IDENTITY.phone}</span>
+          <span className="text-neutral-400 text-[10px]">call</span>
+        </a>
+        <a
+          href="/resume.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-neutral-900 px-4 py-2.5 text-xs font-semibold text-white hover:bg-neutral-800 transition-colors"
+        >
+          Resume PDF ↗
+        </a>
       </div>
     </aside>
   )
