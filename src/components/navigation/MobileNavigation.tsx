@@ -13,40 +13,11 @@ export default function MobileNavigation() {
   const [isOpen, setIsOpen] = useState(false)
 
   const activeSection = useMemo(() => {
-    if (pathname === '/about') return 'about'
-    if (pathname === '/work') return 'work'
-    if (pathname === '/certificates') return 'certificates'
-    if (pathname === '/contact') return 'contact'
+    if (pathname.startsWith('/about')) return 'about'
+    if (pathname.startsWith('/work')) return 'work'
+    if (pathname.startsWith('/certificates')) return 'certificates'
+    if (pathname.startsWith('/contact')) return 'contact'
     return 'home'
-  }, [pathname])
-
-  // IntersectionObserver for homepage sections
-  useEffect(() => {
-    if (pathname !== '/') return
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const sectionId = entry.target.id
-            if (sectionId) {
-              history.replaceState(null, '', `#${sectionId}`)
-            }
-          }
-        })
-      },
-      {
-        rootMargin: '-20% 0px -60% 0px',
-        threshold: 0,
-      }
-    )
-
-    const sections = document.querySelectorAll('section[id]')
-    sections.forEach((section) => observer.observe(section))
-
-    return () => {
-      sections.forEach((section) => observer.unobserve(section))
-    }
   }, [pathname])
 
   return (

@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { PORTFOLIO_IDENTITY } from '@/lib/portfolio-config'
 import { LinkedInIcon, GitHubIcon } from '@/components/ui/Icons'
 
@@ -11,7 +12,7 @@ export default function SidebarHiringZone() {
     <div className="space-y-4">
       {/* Contact CTA — understated text link, not a heavy button */}
       <div className="flex items-center justify-between">
-        <a
+        <Link
           href="/contact"
           className="
             inline-flex items-center gap-1.5 text-xs font-medium text-neutral-900
@@ -21,7 +22,7 @@ export default function SidebarHiringZone() {
         >
           Get in touch
           <span aria-hidden="true" className="text-neutral-300">→</span>
-        </a>
+        </Link>
         <a
           href={PORTFOLIO_IDENTITY.phoneTel}
           className="text-[11px] font-mono text-neutral-400 hover:text-neutral-900 transition-colors"

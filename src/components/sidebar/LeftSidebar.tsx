@@ -1,6 +1,7 @@
 'use client'
 
-import { useEffect, useMemo } from 'react'
+import { useMemo } from 'react'
+import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { SECTIONS } from '@/lib/portfolio-config'
 import SidebarIdentity from '@/components/sidebar/SidebarIdentity'
@@ -10,41 +11,11 @@ export default function LeftSidebar() {
   const pathname = usePathname()
 
   const activeSection = useMemo(() => {
-    if (pathname === '/about') return 'about'
-    if (pathname === '/work') return 'work'
-    if (pathname === '/certificates') return 'certificates'
-    if (pathname === '/contact') return 'contact'
+    if (pathname.startsWith('/about')) return 'about'
+    if (pathname.startsWith('/work')) return 'work'
+    if (pathname.startsWith('/certificates')) return 'certificates'
+    if (pathname.startsWith('/contact')) return 'contact'
     return 'home'
-  }, [pathname])
-
-  // IntersectionObserver for homepage sections
-  useEffect(() => {
-    if (pathname !== '/') return
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const sectionId = entry.target.id
-            if (sectionId) {
-              // Update URL hash without navigation
-              history.replaceState(null, '', `#${sectionId}`)
-            }
-          }
-        })
-      },
-      {
-        rootMargin: '-20% 0px -60% 0px',
-        threshold: 0,
-      }
-    )
-
-    const sections = document.querySelectorAll('section[id]')
-    sections.forEach((section) => observer.observe(section))
-
-    return () => {
-      sections.forEach((section) => observer.unobserve(section))
-    }
   }, [pathname])
 
   return (
@@ -69,13 +40,13 @@ export default function LeftSidebar() {
 
                 return (
                   <li key={section.id}>
-                    <a
+                    <Link
                       href={section.href}
                       className="sidebar-nav-link"
                       aria-current={isActive ? 'true' : undefined}
                     >
                       {section.label}
-                    </a>
+                    </Link>
                   </li>
                 )
               })}
