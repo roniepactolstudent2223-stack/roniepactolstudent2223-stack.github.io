@@ -11,7 +11,7 @@ const SOCIAL_ICONS: Record<string, React.ComponentType<{ className?: string }>> 
   GitHub: GitHubIcon,
 }
 
-const FORMSPREE_ID = process.env.NEXT_PUBLIC_FORMSPREE_ID
+const FORMSPREE_ID = process.env.NEXT_PUBLIC_FORMSPREE_ID || 'mppwevqd'
 
 export default function ContactPage() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -45,10 +45,10 @@ export default function ContactPage() {
             Contact
           </p>
           <h1 className="font-serif text-5xl font-bold leading-[1.1] tracking-tight text-neutral-900 sm:text-6xl">
-            Let&apos;s work together
+            Let&apos;s connect
           </h1>
           <p className="mt-5 max-w-lg text-base leading-relaxed text-neutral-500">
-            Whether you&apos;re hiring, collaborating, or just want to talk about design systems — I&apos;m interested.
+            Whether you&apos;re hiring for a junior full-stack developer role, collaborating on a project, or discussing web systems — feel free to reach out.
           </p>
           <div className="mt-6 h-px w-16 bg-neutral-900" />
         </header>

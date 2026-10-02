@@ -11,7 +11,7 @@ const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 type FormStatus = 'idle' | 'submitting' | 'success' | 'error'
 
-export default function ContactForm({ formspreeId }: ContactFormProps) {
+export default function ContactForm({ formspreeId = 'mppwevqd' }: ContactFormProps) {
   const [email, setEmail] = useState('')
   const [subject, setSubject] = useState('')
   const [message, setMessage] = useState('')
@@ -53,7 +53,10 @@ export default function ContactForm({ formspreeId }: ContactFormProps) {
     try {
       const res = await fetch(`https://formspree.io/f/${formspreeId}`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
         body: JSON.stringify({ email, subject, message }),
       })
 
@@ -99,6 +102,7 @@ export default function ContactForm({ formspreeId }: ContactFormProps) {
         </label>
         <input
           id="contact-email"
+          name="email"
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -118,6 +122,7 @@ export default function ContactForm({ formspreeId }: ContactFormProps) {
         </label>
         <input
           id="contact-subject"
+          name="subject"
           type="text"
           value={subject}
           onChange={(e) => setSubject(e.target.value)}
@@ -137,6 +142,7 @@ export default function ContactForm({ formspreeId }: ContactFormProps) {
         </label>
         <textarea
           id="contact-message"
+          name="message"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           placeholder="Tell me about the role, project, or question..."
