@@ -27,27 +27,6 @@ export default function SidebarHiringZone() {
       </button>
 
       <RecruiterModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
-      {/* Contact CTA — understated text link, not a heavy button */}
-      <div className="flex items-center justify-between">
-        <Link
-          href="/contact"
-          className="
-            inline-flex items-center gap-1.5 text-xs font-medium text-neutral-900
-            transition-colors duration-200 hover:text-neutral-600
-            focus:outline-none focus-visible:underline
-          "
-        >
-          Get in touch
-          <span aria-hidden="true" className="text-neutral-300">→</span>
-        </Link>
-        <a
-          href={PORTFOLIO_IDENTITY.phoneTel}
-          className="text-[11px] font-mono text-neutral-400 hover:text-neutral-900 transition-colors"
-          title="Call or message via Viber"
-        >
-          0993 126 3221
-        </a>
-      </div>
 
       {/* Social links — labeled, easy to tap */}
       <div className="flex flex-col gap-1">
