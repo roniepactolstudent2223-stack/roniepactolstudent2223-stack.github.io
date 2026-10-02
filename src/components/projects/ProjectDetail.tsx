@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import type { Project } from '@/lib/types'
 
 interface ProjectDetailProps {
@@ -7,6 +8,15 @@ interface ProjectDetailProps {
 export default function ProjectDetail({ project }: ProjectDetailProps) {
   return (
     <article className="h-full overflow-y-auto p-8">
+      <div className="mb-6">
+        <Link
+          href="/"
+          className="inline-flex items-center gap-1.5 text-xs text-neutral-500 hover:text-neutral-900 transition-colors"
+        >
+          &larr; Back to all projects
+        </Link>
+      </div>
+
       <header>
         <p className="text-xs uppercase tracking-widest text-neutral-500">
           {project.category} &middot; {project.year}

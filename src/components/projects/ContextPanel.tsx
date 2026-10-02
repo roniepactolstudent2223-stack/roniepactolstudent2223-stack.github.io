@@ -110,29 +110,46 @@ export default function ContextPanel({ projects }: ContextPanelProps) {
           </div>
         ) : (
           <div className="space-y-6">
-            <p className="text-sm text-neutral-600">
-              Scroll through the main column to see contextual information about each project appear here.
+            <p className="text-xs text-neutral-500 leading-relaxed">
+              Scroll through the projects in the center column to see live details and tech stack breakdown.
             </p>
             <div>
-              <p className="text-sm font-medium text-neutral-900 mb-2">
-                About this format
+              <p className="text-xs font-semibold uppercase tracking-wider text-neutral-900 mb-2">
+                About Ronie
               </p>
-              <p className="text-sm text-neutral-600 leading-relaxed">
-                This portfolio uses an editorial layout inspired by newspaper design. Projects are presented as articles with datelines, bylines, and generous white space.
+              <p className="text-xs text-neutral-600 leading-relaxed">
+                Junior System Developer at Wilcon Depot, Inc. specializing in Laravel and Vue.js. Access Computer College IT graduate (2025).
+              </p>
+            </div>
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wider text-neutral-900 mb-2">
+                Community & Volunteering
+              </p>
+              <p className="text-xs text-neutral-600 leading-relaxed">
+                Active member and volunteer photographer for WordPress Philippines meetups (2025 attendee &rarr; 2026 volunteer).
               </p>
             </div>
           </div>
         )}
       </div>
 
-      <div className="border-t border-neutral-200 pt-8">
-        <h3 className="text-xs uppercase tracking-wider text-neutral-500 mb-4">
-          Quick stats
+      <div className="border-t border-neutral-200 pt-6">
+        <h3 className="text-xs uppercase tracking-wider text-neutral-500 mb-3">
+          Key Highlights
         </h3>
-        <div className="space-y-2 text-sm text-neutral-600">
-          <p>Design-led approach</p>
-          <p>Systems thinking</p>
-          <p>Full-stack capability</p>
+        <div className="space-y-2 text-xs text-neutral-600">
+          <p className="flex items-center gap-2">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+            101+ members on WOH system
+          </p>
+          <p className="flex items-center gap-2">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+            Live production since March 2025
+          </p>
+          <p className="flex items-center gap-2">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+            WordPress PH Event Volunteer
+          </p>
         </div>
       </div>
     </aside>

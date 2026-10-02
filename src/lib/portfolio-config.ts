@@ -3,11 +3,11 @@ import type { Project } from '@/lib/types'
 export const PORTFOLIO_IDENTITY = {
   name: 'Ronie Pactol',
   role: 'Junior System Developer',
-  seniority: 'Senior · 6+ years',
+  seniority: 'Junior Developer · 2025 Graduate',
   location: 'Balingasa, Quezon City',
   email: 'roniepactol@gmail.com',
-  availability: 'Open to senior IC roles',
-  targetIntent: 'Full-time or contract',
+  availability: 'Open to Junior / Mid-level roles',
+  targetIntent: 'Full-time',
   isAvailable: true,
   resumeUrl: '/resume.pdf',
   externalLinks: [
@@ -16,8 +16,8 @@ export const PORTFOLIO_IDENTITY = {
   ],
   // Homepage orientation
   orientation: {
-    headline: 'I build software that solves real problems for real people.',
-    subtext: 'Junior developer at Wilcon Depot by day. On weekends, I build tools for my church — because technology should serve communities, not just companies.',
+    headline: 'Building production web applications and serving real communities.',
+    subtext: 'Junior System Developer at Wilcon Depot by day. Word of Hope church attendance system creator and active WordPress Philippines volunteer.',
   },
   featuredProject: {
     slug: 'woh-attendance-system',
@@ -31,19 +31,19 @@ export const PORTFOLIO_IDENTITY = {
     },
     focusAreas: [
       {
-        title: 'Enterprise Web Apps',
-        description: 'Building and maintaining internal applications using Laravel and Vue.js that support real business operations.',
-        project: 'design-system-redesign',
+        title: 'Church Attendance System',
+        description: 'Built a full-stack QR check-in & pastoral care system using Laravel and Vue.js for Word of Hope Caloocan. In active production since March 2025.',
+        project: 'woh-attendance-system',
       },
       {
-        title: 'ERP Integrations',
-        description: 'Connecting internal systems with enterprise platforms like Infor M3 to streamline business workflows.',
-        project: 'mobile-banking-app',
+        title: 'WordPress Philippines Volunteer',
+        description: 'Active community volunteer and official event photographer for WordPress Philippines meetups, connecting with local web developers and open-source advocates.',
+        project: 'wordpress-ph-community',
       },
       {
-        title: 'Continuous Learning',
-        description: 'Every project is a chance to improve. I study, build, and iterate — because consistency beats talent.',
-        project: 'editorial-portfolio',
+        title: 'Enterprise Web Applications',
+        description: 'Developing and maintaining internal enterprise web tools at Wilcon Depot using Laravel, Vue.js, MySQL, and ERP integrations with Infor M3 APIs.',
+        project: 'wilcon-enterprise-systems',
       },
     ],
     principles: [
@@ -72,8 +72,8 @@ export const PORTFOLIO_IDENTITY = {
       companyDescription: 'Leading home improvement and construction supply retailer in the Philippines',
       role: 'Junior System Developer',
       period: 'May 2026 – Present',
-      location: 'Philippines · On-site',
-      logoUrl: 'https://picsum.photos/seed/wilcondepot/80/80',
+      location: 'Quezon City, Philippines · On-site',
+      logoUrl: undefined,
       teamSize: 'Internal software development team',
       metric: undefined as { value: string; label: string } | undefined,
       highlight: 'Develop and maintain internal enterprise applications using Laravel and Vue.js',
@@ -84,8 +84,27 @@ export const PORTFOLIO_IDENTITY = {
       ],
       insight: 'Enterprise systems taught me that reliability matters more than novelty — production code must serve real business needs every day.',
       technologies: ['Laravel', 'Vue.js', 'PHP', 'JavaScript', 'MySQL', 'Git'],
-      project: undefined,
+      project: 'wilcon-enterprise-systems',
       progression: undefined,
+    },
+    {
+      company: 'WordPress Philippines',
+      companyDescription: 'The official WordPress community for developers, designers, and site builders in the Philippines',
+      role: 'Volunteer & Event Photographer',
+      period: 'Jan 2026 – Present (Attendee in 2025)',
+      location: 'Metro Manila · Community',
+      logoUrl: undefined,
+      teamSize: 'Community volunteer team',
+      metric: undefined as { value: string; label: string } | undefined,
+      highlight: 'Stepped up from an attendee in 2025 to an active volunteer photographer in 2026, documenting tech meetups and community gatherings',
+      evidence: [
+        { label: 'Community', detail: 'Document tech meetups, workshops, and community discussions across WordPress Philippines gatherings' },
+        { label: 'Engagement', detail: 'Network with local software engineers, explore open-source web ecosystems, and support event operations' },
+      ],
+      insight: 'Being part of a developer community taught me that growth doesn\'t happen in isolation — you grow by contributing and connecting.',
+      technologies: ['WordPress', 'PHP', 'Community', 'Photography'],
+      project: 'wordpress-ph-community',
+      progression: 'Attendee (2025) → Volunteer Photographer (2026)',
     },
     {
       company: 'Radiant Force Human Resources',
@@ -93,7 +112,7 @@ export const PORTFOLIO_IDENTITY = {
       role: 'HR Assistant',
       period: 'Sep 2025 – Jan 2026',
       location: 'Quezon City · On-site',
-      logoUrl: 'https://picsum.photos/seed/radiantforce/80/80',
+      logoUrl: undefined,
       teamSize: 'HR operations team',
       metric: undefined as { value: string; label: string } | undefined,
       highlight: 'Started as an OJT and was absorbed as an HR Assistant, supporting recruitment and daily HR operations',
@@ -113,7 +132,7 @@ export const PORTFOLIO_IDENTITY = {
       role: 'Service Crew',
       period: 'Jan 2024 – Jun 2024',
       location: 'Tondo, Manila · On-site',
-      logoUrl: 'https://picsum.photos/seed/jollibee/80/80',
+      logoUrl: undefined,
       teamSize: 'Store crew',
       metric: undefined as { value: string; label: string } | undefined,
       highlight: 'Worked part-time as a working student, balancing college studies with fast-food service operations',
@@ -214,7 +233,7 @@ export const SECTIONS = [
   { id: 'contact', label: 'Contact', href: '/contact' },
 ] as const
 
-export type WorkDomainId = 'design-systems' | 'product-design' | 'full-stack'
+export type WorkDomainId = 'production' | 'community' | 'full-stack'
 
 export interface WorkDomain {
   id: WorkDomainId
@@ -226,26 +245,28 @@ export interface WorkDomain {
 export function getWorkDomains(projects: Project[]): WorkDomain[] {
   return [
     {
-      id: 'design-systems',
-      label: 'Design Systems',
+      id: 'production',
+      label: 'Production Systems',
       count: projects.filter((p) =>
-        p.tags.some((t) => ['design-system', 'tokens'].includes(t))
+        p.tags.some((t) => ['laravel', 'vue.js', 'mysql', 'enterprise'].includes(t))
       ).length,
-      filter: (p) => p.tags.some((t) => ['design-system', 'tokens'].includes(t)),
+      filter: (p) => p.tags.some((t) => ['laravel', 'vue.js', 'mysql', 'enterprise'].includes(t)),
     },
     {
-      id: 'product-design',
-      label: 'Product',
-      count: projects.filter((p) => p.category === 'product').length,
-      filter: (p) => p.category === 'product',
+      id: 'community',
+      label: 'Community & Service',
+      count: projects.filter((p) =>
+        p.tags.some((t) => ['community', 'volunteering', 'open-source'].includes(t))
+      ).length,
+      filter: (p) => p.tags.some((t) => ['community', 'volunteering', 'open-source'].includes(t)),
     },
     {
       id: 'full-stack',
-      label: 'Full-Stack',
+      label: 'Full-Stack Web',
       count: projects.filter((p) =>
-        p.tags.some((t) => ['next.js', 'react', 'tailwind'].includes(t))
+        p.tags.some((t) => ['laravel', 'vue.js', 'full-stack'].includes(t))
       ).length,
-      filter: (p) => p.tags.some((t) => ['next.js', 'react', 'tailwind'].includes(t)),
+      filter: (p) => p.tags.some((t) => ['laravel', 'vue.js', 'full-stack'].includes(t)),
     },
   ]
 }

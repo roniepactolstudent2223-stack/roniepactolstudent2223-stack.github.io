@@ -7,15 +7,15 @@ import { PORTFOLIO_IDENTITY } from '@/lib/portfolio-config'
 
 
 const PROJECT_IMAGES: Record<string, string> = {
-  'design-system-redesign': 'https://picsum.photos/seed/designsystem/800/600',
-  'mobile-banking-app': 'https://picsum.photos/seed/banking/800/600',
-  'editorial-portfolio': 'https://picsum.photos/seed/editorial/800/600',
+  'woh-attendance-system': '/woh-pilot.png',
+  'wordpress-ph-community': '/wp-community-1.png',
+  'wilcon-enterprise-systems': '/woh-admin.png',
 }
 
 const STAT_STRIP = [
-  { value: '2025', label: 'graduated IT' },
-  { value: '3', label: 'work experiences' },
-  { value: '1', label: 'current role' },
+  { value: '2025', label: 'graduated BSIT' },
+  { value: '101+', label: 'church members served' },
+  { value: '2026', label: 'WP PH volunteer' },
 ]
 
 export default function AboutPage() {

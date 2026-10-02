@@ -1,0 +1,16 @@
+{
+  "slug": "wordpress-ph-community",
+  "title": "WordPress Philippines Community & Volunteering",
+  "year": 2026,
+  "category": "web",
+  "description": "Active community involvement with WordPress Philippines. Began as an attendee in 2025 eager to learn from seasoned engineers and web creators. In 2026, stepped forward to serve as an official volunteer photographer for community meetups and tech gatherings, documenting events and supporting the local developer ecosystem.",
+  "tags": ["community", "wordpress", "volunteering", "photography", "open-source"],
+  "coverImage": "/wp-community-1.png",
+  "images": [
+    "/wp-community-1.png",
+    "/wp-community-2.png"
+  ],
+  "role": "Volunteer & Event Photographer",
+  "client": "WordPress Philippines",
+  "url": "https://www.facebook.com/groups/wpugph/"
+}

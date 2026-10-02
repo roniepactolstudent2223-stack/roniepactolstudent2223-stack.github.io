@@ -3,8 +3,8 @@ import WorkPage from '@/components/work/WorkPage'
 import MobileNavigation from '@/components/navigation/MobileNavigation'
 
 export const metadata: Metadata = {
-  title: 'Work Experience — Ronie Pactol',
-  description: 'Work history, roles, and impact across design engineering positions.',
+  title: 'Work & Community Experience — Ronie Pactol',
+  description: 'Work history, engineering roles, and community volunteering as a Junior System Developer.',
 }
 
 export default function Work() {

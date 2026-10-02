@@ -10,9 +10,9 @@ interface ProjectGridProps {
 }
 
 const PLACEHOLDER_IMAGES: Record<string, string> = {
-  'design-system-redesign': 'https://picsum.photos/seed/designsystem/600/400',
-  'editorial-portfolio': 'https://picsum.photos/seed/editorial/600/400',
-  'mobile-banking-app': 'https://picsum.photos/seed/banking/600/400',
+  'woh-attendance-system': '/woh-pilot.png',
+  'wordpress-ph-community': '/wp-community-1.png',
+  'wilcon-enterprise-systems': '/woh-admin.png',
 }
 
 const CATEGORY_COLORS: Record<string, string> = {
@@ -101,7 +101,7 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
               if (el) setupHover(el)
             }}
           >
-            <article className="overflow-hidden rounded-2xl bg-neutral-100">
+            <article data-project-id={project.slug} className="overflow-hidden rounded-2xl bg-neutral-100">
               {/* Cover Image */}
               <div className={`overflow-hidden bg-neutral-200 ${
                 isFirst ? 'aspect-[21/9]' : 'aspect-[3/2]'
