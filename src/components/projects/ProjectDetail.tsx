@@ -28,7 +28,7 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
         {project.images.map((src, i) => (
           <figure key={i}>
             <div className="overflow-hidden rounded bg-neutral-100 dark:bg-neutral-900">
-              <img src={src} alt={`${project.title} image ${i + 1}`} className="h-full w-full object-cover" />
+              <img src={src} alt={`${project.title} image ${i + 1}`} className="w-full h-auto object-contain" />
             </div>
           </figure>
         ))}
