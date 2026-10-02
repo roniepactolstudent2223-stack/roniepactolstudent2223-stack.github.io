@@ -3,6 +3,8 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import type { Project } from '@/lib/types'
+import ArchitectureDiagram from '@/components/projects/ArchitectureDiagram'
+import EngineeringDecisions from '@/components/projects/EngineeringDecisions'
 
 interface ProjectDetailProps {
   project: Project
@@ -215,6 +217,20 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
               />
             </div>
           </div>
+        </section>
+      )}
+
+      {/* Feature A: Interactive Architecture & System Flow */}
+      {(project.slug === 'woh-attendance-system' || project.slug === 'wilcon-enterprise-systems') && (
+        <section className="mt-10">
+          <ArchitectureDiagram slug={project.slug} />
+        </section>
+      )}
+
+      {/* Feature C: Key Engineering Decisions & Trade-offs */}
+      {(project.slug === 'woh-attendance-system' || project.slug === 'wilcon-enterprise-systems') && (
+        <section className="mt-10">
+          <EngineeringDecisions slug={project.slug} />
         </section>
       )}
 
