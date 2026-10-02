@@ -9,7 +9,7 @@ import { PORTFOLIO_IDENTITY } from '@/lib/portfolio-config'
 const PROJECT_IMAGES: Record<string, string> = {
   'woh-attendance-system': '/woh-pilot.png',
   'wordpress-ph-community': '/wp-community-1.png',
-  'wilcon-enterprise-systems': '/woh-admin.png',
+  'wilcon-enterprise-systems': '/wilcon-enterprise.svg',
 }
 
 const STAT_STRIP = [

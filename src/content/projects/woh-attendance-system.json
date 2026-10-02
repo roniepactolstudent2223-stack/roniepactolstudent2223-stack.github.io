@@ -3,12 +3,12 @@
   "title": "WOH Attendance & Management System",
   "year": 2025,
   "category": "product",
-  "description": "A production-grade QR church attendance and care management system built with Laravel and Vue.js for Word of Hope Caloocan. Features fast kiosk check-in, real-time service analytics, automated absentee tracking, and pastoral follow-up to ensure every member feels valued and supported.",
-  "tags": ["laravel", "vue.js", "full-stack", "qr-code", "mysql"],
+  "description": "A production-grade QR church attendance and member care management system built with Laravel and Vue.js for Word of Hope Caloocan. Connects to the main church website via REST API to sync member records, enables fast kiosk QR check-ins, tracks real-time service analytics, and automates pastoral follow-up to care for absentees.",
+  "tags": ["laravel", "vue.js", "rest-api", "qr-code", "mysql"],
   "coverImage": "/woh-pilot.png",
   "images": [
-    "/woh-pilot.png",
-    "/woh-admin.png"
+    "/woh-admin.png",
+    "/woh-pilot.png"
   ],
   "role": "Solo Full-Stack Developer",
   "client": "Word of Hope Caloocan",

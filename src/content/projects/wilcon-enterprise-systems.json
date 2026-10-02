@@ -3,11 +3,11 @@
   "title": "Enterprise Web Applications & ERP Workflows",
   "year": 2026,
   "category": "product",
-  "description": "Internal enterprise software development at Wilcon Depot, Inc. Developing and maintaining internal web applications using Laravel and Vue.js, integrating ERP services including Infor M3 APIs, and collaborating with senior developers on production financial voucher processing workflows.",
+  "description": "Internal enterprise software development at Wilcon Depot, Inc. Developing and maintaining internal web applications using Laravel and Vue.js, integrating ERP services with Infor M3 APIs, and collaborating with senior developers on production financial voucher processing workflows.",
   "tags": ["laravel", "vue.js", "php", "mysql", "infor-m3", "enterprise"],
-  "coverImage": "/woh-admin.png",
+  "coverImage": "/wilcon-enterprise.svg",
   "images": [
-    "/woh-admin.png"
+    "/wilcon-enterprise.svg"
   ],
   "role": "Junior System Developer",
   "client": "Wilcon Depot, Inc."

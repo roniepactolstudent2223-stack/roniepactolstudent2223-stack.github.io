@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#06b6d4" />
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#334155" stroke-width="0.7" opacity="0.4" />
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <rect width="1200" height="630" fill="url(#grid)" />
+
+  <!-- Badge -->
+  <g transform="translate(100, 120)">
+    <rect width="220" height="36" rx="18" fill="#1e3a8a" opacity="0.6" stroke="#3b82f6" stroke-width="1.5" />
+    <text x="110" y="23" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="600" fill="#93c5fd" text-anchor="middle" letter-spacing="1">ENTERPRISE SYSTEM</text>
+  </g>
+
+  <!-- Main Title -->
+  <text x="100" y="230" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="44" font-weight="700" fill="#ffffff" letter-spacing="-0.5">
+    ERP Integration &amp; Internal Applications
+  </text>
+  <text x="100" y="280" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="400" fill="#94a3b8">
+    Wilcon Depot, Inc. · Production Software Engineering
+  </text>
+
+  <!-- Divider -->
+  <rect x="100" y="320" width="1000" height="1" fill="#334155" />
+
+  <!-- Feature Blocks -->
+  <g transform="translate(100, 360)">
+    <!-- Block 1 -->
+    <rect width="310" height="170" rx="14" fill="#1e293b" stroke="#334155" stroke-width="1" />
+    <text x="24" y="44" font-family="monospace" font-size="13" font-weight="700" fill="#60a5fa">01 // INFOR M3 API</text>
+    <text x="24" y="76" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="18" font-weight="600" fill="#f8fafc">ERP Data Integration</text>
+    <text x="24" y="108" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#94a3b8">Connecting internal software with</text>
+    <text x="24" y="128" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#94a3b8">Infor M3 enterprise services.</text>
+
+    <!-- Block 2 -->
+    <g transform="translate(345, 0)">
+      <rect width="310" height="170" rx="14" fill="#1e293b" stroke="#334155" stroke-width="1" />
+      <text x="24" y="44" font-family="monospace" font-size="13" font-weight="700" fill="#38bdf8">02 // FINANCIAL WORKFLOWS</text>
+      <text x="24" y="76" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="18" font-weight="600" fill="#f8fafc">Voucher Processing</text>
+      <text x="24" y="108" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#94a3b8">Modules supporting corporate accounting</text>
+      <text x="24" y="128" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#94a3b8">&amp; financial data accuracy.</text>
+    </g>
+
+    <!-- Block 3 -->
+    <g transform="translate(690, 0)">
+      <rect width="310" height="170" rx="14" fill="#1e293b" stroke="#334155" stroke-width="1" />
+      <text x="24" y="44" font-family="monospace" font-size="13" font-weight="700" fill="#4ade80">03 // FULL-STACK STACK</text>
+      <text x="24" y="76" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="18" font-weight="600" fill="#f8fafc">Laravel &amp; Vue.js</text>
+      <text x="24" y="108" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#94a3b8">High-uptime internal modules built</text>
+      <text x="24" y="128" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#94a3b8">with MySQL and clean REST APIs.</text>
+    </g>
+  </g>
+</svg>
