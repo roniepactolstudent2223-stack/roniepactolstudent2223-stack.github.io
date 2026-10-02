@@ -42,7 +42,7 @@ export default function SidebarHiringZone() {
                 <span className="text-xs">{link.label.charAt(0)}</span>
               )}
               <span>{link.label}</span>
-              <span aria-hidden="true" className="ml-auto text-neutral-300 text-xs">&nearr;</span>
+              <span aria-hidden="true" className="ml-auto text-neutral-300 text-xs">↗</span>
             </a>
           )
         })}

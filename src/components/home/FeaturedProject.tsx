@@ -120,7 +120,7 @@ export default function FeaturedProject({ project, imageUrl }: FeaturedProjectPr
               <div className="mt-6">
                 <span className="inline-flex items-center gap-1.5 text-sm font-medium text-neutral-900 transition-colors group-hover:text-neutral-500">
                   View project
-                  <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
+                  <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">→</span>
                 </span>
               </div>
             </div>

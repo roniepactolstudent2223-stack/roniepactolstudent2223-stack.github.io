@@ -333,7 +333,7 @@ export default function WorkPage() {
                       className="inline-flex items-center gap-1.5 text-xs font-medium text-neutral-900 transition-colors hover:text-neutral-500"
                     >
                       View case study
-                      <span aria-hidden="true" className="transition-transform duration-200 group-hover:translate-x-0.5">&rarr;</span>
+                      <span aria-hidden="true" className="transition-transform duration-200 group-hover:translate-x-0.5">→</span>
                     </Link>
                   </div>
                 )}
@@ -361,7 +361,7 @@ export default function WorkPage() {
               className="inline-flex items-center gap-2 rounded-full bg-neutral-900 px-6 py-3 text-sm font-medium text-white transition-shadow duration-300 hover:shadow-lg hover:shadow-neutral-300/50"
             >
               Download resume
-              <span aria-hidden="true" className="text-xs">&nearr;</span>
+              <span aria-hidden="true" className="text-xs">↗</span>
             </a>
           </div>
         </section>

@@ -151,7 +151,7 @@ export default function AboutPage() {
                   </p>
                   <span className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-neutral-900 transition-colors group-hover:text-neutral-500">
                     View project
-                    <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-0.5">&rarr;</span>
+                    <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-0.5">→</span>
                   </span>
                 </div>
               </Link>
@@ -201,7 +201,7 @@ export default function AboutPage() {
               className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-neutral-500 transition-colors hover:text-white"
             >
               View resume
-              <span aria-hidden="true" className="text-xs">&nearr;</span>
+              <span aria-hidden="true" className="text-xs">↗</span>
             </a>
           )}
         </section>
@@ -223,7 +223,7 @@ export default function AboutPage() {
               className="inline-flex items-center gap-2 rounded-full bg-neutral-900 px-6 py-3 text-sm font-medium text-white transition-shadow duration-300 hover:shadow-lg hover:shadow-neutral-300/50"
             >
               Contact me
-              <span aria-hidden="true" className="text-xs">&rarr;</span>
+              <span aria-hidden="true" className="text-xs">→</span>
             </Link>
           </div>
         </section>

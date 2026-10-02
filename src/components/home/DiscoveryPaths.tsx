@@ -11,9 +11,9 @@ interface DiscoveryPathsProps {
 }
 
 const DOMAIN_DESCRIPTIONS: Record<string, string> = {
-  'design-systems': 'Tokens, components, and systematic approaches to UI',
-  'product-design': 'End-to-end product work from research to shipping',
-  'full-stack': 'Frontend architecture, APIs, and deployment',
+  'production': 'Enterprise software, internal tools, and church attendance system',
+  'community': 'WordPress Philippines volunteering, photography, and open-source',
+  'full-stack': 'Laravel, Vue.js, MySQL, REST APIs, and full-stack web engineering',
 }
 
 export default function DiscoveryPaths({ domains, onSelectDomain, activeDomain }: DiscoveryPathsProps) {
@@ -69,9 +69,9 @@ export default function DiscoveryPaths({ domains, onSelectDomain, activeDomain }
                 </span>
               </div>
               <span className={`ml-4 text-sm transition-transform duration-300 group-hover:translate-x-1 ${
-                isActive ? 'text-neutral-900' : 'text-neutral-300 group-hover:text-neutral-500'
+                isActive ? 'text-neutral-900 font-bold' : 'text-neutral-300 group-hover:text-neutral-500'
               }`}>
-                {isActive ? '&times;' : '&rarr;'}
+                {isActive ? '✕' : '→'}
               </span>
             </button>
           )

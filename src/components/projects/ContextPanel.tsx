@@ -103,7 +103,7 @@ export default function ContextPanel({ projects }: ContextPanelProps) {
                   rel="noopener noreferrer"
                   className="text-sm text-neutral-600 underline hover:text-neutral-900"
                 >
-                  View live project &rarr;
+                  View live project →
                 </a>
               </div>
             )}
@@ -126,7 +126,7 @@ export default function ContextPanel({ projects }: ContextPanelProps) {
                 Community & Volunteering
               </p>
               <p className="text-xs text-neutral-600 leading-relaxed">
-                Active member and volunteer photographer for WordPress Philippines meetups (2025 attendee &rarr; 2026 volunteer).
+                Active member and volunteer photographer for WordPress Philippines meetups (2025 attendee → 2026 volunteer).
               </p>
             </div>
           </div>

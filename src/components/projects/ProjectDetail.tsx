@@ -110,7 +110,7 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
           href="/"
           className="inline-flex items-center gap-1.5 text-xs font-medium text-neutral-500 hover:text-neutral-900 transition-colors"
         >
-          &larr; Back to all projects
+          ← Back to all projects
         </Link>
       </div>
 
@@ -131,7 +131,7 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
           )}
           {project.slug === 'wordpress-ph-community' && (
             <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-2.5 py-0.5 text-[10px] font-medium text-blue-700 border border-blue-200">
-              2025 Attendee &rarr; 2026 Volunteer
+              2025 Attendee → 2026 Volunteer
             </span>
           )}
         </div>
@@ -176,7 +176,7 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 rounded-full border border-neutral-300 bg-white px-5 py-2.5 text-xs font-semibold text-neutral-800 hover:bg-neutral-50 transition-colors"
             >
-              Church Website &rarr;
+              Church Website →
             </a>
           )}
         </div>

@@ -173,7 +173,7 @@ export default function CertificatesPage() {
                       onClick={(e) => e.stopPropagation()}
                     >
                       Verify credential
-                      <span aria-hidden="true" className="text-xs">&nearr;</span>
+                      <span aria-hidden="true" className="text-xs">↗</span>
                     </a>
                   )}
                 </div>
@@ -257,7 +257,7 @@ export default function CertificatesPage() {
                     className="inline-flex items-center gap-1.5 text-sm font-medium text-neutral-900 underline underline-offset-4 decoration-neutral-300 transition-colors hover:decoration-neutral-900"
                   >
                     View badge
-                    <span aria-hidden="true" className="text-xs">&nearr;</span>
+                    <span aria-hidden="true" className="text-xs">↗</span>
                   </a>
                 </div>
               )}
@@ -270,7 +270,7 @@ export default function CertificatesPage() {
                   className="mt-8 inline-flex items-center gap-1.5 text-sm font-medium text-neutral-900 underline underline-offset-4 decoration-neutral-300 transition-colors hover:decoration-neutral-900"
                 >
                   Verify credential
-                  <span aria-hidden="true" className="text-xs">&nearr;</span>
+                  <span aria-hidden="true" className="text-xs">↗</span>
                 </a>
               )}
             </div>

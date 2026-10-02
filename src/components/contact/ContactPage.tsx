@@ -79,7 +79,7 @@ export default function ContactPage() {
               className="inline-flex items-center gap-2 text-sm font-medium text-neutral-900 underline underline-offset-4 decoration-neutral-300 transition-colors hover:decoration-neutral-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-900"
             >
               View resume
-              <span aria-hidden="true" className="text-xs">&nearr;</span>
+              <span aria-hidden="true" className="text-xs">↗</span>
             </a>
           </section>
         )}

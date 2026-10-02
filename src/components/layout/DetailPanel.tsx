@@ -45,7 +45,7 @@ function WorkSidebar() {
               <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[9px] font-semibold text-blue-700">Volunteer</span>
             </div>
             <p className="text-[11px] text-neutral-600 mt-1">Volunteer & Event Photographer</p>
-            <p className="text-[10px] text-neutral-400 font-mono mt-0.5">2025 Attendee &rarr; 2026 Volunteer</p>
+            <p className="text-[10px] text-neutral-400 font-mono mt-0.5">2025 Attendee → 2026 Volunteer</p>
           </div>
 
           <div className="rounded-xl border border-neutral-200 p-3.5">
@@ -82,7 +82,7 @@ function WorkSidebar() {
           rel="noopener noreferrer"
           className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-neutral-900 px-4 py-2.5 text-xs font-semibold text-white hover:bg-neutral-800 transition-colors"
         >
-          Download Resume (PDF) &rarr;
+          Download Resume (PDF) →
         </a>
       </div>
     </aside>
@@ -120,17 +120,17 @@ function AboutSidebar() {
           Core Principles
         </p>
         <div className="space-y-2.5">
-          <div className="rounded-lg border border-neutral-200 p-3 bg-white">
+          <div className="rounded-lg border border-neutral-100 p-3 bg-white">
             <span className="font-mono text-[10px] font-bold text-neutral-400">01</span>
             <p className="text-xs font-semibold text-neutral-900 mt-0.5">Consistency over perfection</p>
             <p className="text-[11px] text-neutral-500 mt-1 leading-normal">Showing up and coding daily beats natural talent alone.</p>
           </div>
-          <div className="rounded-lg border border-neutral-200 p-3 bg-white">
+          <div className="rounded-lg border border-neutral-100 p-3 bg-white">
             <span className="font-mono text-[10px] font-bold text-neutral-400">02</span>
             <p className="text-xs font-semibold text-neutral-900 mt-0.5">Learn by building real tools</p>
             <p className="text-[11px] text-neutral-500 mt-1 leading-normal">Real production code solving real problems teaches the most.</p>
           </div>
-          <div className="rounded-lg border border-neutral-200 p-3 bg-white">
+          <div className="rounded-lg border border-neutral-100 p-3 bg-white">
             <span className="font-mono text-[10px] font-bold text-neutral-400">03</span>
             <p className="text-xs font-semibold text-neutral-900 mt-0.5">Technology serving community</p>
             <p className="text-[11px] text-neutral-500 mt-1 leading-normal">Software should make people feel cared for and truly belong.</p>
@@ -143,7 +143,7 @@ function AboutSidebar() {
           href="/contact"
           className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-neutral-300 bg-white px-4 py-2.5 text-xs font-semibold text-neutral-800 hover:bg-neutral-50 transition-colors"
         >
-          Get in Touch &rarr;
+          Get in Touch →
         </Link>
       </div>
     </aside>
@@ -257,7 +257,7 @@ function ContactSidebar() {
               className="flex items-center justify-between rounded-lg border border-neutral-200 p-3 text-xs font-semibold text-neutral-800 hover:border-neutral-400 hover:bg-neutral-50 transition-colors"
             >
               <span>{link.label}</span>
-              <span className="text-neutral-400">&rarr;</span>
+              <span className="text-neutral-400">→</span>
             </a>
           ))}
         </div>
@@ -285,7 +285,7 @@ export default function DetailPanel({ projects }: DetailPanelProps) {
             href="/"
             className="inline-flex items-center gap-1.5 text-xs font-medium text-neutral-500 hover:text-neutral-900 transition-colors"
           >
-            &larr; Back to all projects
+            ← Back to all projects
           </Link>
         </div>
 
@@ -332,7 +332,7 @@ export default function DetailPanel({ projects }: DetailPanelProps) {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 rounded-full bg-neutral-900 px-4 py-2 text-xs font-medium text-white hover:bg-neutral-800 transition-colors"
               >
-                Open Live System &rarr;
+                Open Live System →
               </a>
             </div>
           )}
@@ -357,7 +357,7 @@ export default function DetailPanel({ projects }: DetailPanelProps) {
                     {other.description}
                   </p>
                   <span className="mt-2 inline-flex items-center text-[10px] font-medium text-neutral-400 group-hover:text-neutral-800">
-                    View project &rarr;
+                    View project →
                   </span>
                 </Link>
               ))}
