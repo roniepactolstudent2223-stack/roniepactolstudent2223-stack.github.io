@@ -247,7 +247,7 @@ export const PORTFOLIO_IDENTITY = {
     { value: 'Laravel', label: '+ Vue.js' },
     { value: 'QR Scan', label: 'Check-in' },
   ],
-  skills: ['Laravel', 'Vue.js', 'PHP', 'MySQL', 'Next.js', 'Tailwind'],
+  skills: ['Laravel', 'Vue.js', 'PHP', 'MySQL', 'Tailwind CSS', 'REST APIs', 'Git'],
   currently: 'Continuing to develop the WOH Attendance System for Word of Hope Caloocan',
 } as const
 

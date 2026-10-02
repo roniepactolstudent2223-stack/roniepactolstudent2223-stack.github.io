@@ -69,7 +69,7 @@ export default function Footer() {
               Let&apos;s build something
             </h2>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-neutral-500">
-              Always open to discussing design systems, product engineering, or new opportunities.
+              Always open to discussing junior developer roles, Laravel &amp; Vue.js systems, or new opportunities.
             </p>
 
             <div className="mt-6">

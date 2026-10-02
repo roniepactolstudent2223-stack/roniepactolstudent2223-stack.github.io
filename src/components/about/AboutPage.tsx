@@ -6,10 +6,10 @@ import gsap from 'gsap'
 import { PORTFOLIO_IDENTITY } from '@/lib/portfolio-config'
 
 const STACK = [
-  { group: 'Backend', items: ['Laravel', 'PHP', 'MySQL'] },
-  { group: 'Frontend', items: ['Vue.js', 'JavaScript', 'Tailwind CSS'] },
-  { group: 'Tools', items: ['Git', 'GitHub', 'Infor M3 API'] },
-  { group: 'Learning', items: ['Python basics', 'Go basics', 'Next.js'] },
+  { group: 'Backend', items: ['Laravel', 'PHP', 'Eloquent ORM', 'REST APIs'] },
+  { group: 'Frontend', items: ['Vue.js', 'JavaScript', 'Tailwind CSS', 'HTML5 / CSS3'] },
+  { group: 'Database', items: ['MySQL', 'Relational Schema', 'CRUD Queries', 'Data Indexing'] },
+  { group: 'Tools', items: ['Git', 'GitHub', 'Infor M3 APIs', 'Composer'] },
 ]
 
 const FACTS = [
