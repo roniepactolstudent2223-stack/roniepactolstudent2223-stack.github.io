@@ -279,6 +279,34 @@ function ContactSidebar() {
           ))}
         </div>
       </div>
+
+      <div className="space-y-3 border-t border-neutral-200 pt-6">
+        <p className="text-[10px] font-medium uppercase tracking-[0.1em] text-neutral-400">
+          Official Resume
+        </p>
+        <div className="flex flex-col gap-2">
+          <a
+            href={PORTFOLIO_IDENTITY.resumeUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-between rounded-lg bg-neutral-900 p-3 text-xs font-semibold text-white hover:bg-neutral-800 transition-colors"
+          >
+            <span>Download PDF Resume</span>
+            <span aria-hidden="true">↗</span>
+          </a>
+          {PORTFOLIO_IDENTITY.resumeDocUrl && (
+            <a
+              href={PORTFOLIO_IDENTITY.resumeDocUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-between rounded-lg border border-neutral-200 p-3 text-xs font-semibold text-neutral-800 hover:border-neutral-400 hover:bg-neutral-50 transition-colors"
+            >
+              <span>Live Google Doc</span>
+              <span aria-hidden="true">↗</span>
+            </a>
+          )}
+        </div>
+      </div>
     </aside>
   )
 }

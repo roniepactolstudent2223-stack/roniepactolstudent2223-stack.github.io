@@ -3,12 +3,13 @@
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { PORTFOLIO_IDENTITY } from '@/lib/portfolio-config'
-import { LinkedInIcon, GitHubIcon, PhoneIcon, ViberIcon } from '@/components/ui/Icons'
+import { LinkedInIcon, GitHubIcon, PhoneIcon, ViberIcon, FacebookIcon } from '@/components/ui/Icons'
 import ContactForm from '@/components/contact/ContactForm'
 
 const SOCIAL_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   LinkedIn: LinkedInIcon,
   GitHub: GitHubIcon,
+  Facebook: FacebookIcon,
 }
 
 const FORMSPREE_ID = process.env.NEXT_PUBLIC_FORMSPREE_ID || 'mppwevqd'
@@ -125,20 +126,57 @@ export default function ContactPage() {
           </a>
         </p>
 
-        {PORTFOLIO_IDENTITY.resumeUrl && (
-          <section className="mt-16" data-reveal>
-            <p className="mb-3 text-[10px] font-medium uppercase tracking-[0.1em] text-neutral-500">
-              Resume
-            </p>
+        <section className="mt-16" data-reveal>
+          <p className="mb-3 text-[10px] font-medium uppercase tracking-[0.1em] text-neutral-500">
+            Resume & Official Documents
+          </p>
+          <div className="flex flex-wrap items-center gap-3">
             <a
               href={PORTFOLIO_IDENTITY.resumeUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-sm font-medium text-neutral-900 underline underline-offset-4 decoration-neutral-300 transition-colors hover:decoration-neutral-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-900"
+              className="inline-flex items-center gap-2 rounded-xl bg-neutral-900 px-4 py-2.5 text-xs font-semibold text-white shadow-sm hover:bg-neutral-800 transition-colors"
             >
-              View resume
+              <span>Download PDF Resume</span>
               <span aria-hidden="true" className="text-xs">↗</span>
             </a>
+            {PORTFOLIO_IDENTITY.resumeDocUrl && (
+              <a
+                href={PORTFOLIO_IDENTITY.resumeDocUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-xl border border-neutral-300 bg-white px-4 py-2.5 text-xs font-semibold text-neutral-800 hover:bg-neutral-50 hover:border-neutral-400 transition-colors"
+              >
+                <span>Live Google Doc</span>
+                <span aria-hidden="true" className="text-xs">↗</span>
+              </a>
+            )}
+          </div>
+          <p className="mt-2.5 text-xs text-neutral-400">
+            Statutory benefits ready: SSS, PhilHealth, and Pag-IBIG.
+          </p>
+        </section>
+
+        {PORTFOLIO_IDENTITY.reference && (
+          <section className="mt-12 rounded-2xl border border-neutral-200 bg-neutral-50/50 p-5 sm:p-6" data-reveal>
+            <p className="text-[10px] font-medium uppercase tracking-[0.1em] text-neutral-500 font-mono">
+              Professional Reference
+            </p>
+            <div className="mt-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <p className="text-sm font-bold text-neutral-900">{PORTFOLIO_IDENTITY.reference.name}</p>
+                <p className="text-xs text-neutral-600 mt-0.5">
+                  {PORTFOLIO_IDENTITY.reference.role} · {PORTFOLIO_IDENTITY.reference.company}
+                </p>
+              </div>
+              <a
+                href={`tel:${PORTFOLIO_IDENTITY.reference.phone.replace(/[^0-9+]/g, '')}`}
+                className="inline-flex items-center gap-1.5 text-xs font-medium text-neutral-700 hover:text-neutral-900 underline"
+              >
+                <PhoneIcon className="h-3.5 w-3.5" />
+                {PORTFOLIO_IDENTITY.reference.phone}
+              </a>
+            </div>
           </section>
         )}
 
