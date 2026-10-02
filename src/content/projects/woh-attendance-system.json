@@ -1,15 +1,16 @@
 {
   "slug": "woh-attendance-system",
-  "title": "WOH Attendance System",
+  "title": "WOH Attendance & Management System",
   "year": 2025,
   "category": "product",
-  "description": "A QR-based church attendance system built for Word of Hope Caloocan. Members scan their card to check in automatically — no name writing, no paper lists. Includes member management, visit tracking for absentees, and attendance analytics.",
-  "tags": ["laravel", "vue.js", "full-stack", "qr-code"],
-  "coverImage": "/images/projects/woh-attendance-system/cover.jpg",
+  "description": "A production-grade QR church attendance and care management system built with Laravel and Vue.js for Word of Hope Caloocan. Features fast kiosk check-in, real-time service analytics, automated absentee tracking, and pastoral follow-up to ensure every member feels valued and supported.",
+  "tags": ["laravel", "vue.js", "full-stack", "qr-code", "mysql"],
+  "coverImage": "/woh-pilot.png",
   "images": [
-    "/images/projects/woh-attendance-system/hero.jpg"
+    "/woh-pilot.png",
+    "/woh-admin.png"
   ],
-  "role": "Solo Developer",
+  "role": "Solo Full-Stack Developer",
   "client": "Word of Hope Caloocan",
-  "url": "https://wohcaloocan.org"
+  "url": "https://attendance.wohcaloocan.org/attendance/"
 }
