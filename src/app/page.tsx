@@ -30,7 +30,7 @@ export default function Home() {
 
       {/* Featured — dense, full-width, cinematic */}
       {featured && (
-        <section className="bg-neutral-50 px-6 py-8">
+        <section id="production-systems" className="bg-neutral-50 px-6 py-8">
           <div className="max-w-5xl">
             <FeaturedProject
               project={featured}

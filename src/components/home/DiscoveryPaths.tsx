@@ -46,7 +46,7 @@ export default function DiscoveryPaths({ domains, onSelectDomain, activeDomain }
   return (
     <div ref={containerRef}>
       <p className="mb-6 text-[10px] font-medium uppercase tracking-[0.1em] text-neutral-500">
-        Explore by domain
+        Filter by focus area
       </p>
       <div className="flex flex-col gap-0">
         {visibleDomains.map((domain) => {

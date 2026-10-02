@@ -122,10 +122,10 @@ export default function Masthead() {
         <div className="mt-10 flex items-center gap-3" data-reveal>
           <a
             ref={(el) => { ctaRefs.current[0] = el }}
-            href="#home"
+            href="#production-systems"
             className="inline-flex items-center gap-2 rounded-full bg-neutral-900 px-6 py-3 text-sm font-medium text-white transition-shadow duration-300 hover:shadow-lg hover:shadow-neutral-300/50"
           >
-            Explore projects
+            View Production Systems
           </a>
           <a
             ref={(el) => { ctaRefs.current[1] = el }}
