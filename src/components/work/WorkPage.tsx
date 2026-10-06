@@ -114,7 +114,7 @@ export default function WorkPage() {
             Experience
           </p>
           <h1 className="font-serif text-5xl font-bold leading-[1.1] tracking-tight text-neutral-900 sm:text-6xl">
-            Where I&apos;ve worked
+            Recent Work
           </h1>
           <div className="mt-6 h-px w-16 bg-neutral-900" />
           <p className="mt-7 max-w-lg text-lg leading-relaxed text-neutral-500">
