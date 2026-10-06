@@ -30,7 +30,7 @@ export default function CompanyLogo({ company, logoUrl, size = 40 }: CompanyLogo
         alt={`${company} logo`}
         width={size}
         height={size}
-        className="rounded-lg object-contain bg-neutral-100"
+        className="rounded-lg border border-neutral-200 bg-white object-contain p-1"
         onError={() => setImgError(true)}
       />
     )
