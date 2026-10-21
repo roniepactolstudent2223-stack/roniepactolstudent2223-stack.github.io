@@ -47,14 +47,14 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
     return () => ctx.revert()
   }, [projects])
 
-  // Hover lift for each card
+  // Subtle hover lift on card
   const setupHover = useCallback((card: HTMLElement | null) => {
     if (!card) return
 
     const handleMouseEnter = () => {
       gsap.to(card, {
-        y: -4,
-        boxShadow: '0 16px 48px rgba(0,0,0,0.06)',
+        y: -3,
+        boxShadow: '0 12px 36px rgba(0,0,0,0.05)',
         duration: 0.35,
         ease: 'power2.out',
       })
@@ -94,20 +94,22 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
         const isFirst = index === 0
 
         return (
-          <Link
+          <div
             key={project.slug}
-            href={`/projects/${project.slug}`}
-            className={`group block ${isFirst ? 'sm:col-span-2' : ''}`}
+            className={`block ${isFirst ? 'sm:col-span-2' : ''}`}
             data-project-card
             ref={(el) => {
               if (el) setupHover(el)
             }}
           >
-            <article data-project-id={project.slug} className="overflow-hidden rounded-2xl bg-neutral-100">
-              {/* Cover Image */}
-              <div className={`overflow-hidden bg-neutral-200 ${
-                isFirst ? 'aspect-[21/9]' : 'aspect-[3/2]'
-              }`}>
+            <article data-project-id={project.slug} className="overflow-hidden rounded-2xl border border-neutral-200 bg-white">
+              {/* Cover Image — clickable image */}
+              <Link
+                href={`/projects/${project.slug}`}
+                className={`group block overflow-hidden bg-neutral-100 ${
+                  isFirst ? 'aspect-[21/9]' : 'aspect-[3/2]'
+                }`}
+              >
                 <img
                   src={imageUrl}
                   alt={`${project.title} cover`}
@@ -115,29 +117,34 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
                   decoding="async"
                   className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                 />
-              </div>
+              </Link>
 
-              {/* Content */}
-              <div className="p-5 bg-white">
+              {/* Content — readable text with explicit links */}
+              <div className="p-5">
                 <div className="flex items-start justify-between gap-3">
-                  <h3 className={`font-medium text-neutral-900 transition-colors group-hover:text-neutral-500 ${
+                  <h3 className={`font-semibold text-neutral-900 ${
                     isFirst ? 'text-lg' : 'text-base'
                   }`}>
-                    {project.title}
+                    <Link
+                      href={`/projects/${project.slug}`}
+                      className="hover:underline underline-offset-4"
+                    >
+                      {project.title}
+                    </Link>
                   </h3>
                   <span className={`shrink-0 rounded-full px-2.5 py-0.5 text-[10px] font-medium ${categoryColor}`}>
                     {project.category}
                   </span>
                 </div>
 
-                <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-neutral-500">
+                <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-neutral-600">
                   {project.description}
                 </p>
 
-                <div className="mt-3 flex items-center gap-3">
-                  <span className="text-xs text-neutral-500">{project.year}</span>
+                <div className="mt-3 flex items-center gap-3 font-mono text-xs text-neutral-400">
+                  <span>{project.year}</span>
                   <span className="text-neutral-200" aria-hidden="true">·</span>
-                  <span className="text-xs text-neutral-500">{project.role}</span>
+                  <span className="text-neutral-500 font-sans">{project.role}</span>
                 </div>
 
                 {project.tags.length > 0 && (
@@ -145,21 +152,33 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
                     {project.tags.slice(0, 3).map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-full bg-neutral-100 px-2 py-0.5 text-[10px] text-neutral-500"
+                        className="rounded-full bg-neutral-100 px-2 py-0.5 text-[10px] text-neutral-600 font-mono"
                       >
                         {tag}
                       </span>
                     ))}
                     {project.tags.length > 3 && (
-                      <span className="text-[10px] text-neutral-500">
+                      <span className="text-[10px] text-neutral-400 font-mono self-center">
                         +{project.tags.length - 3}
                       </span>
                     )}
                   </div>
                 )}
+
+                <div className="mt-4 pt-3 border-t border-neutral-100">
+                  <Link
+                    href={`/projects/${project.slug}`}
+                    className="group inline-flex items-center gap-1.5 text-xs font-medium text-neutral-900 hover:text-neutral-600 transition-colors"
+                  >
+                    <span className="underline decoration-neutral-300 underline-offset-4 group-hover:decoration-neutral-900">
+                      View case study
+                    </span>
+                    <span aria-hidden="true" className="transition-transform duration-200 group-hover:translate-x-1">→</span>
+                  </Link>
+                </div>
               </div>
             </article>
-          </Link>
+          </div>
         )
       })}
     </div>

@@ -268,13 +268,15 @@ export default function WorkPage() {
 
                 {/* Linked project */}
                 {role.project && (
-                  <div data-project-link className="mt-5">
+                  <div data-project-link className="mt-5 pt-3 border-t border-neutral-100">
                     <Link
                       href={`/projects/${role.project}`}
-                      className="inline-flex items-center gap-1.5 text-xs font-medium text-neutral-900 transition-colors hover:text-neutral-500"
+                      className="group/link inline-flex items-center gap-1.5 text-xs font-medium text-neutral-900 transition-colors hover:text-neutral-600"
                     >
-                      View case study
-                      <span aria-hidden="true" className="transition-transform duration-200 group-hover:translate-x-0.5">→</span>
+                      <span className="underline decoration-neutral-300 underline-offset-4 group-hover/link:decoration-neutral-900">
+                        View case study
+                      </span>
+                      <span aria-hidden="true" className="transition-transform duration-200 group-hover/link:translate-x-1">→</span>
                     </Link>
                   </div>
                 )}
