@@ -129,6 +129,58 @@ const ATS_DATA: Record<string, ProjectAtsData> = {
       },
     ],
   },
+  'wilcon-collection-deposit-report': {
+    summary:
+      'Modified the Collection and Deposit Report in Wilcon\'s WBI Reports and Omnibus systems so the Treasury Department can trace collections down to individual checks, filter unreconciled records correctly, and export reports for offline review.',
+    stackSummary: 'Laravel, Vue.js, PHP, MySQL',
+    bullets: [
+      {
+        title: 'Check drill-down',
+        description:
+          'Made report amounts clickable so Treasury staff can open the remittance, customer, issuing bank, check number, date, and amount of each check directly from the report.',
+      },
+      {
+        title: 'Cash and check filtering',
+        description:
+          'Separated unreconciled cash and check records in the filter logic so each view only shows its own transactions, with no overlap between the two.',
+      },
+      {
+        title: 'PDF and Excel export',
+        description:
+          'Added export to PDF and Excel so users can download the report for offline analysis and filing.',
+      },
+      {
+        title: 'Branch column',
+        description:
+          'Added a Branch column to the report and made it show all branches by default when no single branch is selected.',
+      },
+      {
+        title: 'Accounting date alignment',
+        description:
+          'Aligned accounting dates so valid check transactions land in the correct section of the Collection and Deposit Report automatically.',
+      },
+    ],
+    metrics: [
+      { value: '5', label: 'Features Shipped' },
+      { value: 'PDF + XLSX', label: 'Export Formats' },
+      { value: 'All', label: 'Branches by Default' },
+      { value: 'Treasury', label: 'Department Users' },
+    ],
+    captions: [
+      {
+        title: 'Collection and Deposit Report (before)',
+        description: 'Original report layout with no branch information.',
+      },
+      {
+        title: 'Branch column added',
+        description: 'New Branch column; defaults to all branches when none is selected.',
+      },
+      {
+        title: 'Check detail view',
+        description: 'Clicking a check amount opens its remittance, customer, bank, check number, date, and amount, with PDF export.',
+      },
+    ],
+  },
   'wordpress-ph-community': {
     summary:
       'Active community involvement and volunteering with WordPress Philippines. Started as an attendee in 2025 eager to learn from web engineers, and stepped up in 2026 to serve as an official volunteer photographer documenting tech meetups and supporting the local developer community.',
@@ -307,13 +359,13 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
                   onClick={() => setLightboxImage(src)}
                   className="group cursor-pointer rounded-xl border border-neutral-200 bg-white p-2.5 transition-all hover:border-neutral-400 hover:shadow-md"
                 >
-                  <div className="aspect-[16/10] overflow-hidden rounded-lg bg-neutral-100 flex items-center justify-center">
+                  <div className={`aspect-[16/10] overflow-hidden rounded-lg flex items-center justify-center ${project.slug === 'wilcon-collection-deposit-report' ? 'bg-white' : 'bg-neutral-100'}`}>
                     <img
                       src={src}
                       alt={caption.title}
                       decoding="async"
                       loading="lazy"
-                      className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      className={`h-full w-full transition-transform duration-300 group-hover:scale-105 ${project.slug === 'wilcon-collection-deposit-report' ? 'object-contain' : 'object-cover'}`}
                     />
                   </div>
                   <div className="mt-2.5 px-1 pb-1">

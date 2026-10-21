@@ -13,6 +13,7 @@ const PLACEHOLDER_IMAGES: Record<string, string> = {
   'woh-attendance-system': '/woh-pilot.webp',
   'wordpress-ph-community': '/wp-community-1.webp',
   'wilcon-enterprise-systems': '/wilcon-enterprise.svg',
+  'wilcon-collection-deposit-report': '/wilcon-cdr-branch.png',
 }
 
 const CATEGORY_COLORS: Record<string, string> = {

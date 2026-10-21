@@ -92,6 +92,7 @@ export const PORTFOLIO_IDENTITY = {
       metric: undefined as { value: string; label: string } | undefined,
       highlight: 'Developed and maintained backend features using PHP, Laravel, Vue.js, and MySQL. Authored clean manual logic, complex database queries, and system architectures without reliance on AI.',
       evidence: [
+        { label: 'Treasury Reports', detail: 'Modified the Collection and Deposit Report (WBI Reports / Omnibus) for the Treasury Department: clickable check details, separate cash and check filters, PDF/Excel export, and a Branch column' },
         { label: 'Backend & Logic', detail: 'Developed and maintained backend features using PHP, Laravel, Vue.js, and MySQL with manual query optimization and clean business logic' },
         { label: 'System Architecture', detail: 'Designed system architecture and wrote reliable, manual logic to resolve complex edge cases without blind reliance on AI' },
         { label: 'QA & Analyst Collaboration', detail: 'Collaborated daily with System Analysts and Quality Assurance (QA) to test, debug, and deliver enterprise production features' },

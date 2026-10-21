@@ -110,7 +110,7 @@ export default function WorkPage() {
 
         {/* Hero */}
         <header data-reveal>
-          <p className="mb-5 text-[10px] font-medium uppercase tracking-[0.1em] text-neutral-500">
+          <p className="mb-5 text-sm font-medium uppercase tracking-[0.1em] text-neutral-500">
             Experience
           </p>
           <h1 className="font-serif text-5xl font-bold leading-[1.1] tracking-tight text-neutral-900 sm:text-6xl">
@@ -142,7 +142,7 @@ export default function WorkPage() {
                   <div className="flex-1 min-w-0">
                     <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
                       <div>
-                        <h2 className="text-lg font-semibold text-neutral-900">
+                        <h2 className="text-xl font-semibold text-neutral-900">
                           {role.role}
                         </h2>
                         <p className="text-sm text-neutral-600">
