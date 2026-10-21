@@ -64,7 +64,7 @@ export default function ContextPanel({ projects }: ContextPanelProps) {
     const text = [
       `CANDIDATE: ${PORTFOLIO_IDENTITY.name}`,
       `ROLE: ${PORTFOLIO_IDENTITY.role}`,
-      `STACK: Laravel, Vue.js, PHP, MySQL, Infor M3 ERP APIs, REST APIs, Git`,
+      `STACK: Laravel, Vue.js, PHP, MySQL, REST APIs, Git`,
       `EXPERIENCE: Full Stack Junior System Developer at Wilcon Depot, Inc. (6 mos, May–Oct 2026)`,
       `EDUCATION: BS Information Technology — Access Computer College (2025)`,
       `PRODUCTION SYSTEMS:`,
@@ -92,7 +92,6 @@ export default function ContextPanel({ projects }: ContextPanelProps) {
           {[
             { k: 'Role', v: 'Junior System Developer' },
             { k: 'Stack', v: 'Laravel · Vue.js · PHP · MySQL', mono: true },
-            { k: 'ERP', v: 'Infor M3 APIs', mono: true },
             { k: 'Experience', v: 'Wilcon Depot, Inc. (6 mos)' },
             { k: 'Education', v: 'BSIT · ACC 2025' },
             { k: 'Location', v: 'Balingasa, Quezon City' },

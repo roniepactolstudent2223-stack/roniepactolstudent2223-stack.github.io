@@ -89,8 +89,8 @@ const ATS_DATA: Record<string, ProjectAtsData> = {
   },
   'wilcon-enterprise-systems': {
     summary:
-      '6 months of internal enterprise software development as a Full Stack Junior System Developer at Wilcon Depot, Inc. Developing and maintaining internal web applications using Laravel, Vue.js, and MySQL, integrating with Infor M3 ERP APIs, and handling retail financial voucher processing workflows.',
-    stackSummary: 'Laravel, Vue.js, PHP, MySQL, Infor M3 ERP APIs, Git',
+      '6 months of internal enterprise software development as a Full Stack Junior System Developer at Wilcon Depot, Inc. Developing and maintaining internal web applications using Laravel, Vue.js, and MySQL, integrating with Wilcon\'s Infor M3 ERP APIs to extract ledger and account data, and handling retail financial voucher processing workflows.',
+    stackSummary: 'Laravel, Vue.js, PHP, MySQL, REST APIs, Git',
     bullets: [
       {
         title: 'Enterprise ERP Data Integration',
@@ -185,7 +185,7 @@ const ATS_DATA: Record<string, ProjectAtsData> = {
   'wilcon-month-end-closing': {
     summary:
       'Internal financial closing platform that replaces spreadsheets and chat apps for Wilcon\'s monthly accounting close. Shifts entry submission directly to account owners, blocks unbalanced or duplicate entries automatically, runs a two-step approval workflow, and posts approved balances to Infor M3 in one click.',
-    stackSummary: 'Laravel, Vue.js, PHP, MySQL, Infor M3 ERP APIs',
+    stackSummary: 'Laravel, Vue.js, PHP, MySQL, REST APIs',
     bullets: [
       {
         title: 'Automatic COA Setup',

@@ -29,9 +29,9 @@ export default function RecruiterModal({ isOpen, onClose }: RecruiterModalProps)
   const copySummary = () => {
     const summaryText = `Candidate: Ronie Pactol
 Target Role: Junior Full Stack Developer / Software Engineer
-Primary Stack: Laravel, Vue.js, PHP, MySQL, Infor M3 APIs
+Primary Stack: Laravel, Vue.js, PHP, MySQL, REST APIs
 Recent Work: 
-- Wilcon Depot (6 months): Enterprise ERP modules, Omnibus internal systems, Treasury Collection & Deposit reporting with check drill-downs, month-end closing workflows.
+- Wilcon Depot (6 months): Enterprise ERP integrations, Omnibus internal systems, Treasury Collection & Deposit reporting with check drill-downs, month-end closing workflows.
 - Live Production System: Solo developer of WOH Attendance Kiosk (active in daily use since March 2025).
 Notice Period: Immediate (0 days)
 Work Setup: Metro Manila (On-site or Hybrid)

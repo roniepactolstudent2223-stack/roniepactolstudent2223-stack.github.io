@@ -28,7 +28,7 @@ export default function ContactPage() {
   const copyCandidateSummary = () => {
     const summaryText = `Candidate: Ronie Pactol
 Role: Junior System Developer (Full Stack)
-Core Stack: Laravel, Vue.js, MySQL, PHP, Infor M3 APIs
+Core Stack: Laravel, Vue.js, MySQL, PHP, REST APIs
 Experience: 6 months at Wilcon Depot (Enterprise ERP & Voucher workflows) + Solo developer of live WOH Attendance System
 Reference: John Carlo Pattugan (IT Operations Administrator, LevelUp - https://levelup.support/) | +63 905 1779 250
 Availability: Immediate (0-day notice) | Location: Balingasa, Quezon City | SSS & PhilHealth ready

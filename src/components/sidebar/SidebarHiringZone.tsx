@@ -15,7 +15,7 @@ export default function SidebarHiringZone() {
           Stack
         </p>
         <p className="mt-1 font-mono text-[13px] font-normal leading-relaxed text-neutral-700">
-          Laravel · Vue.js · PHP · MySQL · Infor M3
+          Laravel · Vue.js · PHP · MySQL · REST APIs
         </p>
       </div>
 

@@ -18,7 +18,7 @@ function CopyAtsRow() {
     const text = [
       `CANDIDATE: ${PORTFOLIO_IDENTITY.name}`,
       `ROLE: ${PORTFOLIO_IDENTITY.role}`,
-      `STACK: Laravel, Vue.js, PHP, MySQL, Infor M3 ERP APIs, REST APIs, Git`,
+      `STACK: Laravel, Vue.js, PHP, MySQL, REST APIs, Git`,
       `EXPERIENCE: Full Stack Junior System Developer at Wilcon Depot, Inc. (6 mos, May–Oct 2026)`,
       `EDUCATION: BS Information Technology — Access Computer College (2025)`,
       `PRODUCTION SYSTEMS:`,
@@ -114,7 +114,7 @@ function ProjectsSidebar({ projects }: { projects: Project[] }) {
           Stack
         </p>
         <p className="mt-2 font-mono text-[13px] font-normal leading-relaxed text-neutral-700 border-t border-neutral-200 pt-3">
-          Laravel · Vue.js · PHP · MySQL · Infor M3 APIs · REST APIs · Git
+          Laravel · Vue.js · PHP · MySQL · REST APIs · Git
         </p>
       </div>
 
@@ -194,7 +194,7 @@ function WorkSidebar() {
           Technologies Used
         </p>
         <p className="mt-2 font-mono text-[13px] font-normal leading-relaxed text-neutral-700 border-t border-neutral-200 pt-3">
-          Laravel · Vue.js · PHP · MySQL · Infor M3 APIs · REST APIs · Git
+          Laravel · Vue.js · PHP · MySQL · REST APIs · Git
         </p>
       </div>
 

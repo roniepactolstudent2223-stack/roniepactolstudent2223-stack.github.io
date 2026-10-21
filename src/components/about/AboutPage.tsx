@@ -9,7 +9,7 @@ const STACK = [
   { group: 'Backend', items: ['Laravel', 'PHP', 'Eloquent ORM', 'REST APIs'] },
   { group: 'Frontend', items: ['Vue.js', 'JavaScript', 'Tailwind CSS', 'HTML5 / CSS3'] },
   { group: 'Database', items: ['MySQL', 'Relational Schema', 'CRUD Queries', 'Data Indexing'] },
-  { group: 'Tools', items: ['Git', 'GitHub', 'Infor M3 APIs', 'Composer'] },
+  { group: 'Tools', items: ['Git', 'GitHub', 'Postman', 'Composer'] },
 ]
 
 const FACTS = [
