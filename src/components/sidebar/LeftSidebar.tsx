@@ -12,6 +12,7 @@ export default function LeftSidebar() {
 
   const activeSection = useMemo(() => {
     if (pathname.startsWith('/about')) return 'about'
+    if (pathname.startsWith('/projects')) return 'projects'
     if (pathname.startsWith('/work')) return 'work'
     if (pathname.startsWith('/certificates')) return 'certificates'
     if (pathname.startsWith('/contact')) return 'contact'

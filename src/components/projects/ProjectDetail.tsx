@@ -246,10 +246,10 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
       {/* Back Button */}
       <div className="mb-6">
         <Link
-          href="/"
-          className="inline-flex items-center gap-1.5 text-xs font-medium text-neutral-500 hover:text-neutral-900 transition-colors"
+          href="/projects"
+          className="inline-flex items-center gap-1.5 text-sm font-medium text-neutral-500 hover:text-neutral-900 transition-colors"
         >
-          ← Back to all systems
+          ← All projects
         </Link>
       </div>
 

@@ -255,11 +255,76 @@ export const PORTFOLIO_IDENTITY = {
 
 export const SECTIONS = [
   { id: 'home', label: 'Home', href: '/' },
-  { id: 'about', label: 'About', href: '/about' },
+  { id: 'projects', label: 'Projects', href: '/projects' },
   { id: 'work', label: 'Work', href: '/work' },
+  { id: 'about', label: 'About', href: '/about' },
   { id: 'certificates', label: 'Certificates', href: '/certificates' },
   { id: 'contact', label: 'Contact', href: '/contact' },
 ] as const
+
+/**
+ * Facts shown on the /projects index. Each field answers one question a
+ * recruiter or hiring developer asks when scanning a project list:
+ *   usedBy  → Is this real? Who depends on it?
+ *   problem → Does he understand why the software exists?
+ *   myPart  → What exactly did HE do (vs. the team)?
+ *   stack   → Keyword match for ATS / the job post.
+ *   status  → Is it live, shipped, or just a demo?
+ * Keep every value short and factual. No adjectives.
+ */
+export interface ProjectIndexEntry {
+  slug: string
+  kind: 'software' | 'community'
+  usedBy: string
+  problem: string
+  myPart: string
+  stack: string
+  status: string
+  live: boolean
+}
+
+export const PROJECT_INDEX: ProjectIndexEntry[] = [
+  {
+    slug: 'woh-attendance-system',
+    kind: 'software',
+    usedBy: 'Word of Hope Caloocan: ushers, pastors, church admin',
+    problem: 'Attendance was tracked by hand, so leaders couldn\'t see who stopped coming.',
+    myPart: 'Built it end to end: database, Laravel API, Vue.js kiosk and admin dashboard.',
+    stack: 'Laravel · Vue.js · MySQL · REST API',
+    status: 'In use every Sunday since Mar 2025',
+    live: true,
+  },
+  {
+    slug: 'wilcon-collection-deposit-report',
+    kind: 'software',
+    usedBy: 'Wilcon Depot Treasury Department',
+    problem: 'Treasury couldn\'t open check details, filter by branch, or export the report.',
+    myPart: 'Added check drill-down, cash/check filters, PDF/Excel export, Branch column, date alignment.',
+    stack: 'Laravel · Vue.js · PHP · MySQL',
+    status: 'Delivered to Treasury, 2026',
+    live: true,
+  },
+  {
+    slug: 'wilcon-enterprise-systems',
+    kind: 'software',
+    usedBy: 'Wilcon Depot internal teams',
+    problem: 'Internal finance workflows needed upkeep and data from the Infor M3 ERP.',
+    myPart: 'Maintained backend features, wrote SQL, and worked with QA and analysts on releases.',
+    stack: 'Laravel · Vue.js · MySQL · Infor M3',
+    status: 'May – Oct 2026',
+    live: false,
+  },
+  {
+    slug: 'wordpress-ph-community',
+    kind: 'community',
+    usedBy: 'WordPress Philippines community',
+    problem: 'Meetups need volunteers and photos to run and to be remembered.',
+    myPart: 'Volunteer event photographer; attendee in 2025.',
+    stack: 'WordPress · Community',
+    status: 'Volunteering since Jan 2026',
+    live: false,
+  },
+]
 
 export type WorkDomainId = 'production' | 'community' | 'full-stack'
 
