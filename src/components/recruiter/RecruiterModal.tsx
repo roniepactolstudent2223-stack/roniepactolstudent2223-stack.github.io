@@ -28,14 +28,20 @@ export default function RecruiterModal({ isOpen, onClose }: RecruiterModalProps)
 
   const copySummary = () => {
     const summaryText = `Candidate: Ronie Pactol
-Role: Junior System Developer (Full Stack)
-Core Stack: Laravel, Vue.js, MySQL, PHP, Infor M3 APIs
-Experience: 6 months at Wilcon Depot (Enterprise ERP & Voucher workflows) + Solo developer of live WOH Attendance System
+Target Role: Junior Full Stack Developer / Software Engineer
+Primary Stack: Laravel, Vue.js, PHP, MySQL, Infor M3 APIs
+Recent Work: 
+- Wilcon Depot (6 months): Enterprise ERP modules, Omnibus internal systems, Treasury Collection & Deposit reporting with check drill-downs, month-end closing workflows.
+- Live Production System: Solo developer of WOH Attendance Kiosk (active in daily use since March 2025).
+Notice Period: Immediate (0 days)
+Work Setup: Metro Manila (On-site or Hybrid)
+Location: Balingasa, Quezon City
+Pre-employment Papers: SSS, PhilHealth, Pag-IBIG ready
 Reference: John Carlo Pattugan (IT Operations Administrator, LevelUp - https://levelup.support/) | +63 905 1779 250
-Availability: Immediate (0-day notice) | Location: Balingasa, Quezon City | SSS & PhilHealth ready
-Contact: 0993 126 3221 (Viber) | roniepactol@gmail.com
-Portfolio: https://roniepactolstudent2223-stack.github.io/
-Resume (Live Google Doc): ${PORTFOLIO_IDENTITY.resumeDocUrl}`
+Phone / Viber: 0993 126 3221
+Email: roniepactol@gmail.com
+Live Resume (Google Doc): ${PORTFOLIO_IDENTITY.resumeDocUrl}
+Portfolio: https://roniepactolstudent2223-stack.github.io/`
 
     navigator.clipboard.writeText(summaryText)
     setCopied(true)
@@ -50,155 +56,155 @@ Resume (Live Google Doc): ${PORTFOLIO_IDENTITY.resumeDocUrl}`
       aria-modal="true"
       aria-labelledby="recruiter-modal-title"
       onClick={onClose}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-950/70 p-4 backdrop-blur-sm animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-950/60 p-4 backdrop-blur-sm animate-in fade-in duration-150"
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl border border-neutral-200 bg-white p-6 sm:p-8 shadow-2xl animate-in zoom-in-95 duration-200"
+        className="relative w-full max-w-2xl max-h-[92vh] overflow-y-auto rounded-xl border border-neutral-200 bg-white p-7 sm:p-9 shadow-xl animate-in zoom-in-95 duration-150 text-neutral-900"
       >
         {/* Close Button */}
         <button
           type="button"
           onClick={onClose}
-          className="absolute right-5 top-5 rounded-lg p-1.5 text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-neutral-900"
-          aria-label="Close modal"
+          className="absolute right-5 top-5 p-1.5 text-neutral-400 transition-colors hover:text-neutral-900"
+          aria-label="Close"
         >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
             <path d="M18 6L6 18M6 6l12 12" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </button>
 
         {/* Header */}
-        <header className="border-b border-neutral-100 pb-5 pr-8">
-          <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-neutral-400">
-            Hiring & Candidate Summary
+        <header className="border-b border-neutral-200 pb-5 pr-8">
+          <p className="font-mono text-[11px] font-normal uppercase tracking-[0.08em] text-neutral-400">
+            Candidate Summary
           </p>
-          <h2 id="recruiter-modal-title" className="mt-1 text-2xl font-bold tracking-tight text-neutral-900">
+          <h2 id="recruiter-modal-title" className="mt-1 text-2xl font-semibold tracking-tight text-neutral-900">
             Ronie Pactol
           </h2>
-          <p className="mt-0.5 text-xs text-neutral-500">
-            Junior System Developer · Immediate Availability · Quezon City, Metro Manila
+          <p className="mt-1 text-sm font-normal text-neutral-600">
+            Junior Full Stack Developer · Laravel & Vue.js · Available Immediately (0 days notice)
           </p>
         </header>
 
-        {/* Structured Grid: 2 Columns */}
-        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {/* Column 1: Logistics & Status */}
-          <div className="rounded-xl border border-neutral-200 bg-neutral-50/50 p-4 space-y-3">
-            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.12em] text-neutral-400">
-              Employment Logistics
+        {/* Editorial Two-Column Information Table (No boxed containers) */}
+        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6">
+          {/* Availability & Requirements */}
+          <div>
+            <p className="font-mono text-[11px] font-normal uppercase tracking-[0.08em] text-neutral-400 pb-2 border-b border-neutral-200">
+              Availability & Hiring Details
             </p>
-            <div className="space-y-2.5 text-xs">
-              <div>
-                <span className="text-neutral-400 block text-[10px] uppercase font-mono">Notice Period</span>
-                <span className="font-semibold text-neutral-900">Available Immediately (0 days)</span>
+            <dl className="divide-y divide-neutral-100 text-sm">
+              <div className="py-2.5 flex items-baseline justify-between gap-3">
+                <dt className="text-neutral-500 font-normal text-xs shrink-0">Start Date</dt>
+                <dd className="text-neutral-900 font-normal text-right">Immediate (0 days notice)</dd>
               </div>
-              <div>
-                <span className="text-neutral-400 block text-[10px] uppercase font-mono">Work Setup</span>
-                <span className="font-semibold text-neutral-900">On-site (Metro Manila) or Hybrid</span>
+              <div className="py-2.5 flex items-baseline justify-between gap-3">
+                <dt className="text-neutral-500 font-normal text-xs shrink-0">Work Arrangement</dt>
+                <dd className="text-neutral-900 font-normal text-right">On-site (Metro Manila) / Hybrid</dd>
               </div>
-              <div>
-                <span className="text-neutral-400 block text-[10px] uppercase font-mono">Location</span>
-                <span className="font-semibold text-neutral-900">Balingasa, Quezon City, 1115</span>
+              <div className="py-2.5 flex items-baseline justify-between gap-3">
+                <dt className="text-neutral-500 font-normal text-xs shrink-0">Current Location</dt>
+                <dd className="text-neutral-900 font-normal text-right">Balingasa, Quezon City</dd>
               </div>
-              <div>
-                <span className="text-neutral-400 block text-[10px] uppercase font-mono">Government Requirements</span>
-                <span className="font-semibold text-neutral-900">SSS, PhilHealth, Pag-IBIG ready</span>
+              <div className="py-2.5 flex items-baseline justify-between gap-3">
+                <dt className="text-neutral-500 font-normal text-xs shrink-0">Govt Pre-employment</dt>
+                <dd className="text-neutral-900 font-normal text-right">SSS, PhilHealth, Pag-IBIG ready</dd>
               </div>
-            </div>
+            </dl>
           </div>
 
-          {/* Column 2: Engineering Fit */}
-          <div className="rounded-xl border border-neutral-200 bg-neutral-50/50 p-4 space-y-3">
-            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.12em] text-neutral-400">
-              Technical Experience
+          {/* Technical Qualifications */}
+          <div>
+            <p className="font-mono text-[11px] font-normal uppercase tracking-[0.08em] text-neutral-400 pb-2 border-b border-neutral-200">
+              Experience & Stack
             </p>
-            <div className="space-y-2.5 text-xs">
-              <div>
-                <span className="text-neutral-400 block text-[10px] uppercase font-mono">Primary Stack</span>
-                <span className="font-semibold text-neutral-900">Laravel, Vue.js, MySQL, PHP</span>
+            <dl className="divide-y divide-neutral-100 text-sm">
+              <div className="py-2.5 flex items-baseline justify-between gap-3">
+                <dt className="text-neutral-500 font-normal text-xs shrink-0">Core Technologies</dt>
+                <dd className="font-mono text-[13px] text-neutral-900 font-normal text-right">Laravel · Vue.js · MySQL</dd>
               </div>
-              <div>
-                <span className="text-neutral-400 block text-[10px] uppercase font-mono">Enterprise Experience</span>
-                <span className="font-semibold text-neutral-900">6 mos at Wilcon Depot (ERP APIs, Vouchers)</span>
+              <div className="py-2.5 flex items-baseline justify-between gap-3">
+                <dt className="text-neutral-500 font-normal text-xs shrink-0">Enterprise Work</dt>
+                <dd className="text-neutral-900 font-normal text-right">Wilcon Depot (6 mos)</dd>
               </div>
-              <div>
-                <span className="text-neutral-400 block text-[10px] uppercase font-mono">Live Production System</span>
-                <span className="font-semibold text-neutral-900">WOH Attendance Kiosk (Live since Mar 2025)</span>
+              <div className="py-2.5 flex items-baseline justify-between gap-3">
+                <dt className="text-neutral-500 font-normal text-xs shrink-0">Production System</dt>
+                <dd className="text-neutral-900 font-normal text-right">WOH Attendance Kiosk</dd>
               </div>
-              <div>
-                <span className="text-neutral-400 block text-[10px] uppercase font-mono">Education</span>
-                <span className="font-semibold text-neutral-900">BSIT — Access Computer College (2025)</span>
+              <div className="py-2.5 flex items-baseline justify-between gap-3">
+                <dt className="text-neutral-500 font-normal text-xs shrink-0">Degree</dt>
+                <dd className="text-neutral-900 font-normal text-right">BS Information Tech (2025)</dd>
               </div>
-            </div>
+            </dl>
           </div>
         </div>
 
-        {/* Forward to Hiring Manager Action */}
-        <div className="mt-5 rounded-xl border border-neutral-200 bg-white p-4">
+        {/* Copy for Hiring Team / Manager */}
+        <div className="mt-7 pt-4 border-t border-neutral-200">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
-              <p className="text-xs font-semibold text-neutral-900">Forward Candidate to Hiring Manager</p>
-              <p className="text-[11px] text-neutral-500 mt-0.5">
-                Copies a pre-formatted candidate blurb ready to paste into Slack, Teams, or Email.
+              <p className="text-sm font-medium text-neutral-900">Send candidate details to hiring manager</p>
+              <p className="text-xs font-normal text-neutral-500 mt-0.5">
+                Copies clean summary text ready to paste into Slack, Teams, or Email.
               </p>
             </div>
             <button
               type="button"
               onClick={copySummary}
-              className={`shrink-0 inline-flex items-center justify-center gap-1.5 rounded-lg px-4 py-2 text-xs font-semibold transition-all ${
+              className={`shrink-0 inline-flex items-center justify-center px-4 py-2 text-xs font-normal transition-all rounded ${
                 copied
                   ? 'bg-emerald-600 text-white'
                   : 'bg-neutral-900 text-white hover:bg-neutral-800'
               }`}
             >
-              {copied ? '✓ Copied to clipboard' : 'Copy summary for team'}
+              {copied ? '✓ Copied to clipboard' : 'Copy candidate text'}
             </button>
           </div>
         </div>
 
-        {/* Direct Contacts & Resume Links */}
-        <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-          <a
-            href={PORTFOLIO_IDENTITY.phoneTel}
-            className="flex items-center justify-between rounded-lg border border-neutral-200 p-3 text-xs font-semibold text-neutral-800 transition-colors hover:border-neutral-400 hover:bg-neutral-50"
-          >
-            <span>Call / Viber: {PORTFOLIO_IDENTITY.phone}</span>
-            <span className="font-mono text-[10px] text-neutral-400">Direct →</span>
-          </a>
-
-          <a
-            href={`mailto:${PORTFOLIO_IDENTITY.email}`}
-            className="flex items-center justify-between rounded-lg border border-neutral-200 p-3 text-xs font-semibold text-neutral-800 transition-colors hover:border-neutral-400 hover:bg-neutral-50"
-          >
-            <span>Email: {PORTFOLIO_IDENTITY.email}</span>
-            <span className="font-mono text-[10px] text-neutral-400">Send →</span>
-          </a>
-
+        {/* Direct Actions: Plain Hairline List */}
+        <div className="mt-6 border-t border-b border-neutral-200 divide-y divide-neutral-200 text-sm">
           <a
             href={PORTFOLIO_IDENTITY.resumeDocUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-between rounded-lg bg-neutral-900 p-3 text-xs font-semibold text-white transition-colors hover:bg-neutral-800"
+            className="group flex items-center justify-between py-2.5 font-normal text-neutral-800 transition-colors hover:text-neutral-950"
           >
-            <span>Resume (Live Google Doc)</span>
-            <span aria-hidden="true">↗</span>
+            <span className="group-hover:underline underline-offset-4">Open Resume (Live Google Doc)</span>
+            <span aria-hidden="true" className="font-mono text-xs text-neutral-400 group-hover:text-neutral-900">↗</span>
+          </a>
+
+          <a
+            href={`mailto:${PORTFOLIO_IDENTITY.email}`}
+            className="group flex items-center justify-between py-2.5 font-normal text-neutral-800 transition-colors hover:text-neutral-950"
+          >
+            <span className="group-hover:underline underline-offset-4">Email Ronie ({PORTFOLIO_IDENTITY.email})</span>
+            <span aria-hidden="true" className="font-mono text-xs text-neutral-400 group-hover:text-neutral-900">→</span>
+          </a>
+
+          <a
+            href={PORTFOLIO_IDENTITY.phoneTel}
+            className="group flex items-center justify-between py-2.5 font-normal text-neutral-800 transition-colors hover:text-neutral-950"
+          >
+            <span className="group-hover:underline underline-offset-4">Call / Viber ({PORTFOLIO_IDENTITY.phone})</span>
+            <span aria-hidden="true" className="font-mono text-xs text-neutral-400 group-hover:text-neutral-900">→</span>
           </a>
         </div>
 
         {/* Professional Reference */}
-        <div className="mt-5 border-t border-neutral-100 pt-4">
-          <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-neutral-400">
+        <div className="mt-5 pt-1">
+          <p className="font-mono text-[11px] font-normal uppercase tracking-[0.08em] text-neutral-400">
             Professional Reference
           </p>
-          <div className="mt-1 flex flex-col sm:flex-row sm:items-center justify-between text-xs gap-1">
-            <span className="font-medium text-neutral-900">
+          <div className="mt-1.5 flex flex-col sm:flex-row sm:items-center justify-between text-xs gap-1">
+            <span className="font-normal text-neutral-800">
               {PORTFOLIO_IDENTITY.reference.name} · {PORTFOLIO_IDENTITY.reference.role},{' '}
               <a
                 href={PORTFOLIO_IDENTITY.reference.companyUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:underline text-neutral-800 hover:text-neutral-950 font-semibold inline-flex items-center gap-0.5"
+                className="underline underline-offset-2 text-neutral-900 hover:text-neutral-950 font-normal inline-flex items-center gap-0.5"
               >
                 {PORTFOLIO_IDENTITY.reference.company}
                 <span aria-hidden="true" className="text-[10px] text-neutral-400">↗</span>

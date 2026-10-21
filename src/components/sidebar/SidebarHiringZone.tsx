@@ -38,7 +38,7 @@ export default function SidebarHiringZone() {
           onClick={() => setIsModalOpen(true)}
           className="group flex w-full items-center justify-between py-2.5 text-left font-normal text-neutral-800 transition-colors hover:text-neutral-950"
         >
-          <span className="group-hover:underline underline-offset-4">Recruiter Snapshot</span>
+          <span className="group-hover:underline underline-offset-4">Quick Candidate Summary</span>
           <span className="font-mono text-xs text-neutral-400 transition-transform duration-150 group-hover:translate-x-0.5 group-hover:text-neutral-900">
             →
           </span>
