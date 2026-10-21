@@ -32,12 +32,12 @@ export default function SidebarIdentity({ compact = false }: SidebarIdentityProp
 
   return (
     <>
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-3.5">
         {/* Clickable Profile Avatar */}
         <button
           type="button"
           onClick={() => setIsModalOpen(true)}
-          className="group relative h-20 w-20 shrink-0 overflow-hidden rounded-xl border border-neutral-200 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900"
+          className="group relative h-16 w-16 shrink-0 overflow-hidden rounded-lg border border-neutral-200 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900"
           title="Click to view full photo"
         >
           <img
@@ -48,17 +48,17 @@ export default function SidebarIdentity({ compact = false }: SidebarIdentityProp
             className="h-full w-full object-cover object-[center_42%] transition-transform duration-300 group-hover:scale-110"
           />
           <div className="absolute inset-0 flex items-center justify-center bg-neutral-950/40 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-white">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-white">
               <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </div>
         </button>
 
         <div className="min-w-0">
-          <h1 className="text-base font-bold text-neutral-900 leading-tight">
+          <h1 className="text-[17px] font-semibold tracking-tight text-neutral-900 leading-snug">
             {PORTFOLIO_IDENTITY.name}
           </h1>
-          <p className="mt-1 text-sm font-medium text-neutral-700 leading-snug">
+          <p className="mt-0.5 text-sm text-neutral-600 leading-snug">
             {PORTFOLIO_IDENTITY.role}
           </p>
           <p className="mt-1 font-mono text-xs text-neutral-500">

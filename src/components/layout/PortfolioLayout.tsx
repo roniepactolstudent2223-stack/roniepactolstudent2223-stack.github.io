@@ -16,7 +16,7 @@ function PortfolioContent({ children, projects }: Omit<PortfolioLayoutProps, 'pr
     <>
       <ScrollToTop />
 
-      <div className="hidden w-[280px] shrink-0 lg:block">
+      <div className="hidden w-[264px] shrink-0 lg:block">
         <LeftSidebar />
       </div>
 
@@ -24,7 +24,7 @@ function PortfolioContent({ children, projects }: Omit<PortfolioLayoutProps, 'pr
         {children}
       </main>
 
-      <div className="hidden w-[420px] shrink-0 overflow-y-auto border-l border-neutral-200 xl:block">
+      <div className="hidden w-[360px] shrink-0 overflow-y-auto xl:block">
         <DetailPanel projects={projects} />
       </div>
     </>
