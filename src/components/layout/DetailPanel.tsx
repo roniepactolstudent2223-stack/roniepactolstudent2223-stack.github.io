@@ -228,8 +228,8 @@ function AboutSidebar() {
           {[
             { k: 'Experience', v: '6 mos · Wilcon Depot' },
             { k: 'Education', v: 'BSIT · ACC 2025' },
-            { k: 'Location', v: 'Quezon City' },
-            { k: 'Status', v: 'Open to Junior roles' },
+            { k: 'Location', v: 'Balingasa, Quezon City' },
+            { k: 'Focus', v: 'Laravel · Vue.js · MySQL' },
           ].map(({ k, v }) => (
             <div key={k} className="flex items-center justify-between px-3.5 py-2.5 gap-3">
               <span className="text-xs font-medium text-neutral-500 shrink-0">{k}</span>
@@ -333,13 +333,13 @@ function ContactSidebar() {
     <aside className="sticky top-0 h-screen overflow-y-auto p-7 space-y-7 animate-in fade-in duration-200">
       <div>
         <p className="font-mono text-xs font-semibold uppercase tracking-wider text-neutral-600">
-          Availability & Location
+          Contact Details
         </p>
         <h2 className="mt-1.5 text-xl font-bold text-neutral-900">
-          Open to Opportunities
+          Direct Lines &amp; Location
         </h2>
         <p className="mt-2 text-sm leading-relaxed text-neutral-700">
-          Ready to contribute as a Full Stack Junior System Developer on Laravel and Vue.js teams.
+          Based in Quezon City. Reachable directly via mobile, Viber, or email.
         </p>
       </div>
 
@@ -353,10 +353,7 @@ function ContactSidebar() {
             <span className="font-semibold text-neutral-900 mt-1 block">{PORTFOLIO_IDENTITY.location}</span>
           </div>
           <div className="rounded-xl border border-neutral-200 p-3.5">
-            <div className="flex items-center justify-between">
-              <span className="text-neutral-500 block text-xs uppercase font-mono">Direct Line / Viber</span>
-              <span className="text-xs text-emerald-800 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full font-semibold">Available</span>
-            </div>
+            <span className="text-neutral-500 block text-xs uppercase font-mono">Direct Line / Viber</span>
             <a href="tel:+639931263221" className="text-base font-bold text-neutral-900 hover:underline mt-1 block">
               0993 126 3221
             </a>

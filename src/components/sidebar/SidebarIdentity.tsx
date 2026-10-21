@@ -61,9 +61,8 @@ export default function SidebarIdentity({ compact = false }: SidebarIdentityProp
           <p className="mt-1 text-sm font-medium text-neutral-700 leading-snug">
             {PORTFOLIO_IDENTITY.role}
           </p>
-          <p className="mt-1 flex items-center gap-1.5 text-xs font-medium text-emerald-700">
-            <span className="h-2 w-2 rounded-full bg-emerald-500 shrink-0" />
-            <span>Open to Full-Time</span>
+          <p className="mt-1 font-mono text-xs text-neutral-500">
+            Quezon City, PH
           </p>
         </div>
       </div>

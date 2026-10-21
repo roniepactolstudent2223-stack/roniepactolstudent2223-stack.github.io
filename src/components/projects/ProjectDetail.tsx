@@ -1,7 +1,8 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
+import gsap from 'gsap'
 import type { Project } from '@/lib/types'
 import ArchitectureDiagram from '@/components/projects/ArchitectureDiagram'
 import EngineeringDecisions from '@/components/projects/EngineeringDecisions'
@@ -280,8 +281,44 @@ const ATS_DATA: Record<string, ProjectAtsData> = {
 
 export default function ProjectDetail({ project }: ProjectDetailProps) {
   const [lightboxImage, setLightboxImage] = useState<string | null>(null)
+  const containerRef = useRef<HTMLElement>(null)
 
   const ats = ATS_DATA[project.slug]
+
+  useEffect(() => {
+    const el = containerRef.current
+    if (!el) return
+
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
+
+      tl.fromTo(
+        el.querySelectorAll('[data-detail-reveal]'),
+        { y: 24, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.5, stagger: 0.08 }
+      )
+        .fromTo(
+          el.querySelectorAll('[data-screenshot-card]'),
+          { y: 28, opacity: 0, scale: 0.98 },
+          { y: 0, opacity: 1, scale: 1, duration: 0.55, stagger: 0.09 },
+          '-=0.3'
+        )
+        .fromTo(
+          el.querySelectorAll('[data-ats-bullet]'),
+          { x: -16, opacity: 0 },
+          { x: 0, opacity: 1, duration: 0.4, stagger: 0.06 },
+          '-=0.25'
+        )
+        .fromTo(
+          el.querySelectorAll('[data-metric-card]'),
+          { y: 20, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.45, stagger: 0.07 },
+          '-=0.2'
+        )
+    }, containerRef)
+
+    return () => ctx.revert()
+  }, [project.slug])
 
   // Close lightbox on Escape key
   useEffect(() => {
@@ -299,9 +336,9 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
   }, [lightboxImage])
 
   return (
-    <article className="min-h-screen p-6 sm:p-10 max-w-4xl mx-auto">
+    <article ref={containerRef} className="min-h-screen p-6 sm:p-10 max-w-4xl mx-auto">
       {/* Back Button */}
-      <div className="mb-6">
+      <div className="mb-6" data-detail-reveal>
         <Link
           href="/projects"
           className="inline-flex items-center gap-1.5 text-sm font-medium text-neutral-500 hover:text-neutral-900 transition-colors"
@@ -311,22 +348,21 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
       </div>
 
       {/* Header */}
-      <header className="border-b border-neutral-200 pb-6">
+      <header className="border-b border-neutral-200 pb-6" data-detail-reveal>
         <div className="flex flex-wrap items-center gap-2 mb-3">
           <span className="rounded-full bg-neutral-900 px-3 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white">
             {project.category}
           </span>
-          <span className="text-xs font-mono text-neutral-400">
+          <span className="text-xs font-mono text-neutral-500">
             {project.year}
           </span>
           {project.slug === 'woh-attendance-system' && (
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-0.5 text-[10px] font-medium text-emerald-700 border border-emerald-200">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              Live in Production · Since March 2025
+            <span className="rounded-full bg-neutral-100 px-2.5 py-0.5 font-mono text-[11px] font-medium text-neutral-700">
+              In production since March 2025
             </span>
           )}
           {project.slug === 'wordpress-ph-community' && (
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-2.5 py-0.5 text-[10px] font-medium text-blue-700 border border-blue-200">
+            <span className="rounded-full bg-blue-50 px-2.5 py-0.5 text-[11px] font-medium text-blue-700 border border-blue-200">
               2025 Attendee → 2026 Volunteer
             </span>
           )}
@@ -387,12 +423,12 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
 
       {/* Visual Evidence Showcase — ALL AT ONCE (No clunky tab switcher) */}
       {project.images.length > 0 && (
-        <section className="mt-8">
+        <section className="mt-8" data-detail-reveal>
           <div className="mb-4 flex items-baseline justify-between border-b border-neutral-200 pb-2">
-            <h2 className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-neutral-400">
+            <h2 className="font-mono text-xs font-semibold uppercase tracking-[0.12em] text-neutral-500">
               Production Screenshots &amp; Visual Evidence
             </h2>
-            <span className="font-mono text-[10px] text-neutral-400">
+            <span className="font-mono text-xs text-neutral-500">
               Click photo to enlarge
             </span>
           </div>
@@ -413,8 +449,9 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
               return (
                 <div
                   key={index}
+                  data-screenshot-card
                   onClick={() => setLightboxImage(src)}
-                  className="group cursor-pointer rounded-xl border border-neutral-200 bg-white p-2.5 transition-all hover:border-neutral-400 hover:shadow-md"
+                  className="group cursor-pointer rounded-xl border border-neutral-200 bg-white p-2.5 transition-all duration-300 hover:-translate-y-1 hover:border-neutral-900 hover:shadow-lg"
                 >
                   <div className={`aspect-[16/10] overflow-hidden rounded-lg flex items-center justify-center ${project.slug === 'wilcon-collection-deposit-report' || project.slug === 'wilcon-month-end-closing' ? 'bg-white' : 'bg-neutral-100'}`}>
                     <img
@@ -430,7 +467,7 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
                       {caption.title}
                     </h3>
                     {caption.description && (
-                      <p className="mt-1 text-[11px] leading-relaxed text-neutral-500">
+                      <p className="mt-1 text-xs leading-relaxed text-neutral-600">
                         {caption.description}
                       </p>
                     )}
@@ -444,20 +481,17 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
 
       {/* ATS Key Contributions & Measurable Results (STAR Format) */}
       {ats?.bullets && (
-        <section className="mt-10 rounded-2xl border border-neutral-200 bg-neutral-50/70 p-6 sm:p-7">
+        <section className="mt-10 rounded-2xl border border-neutral-200 bg-neutral-50/70 p-6 sm:p-7" data-detail-reveal>
           <div className="flex items-center justify-between border-b border-neutral-200 pb-3 mb-5">
-            <h2 className="font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-neutral-500">
+            <h2 className="font-mono text-xs font-bold uppercase tracking-[0.12em] text-neutral-600">
               Key Contributions &amp; Measurable Results (ATS Summary)
             </h2>
-            <span className="rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-semibold px-2.5 py-0.5">
-              Production Verified
-            </span>
           </div>
 
-          <ul className="space-y-4 text-xs sm:text-sm">
+          <ul className="space-y-4 text-sm">
             {ats.bullets.map((bullet) => (
-              <li key={bullet.title} className="flex items-start gap-3">
-                <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-neutral-900 shrink-0" />
+              <li key={bullet.title} data-ats-bullet className="flex items-start gap-3">
+                <span className="mt-2 h-1.5 w-1.5 rounded-full bg-neutral-900 shrink-0" />
                 <div className="leading-relaxed text-neutral-700">
                   <strong className="font-semibold text-neutral-900">{bullet.title}: </strong>
                   {bullet.description}
@@ -474,12 +508,13 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
           {ats.metrics.map((m) => (
             <div
               key={m.label}
-              className="rounded-xl border border-neutral-200 bg-white p-4 text-center sm:text-left shadow-xs"
+              data-metric-card
+              className="rounded-xl border border-neutral-200 bg-white p-4 text-center sm:text-left transition-all duration-200 hover:-translate-y-0.5 hover:border-neutral-900 hover:shadow-sm"
             >
               <p className="font-mono text-xl sm:text-2xl font-bold text-neutral-900">
                 {m.value}
               </p>
-              <p className="font-mono text-[10px] uppercase tracking-wider text-neutral-400 mt-1">
+              <p className="font-mono text-xs uppercase tracking-wider text-neutral-500 mt-1">
                 {m.label}
               </p>
             </div>

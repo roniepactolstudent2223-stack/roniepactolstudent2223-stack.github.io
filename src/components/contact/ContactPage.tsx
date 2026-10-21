@@ -82,12 +82,9 @@ Resume PDF: https://roniepactolstudent2223-stack.github.io/resume.pdf`
         <section className="mt-10 rounded-2xl border border-neutral-200 bg-neutral-50/80 p-6 sm:p-7" data-reveal>
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-5">
             <div className="space-y-1">
-              <div className="flex items-center gap-2">
-                <span className="inline-flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-                <span className="text-[10px] font-mono uppercase tracking-[0.1em] text-neutral-500 font-semibold">
-                  Phone & Viber · Available for Calls
-                </span>
-              </div>
+              <span className="text-xs font-mono uppercase tracking-[0.1em] text-neutral-500 font-semibold">
+                Direct Mobile &amp; Viber
+              </span>
               <h2 className="text-2xl font-bold tracking-tight text-neutral-900">
                 0993 126 3221
               </h2>

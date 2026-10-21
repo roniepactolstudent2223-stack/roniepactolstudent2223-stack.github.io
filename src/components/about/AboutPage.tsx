@@ -17,23 +17,28 @@ const FACTS = [
   { label: 'Experience', value: '6 months at Wilcon Depot, Inc.' },
   { label: 'Education', value: 'BSIT — Access Computer College, 2025' },
   { label: 'Based in', value: 'Balingasa, Quezon City' },
-  { label: 'Status', value: 'Open to Junior Developer roles' },
+  { label: 'Core Stack', value: 'Laravel · Vue.js · PHP · MySQL' },
 ]
 
 const BUILT = [
   {
     name: 'WOH Attendance System',
-    detail: 'QR check-in + pastoral care system. Laravel + Vue.js. Live in production since Mar 2025.',
+    detail: 'QR check-in + pastoral care system. Laravel + Vue.js. In use every Sunday since Mar 2025.',
     href: '/projects/woh-attendance-system',
   },
   {
-    name: 'Wilcon Internal Tools',
-    detail: 'Enterprise web apps for a leading PH retailer. PHP, Laravel, Vue.js, Infor M3 ERP integration.',
-    href: '/projects/wilcon-enterprise-systems',
+    name: 'Wilcon Month-End Closing System',
+    detail: 'Centralized monthly accounting close for Wilcon Finance: Infor M3 COA sync, validation, 2-step approval, and live GL balances.',
+    href: '/projects/wilcon-month-end-closing',
+  },
+  {
+    name: 'Wilcon Collection & Deposit Report',
+    detail: 'Treasury report modification in WBI Reports & Omnibus: check drill-down, cash/check filters, PDF/Excel export, and Branch column.',
+    href: '/projects/wilcon-collection-deposit-report',
   },
   {
     name: 'WordPress PH Community',
-    detail: 'Volunteer photographer documenting local WordCamps and developer meetups since 2025.',
+    detail: 'Volunteer photographer documenting local developer meetups and workshops since 2025.',
     href: '/projects/wordpress-ph-community',
   },
 ]
@@ -45,14 +50,17 @@ export default function AboutPage() {
     const el = containerRef.current
     if (!el) return
     const ctx = gsap.context(() => {
-      gsap.from(el.querySelectorAll('[data-reveal]'), {
-        y: 20,
-        opacity: 0,
-        duration: 0.55,
-        stagger: 0.08,
-        ease: 'power2.out',
-        delay: 0.05,
-      })
+      gsap.fromTo(
+        el.querySelectorAll('[data-reveal]'),
+        { y: 26, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.55,
+          stagger: 0.08,
+          ease: 'power3.out',
+        }
+      )
     }, el)
     return () => ctx.revert()
   }, [])
@@ -63,26 +71,26 @@ export default function AboutPage() {
 
         {/* Identity block */}
         <header data-reveal>
-          <p className="mb-4 font-mono text-[10px] uppercase tracking-[0.15em] text-neutral-400">
+          <p className="mb-4 font-mono text-xs uppercase tracking-[0.15em] text-neutral-500">
             About
           </p>
           <h1 className="text-4xl font-bold tracking-tight text-neutral-900 sm:text-5xl">
             Ronie Pactol
           </h1>
-          <p className="mt-2 text-lg text-neutral-500">
+          <p className="mt-2 text-lg text-neutral-600">
             Full Stack Junior System Developer · Laravel, Vue.js, MySQL
           </p>
         </header>
 
         {/* Facts grid */}
         <section data-reveal>
-          <p className="mb-5 font-mono text-[10px] uppercase tracking-[0.15em] text-neutral-400">
+          <p className="mb-5 font-mono text-xs uppercase tracking-[0.15em] text-neutral-500">
             Profile
           </p>
           <dl className="grid grid-cols-1 gap-px bg-neutral-200 border border-neutral-200 rounded-xl overflow-hidden sm:grid-cols-2">
             {FACTS.map((fact) => (
-              <div key={fact.label} className="bg-white px-5 py-4">
-                <dt className="font-mono text-[10px] uppercase tracking-[0.12em] text-neutral-400">
+              <div key={fact.label} className="bg-white px-5 py-4 transition-colors duration-200 hover:bg-neutral-50">
+                <dt className="font-mono text-xs uppercase tracking-[0.12em] text-neutral-500">
                   {fact.label}
                 </dt>
                 <dd className="mt-1 text-sm font-semibold text-neutral-900">
@@ -90,8 +98,8 @@ export default function AboutPage() {
                 </dd>
               </div>
             ))}
-            <div className="bg-white px-5 py-4">
-              <dt className="font-mono text-[10px] uppercase tracking-[0.12em] text-neutral-400">Contact</dt>
+            <div className="bg-white px-5 py-4 transition-colors duration-200 hover:bg-neutral-50">
+              <dt className="font-mono text-xs uppercase tracking-[0.12em] text-neutral-500">Contact</dt>
               <dd className="mt-1 text-sm font-semibold text-neutral-900">
                 <a href={PORTFOLIO_IDENTITY.phoneTel} className="hover:underline">{PORTFOLIO_IDENTITY.phone}</a>
                 {' · '}
@@ -103,13 +111,13 @@ export default function AboutPage() {
 
         {/* Stack */}
         <section data-reveal>
-          <p className="mb-5 font-mono text-[10px] uppercase tracking-[0.15em] text-neutral-400">
+          <p className="mb-5 font-mono text-xs uppercase tracking-[0.15em] text-neutral-500">
             Stack
           </p>
           <div className="grid grid-cols-2 gap-5 sm:grid-cols-4">
             {STACK.map((col) => (
               <div key={col.group}>
-                <p className="mb-2.5 font-mono text-[10px] uppercase tracking-[0.1em] text-neutral-400">
+                <p className="mb-2.5 font-mono text-xs uppercase tracking-[0.1em] text-neutral-500">
                   {col.group}
                 </p>
                 <ul className="space-y-1.5">
@@ -126,27 +134,27 @@ export default function AboutPage() {
 
         {/* What I've built */}
         <section data-reveal>
-          <p className="mb-5 font-mono text-[10px] uppercase tracking-[0.15em] text-neutral-400">
+          <p className="mb-5 font-mono text-xs uppercase tracking-[0.15em] text-neutral-500">
             What I&apos;ve built
           </p>
-          <div className="space-y-px border border-neutral-200 rounded-xl overflow-hidden">
+          <div className="space-y-px border border-neutral-200 rounded-xl overflow-hidden bg-neutral-200">
             {BUILT.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className="group flex items-start justify-between gap-6 bg-white px-5 py-5 transition-colors hover:bg-neutral-50"
+                className="group flex items-start justify-between gap-6 bg-white px-5 py-5 transition-all duration-200 hover:bg-neutral-50"
               >
-                <div>
+                <div className="transition-transform duration-200 group-hover:translate-x-1">
                   <p className="text-sm font-semibold text-neutral-900 group-hover:underline">
                     {item.name}
                   </p>
-                  <p className="mt-1 text-xs leading-relaxed text-neutral-500">
+                  <p className="mt-1 text-xs leading-relaxed text-neutral-600">
                     {item.detail}
                   </p>
                 </div>
                 <span
                   aria-hidden="true"
-                  className="mt-0.5 shrink-0 text-neutral-300 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:text-neutral-900"
+                  className="mt-0.5 shrink-0 text-neutral-400 transition-transform duration-200 group-hover:translate-x-1 group-hover:text-neutral-900"
                 >
                   →
                 </span>
@@ -160,10 +168,10 @@ export default function AboutPage() {
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="text-sm font-semibold text-neutral-900">
-                Open to full-time Junior Developer roles
+                Resume &amp; Direct Contact
               </p>
-              <p className="mt-0.5 text-xs text-neutral-500">
-                Available now · Balingasa, Quezon City
+              <p className="mt-0.5 text-xs text-neutral-600">
+                Balingasa, Quezon City · {PORTFOLIO_IDENTITY.phone}
               </p>
             </div>
             <div className="flex items-center gap-3">
@@ -171,15 +179,15 @@ export default function AboutPage() {
                 href={PORTFOLIO_IDENTITY.resumeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-lg border border-neutral-300 px-4 py-2 text-xs font-semibold text-neutral-800 transition-colors hover:bg-neutral-50"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-neutral-300 px-4 py-2 text-xs font-semibold text-neutral-800 transition-all duration-200 hover:-translate-y-0.5 hover:bg-neutral-50"
               >
-                Resume ↗
+                Resume PDF ↗
               </a>
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-1.5 rounded-lg bg-neutral-900 px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-neutral-800"
+                className="inline-flex items-center gap-1.5 rounded-lg bg-neutral-900 px-4 py-2 text-xs font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-neutral-800"
               >
-                Get in touch →
+                Contact details →
               </Link>
             </div>
           </div>

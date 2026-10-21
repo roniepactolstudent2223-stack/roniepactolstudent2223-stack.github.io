@@ -1,7 +1,8 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
+import gsap from 'gsap'
 import type { Project } from '@/lib/types'
 import { PORTFOLIO_IDENTITY } from '@/lib/portfolio-config'
 
@@ -10,9 +11,23 @@ interface ContextPanelProps {
 }
 
 export default function ContextPanel({ projects }: ContextPanelProps) {
+  const panelRef = useRef<HTMLElement>(null)
   const [currentProject, setCurrentProject] = useState<Project | undefined>(undefined)
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [copiedSummary, setCopiedSummary] = useState(false)
+
+  useEffect(() => {
+    const el = panelRef.current
+    if (!el) return
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        el.querySelectorAll('[data-panel-reveal]'),
+        { y: 18, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.45, stagger: 0.06, ease: 'power2.out' }
+      )
+    }, panelRef)
+    return () => ctx.revert()
+  }, [])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -66,26 +81,21 @@ export default function ContextPanel({ projects }: ContextPanelProps) {
   }
 
   return (
-    <aside className="sticky top-0 h-screen overflow-y-auto p-7 space-y-7">
-      {/* ATS Candidate Dossier — High contrast, readable */}
-      <div>
-        <div className="flex items-center justify-between">
-          <p className="font-mono text-xs font-semibold uppercase tracking-wider text-neutral-600">
-            ATS Candidate Dossier
-          </p>
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-0.5 text-xs font-semibold text-emerald-800 border border-emerald-200">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-            Ready to Hire
-          </span>
-        </div>
+    <aside ref={panelRef} className="sticky top-0 h-screen overflow-y-auto p-7 space-y-7">
+      {/* Technical Profile — Factual details only */}
+      <div data-panel-reveal>
+        <p className="font-mono text-xs font-semibold uppercase tracking-wider text-neutral-600">
+          Candidate Details
+        </p>
 
-        <dl className="mt-4 divide-y divide-neutral-200 rounded-xl border border-neutral-200 bg-white text-sm">
+        <dl className="mt-3 divide-y divide-neutral-200 rounded-xl border border-neutral-200 bg-white text-sm">
           {[
-            { k: 'Target Role', v: 'Junior Full-Stack / Laravel Developer' },
+            { k: 'Role', v: 'Junior System Developer' },
             { k: 'Primary Stack', v: 'Laravel · Vue.js · PHP · MySQL' },
+            { k: 'ERP Integration', v: 'Infor M3 APIs' },
             { k: 'Experience', v: 'Wilcon Depot, Inc. (6 mos)' },
             { k: 'Education', v: 'BSIT · Access Computer College (2025)' },
-            { k: 'Location', v: 'Quezon City · On-site / Hybrid' },
+            { k: 'Location', v: 'Balingasa, Quezon City' },
           ].map(({ k, v }) => (
             <div key={k} className="flex items-baseline justify-between gap-4 px-3.5 py-2.5">
               <dt className="text-xs font-medium text-neutral-500 shrink-0">{k}</dt>
@@ -98,15 +108,15 @@ export default function ContextPanel({ projects }: ContextPanelProps) {
         <button
           type="button"
           onClick={handleCopyAts}
-          className="mt-3 flex w-full items-center justify-between rounded-lg border border-neutral-300 bg-neutral-50 px-3.5 py-2.5 text-sm font-semibold text-neutral-900 transition-colors hover:border-neutral-900 hover:bg-neutral-100"
+          className="mt-3 flex w-full items-center justify-between rounded-lg border border-neutral-300 bg-neutral-50 px-3.5 py-2.5 text-sm font-semibold text-neutral-900 transition-all duration-200 hover:-translate-y-0.5 hover:border-neutral-900 hover:bg-neutral-100 hover:shadow-sm"
         >
-          <span>{copiedSummary ? '✓ Copied ATS Summary to Clipboard' : 'Copy ATS Candidate Summary'}</span>
+          <span>{copiedSummary ? '✓ Copied Summary to Clipboard' : 'Copy ATS Candidate Summary'}</span>
           <span className="font-mono text-xs text-neutral-500">{copiedSummary ? 'Done' : 'Copy'}</span>
         </button>
       </div>
 
       {/* Currently Viewing Project (when scrolling) OR Production Systems Jump List */}
-      <div className="border-t border-neutral-200 pt-6">
+      <div data-panel-reveal className="border-t border-neutral-200 pt-6">
         {currentProject ? (
           <div className={`space-y-4 transition-opacity duration-150 ${isTransitioning ? 'opacity-50' : 'opacity-100'}`}>
             <div className="flex items-center justify-between">
@@ -161,7 +171,7 @@ export default function ContextPanel({ projects }: ContextPanelProps) {
                 {
                   slug: 'woh-attendance-system',
                   title: 'WOH Attendance System',
-                  org: 'Word of Hope Caloocan · Live since Mar 2025',
+                  org: 'Word of Hope Caloocan · Since Mar 2025',
                 },
                 {
                   slug: 'wilcon-month-end-closing',
@@ -177,13 +187,13 @@ export default function ContextPanel({ projects }: ContextPanelProps) {
                 <Link
                   key={item.slug}
                   href={`/projects/${item.slug}`}
-                  className="group block rounded-xl border border-neutral-200 bg-white p-3.5 transition-colors hover:border-neutral-900 hover:bg-neutral-50"
+                  className="group block rounded-xl border border-neutral-200 bg-white p-3.5 transition-all duration-200 hover:-translate-y-0.5 hover:border-neutral-900 hover:bg-neutral-50 hover:shadow-sm"
                 >
                   <div className="flex items-center justify-between gap-2">
                     <span className="text-sm font-semibold text-neutral-900 group-hover:underline">
                       {item.title}
                     </span>
-                    <span className="text-xs text-neutral-400 group-hover:text-neutral-900">→</span>
+                    <span className="text-xs text-neutral-400 transition-transform duration-200 group-hover:translate-x-1 group-hover:text-neutral-900">→</span>
                   </div>
                   <p className="mt-0.5 text-xs text-neutral-600">{item.org}</p>
                 </Link>
@@ -194,9 +204,9 @@ export default function ContextPanel({ projects }: ContextPanelProps) {
       </div>
 
       {/* Direct Recruiter Contact & Reference */}
-      <div className="border-t border-neutral-200 pt-6 space-y-3">
+      <div data-panel-reveal className="border-t border-neutral-200 pt-6 space-y-3">
         <p className="font-mono text-xs font-semibold uppercase tracking-wider text-neutral-600">
-          Direct Contact & Reference
+          Direct Contact &amp; Reference
         </p>
         <div className="rounded-xl border border-neutral-200 bg-white p-3.5 space-y-2 text-sm">
           <div className="flex items-center justify-between">
