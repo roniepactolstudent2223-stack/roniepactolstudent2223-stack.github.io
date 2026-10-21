@@ -1,7 +1,9 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
 import type { Project } from '@/lib/types'
+import { PORTFOLIO_IDENTITY } from '@/lib/portfolio-config'
 
 interface ContextPanelProps {
   projects: Project[]
@@ -10,6 +12,7 @@ interface ContextPanelProps {
 export default function ContextPanel({ projects }: ContextPanelProps) {
   const [currentProject, setCurrentProject] = useState<Project | undefined>(undefined)
   const [isTransitioning, setIsTransitioning] = useState(false)
+  const [copiedSummary, setCopiedSummary] = useState(false)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -42,114 +45,189 @@ export default function ContextPanel({ projects }: ContextPanelProps) {
     }
   }, [projects, currentProject?.slug])
 
+  const handleCopyAts = () => {
+    const text = [
+      `CANDIDATE: ${PORTFOLIO_IDENTITY.name}`,
+      `ROLE: ${PORTFOLIO_IDENTITY.role}`,
+      `STACK: Laravel, Vue.js, PHP, MySQL, Infor M3 ERP APIs, REST APIs, Git`,
+      `EXPERIENCE: Full Stack Junior System Developer at Wilcon Depot, Inc. (6 mos, May–Oct 2026)`,
+      `EDUCATION: BS Information Technology — Access Computer College (2025)`,
+      `PRODUCTION SYSTEMS:`,
+      `• WOH Attendance System (Word of Hope Caloocan, live since Mar 2025)`,
+      `• Month-End Closing System (Wilcon Depot Finance)`,
+      `• Collection and Deposit Report Modification (Wilcon Depot Treasury)`,
+      `CONTACT: ${PORTFOLIO_IDENTITY.phone} | ${PORTFOLIO_IDENTITY.email} | Quezon City`,
+      `REFERENCE: ${PORTFOLIO_IDENTITY.reference.name} (${PORTFOLIO_IDENTITY.reference.role}, ${PORTFOLIO_IDENTITY.reference.company}) — ${PORTFOLIO_IDENTITY.reference.phone}`,
+    ].join('\n')
+
+    navigator.clipboard.writeText(text)
+    setCopiedSummary(true)
+    setTimeout(() => setCopiedSummary(false), 2000)
+  }
+
   return (
-    <aside className="sticky top-0 h-screen overflow-y-auto border-l border-neutral-200 p-8">
-      <div className="mb-8">
-        <h3 className="text-xs uppercase tracking-wider text-neutral-500 mb-4">
-          Context
-        </h3>
+    <aside className="sticky top-0 h-screen overflow-y-auto p-7 space-y-7">
+      {/* ATS Candidate Dossier — High contrast, readable */}
+      <div>
+        <div className="flex items-center justify-between">
+          <p className="font-mono text-xs font-semibold uppercase tracking-wider text-neutral-600">
+            ATS Candidate Dossier
+          </p>
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-0.5 text-xs font-semibold text-emerald-800 border border-emerald-200">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+            Ready to Hire
+          </span>
+        </div>
+
+        <dl className="mt-4 divide-y divide-neutral-200 rounded-xl border border-neutral-200 bg-white text-sm">
+          {[
+            { k: 'Target Role', v: 'Junior Full-Stack / Laravel Developer' },
+            { k: 'Primary Stack', v: 'Laravel · Vue.js · PHP · MySQL' },
+            { k: 'Experience', v: 'Wilcon Depot, Inc. (6 mos)' },
+            { k: 'Education', v: 'BSIT · Access Computer College (2025)' },
+            { k: 'Location', v: 'Quezon City · On-site / Hybrid' },
+          ].map(({ k, v }) => (
+            <div key={k} className="flex items-baseline justify-between gap-4 px-3.5 py-2.5">
+              <dt className="text-xs font-medium text-neutral-500 shrink-0">{k}</dt>
+              <dd className="text-sm font-semibold text-neutral-900 text-right">{v}</dd>
+            </div>
+          ))}
+        </dl>
+
+        {/* One-Click Copy ATS Summary */}
+        <button
+          type="button"
+          onClick={handleCopyAts}
+          className="mt-3 flex w-full items-center justify-between rounded-lg border border-neutral-300 bg-neutral-50 px-3.5 py-2.5 text-sm font-semibold text-neutral-900 transition-colors hover:border-neutral-900 hover:bg-neutral-100"
+        >
+          <span>{copiedSummary ? '✓ Copied ATS Summary to Clipboard' : 'Copy ATS Candidate Summary'}</span>
+          <span className="font-mono text-xs text-neutral-500">{copiedSummary ? 'Done' : 'Copy'}</span>
+        </button>
+      </div>
+
+      {/* Currently Viewing Project (when scrolling) OR Production Systems Jump List */}
+      <div className="border-t border-neutral-200 pt-6">
         {currentProject ? (
-          <div className={`space-y-6 transition-opacity duration-150 ${isTransitioning ? 'opacity-50' : 'opacity-100'}`}>
-            <div>
-              <p className="text-sm font-medium text-neutral-900">
-                Currently viewing
+          <div className={`space-y-4 transition-opacity duration-150 ${isTransitioning ? 'opacity-50' : 'opacity-100'}`}>
+            <div className="flex items-center justify-between">
+              <p className="font-mono text-xs font-semibold uppercase tracking-wider text-neutral-600">
+                Currently Viewing
               </p>
-              <p className="mt-1 text-sm text-neutral-600">
+              <Link
+                href={`/projects/${currentProject.slug}`}
+                className="text-xs font-semibold text-neutral-900 underline underline-offset-4"
+              >
+                Open case study →
+              </Link>
+            </div>
+
+            <div className="rounded-xl border border-neutral-200 bg-neutral-50/70 p-4 space-y-3">
+              <h3 className="text-base font-bold text-neutral-900">
                 {currentProject.title}
+              </h3>
+              {currentProject.client && (
+                <p className="text-sm font-medium text-neutral-700">
+                  {currentProject.client}
+                </p>
+              )}
+              <p className="text-sm leading-relaxed text-neutral-600">
+                {currentProject.description}
               </p>
-            </div>
-
-            <div>
-              <p className="text-sm font-medium text-neutral-900">
-                Role
-              </p>
-              <p className="mt-1 text-sm text-neutral-600">
-                {currentProject.role}
-              </p>
-            </div>
-
-            <div>
-              <p className="text-sm font-medium text-neutral-900">
-                Tools & technologies
-              </p>
-              <div className="mt-2 flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-1.5 pt-1">
                 {currentProject.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="text-xs bg-neutral-100 px-2 py-1 text-neutral-600"
+                    className="rounded-md border border-neutral-200 bg-white px-2.5 py-1 font-mono text-xs font-medium text-neutral-800"
                   >
                     {tag}
                   </span>
                 ))}
               </div>
             </div>
-
-            {currentProject.client && (
-              <div>
-                <p className="text-sm font-medium text-neutral-900">
-                  Client
-                </p>
-                <p className="mt-1 text-sm text-neutral-600">
-                  {currentProject.client}
-                </p>
-              </div>
-            )}
-
-            {currentProject.url && (
-              <div>
-                <a
-                  href={currentProject.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-neutral-600 underline hover:text-neutral-900"
-                >
-                  View live project →
-                </a>
-              </div>
-            )}
           </div>
         ) : (
-          <div className="space-y-6">
-            <p className="text-xs text-neutral-500 leading-relaxed">
-              Scroll through the projects in the center column to see live details and tech stack breakdown.
-            </p>
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-wider text-neutral-900 mb-2">
-                About Ronie
+          <div className="space-y-3">
+            <div className="flex items-baseline justify-between">
+              <p className="font-mono text-xs font-semibold uppercase tracking-wider text-neutral-600">
+                Production Systems
               </p>
-              <p className="text-xs text-neutral-600 leading-relaxed">
-                Junior System Developer at Wilcon Depot, Inc. specializing in Laravel and Vue.js. Access Computer College IT graduate (2025).
-              </p>
+              <Link href="/projects" className="text-xs font-semibold text-neutral-900 hover:underline">
+                View all →
+              </Link>
             </div>
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-wider text-neutral-900 mb-2">
-                Community & Volunteering
-              </p>
-              <p className="text-xs text-neutral-600 leading-relaxed">
-                Active member and volunteer photographer for WordPress Philippines meetups (2025 attendee → 2026 volunteer).
-              </p>
+
+            <div className="space-y-2">
+              {[
+                {
+                  slug: 'woh-attendance-system',
+                  title: 'WOH Attendance System',
+                  org: 'Word of Hope Caloocan · Live since Mar 2025',
+                },
+                {
+                  slug: 'wilcon-month-end-closing',
+                  title: 'Month-End Closing System',
+                  org: 'Wilcon Depot · Finance Department',
+                },
+                {
+                  slug: 'wilcon-collection-deposit-report',
+                  title: 'Collection & Deposit Report',
+                  org: 'Wilcon Depot · Treasury Department',
+                },
+              ].map((item) => (
+                <Link
+                  key={item.slug}
+                  href={`/projects/${item.slug}`}
+                  className="group block rounded-xl border border-neutral-200 bg-white p-3.5 transition-colors hover:border-neutral-900 hover:bg-neutral-50"
+                >
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-sm font-semibold text-neutral-900 group-hover:underline">
+                      {item.title}
+                    </span>
+                    <span className="text-xs text-neutral-400 group-hover:text-neutral-900">→</span>
+                  </div>
+                  <p className="mt-0.5 text-xs text-neutral-600">{item.org}</p>
+                </Link>
+              ))}
             </div>
           </div>
         )}
       </div>
 
-      <div className="border-t border-neutral-200 pt-6">
-        <h3 className="text-xs uppercase tracking-wider text-neutral-500 mb-3">
-          Key Highlights
-        </h3>
-        <div className="space-y-2 text-xs text-neutral-600">
-          <p className="flex items-center gap-2">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-            101+ members on WOH system
-          </p>
-          <p className="flex items-center gap-2">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-            Live production since March 2025
-          </p>
-          <p className="flex items-center gap-2">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-            WordPress PH Event Volunteer
-          </p>
+      {/* Direct Recruiter Contact & Reference */}
+      <div className="border-t border-neutral-200 pt-6 space-y-3">
+        <p className="font-mono text-xs font-semibold uppercase tracking-wider text-neutral-600">
+          Direct Contact & Reference
+        </p>
+        <div className="rounded-xl border border-neutral-200 bg-white p-3.5 space-y-2 text-sm">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-medium text-neutral-500">Phone / Viber</span>
+            <a href={PORTFOLIO_IDENTITY.phoneTel} className="font-semibold text-neutral-900 hover:underline">
+              {PORTFOLIO_IDENTITY.phone}
+            </a>
+          </div>
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-medium text-neutral-500">Email</span>
+            <a href={`mailto:${PORTFOLIO_IDENTITY.email}`} className="font-semibold text-neutral-900 hover:underline">
+              {PORTFOLIO_IDENTITY.email}
+            </a>
+          </div>
+          <div className="border-t border-neutral-100 pt-2 mt-2">
+            <p className="text-xs font-medium text-neutral-500">Professional Reference</p>
+            <p className="text-sm font-semibold text-neutral-900 mt-0.5">
+              {PORTFOLIO_IDENTITY.reference.name}
+            </p>
+            <p className="text-xs text-neutral-600">
+              {PORTFOLIO_IDENTITY.reference.role} ·{' '}
+              <a
+                href={PORTFOLIO_IDENTITY.reference.companyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:text-neutral-900"
+              >
+                {PORTFOLIO_IDENTITY.reference.company}
+              </a>
+            </p>
+          </div>
         </div>
       </div>
     </aside>

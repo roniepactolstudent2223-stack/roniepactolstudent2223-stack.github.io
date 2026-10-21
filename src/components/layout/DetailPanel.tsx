@@ -1,88 +1,208 @@
 'use client'
 
+import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import ContextPanel from '@/components/projects/ContextPanel'
-import { PORTFOLIO_IDENTITY } from '@/lib/portfolio-config'
+import { PORTFOLIO_IDENTITY, PROJECT_INDEX } from '@/lib/portfolio-config'
 import type { Project } from '@/lib/types'
 
 interface DetailPanelProps {
   projects: Project[]
 }
 
-function WorkSidebar() {
+function CopyAtsButton() {
+  const [copied, setCopied] = useState(false)
+
+  const handleCopy = () => {
+    const text = [
+      `CANDIDATE: ${PORTFOLIO_IDENTITY.name}`,
+      `ROLE: ${PORTFOLIO_IDENTITY.role}`,
+      `STACK: Laravel, Vue.js, PHP, MySQL, Infor M3 ERP APIs, REST APIs, Git`,
+      `EXPERIENCE: Full Stack Junior System Developer at Wilcon Depot, Inc. (6 mos, May–Oct 2026)`,
+      `EDUCATION: BS Information Technology — Access Computer College (2025)`,
+      `PRODUCTION SYSTEMS:`,
+      `• WOH Attendance System (Word of Hope Caloocan, live since Mar 2025)`,
+      `• Month-End Closing System (Wilcon Depot Finance)`,
+      `• Collection and Deposit Report Modification (Wilcon Depot Treasury)`,
+      `CONTACT: ${PORTFOLIO_IDENTITY.phone} | ${PORTFOLIO_IDENTITY.email} | Quezon City`,
+      `REFERENCE: ${PORTFOLIO_IDENTITY.reference.name} (${PORTFOLIO_IDENTITY.reference.role}, ${PORTFOLIO_IDENTITY.reference.company}) — ${PORTFOLIO_IDENTITY.reference.phone}`,
+    ].join('\n')
+
+    navigator.clipboard.writeText(text)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
+
   return (
-    <aside className="sticky top-0 h-screen overflow-y-auto p-8 space-y-8 animate-in fade-in duration-200">
+    <button
+      type="button"
+      onClick={handleCopy}
+      className="flex w-full items-center justify-between rounded-lg border border-neutral-300 bg-neutral-50 px-3.5 py-2.5 text-sm font-semibold text-neutral-900 transition-colors hover:border-neutral-900 hover:bg-neutral-100"
+    >
+      <span>{copied ? '✓ Copied ATS Summary' : 'Copy ATS Candidate Summary'}</span>
+      <span className="font-mono text-xs text-neutral-500">{copied ? 'Done' : 'Copy'}</span>
+    </button>
+  )
+}
+
+function ProjectsSidebar({ projects }: { projects: Project[] }) {
+  const softwareProjects = PROJECT_INDEX.filter((p) => p.kind === 'software')
+
+  return (
+    <aside className="sticky top-0 h-screen overflow-y-auto p-7 space-y-7">
       <div>
-        <p className="text-[10px] font-medium uppercase tracking-[0.1em] text-neutral-400">
-          Career Context
+        <p className="font-mono text-xs font-semibold uppercase tracking-wider text-neutral-600">
+          Projects Index
         </p>
-        <h2 className="mt-1 text-lg font-bold text-neutral-900">
-          Work & Experience
+        <h2 className="mt-1.5 text-xl font-bold text-neutral-900">
+          Production Systems ({softwareProjects.length})
         </h2>
-        <p className="mt-2 text-xs leading-relaxed text-neutral-600">
-          Full-stack development experience building enterprise internal tools and high-uptime production systems.
+        <p className="mt-2 text-sm leading-relaxed text-neutral-700">
+          Every project listed on this page was built for real users—a local church and Wilcon Depot&apos;s Finance and Treasury teams.
         </p>
       </div>
 
-      <div className="space-y-4 border-t border-neutral-200 pt-6">
-        <p className="text-[10px] font-medium uppercase tracking-[0.1em] text-neutral-400">
-          Timeline & Roles
+      {/* Quick Jump List */}
+      <div className="space-y-3 border-t border-neutral-200 pt-6">
+        <p className="font-mono text-xs font-semibold uppercase tracking-wider text-neutral-600">
+          Open Case Study
         </p>
-        <div className="space-y-3">
-          <div className="rounded-xl border border-neutral-200 bg-neutral-50/50 p-3.5">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-neutral-900">Wilcon Depot, Inc.</span>
-              <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[9px] font-semibold text-emerald-700">6 mos</span>
-            </div>
-            <p className="text-[11px] text-neutral-700 font-medium mt-1">Full Stack Junior System Developer</p>
-            <p className="text-[10px] text-neutral-400 font-mono mt-0.5">May 2026 – Oct 2026</p>
-          </div>
+        <div className="space-y-2.5">
+          {softwareProjects.map((entry, idx) => {
+            const proj = projects.find((p) => p.slug === entry.slug)
+            if (!proj) return null
 
-          <div className="rounded-xl border border-neutral-200 p-3.5">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold text-neutral-900">WordPress Philippines</span>
-              <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[9px] font-semibold text-blue-700">Volunteer</span>
-            </div>
-            <p className="text-[11px] text-neutral-600 mt-1">Volunteer & Event Photographer</p>
-            <p className="text-[10px] text-neutral-400 font-mono mt-0.5">2025 Attendee → 2026 Volunteer</p>
-          </div>
-
-          <div className="rounded-xl border border-neutral-200 p-3.5">
-            <span className="text-xs font-semibold text-neutral-900">Radiant Force HR</span>
-            <p className="text-[11px] text-neutral-600 mt-1">HR Assistant (Absorbed from OJT)</p>
-            <p className="text-[10px] text-neutral-400 font-mono mt-0.5">Sep 2025 – Jan 2026</p>
-          </div>
-
-          <div className="rounded-xl border border-neutral-200 p-3.5">
-            <span className="text-xs font-semibold text-neutral-900">Jollibee Foods Corp.</span>
-            <p className="text-[11px] text-neutral-600 mt-1">Service Crew · Working Student</p>
-            <p className="text-[10px] text-neutral-400 font-mono mt-0.5">Jan 2024 – Jun 2024</p>
-          </div>
+            return (
+              <Link
+                key={entry.slug}
+                href={`/projects/${entry.slug}`}
+                className="group block rounded-xl border border-neutral-200 bg-white p-3.5 transition-colors hover:border-neutral-900 hover:bg-neutral-50"
+              >
+                <div className="flex items-baseline justify-between gap-2">
+                  <span className="text-sm font-semibold text-neutral-900 group-hover:underline">
+                    0{idx + 1}. {proj.title}
+                  </span>
+                  <span className="text-xs text-neutral-500 group-hover:text-neutral-900">→</span>
+                </div>
+                <p className="mt-1 text-xs font-medium text-neutral-600">
+                  {entry.usedBy}
+                </p>
+                <p className="mt-1 font-mono text-xs text-neutral-500">
+                  {entry.stack}
+                </p>
+              </Link>
+            )
+          })}
         </div>
       </div>
 
+      {/* ATS Stack Match */}
       <div className="space-y-3 border-t border-neutral-200 pt-6">
-        <p className="text-[10px] font-medium uppercase tracking-[0.1em] text-neutral-400">
-          Production Technologies
+        <p className="font-mono text-xs font-semibold uppercase tracking-wider text-neutral-600">
+          Verified Production Stack
         </p>
         <div className="flex flex-wrap gap-1.5">
-          {['Laravel', 'Vue.js', 'PHP', 'MySQL', 'Infor M3 APIs', 'REST APIs', 'Git'].map((tech) => (
-            <span key={tech} className="rounded-md bg-neutral-100 px-2.5 py-1 text-[11px] font-mono text-neutral-700">
+          {['Laravel', 'Vue.js', 'PHP', 'MySQL', 'Infor M3 ERP APIs', 'REST APIs', 'Git'].map((tech) => (
+            <span
+              key={tech}
+              className="rounded-md border border-neutral-200 bg-neutral-50 px-2.5 py-1 font-mono text-xs font-medium text-neutral-800"
+            >
               {tech}
             </span>
           ))}
         </div>
       </div>
 
-      <div className="border-t border-neutral-200 pt-6">
+      <div className="border-t border-neutral-200 pt-6 space-y-2.5">
+        <CopyAtsButton />
         <a
           href="/resume.pdf"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-neutral-900 px-4 py-2.5 text-xs font-semibold text-white hover:bg-neutral-800 transition-colors"
+          className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-neutral-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-neutral-800 transition-colors"
         >
-          Download Resume (PDF) →
+          Download Resume (PDF) ↗
+        </a>
+      </div>
+    </aside>
+  )
+}
+
+function WorkSidebar() {
+  return (
+    <aside className="sticky top-0 h-screen overflow-y-auto p-7 space-y-7 animate-in fade-in duration-200">
+      <div>
+        <p className="font-mono text-xs font-semibold uppercase tracking-wider text-neutral-600">
+          Career Context
+        </p>
+        <h2 className="mt-1.5 text-xl font-bold text-neutral-900">
+          Work & Experience
+        </h2>
+        <p className="mt-2 text-sm leading-relaxed text-neutral-700">
+          Full-stack development experience building internal enterprise tools at Wilcon Depot and production community systems.
+        </p>
+      </div>
+
+      <div className="space-y-3 border-t border-neutral-200 pt-6">
+        <p className="font-mono text-xs font-semibold uppercase tracking-wider text-neutral-600">
+          Timeline & Roles
+        </p>
+        <div className="space-y-3">
+          <div className="rounded-xl border border-neutral-200 bg-neutral-50/70 p-4">
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-bold text-neutral-900">Wilcon Depot, Inc.</span>
+              <span className="rounded-full bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 text-xs font-semibold text-emerald-800">6 mos</span>
+            </div>
+            <p className="text-sm text-neutral-800 font-medium mt-1">Full Stack Junior System Developer</p>
+            <p className="text-xs text-neutral-500 font-mono mt-1">May 2026 – Oct 2026</p>
+          </div>
+
+          <div className="rounded-xl border border-neutral-200 p-4">
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-semibold text-neutral-900">WordPress Philippines</span>
+              <span className="rounded-full bg-blue-50 border border-blue-200 px-2.5 py-0.5 text-xs font-semibold text-blue-800">Volunteer</span>
+            </div>
+            <p className="text-sm text-neutral-700 mt-1">Volunteer & Event Photographer</p>
+            <p className="text-xs text-neutral-500 font-mono mt-1">2025 Attendee → 2026 Volunteer</p>
+          </div>
+
+          <div className="rounded-xl border border-neutral-200 p-4">
+            <span className="text-sm font-semibold text-neutral-900">Radiant Force HR</span>
+            <p className="text-sm text-neutral-700 mt-1">HR Assistant (Absorbed from OJT)</p>
+            <p className="text-xs text-neutral-500 font-mono mt-1">Sep 2025 – Jan 2026</p>
+          </div>
+
+          <div className="rounded-xl border border-neutral-200 p-4">
+            <span className="text-sm font-semibold text-neutral-900">Jollibee Foods Corp.</span>
+            <p className="text-sm text-neutral-700 mt-1">Service Crew · Working Student</p>
+            <p className="text-xs text-neutral-500 font-mono mt-1">Jan 2024 – Jun 2024</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="space-y-3 border-t border-neutral-200 pt-6">
+        <p className="font-mono text-xs font-semibold uppercase tracking-wider text-neutral-600">
+          Production Technologies
+        </p>
+        <div className="flex flex-wrap gap-1.5">
+          {['Laravel', 'Vue.js', 'PHP', 'MySQL', 'Infor M3 APIs', 'REST APIs', 'Git'].map((tech) => (
+            <span key={tech} className="rounded-md border border-neutral-200 bg-neutral-50 px-2.5 py-1 text-xs font-mono font-medium text-neutral-800">
+              {tech}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <div className="border-t border-neutral-200 pt-6 space-y-2.5">
+        <CopyAtsButton />
+        <a
+          href="/resume.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-neutral-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-neutral-800 transition-colors"
+        >
+          Download Resume (PDF) ↗
         </a>
       </div>
     </aside>
@@ -91,58 +211,59 @@ function WorkSidebar() {
 
 function AboutSidebar() {
   return (
-    <aside className="sticky top-0 h-screen overflow-y-auto p-8 space-y-8 animate-in fade-in duration-200">
+    <aside className="sticky top-0 h-screen overflow-y-auto p-7 space-y-7 animate-in fade-in duration-200">
       <div>
-        <p className="text-[10px] font-medium uppercase tracking-[0.1em] text-neutral-400 font-mono">
+        <p className="font-mono text-xs font-semibold uppercase tracking-wider text-neutral-600">
           Quick Reference
         </p>
-        <h2 className="mt-1.5 text-base font-bold text-neutral-900">
+        <h2 className="mt-1.5 text-xl font-bold text-neutral-900">
           Ronie Pactol
         </h2>
-        <p className="mt-0.5 text-xs text-neutral-500">Full Stack Junior System Developer</p>
+        <p className="mt-1 text-sm font-medium text-neutral-700">Full Stack Junior System Developer</p>
       </div>
 
-      <div className="space-y-2 border-t border-neutral-200 pt-6">
-        <p className="text-[10px] font-medium uppercase tracking-[0.1em] text-neutral-400 font-mono">Facts</p>
-        <div className="space-y-px rounded-xl border border-neutral-200 overflow-hidden text-xs">
+      <div className="space-y-2.5 border-t border-neutral-200 pt-6">
+        <p className="font-mono text-xs font-semibold uppercase tracking-wider text-neutral-600">Facts</p>
+        <div className="divide-y divide-neutral-200 rounded-xl border border-neutral-200 overflow-hidden text-sm bg-white">
           {[
             { k: 'Experience', v: '6 mos · Wilcon Depot' },
             { k: 'Education', v: 'BSIT · ACC 2025' },
             { k: 'Location', v: 'Quezon City' },
             { k: 'Status', v: 'Open to Junior roles' },
           ].map(({ k, v }) => (
-            <div key={k} className="flex items-center justify-between bg-white px-3 py-2.5 gap-3">
-              <span className="font-mono text-[10px] uppercase tracking-wide text-neutral-400 shrink-0">{k}</span>
-              <span className="font-medium text-neutral-900 text-right">{v}</span>
+            <div key={k} className="flex items-center justify-between px-3.5 py-2.5 gap-3">
+              <span className="text-xs font-medium text-neutral-500 shrink-0">{k}</span>
+              <span className="font-semibold text-neutral-900 text-right">{v}</span>
             </div>
           ))}
         </div>
       </div>
 
-      <div className="space-y-2 border-t border-neutral-200 pt-6">
-        <p className="text-[10px] font-medium uppercase tracking-[0.1em] text-neutral-400 font-mono">Stack</p>
+      <div className="space-y-2.5 border-t border-neutral-200 pt-6">
+        <p className="font-mono text-xs font-semibold uppercase tracking-wider text-neutral-600">Stack</p>
         <div className="flex flex-wrap gap-1.5">
           {['Laravel', 'Vue.js', 'PHP', 'MySQL', 'Git', 'Infor M3'].map((tech) => (
-            <span key={tech} className="rounded bg-neutral-100 px-2 py-0.5 font-mono text-[10px] text-neutral-700">
+            <span key={tech} className="rounded-md border border-neutral-200 bg-neutral-50 px-2.5 py-1 font-mono text-xs font-medium text-neutral-800">
               {tech}
             </span>
           ))}
         </div>
       </div>
 
-      <div className="border-t border-neutral-200 pt-6 space-y-2">
+      <div className="border-t border-neutral-200 pt-6 space-y-2.5">
+        <CopyAtsButton />
         <a
           href={PORTFOLIO_IDENTITY.phoneTel}
-          className="flex items-center justify-between rounded-lg border border-neutral-200 px-3 py-2.5 text-xs font-semibold text-neutral-800 hover:bg-neutral-50 transition-colors"
+          className="flex items-center justify-between rounded-lg border border-neutral-300 px-3.5 py-2.5 text-sm font-semibold text-neutral-900 hover:bg-neutral-50 transition-colors"
         >
           <span>{PORTFOLIO_IDENTITY.phone}</span>
-          <span className="text-neutral-400 text-[10px]">call</span>
+          <span className="text-neutral-500 text-xs font-mono">call →</span>
         </a>
         <a
           href="/resume.pdf"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-neutral-900 px-4 py-2.5 text-xs font-semibold text-white hover:bg-neutral-800 transition-colors"
+          className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-neutral-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-neutral-800 transition-colors"
         >
           Resume PDF ↗
         </a>
@@ -153,54 +274,54 @@ function AboutSidebar() {
 
 function CertificatesSidebar() {
   return (
-    <aside className="sticky top-0 h-screen overflow-y-auto p-8 space-y-8 animate-in fade-in duration-200">
+    <aside className="sticky top-0 h-screen overflow-y-auto p-7 space-y-7 animate-in fade-in duration-200">
       <div>
-        <p className="text-[10px] font-medium uppercase tracking-[0.1em] text-neutral-400">
+        <p className="font-mono text-xs font-semibold uppercase tracking-wider text-neutral-600">
           Credentials Summary
         </p>
-        <h2 className="mt-1 text-lg font-bold text-neutral-900">
+        <h2 className="mt-1.5 text-xl font-bold text-neutral-900">
           Verified Certifications
         </h2>
-        <p className="mt-2 text-xs leading-relaxed text-neutral-600">
-          6 formal technical credentials across networking, programming languages, and web engineering.
+        <p className="mt-2 text-sm leading-relaxed text-neutral-700">
+          Formal technical credentials across networking, programming languages, and web development.
         </p>
       </div>
 
-      <div className="space-y-4 border-t border-neutral-200 pt-6">
-        <p className="text-[10px] font-medium uppercase tracking-[0.1em] text-neutral-400">
+      <div className="space-y-3 border-t border-neutral-200 pt-6">
+        <p className="font-mono text-xs font-semibold uppercase tracking-wider text-neutral-600">
           Issuing Organizations
         </p>
         <div className="space-y-2.5">
-          <div className="flex items-center justify-between rounded-lg border border-neutral-200 p-3">
+          <div className="flex items-center justify-between rounded-xl border border-neutral-200 p-3.5">
             <div>
-              <p className="text-xs font-semibold text-neutral-900">Cisco Networking Academy</p>
-              <p className="text-[10px] text-neutral-500 mt-0.5">Python 1 · JavaScript 1 · English for IT</p>
+              <p className="text-sm font-semibold text-neutral-900">Cisco Networking Academy</p>
+              <p className="text-xs text-neutral-600 mt-0.5">Python 1 · JavaScript 1 · English for IT</p>
             </div>
-            <span className="rounded-full bg-neutral-100 px-2 py-0.5 font-mono text-[10px] text-neutral-600">3 Certs</span>
+            <span className="rounded-full bg-neutral-100 px-2.5 py-0.5 font-mono text-xs font-medium text-neutral-700">3 Certs</span>
           </div>
 
-          <div className="flex items-center justify-between rounded-lg border border-neutral-200 p-3">
+          <div className="flex items-center justify-between rounded-xl border border-neutral-200 p-3.5">
             <div>
-              <p className="text-xs font-semibold text-neutral-900">TESDA (Philippine TVET)</p>
-              <p className="text-[10px] text-neutral-500 mt-0.5">NC2 Computer Systems Servicing</p>
+              <p className="text-sm font-semibold text-neutral-900">TESDA (Philippine TVET)</p>
+              <p className="text-xs text-neutral-600 mt-0.5">NC2 Computer Systems Servicing</p>
             </div>
-            <span className="rounded-full bg-neutral-100 px-2 py-0.5 font-mono text-[10px] text-neutral-600">NC2</span>
+            <span className="rounded-full bg-neutral-100 px-2.5 py-0.5 font-mono text-xs font-medium text-neutral-700">NC2</span>
           </div>
 
-          <div className="flex items-center justify-between rounded-lg border border-neutral-200 p-3">
+          <div className="flex items-center justify-between rounded-xl border border-neutral-200 p-3.5">
             <div>
-              <p className="text-xs font-semibold text-neutral-900">Scrimba</p>
-              <p className="text-[10px] text-neutral-500 mt-0.5">Learn Vue.js Frontend Engineering</p>
+              <p className="text-sm font-semibold text-neutral-900">Scrimba</p>
+              <p className="text-xs text-neutral-600 mt-0.5">Learn Vue.js Frontend Development</p>
             </div>
-            <span className="rounded-full bg-neutral-100 px-2 py-0.5 font-mono text-[10px] text-neutral-600">Vue</span>
+            <span className="rounded-full bg-neutral-100 px-2.5 py-0.5 font-mono text-xs font-medium text-neutral-700">Vue</span>
           </div>
         </div>
       </div>
 
-      <div className="rounded-xl border border-neutral-200 bg-neutral-50/50 p-4 border-t border-neutral-200">
-        <p className="text-xs font-semibold text-neutral-900">Interactive Preview</p>
-        <p className="mt-1 text-[11px] text-neutral-500 leading-relaxed">
-          Click any certificate card in the main column to open the interactive high-resolution viewer.
+      <div className="rounded-xl border border-neutral-200 bg-neutral-50 p-4">
+        <p className="text-sm font-semibold text-neutral-900">Interactive Certificate Viewer</p>
+        <p className="mt-1 text-xs text-neutral-600 leading-relaxed">
+          Click any certificate card in the center column to view the full document or verify the credential link.
         </p>
       </div>
     </aside>
@@ -209,37 +330,37 @@ function CertificatesSidebar() {
 
 function ContactSidebar() {
   return (
-    <aside className="sticky top-0 h-screen overflow-y-auto p-8 space-y-8 animate-in fade-in duration-200">
+    <aside className="sticky top-0 h-screen overflow-y-auto p-7 space-y-7 animate-in fade-in duration-200">
       <div>
-        <p className="text-[10px] font-medium uppercase tracking-[0.1em] text-neutral-400">
+        <p className="font-mono text-xs font-semibold uppercase tracking-wider text-neutral-600">
           Availability & Location
         </p>
-        <h2 className="mt-1 text-lg font-bold text-neutral-900">
+        <h2 className="mt-1.5 text-xl font-bold text-neutral-900">
           Open to Opportunities
         </h2>
-        <p className="mt-2 text-xs leading-relaxed text-neutral-600">
-          Ready to contribute as a Full Stack Junior System Developer on production Laravel, Vue, or web teams.
+        <p className="mt-2 text-sm leading-relaxed text-neutral-700">
+          Ready to contribute as a Full Stack Junior System Developer on Laravel and Vue.js teams.
         </p>
       </div>
 
-      <div className="space-y-4 border-t border-neutral-200 pt-6">
-        <p className="text-[10px] font-medium uppercase tracking-[0.1em] text-neutral-400">
-          Quick Details
+      <div className="space-y-3 border-t border-neutral-200 pt-6">
+        <p className="font-mono text-xs font-semibold uppercase tracking-wider text-neutral-600">
+          Direct Contact
         </p>
-        <div className="space-y-3 text-xs">
-          <div className="rounded-lg border border-neutral-200 p-3">
-            <span className="text-neutral-400 block text-[10px] uppercase font-mono">Location</span>
-            <span className="font-semibold text-neutral-800 mt-0.5 block">{PORTFOLIO_IDENTITY.location}</span>
+        <div className="space-y-3 text-sm">
+          <div className="rounded-xl border border-neutral-200 p-3.5">
+            <span className="text-neutral-500 block text-xs uppercase font-mono">Location</span>
+            <span className="font-semibold text-neutral-900 mt-1 block">{PORTFOLIO_IDENTITY.location}</span>
           </div>
-          <div className="rounded-lg border border-neutral-200 p-3">
+          <div className="rounded-xl border border-neutral-200 p-3.5">
             <div className="flex items-center justify-between">
-              <span className="text-neutral-400 block text-[10px] uppercase font-mono">Direct Line / Viber</span>
-              <span className="text-[10px] text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded font-medium">Available</span>
+              <span className="text-neutral-500 block text-xs uppercase font-mono">Direct Line / Viber</span>
+              <span className="text-xs text-emerald-800 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full font-semibold">Available</span>
             </div>
-            <a href="tel:+639931263221" className="font-semibold text-neutral-900 hover:underline mt-1 block">
+            <a href="tel:+639931263221" className="text-base font-bold text-neutral-900 hover:underline mt-1 block">
               0993 126 3221
             </a>
-            <div className="mt-2 flex items-center gap-3 text-[11px]">
+            <div className="mt-2 flex items-center gap-4 text-xs">
               <a href="tel:+639931263221" className="font-semibold text-neutral-900 underline hover:text-neutral-600">
                 Call now →
               </a>
@@ -248,49 +369,26 @@ function ContactSidebar() {
               </a>
             </div>
           </div>
-          <div className="rounded-lg border border-neutral-200 p-3">
-            <span className="text-neutral-400 block text-[10px] uppercase font-mono">Email</span>
-            <a href={`mailto:${PORTFOLIO_IDENTITY.email}`} className="font-semibold text-neutral-900 hover:underline mt-0.5 block">
+          <div className="rounded-xl border border-neutral-200 p-3.5">
+            <span className="text-neutral-500 block text-xs uppercase font-mono">Email</span>
+            <a href={`mailto:${PORTFOLIO_IDENTITY.email}`} className="font-semibold text-neutral-900 hover:underline mt-1 block">
               {PORTFOLIO_IDENTITY.email}
             </a>
           </div>
-          <div className="rounded-lg border border-neutral-200 p-3">
-            <span className="text-neutral-400 block text-[10px] uppercase font-mono">Response Time</span>
-            <span className="font-semibold text-neutral-800 mt-0.5 block">Usually within 24 hours</span>
-          </div>
         </div>
       </div>
 
       <div className="space-y-3 border-t border-neutral-200 pt-6">
-        <p className="text-[10px] font-medium uppercase tracking-[0.1em] text-neutral-400">
-          External Profiles
+        <p className="font-mono text-xs font-semibold uppercase tracking-wider text-neutral-600">
+          Official Resume & ATS
         </p>
-        <div className="flex flex-col gap-2">
-          {PORTFOLIO_IDENTITY.externalLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-between rounded-lg border border-neutral-200 p-3 text-xs font-semibold text-neutral-800 hover:border-neutral-400 hover:bg-neutral-50 transition-colors"
-            >
-              <span>{link.label}</span>
-              <span className="text-neutral-400">→</span>
-            </a>
-          ))}
-        </div>
-      </div>
-
-      <div className="space-y-3 border-t border-neutral-200 pt-6">
-        <p className="text-[10px] font-medium uppercase tracking-[0.1em] text-neutral-400">
-          Official Resume
-        </p>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2.5">
+          <CopyAtsButton />
           <a
             href={PORTFOLIO_IDENTITY.resumeUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-between rounded-lg bg-neutral-900 p-3 text-xs font-semibold text-white hover:bg-neutral-800 transition-colors"
+            className="flex items-center justify-between rounded-lg bg-neutral-900 p-3.5 text-sm font-semibold text-white hover:bg-neutral-800 transition-colors"
           >
             <span>Download PDF Resume</span>
             <span aria-hidden="true">↗</span>
@@ -300,7 +398,7 @@ function ContactSidebar() {
               href={PORTFOLIO_IDENTITY.resumeDocUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-between rounded-lg border border-neutral-200 p-3 text-xs font-semibold text-neutral-800 hover:border-neutral-400 hover:bg-neutral-50 transition-colors"
+              className="flex items-center justify-between rounded-lg border border-neutral-300 p-3.5 text-sm font-semibold text-neutral-900 hover:border-neutral-900 hover:bg-neutral-50 transition-colors"
             >
               <span>Live Google Doc</span>
               <span aria-hidden="true">↗</span>
@@ -322,48 +420,58 @@ export default function DetailPanel({ projects }: DetailPanelProps) {
     : undefined
 
   if (project) {
+    const indexEntry = PROJECT_INDEX.find((e) => e.slug === project.slug)
     const otherProjects = projects.filter((p) => p.slug !== project.slug)
 
     return (
-      <aside className="sticky top-0 h-screen overflow-y-auto p-8 space-y-8 animate-in fade-in duration-200">
+      <aside className="sticky top-0 h-screen overflow-y-auto p-7 space-y-7 animate-in fade-in duration-200">
         <div>
           <Link
-            href="/"
-            className="inline-flex items-center gap-1.5 text-xs font-medium text-neutral-500 hover:text-neutral-900 transition-colors"
+            href="/projects"
+            className="inline-flex items-center gap-1.5 text-sm font-semibold text-neutral-600 hover:text-neutral-900 transition-colors"
           >
-            ← Back to all projects
+            ← All projects
           </Link>
         </div>
 
-        <div className="space-y-6 border-b border-neutral-200 pb-6">
-          <p className="text-[10px] font-medium uppercase tracking-[0.1em] text-neutral-400">
-            Project Overview
+        <div className="space-y-4 border-b border-neutral-200 pb-6">
+          <p className="font-mono text-xs font-semibold uppercase tracking-wider text-neutral-600">
+            ATS Project Summary
           </p>
           <h2 className="text-xl font-bold text-neutral-900">
             {project.title}
           </h2>
-          <div className="space-y-3 text-xs">
-            <div>
-              <span className="text-neutral-400">Role: </span>
-              <span className="font-medium text-neutral-800">{project.role}</span>
+
+          <dl className="divide-y divide-neutral-200 rounded-xl border border-neutral-200 bg-white text-sm">
+            <div className="px-3.5 py-2.5">
+              <dt className="text-xs font-medium text-neutral-500">Role</dt>
+              <dd className="mt-0.5 font-semibold text-neutral-900">{project.role}</dd>
             </div>
             {project.client && (
-              <div>
-                <span className="text-neutral-400">Client / Org: </span>
-                <span className="font-medium text-neutral-800">{project.client}</span>
+              <div className="px-3.5 py-2.5">
+                <dt className="text-xs font-medium text-neutral-500">Organization / Users</dt>
+                <dd className="mt-0.5 font-semibold text-neutral-900">{project.client}</dd>
               </div>
             )}
-            <div>
-              <span className="text-neutral-400">Year: </span>
-              <span className="font-medium text-neutral-800">{project.year}</span>
-            </div>
-          </div>
+            {indexEntry && (
+              <>
+                <div className="px-3.5 py-2.5">
+                  <dt className="text-xs font-medium text-neutral-500">Problem Solved</dt>
+                  <dd className="mt-0.5 text-neutral-800 leading-snug">{indexEntry.problem}</dd>
+                </div>
+                <div className="px-3.5 py-2.5">
+                  <dt className="text-xs font-medium text-neutral-500">Status</dt>
+                  <dd className="mt-0.5 font-semibold text-emerald-800">{indexEntry.status}</dd>
+                </div>
+              </>
+            )}
+          </dl>
 
-          <div className="flex flex-wrap gap-1.5 pt-2">
+          <div className="flex flex-wrap gap-1.5 pt-1">
             {project.tags.map((tag) => (
               <span
                 key={tag}
-                className="rounded-md bg-neutral-100 px-2 py-0.5 text-[11px] font-mono text-neutral-600"
+                className="rounded-md border border-neutral-200 bg-neutral-50 px-2.5 py-1 text-xs font-mono font-medium text-neutral-800"
               >
                 {tag}
               </span>
@@ -376,35 +484,32 @@ export default function DetailPanel({ projects }: DetailPanelProps) {
                 href={project.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-full bg-neutral-900 px-4 py-2 text-xs font-medium text-white hover:bg-neutral-800 transition-colors"
+                className="inline-flex w-full items-center justify-center gap-1.5 rounded-lg bg-neutral-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-neutral-800 transition-colors"
               >
-                Open Live System →
+                Open Live System ↗
               </a>
             </div>
           )}
         </div>
 
         {otherProjects.length > 0 && (
-          <div className="space-y-4">
-            <p className="text-[10px] font-medium uppercase tracking-[0.1em] text-neutral-400">
-              Other Work & Community
+          <div className="space-y-3">
+            <p className="font-mono text-xs font-semibold uppercase tracking-wider text-neutral-600">
+              Other Projects ({otherProjects.length})
             </p>
-            <div className="space-y-3">
+            <div className="space-y-2.5">
               {otherProjects.map((other) => (
                 <Link
                   key={other.slug}
                   href={`/projects/${other.slug}`}
-                  className="group block rounded-xl border border-neutral-200 p-4 transition-all hover:border-neutral-400 hover:bg-neutral-50"
+                  className="group block rounded-xl border border-neutral-200 p-3.5 transition-all hover:border-neutral-900 hover:bg-neutral-50"
                 >
-                  <p className="text-xs font-semibold text-neutral-900 group-hover:text-neutral-600 transition-colors">
+                  <p className="text-sm font-semibold text-neutral-900 group-hover:underline">
                     {other.title}
                   </p>
-                  <p className="mt-1 line-clamp-2 text-[11px] text-neutral-500">
+                  <p className="mt-1 line-clamp-2 text-xs text-neutral-600 leading-relaxed">
                     {other.description}
                   </p>
-                  <span className="mt-2 inline-flex items-center text-[10px] font-medium text-neutral-400 group-hover:text-neutral-800">
-                    View project →
-                  </span>
                 </Link>
               ))}
             </div>
@@ -414,26 +519,31 @@ export default function DetailPanel({ projects }: DetailPanelProps) {
     )
   }
 
-  // 2. Work Route
+  // 2. Projects Index Route
+  if (pathname === '/projects') {
+    return <ProjectsSidebar projects={projects} />
+  }
+
+  // 3. Work Route
   if (pathname === '/work') {
     return <WorkSidebar />
   }
 
-  // 3. About Route
+  // 4. About Route
   if (pathname === '/about') {
     return <AboutSidebar />
   }
 
-  // 4. Certificates Route
+  // 5. Certificates Route
   if (pathname === '/certificates') {
     return <CertificatesSidebar />
   }
 
-  // 5. Contact Route
+  // 6. Contact Route
   if (pathname === '/contact') {
     return <ContactSidebar />
   }
 
-  // 6. Home Route (default)
+  // 7. Home Route (default)
   return <ContextPanel projects={projects} />
 }

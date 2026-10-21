@@ -55,11 +55,15 @@ export default function SidebarIdentity({ compact = false }: SidebarIdentityProp
         </button>
 
         <div className="min-w-0">
-          <h1 className="text-sm font-semibold text-neutral-900 truncate">
+          <h1 className="text-base font-bold text-neutral-900 leading-tight">
             {PORTFOLIO_IDENTITY.name}
           </h1>
-          <p className="mt-0.5 text-xs text-neutral-500 leading-snug">
+          <p className="mt-1 text-sm font-medium text-neutral-700 leading-snug">
             {PORTFOLIO_IDENTITY.role}
+          </p>
+          <p className="mt-1 flex items-center gap-1.5 text-xs font-medium text-emerald-700">
+            <span className="h-2 w-2 rounded-full bg-emerald-500 shrink-0" />
+            <span>Open to Full-Time</span>
           </p>
         </div>
       </div>
