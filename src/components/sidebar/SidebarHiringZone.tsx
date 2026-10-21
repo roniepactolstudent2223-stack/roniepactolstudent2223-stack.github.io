@@ -22,12 +22,12 @@ export default function SidebarHiringZone() {
       {/* Hairline-separated direct actions — regular weight, underline on hover */}
       <div className="divide-y divide-neutral-200 border-y border-neutral-200 text-sm">
         <a
-          href={PORTFOLIO_IDENTITY.resumeUrl}
+          href={PORTFOLIO_IDENTITY.resumeDocUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="group flex items-center justify-between py-2.5 font-normal text-neutral-800 transition-colors hover:text-neutral-950"
         >
-          <span className="group-hover:underline underline-offset-4">Resume (PDF)</span>
+          <span className="group-hover:underline underline-offset-4">Resume (Live Doc)</span>
           <span aria-hidden="true" className="font-mono text-xs text-neutral-400 transition-transform duration-150 group-hover:translate-x-0.5 group-hover:text-neutral-900">
             ↗
           </span>

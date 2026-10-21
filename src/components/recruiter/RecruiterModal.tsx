@@ -35,7 +35,7 @@ Reference: John Carlo Pattugan (IT Operations Administrator, LevelUp - https://l
 Availability: Immediate (0-day notice) | Location: Balingasa, Quezon City | SSS & PhilHealth ready
 Contact: 0993 126 3221 (Viber) | roniepactol@gmail.com
 Portfolio: https://roniepactolstudent2223-stack.github.io/
-Resume PDF: https://roniepactolstudent2223-stack.github.io/resume.pdf`
+Resume (Live Google Doc): ${PORTFOLIO_IDENTITY.resumeDocUrl}`
 
     navigator.clipboard.writeText(summaryText)
     setCopied(true)
@@ -176,26 +176,14 @@ Resume PDF: https://roniepactolstudent2223-stack.github.io/resume.pdf`
           </a>
 
           <a
-            href={PORTFOLIO_IDENTITY.resumeUrl}
+            href={PORTFOLIO_IDENTITY.resumeDocUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-between rounded-lg bg-neutral-900 p-3 text-xs font-semibold text-white transition-colors hover:bg-neutral-800"
           >
-            <span>Download Resume (PDF)</span>
+            <span>Resume (Live Google Doc)</span>
             <span aria-hidden="true">↗</span>
           </a>
-
-          {PORTFOLIO_IDENTITY.resumeDocUrl && (
-            <a
-              href={PORTFOLIO_IDENTITY.resumeDocUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-between rounded-lg border border-neutral-200 p-3 text-xs font-semibold text-neutral-800 transition-colors hover:border-neutral-400 hover:bg-neutral-50"
-            >
-              <span>Live Google Doc</span>
-              <span aria-hidden="true">↗</span>
-            </a>
-          )}
         </div>
 
         {/* Professional Reference */}

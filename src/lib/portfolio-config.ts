@@ -13,7 +13,7 @@ export const PORTFOLIO_IDENTITY = {
   availability: 'Open to Junior Developer roles',
   targetIntent: 'Full-time',
   isAvailable: true,
-  resumeUrl: '/resume.pdf',
+  resumeUrl: 'https://docs.google.com/document/d/19qGp36MD_fFns8vMhMO0XVhzwqmjYSL1/edit?usp=sharing',
   resumeDocUrl: 'https://docs.google.com/document/d/19qGp36MD_fFns8vMhMO0XVhzwqmjYSL1/edit?usp=sharing',
   externalLinks: [
     { label: 'LinkedIn', href: 'https://www.linkedin.com/in/ronie-pactol-6888092a6/' },

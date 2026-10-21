@@ -122,12 +122,12 @@ function ProjectsSidebar({ projects }: { projects: Project[] }) {
       <div className="divide-y divide-neutral-200 border-y border-neutral-200">
         <CopyAtsRow />
         <a
-          href="/resume.pdf"
+          href={PORTFOLIO_IDENTITY.resumeDocUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="group flex items-center justify-between py-2.5 text-sm font-normal text-neutral-800 transition-colors hover:text-neutral-950"
         >
-          <span className="group-hover:underline underline-offset-4">Download Resume (PDF)</span>
+          <span className="group-hover:underline underline-offset-4">Resume (Live Doc)</span>
           <span className="font-mono text-xs text-neutral-400 transition-transform duration-150 group-hover:translate-x-0.5 group-hover:text-neutral-900">
             ↗
           </span>
@@ -201,12 +201,12 @@ function WorkSidebar() {
       <div className="divide-y divide-neutral-200 border-y border-neutral-200">
         <CopyAtsRow />
         <a
-          href="/resume.pdf"
+          href={PORTFOLIO_IDENTITY.resumeDocUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="group flex items-center justify-between py-2.5 text-sm font-normal text-neutral-800 transition-colors hover:text-neutral-950"
         >
-          <span className="group-hover:underline underline-offset-4">Download Resume (PDF)</span>
+          <span className="group-hover:underline underline-offset-4">Resume (Live Doc)</span>
           <span className="font-mono text-xs text-neutral-400 transition-transform duration-150 group-hover:translate-x-0.5 group-hover:text-neutral-900">
             ↗
           </span>
@@ -258,12 +258,12 @@ function AboutSidebar() {
           <span className="font-mono text-xs text-neutral-400">→</span>
         </a>
         <a
-          href="/resume.pdf"
+          href={PORTFOLIO_IDENTITY.resumeDocUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="group flex items-center justify-between py-2.5 text-sm font-normal text-neutral-800 transition-colors hover:text-neutral-950"
         >
-          <span className="group-hover:underline underline-offset-4">Resume (PDF)</span>
+          <span className="group-hover:underline underline-offset-4">Resume (Live Doc)</span>
           <span className="font-mono text-xs text-neutral-400">↗</span>
         </a>
       </div>
@@ -359,25 +359,14 @@ function ContactSidebar() {
       <div className="divide-y divide-neutral-200 border-y border-neutral-200">
         <CopyAtsRow />
         <a
-          href={PORTFOLIO_IDENTITY.resumeUrl}
+          href={PORTFOLIO_IDENTITY.resumeDocUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="group flex items-center justify-between py-2.5 text-sm font-normal text-neutral-800 transition-colors hover:text-neutral-950"
         >
-          <span className="group-hover:underline underline-offset-4">Download PDF Resume</span>
+          <span className="group-hover:underline underline-offset-4">Resume (Live Doc)</span>
           <span className="font-mono text-xs text-neutral-400">↗</span>
         </a>
-        {PORTFOLIO_IDENTITY.resumeDocUrl && (
-          <a
-            href={PORTFOLIO_IDENTITY.resumeDocUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group flex items-center justify-between py-2.5 text-sm font-normal text-neutral-800 transition-colors hover:text-neutral-950"
-          >
-            <span className="group-hover:underline underline-offset-4">Live Google Doc</span>
-            <span className="font-mono text-xs text-neutral-400">↗</span>
-          </a>
-        )}
       </div>
     </aside>
   )

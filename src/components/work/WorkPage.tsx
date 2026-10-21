@@ -296,12 +296,12 @@ export default function WorkPage() {
               </h2>
             </div>
             <a
-              href={PORTFOLIO_IDENTITY.resumeUrl}
+              href={PORTFOLIO_IDENTITY.resumeDocUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-full bg-neutral-900 px-6 py-3 text-sm font-medium text-white transition-shadow duration-300 hover:shadow-lg hover:shadow-neutral-300/50"
             >
-              Download resume
+              View live resume
               <span aria-hidden="true" className="text-xs">↗</span>
             </a>
           </div>

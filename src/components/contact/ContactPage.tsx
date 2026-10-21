@@ -34,7 +34,7 @@ Reference: John Carlo Pattugan (IT Operations Administrator, LevelUp - https://l
 Availability: Immediate (0-day notice) | Location: Balingasa, Quezon City | SSS & PhilHealth ready
 Contact: 0993 126 3221 (Viber) | roniepactol@gmail.com
 Portfolio: https://roniepactolstudent2223-stack.github.io/
-Resume PDF: https://roniepactolstudent2223-stack.github.io/resume.pdf`
+Resume (Live Google Doc): ${PORTFOLIO_IDENTITY.resumeDocUrl}`
 
     navigator.clipboard.writeText(summaryText)
     setSummaryCopied(true)
@@ -146,25 +146,14 @@ Resume PDF: https://roniepactolstudent2223-stack.github.io/resume.pdf`
           </p>
           <div className="flex flex-wrap items-center gap-3">
             <a
-              href={PORTFOLIO_IDENTITY.resumeUrl}
+              href={PORTFOLIO_IDENTITY.resumeDocUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-xl bg-neutral-900 px-4 py-2.5 text-xs font-semibold text-white shadow-sm hover:bg-neutral-800 transition-colors"
             >
-              <span>Download PDF Resume</span>
+              <span>Resume (Live Google Doc)</span>
               <span aria-hidden="true" className="text-xs">↗</span>
             </a>
-            {PORTFOLIO_IDENTITY.resumeDocUrl && (
-              <a
-                href={PORTFOLIO_IDENTITY.resumeDocUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-xl border border-neutral-300 bg-white px-4 py-2.5 text-xs font-semibold text-neutral-800 hover:bg-neutral-50 hover:border-neutral-400 transition-colors"
-              >
-                <span>Live Google Doc</span>
-                <span aria-hidden="true" className="text-xs">↗</span>
-              </a>
-            )}
             <button
               type="button"
               onClick={copyCandidateSummary}

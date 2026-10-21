@@ -176,12 +176,12 @@ export default function AboutPage() {
             </div>
             <div className="flex items-center gap-3">
               <a
-                href={PORTFOLIO_IDENTITY.resumeUrl}
+                href={PORTFOLIO_IDENTITY.resumeDocUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 rounded-lg border border-neutral-300 px-4 py-2 text-xs font-semibold text-neutral-800 transition-all duration-200 hover:-translate-y-0.5 hover:bg-neutral-50"
               >
-                Resume PDF ↗
+                Resume (Live Doc) ↗
               </a>
               <Link
                 href="/contact"
