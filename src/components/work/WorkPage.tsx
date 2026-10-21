@@ -165,7 +165,7 @@ export default function WorkPage() {
                     </div>
                     {/* Company description */}
                     {role.companyDescription && (
-                      <p className="mt-1 text-xs text-neutral-500">
+                      <p className="mt-1 text-sm font-normal text-neutral-500">
                         {role.companyDescription}
                       </p>
                     )}
@@ -178,7 +178,7 @@ export default function WorkPage() {
                     <span className="font-mono text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
                       {role.metric.value}
                     </span>
-                    <span className="text-sm text-neutral-500">
+                    <span className="text-sm font-normal text-neutral-500">
                       {role.metric.label}
                     </span>
                   </div>
@@ -187,10 +187,10 @@ export default function WorkPage() {
                 {/* Team size — scope */}
                 {role.teamSize && (
                   <div className="mt-3 flex items-center gap-2">
-                    <span className="text-[10px] font-medium uppercase tracking-wider text-neutral-500">
+                    <span className="font-mono text-[11px] font-normal uppercase tracking-[0.06em] text-neutral-400">
                       Scope
                     </span>
-                    <span className="text-xs text-neutral-600">
+                    <span className="text-sm font-normal text-neutral-600">
                       {role.teamSize}
                     </span>
                   </div>
@@ -199,20 +199,20 @@ export default function WorkPage() {
                 {/* Highlight */}
                 {role.highlight && (
                   <div data-highlight className="mt-5 border-l-2 border-neutral-900 pl-4">
-                    <p className="text-base font-medium leading-snug text-neutral-900">
+                    <p className="text-base font-normal leading-relaxed text-neutral-800">
                       {role.highlight}
                     </p>
                   </div>
                 )}
 
-                {/* Evidence items */}
+                {/* Evidence items — Regular muted label (400), regular dark detail (400) */}
                 <div className="mt-5 space-y-3">
                   {role.evidence.map((item) => (
-                    <div key={item.label} data-evidence className="flex gap-4">
-                      <span className="shrink-0 w-24 font-mono text-[10px] font-semibold uppercase tracking-wider text-neutral-900 pt-0.5">
+                    <div key={item.label} data-evidence className="grid gap-1 sm:grid-cols-[9.5rem_1fr] sm:gap-4">
+                      <span className="font-mono text-xs font-normal text-neutral-500 sm:pt-0.5">
                         {item.label}
                       </span>
-                      <p className="text-sm leading-relaxed text-neutral-600">
+                      <p className="text-sm font-normal leading-relaxed text-neutral-800">
                         {item.detail}
                       </p>
                     </div>

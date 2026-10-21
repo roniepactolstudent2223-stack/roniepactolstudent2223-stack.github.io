@@ -27,18 +27,18 @@ function Entry({ entry, project, number }: { entry: ProjectIndexEntry; project: 
         <div className="flex items-baseline gap-4">
           <span
             data-entry-num
-            className="font-mono text-sm font-semibold text-neutral-400 transition-transform duration-300 group-hover:translate-x-1 group-hover:text-neutral-900"
+            className="font-mono text-sm font-normal text-neutral-400 transition-transform duration-300 group-hover:translate-x-1 group-hover:text-neutral-900"
             aria-hidden="true"
           >
             {number}
           </span>
-          <h2 className="text-2xl font-bold tracking-tight text-neutral-900 transition-transform duration-300 group-hover:translate-x-1">
+          <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 transition-transform duration-300 group-hover:translate-x-1">
             <Link href={`/projects/${project.slug}`} className="hover:underline underline-offset-4">
               {project.title}
             </Link>
           </h2>
         </div>
-        <p className="pl-9 font-mono text-xs font-medium text-neutral-600 sm:pl-0 shrink-0">
+        <p className="pl-9 font-mono text-xs font-normal text-neutral-500 sm:pl-0 shrink-0">
           {entry.status}
         </p>
       </header>
@@ -46,8 +46,8 @@ function Entry({ entry, project, number }: { entry: ProjectIndexEntry; project: 
       <dl className="mt-6 space-y-3.5 pl-9">
         {FIELDS.map((f) => (
           <div key={f.key} data-field-row className="grid gap-1 sm:grid-cols-[7.5rem_1fr] sm:gap-8">
-            <dt className="text-sm font-medium text-neutral-500 sm:pt-0.5">{f.label}</dt>
-            <dd className={`leading-relaxed text-neutral-900 ${f.key === 'stack' ? 'font-mono text-sm font-medium sm:pt-0.5' : 'text-base'}`}>
+            <dt className="text-sm font-normal text-neutral-500 sm:pt-0.5">{f.label}</dt>
+            <dd className={`font-normal leading-relaxed text-neutral-900 ${f.key === 'stack' ? 'font-mono text-sm text-neutral-700 sm:pt-0.5' : 'text-base'}`}>
               {entry[f.key]}
             </dd>
           </div>
@@ -57,7 +57,7 @@ function Entry({ entry, project, number }: { entry: ProjectIndexEntry; project: 
       <div className="mt-6 pl-9">
         <Link
           href={`/projects/${project.slug}`}
-          className="inline-flex items-center gap-2 text-sm font-semibold text-neutral-900 underline decoration-neutral-300 underline-offset-4 transition-colors hover:decoration-neutral-900"
+          className="inline-flex items-center gap-2 text-sm font-medium text-neutral-900 underline decoration-neutral-300 underline-offset-4 transition-colors hover:decoration-neutral-900"
         >
           Screenshots and details
           <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1.5">→</span>

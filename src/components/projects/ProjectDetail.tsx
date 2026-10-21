@@ -372,27 +372,27 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
           {project.title}
         </h1>
 
-        {/* ATS Metadata Bar */}
-        <div className="mt-3 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-neutral-600">
+        {/* ATS Metadata Bar — Regular labels, regular values */}
+        <div className="mt-3 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-neutral-700">
           <div>
-            <span className="font-mono text-[10px] uppercase text-neutral-400">Role: </span>
-            <span className="font-semibold text-neutral-900">{project.role}</span>
+            <span className="font-mono text-xs uppercase text-neutral-400">Role: </span>
+            <span className="font-normal text-neutral-900">{project.role}</span>
           </div>
           {project.client && (
             <div>
-              <span className="font-mono text-[10px] uppercase text-neutral-400">Client / Org: </span>
-              <span className="font-semibold text-neutral-900">{project.client}</span>
+              <span className="font-mono text-xs uppercase text-neutral-400">Organization: </span>
+              <span className="font-normal text-neutral-900">{project.client}</span>
             </div>
           )}
           {ats?.stackSummary && (
             <div>
-              <span className="font-mono text-[10px] uppercase text-neutral-400">Core Stack: </span>
-              <span className="font-semibold text-neutral-900">{ats.stackSummary}</span>
+              <span className="font-mono text-xs uppercase text-neutral-400">Stack: </span>
+              <span className="font-mono text-xs font-normal text-neutral-800">{ats.stackSummary}</span>
             </div>
           )}
         </div>
 
-        <p className="mt-4 text-sm sm:text-base leading-relaxed text-neutral-600">
+        <p className="mt-4 text-base font-normal leading-relaxed text-neutral-700">
           {ats?.summary || project.description}
         </p>
 
@@ -403,7 +403,7 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
               href={project.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-full bg-neutral-900 px-5 py-2.5 text-xs font-semibold text-white hover:bg-neutral-800 transition-colors"
+              className="inline-flex items-center gap-1.5 rounded-full bg-neutral-900 px-5 py-2.5 text-xs font-medium text-white hover:bg-neutral-800 transition-colors"
             >
               {project.slug === 'woh-attendance-system' ? 'Open Live Kiosk ↗' : 'Visit Live Link ↗'}
             </a>
@@ -413,7 +413,7 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
               href="https://wohcaloocan.org/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-full border border-neutral-300 bg-white px-5 py-2.5 text-xs font-semibold text-neutral-800 hover:bg-neutral-50 transition-colors"
+              className="inline-flex items-center gap-1.5 rounded-full border border-neutral-300 bg-white px-5 py-2.5 text-xs font-normal text-neutral-800 hover:bg-neutral-50 transition-colors"
             >
               Church Website (wohcaloocan.org) ↗
             </a>
@@ -425,10 +425,10 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
       {project.images.length > 0 && (
         <section className="mt-8" data-detail-reveal>
           <div className="mb-4 flex items-baseline justify-between border-b border-neutral-200 pb-2">
-            <h2 className="font-mono text-xs font-semibold uppercase tracking-[0.12em] text-neutral-500">
+            <h2 className="font-mono text-xs font-normal uppercase tracking-[0.08em] text-neutral-500">
               Production Screenshots &amp; Visual Evidence
             </h2>
-            <span className="font-mono text-xs text-neutral-500">
+            <span className="font-mono text-xs font-normal text-neutral-400">
               Click photo to enlarge
             </span>
           </div>
@@ -463,11 +463,11 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
                     />
                   </div>
                   <div className="mt-2.5 px-1 pb-1">
-                    <h3 className="text-xs font-semibold text-neutral-900">
+                    <h3 className="text-xs font-medium text-neutral-900">
                       {caption.title}
                     </h3>
                     {caption.description && (
-                      <p className="mt-1 text-xs leading-relaxed text-neutral-600">
+                      <p className="mt-1 text-xs font-normal leading-relaxed text-neutral-600">
                         {caption.description}
                       </p>
                     )}
@@ -481,18 +481,16 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
 
       {/* ATS Key Contributions & Measurable Results (STAR Format) */}
       {ats?.bullets && (
-        <section className="mt-10 rounded-2xl border border-neutral-200 bg-neutral-50/70 p-6 sm:p-7" data-detail-reveal>
-          <div className="flex items-center justify-between border-b border-neutral-200 pb-3 mb-5">
-            <h2 className="font-mono text-xs font-bold uppercase tracking-[0.12em] text-neutral-600">
-              Key Contributions &amp; Measurable Results (ATS Summary)
-            </h2>
-          </div>
+        <section className="mt-10 border-t border-neutral-200 pt-8" data-detail-reveal>
+          <h2 className="mb-5 font-mono text-xs font-normal uppercase tracking-[0.08em] text-neutral-500">
+            Key Contributions &amp; Results
+          </h2>
 
           <ul className="space-y-4 text-sm">
             {ats.bullets.map((bullet) => (
               <li key={bullet.title} data-ats-bullet className="flex items-start gap-3">
                 <span className="mt-2 h-1.5 w-1.5 rounded-full bg-neutral-900 shrink-0" />
-                <div className="leading-relaxed text-neutral-700">
+                <div className="font-normal leading-relaxed text-neutral-700">
                   <strong className="font-semibold text-neutral-900">{bullet.title}: </strong>
                   {bullet.description}
                 </div>

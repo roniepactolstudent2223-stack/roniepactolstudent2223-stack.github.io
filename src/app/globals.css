@@ -48,9 +48,9 @@ body {
   justify-content: space-between;
   padding: 8px 0 8px 14px;
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 400;
   letter-spacing: -0.01em;
-  color: #737373;
+  color: #525252;
   border-left: 2px solid transparent;
   transition: color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
 }
@@ -88,7 +88,7 @@ body {
   gap: 6px;
   padding: 4px 0;
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 400;
   color: #525252;
   transition: color 0.15s ease;
 }

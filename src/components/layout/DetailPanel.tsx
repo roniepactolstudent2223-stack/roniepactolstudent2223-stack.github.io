@@ -38,9 +38,11 @@ function CopyAtsRow() {
     <button
       type="button"
       onClick={handleCopy}
-      className="group flex w-full items-center justify-between py-2.5 text-left text-sm font-medium text-neutral-900 transition-colors hover:text-neutral-600"
+      className="group flex w-full items-center justify-between py-2.5 text-left text-sm font-normal text-neutral-800 transition-colors hover:text-neutral-950"
     >
-      <span>{copied ? '✓ Copied ATS Summary' : 'Copy ATS Candidate Summary'}</span>
+      <span className="group-hover:underline underline-offset-4">
+        {copied ? '✓ Copied ATS Summary' : 'Copy ATS Candidate Summary'}
+      </span>
       <span className="font-mono text-xs text-neutral-400 transition-transform duration-150 group-hover:translate-x-0.5 group-hover:text-neutral-900">
         {copied ? 'Done' : 'Copy →'}
       </span>
@@ -54,20 +56,20 @@ function ProjectsSidebar({ projects }: { projects: Project[] }) {
   return (
     <aside className="sticky top-0 h-screen overflow-y-auto px-8 py-8 space-y-9">
       <div>
-        <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-neutral-500">
+        <p className="font-mono text-[11px] font-normal uppercase tracking-[0.08em] text-neutral-400">
           Projects Index
         </p>
-        <h2 className="mt-1.5 text-lg font-semibold text-neutral-900">
+        <h2 className="mt-1.5 text-base font-semibold text-neutral-900">
           {softwareProjects.length} Production Systems
         </h2>
-        <p className="mt-2 text-sm leading-relaxed text-neutral-600">
+        <p className="mt-1.5 text-sm font-normal leading-relaxed text-neutral-600">
           Built for Word of Hope Caloocan and Wilcon Depot&apos;s Finance and Treasury departments.
         </p>
       </div>
 
-      {/* Numbered Hairline Jump List — Zero boxes */}
+      {/* Numbered Hairline Jump List — Only the project title is medium weight */}
       <div>
-        <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-neutral-500">
+        <p className="font-mono text-[11px] font-normal uppercase tracking-[0.08em] text-neutral-400">
           Case Studies
         </p>
         <div className="mt-3 divide-y divide-neutral-200 border-t border-neutral-200">
@@ -82,17 +84,17 @@ function ProjectsSidebar({ projects }: { projects: Project[] }) {
                 className="group flex items-baseline justify-between gap-3 py-3.5"
               >
                 <div className="flex items-baseline gap-3 min-w-0">
-                  <span className="font-mono text-xs text-neutral-400 group-hover:text-neutral-900 transition-colors">
+                  <span className="font-mono text-xs font-normal text-neutral-400 group-hover:text-neutral-900 transition-colors">
                     0{idx + 1}
                   </span>
                   <div className="min-w-0">
                     <p className="text-sm font-medium text-neutral-900 group-hover:underline underline-offset-4">
                       {proj.title}
                     </p>
-                    <p className="mt-0.5 text-xs text-neutral-500">
+                    <p className="mt-0.5 text-xs font-normal text-neutral-500">
                       {entry.usedBy}
                     </p>
-                    <p className="mt-1 font-mono text-xs text-neutral-700">
+                    <p className="mt-1 font-mono text-xs font-normal text-neutral-600">
                       {entry.stack}
                     </p>
                   </div>
@@ -108,10 +110,10 @@ function ProjectsSidebar({ projects }: { projects: Project[] }) {
 
       {/* Plain-text Stack */}
       <div>
-        <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-neutral-500">
+        <p className="font-mono text-[11px] font-normal uppercase tracking-[0.08em] text-neutral-400">
           Stack
         </p>
-        <p className="mt-2 font-mono text-[13px] leading-relaxed text-neutral-800 border-t border-neutral-200 pt-3">
+        <p className="mt-2 font-mono text-[13px] font-normal leading-relaxed text-neutral-700 border-t border-neutral-200 pt-3">
           Laravel · Vue.js · PHP · MySQL · Infor M3 APIs · REST APIs · Git
         </p>
       </div>
@@ -123,9 +125,9 @@ function ProjectsSidebar({ projects }: { projects: Project[] }) {
           href="/resume.pdf"
           target="_blank"
           rel="noopener noreferrer"
-          className="group flex items-center justify-between py-2.5 text-sm font-medium text-neutral-900 transition-colors hover:text-neutral-600"
+          className="group flex items-center justify-between py-2.5 text-sm font-normal text-neutral-800 transition-colors hover:text-neutral-950"
         >
-          <span>Download Resume (PDF)</span>
+          <span className="group-hover:underline underline-offset-4">Download Resume (PDF)</span>
           <span className="font-mono text-xs text-neutral-400 transition-transform duration-150 group-hover:translate-x-0.5 group-hover:text-neutral-900">
             ↗
           </span>
@@ -139,20 +141,20 @@ function WorkSidebar() {
   return (
     <aside className="sticky top-0 h-screen overflow-y-auto px-8 py-8 space-y-9">
       <div>
-        <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-neutral-500">
+        <p className="font-mono text-[11px] font-normal uppercase tracking-[0.08em] text-neutral-400">
           Career Timeline
         </p>
-        <h2 className="mt-1.5 text-lg font-semibold text-neutral-900">
+        <h2 className="mt-1.5 text-base font-semibold text-neutral-900">
           Work &amp; Community
         </h2>
-        <p className="mt-2 text-sm leading-relaxed text-neutral-600">
+        <p className="mt-1.5 text-sm font-normal leading-relaxed text-neutral-600">
           Enterprise software development at Wilcon Depot, community volunteering, and early work history.
         </p>
       </div>
 
-      {/* Hairline Timeline — Zero boxes */}
+      {/* Hairline Timeline — Only company name is medium weight (500) */}
       <div>
-        <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-neutral-500">
+        <p className="font-mono text-[11px] font-normal uppercase tracking-[0.08em] text-neutral-400">
           Roles
         </p>
         <div className="mt-3 divide-y divide-neutral-200 border-t border-neutral-200">
@@ -179,19 +181,19 @@ function WorkSidebar() {
             },
           ].map((item) => (
             <div key={item.company} className="py-3">
-              <p className="text-sm font-semibold text-neutral-900">{item.company}</p>
-              <p className="mt-0.5 text-sm text-neutral-700">{item.role}</p>
-              <p className="mt-1 font-mono text-xs text-neutral-500">{item.period}</p>
+              <p className="text-sm font-medium text-neutral-900">{item.company}</p>
+              <p className="mt-0.5 text-sm font-normal text-neutral-600">{item.role}</p>
+              <p className="mt-1 font-mono text-xs font-normal text-neutral-400">{item.period}</p>
             </div>
           ))}
         </div>
       </div>
 
       <div>
-        <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-neutral-500">
+        <p className="font-mono text-[11px] font-normal uppercase tracking-[0.08em] text-neutral-400">
           Technologies Used
         </p>
-        <p className="mt-2 font-mono text-[13px] leading-relaxed text-neutral-800 border-t border-neutral-200 pt-3">
+        <p className="mt-2 font-mono text-[13px] font-normal leading-relaxed text-neutral-700 border-t border-neutral-200 pt-3">
           Laravel · Vue.js · PHP · MySQL · Infor M3 APIs · REST APIs · Git
         </p>
       </div>
@@ -202,9 +204,9 @@ function WorkSidebar() {
           href="/resume.pdf"
           target="_blank"
           rel="noopener noreferrer"
-          className="group flex items-center justify-between py-2.5 text-sm font-medium text-neutral-900 transition-colors hover:text-neutral-600"
+          className="group flex items-center justify-between py-2.5 text-sm font-normal text-neutral-800 transition-colors hover:text-neutral-950"
         >
-          <span>Download Resume (PDF)</span>
+          <span className="group-hover:underline underline-offset-4">Download Resume (PDF)</span>
           <span className="font-mono text-xs text-neutral-400 transition-transform duration-150 group-hover:translate-x-0.5 group-hover:text-neutral-900">
             ↗
           </span>
@@ -218,17 +220,17 @@ function AboutSidebar() {
   return (
     <aside className="sticky top-0 h-screen overflow-y-auto px-8 py-8 space-y-9">
       <div>
-        <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-neutral-500">
+        <p className="font-mono text-[11px] font-normal uppercase tracking-[0.08em] text-neutral-400">
           Quick Reference
         </p>
-        <h2 className="mt-1.5 text-lg font-semibold text-neutral-900">
+        <h2 className="mt-1.5 text-base font-semibold text-neutral-900">
           Ronie Pactol
         </h2>
-        <p className="mt-0.5 text-sm text-neutral-600">Full Stack Junior System Developer</p>
+        <p className="mt-0.5 text-sm font-normal text-neutral-600">Full Stack Junior System Developer</p>
       </div>
 
       <div>
-        <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-neutral-500">
+        <p className="font-mono text-[11px] font-normal uppercase tracking-[0.08em] text-neutral-400">
           Facts
         </p>
         <dl className="mt-3 divide-y divide-neutral-200 border-t border-neutral-200 text-sm">
@@ -239,8 +241,8 @@ function AboutSidebar() {
             { k: 'Stack', v: 'Laravel · Vue.js · MySQL', mono: true },
           ].map(({ k, v, mono }) => (
             <div key={k} className="flex items-baseline justify-between py-2.5 gap-3">
-              <dt className="font-mono text-[11px] uppercase tracking-[0.06em] text-neutral-500 shrink-0">{k}</dt>
-              <dd className={`text-right text-neutral-900 ${mono ? 'font-mono text-[13px]' : 'font-medium'}`}>{v}</dd>
+              <dt className="font-mono text-[11px] font-normal uppercase tracking-[0.06em] text-neutral-400 shrink-0">{k}</dt>
+              <dd className={`text-right font-normal text-neutral-800 ${mono ? 'font-mono text-[13px]' : ''}`}>{v}</dd>
             </div>
           ))}
         </dl>
@@ -250,18 +252,18 @@ function AboutSidebar() {
         <CopyAtsRow />
         <a
           href={PORTFOLIO_IDENTITY.phoneTel}
-          className="group flex items-center justify-between py-2.5 text-sm font-medium text-neutral-900 transition-colors hover:text-neutral-600"
+          className="group flex items-center justify-between py-2.5 text-sm font-normal text-neutral-800 transition-colors hover:text-neutral-950"
         >
-          <span>Call {PORTFOLIO_IDENTITY.phone}</span>
+          <span className="group-hover:underline underline-offset-4">Call {PORTFOLIO_IDENTITY.phone}</span>
           <span className="font-mono text-xs text-neutral-400">→</span>
         </a>
         <a
           href="/resume.pdf"
           target="_blank"
           rel="noopener noreferrer"
-          className="group flex items-center justify-between py-2.5 text-sm font-medium text-neutral-900 transition-colors hover:text-neutral-600"
+          className="group flex items-center justify-between py-2.5 text-sm font-normal text-neutral-800 transition-colors hover:text-neutral-950"
         >
-          <span>Resume (PDF)</span>
+          <span className="group-hover:underline underline-offset-4">Resume (PDF)</span>
           <span className="font-mono text-xs text-neutral-400">↗</span>
         </a>
       </div>
@@ -273,19 +275,19 @@ function CertificatesSidebar() {
   return (
     <aside className="sticky top-0 h-screen overflow-y-auto px-8 py-8 space-y-9">
       <div>
-        <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-neutral-500">
+        <p className="font-mono text-[11px] font-normal uppercase tracking-[0.08em] text-neutral-400">
           Credentials
         </p>
-        <h2 className="mt-1.5 text-lg font-semibold text-neutral-900">
+        <h2 className="mt-1.5 text-base font-semibold text-neutral-900">
           Verified Certifications
         </h2>
-        <p className="mt-2 text-sm leading-relaxed text-neutral-600">
+        <p className="mt-1.5 text-sm font-normal leading-relaxed text-neutral-600">
           Click any certificate in the main column to open the full document viewer.
         </p>
       </div>
 
       <div>
-        <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-neutral-500">
+        <p className="font-mono text-[11px] font-normal uppercase tracking-[0.08em] text-neutral-400">
           Issuing Organizations
         </p>
         <div className="mt-3 divide-y divide-neutral-200 border-t border-neutral-200">
@@ -297,9 +299,9 @@ function CertificatesSidebar() {
             <div key={item.org} className="flex items-baseline justify-between py-3 gap-3">
               <div>
                 <p className="text-sm font-medium text-neutral-900">{item.org}</p>
-                <p className="mt-0.5 text-xs text-neutral-500">{item.detail}</p>
+                <p className="mt-0.5 text-xs font-normal text-neutral-500">{item.detail}</p>
               </div>
-              <span className="font-mono text-xs text-neutral-500 shrink-0">{item.count}</span>
+              <span className="font-mono text-xs font-normal text-neutral-400 shrink-0">{item.count}</span>
             </div>
           ))}
         </div>
@@ -312,42 +314,42 @@ function ContactSidebar() {
   return (
     <aside className="sticky top-0 h-screen overflow-y-auto px-8 py-8 space-y-9">
       <div>
-        <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-neutral-500">
+        <p className="font-mono text-[11px] font-normal uppercase tracking-[0.08em] text-neutral-400">
           Contact Details
         </p>
-        <h2 className="mt-1.5 text-lg font-semibold text-neutral-900">
+        <h2 className="mt-1.5 text-base font-semibold text-neutral-900">
           Direct Lines &amp; Location
         </h2>
-        <p className="mt-2 text-sm leading-relaxed text-neutral-600">
+        <p className="mt-1.5 text-sm font-normal leading-relaxed text-neutral-600">
           Based in Quezon City. Reachable directly via mobile, Viber, or email.
         </p>
       </div>
 
       <dl className="divide-y divide-neutral-200 border-t border-neutral-200 text-sm">
         <div className="py-3">
-          <dt className="font-mono text-[11px] uppercase tracking-[0.06em] text-neutral-500">Location</dt>
-          <dd className="mt-1 font-medium text-neutral-900">{PORTFOLIO_IDENTITY.location}</dd>
+          <dt className="font-mono text-[11px] font-normal uppercase tracking-[0.06em] text-neutral-400">Location</dt>
+          <dd className="mt-1 font-normal text-neutral-800">{PORTFOLIO_IDENTITY.location}</dd>
         </div>
         <div className="py-3">
-          <dt className="font-mono text-[11px] uppercase tracking-[0.06em] text-neutral-500">Direct Line / Viber</dt>
+          <dt className="font-mono text-[11px] font-normal uppercase tracking-[0.06em] text-neutral-400">Direct Line / Viber</dt>
           <dd className="mt-1">
-            <a href="tel:+639931263221" className="font-mono text-base font-semibold text-neutral-900 hover:underline">
+            <a href="tel:+639931263221" className="font-mono text-base font-medium text-neutral-900 hover:underline">
               0993 126 3221
             </a>
             <div className="mt-1.5 flex items-center gap-4 text-xs">
-              <a href="tel:+639931263221" className="font-medium text-neutral-900 underline underline-offset-4">
+              <a href="tel:+639931263221" className="font-normal text-neutral-700 underline underline-offset-4 hover:text-neutral-950">
                 Call now →
               </a>
-              <a href="viber://chat?number=%2B639931263221" className="font-medium text-[#7360F2] hover:underline">
+              <a href="viber://chat?number=%2B639931263221" className="font-normal text-[#7360F2] hover:underline">
                 Viber chat ↗
               </a>
             </div>
           </dd>
         </div>
         <div className="py-3">
-          <dt className="font-mono text-[11px] uppercase tracking-[0.06em] text-neutral-500">Email</dt>
+          <dt className="font-mono text-[11px] font-normal uppercase tracking-[0.06em] text-neutral-400">Email</dt>
           <dd className="mt-1">
-            <a href={`mailto:${PORTFOLIO_IDENTITY.email}`} className="font-medium text-neutral-900 hover:underline">
+            <a href={`mailto:${PORTFOLIO_IDENTITY.email}`} className="font-normal text-neutral-800 hover:underline">
               {PORTFOLIO_IDENTITY.email}
             </a>
           </dd>
@@ -360,9 +362,9 @@ function ContactSidebar() {
           href={PORTFOLIO_IDENTITY.resumeUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="group flex items-center justify-between py-2.5 text-sm font-medium text-neutral-900 transition-colors hover:text-neutral-600"
+          className="group flex items-center justify-between py-2.5 text-sm font-normal text-neutral-800 transition-colors hover:text-neutral-950"
         >
-          <span>Download PDF Resume</span>
+          <span className="group-hover:underline underline-offset-4">Download PDF Resume</span>
           <span className="font-mono text-xs text-neutral-400">↗</span>
         </a>
         {PORTFOLIO_IDENTITY.resumeDocUrl && (
@@ -370,9 +372,9 @@ function ContactSidebar() {
             href={PORTFOLIO_IDENTITY.resumeDocUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex items-center justify-between py-2.5 text-sm font-medium text-neutral-900 transition-colors hover:text-neutral-600"
+            className="group flex items-center justify-between py-2.5 text-sm font-normal text-neutral-800 transition-colors hover:text-neutral-950"
           >
-            <span>Live Google Doc</span>
+            <span className="group-hover:underline underline-offset-4">Live Google Doc</span>
             <span className="font-mono text-xs text-neutral-400">↗</span>
           </a>
         )}
@@ -399,46 +401,46 @@ export default function DetailPanel({ projects }: DetailPanelProps) {
         <div>
           <Link
             href="/projects"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-neutral-500 hover:text-neutral-900 transition-colors"
+            className="inline-flex items-center gap-1.5 text-sm font-normal text-neutral-500 hover:text-neutral-900 transition-colors"
           >
             ← All projects
           </Link>
         </div>
 
         <div>
-          <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-neutral-500">
+          <p className="font-mono text-[11px] font-normal uppercase tracking-[0.08em] text-neutral-400">
             Specification
           </p>
-          <h2 className="mt-1.5 text-lg font-semibold text-neutral-900">
+          <h2 className="mt-1.5 text-base font-semibold text-neutral-900">
             {project.title}
           </h2>
 
           <dl className="mt-4 divide-y divide-neutral-200 border-t border-b border-neutral-200 text-sm">
             <div className="py-2.5">
-              <dt className="font-mono text-[11px] uppercase tracking-[0.06em] text-neutral-500">Role</dt>
-              <dd className="mt-0.5 font-medium text-neutral-900">{project.role}</dd>
+              <dt className="font-mono text-[11px] font-normal uppercase tracking-[0.06em] text-neutral-400">Role</dt>
+              <dd className="mt-0.5 font-normal text-neutral-800">{project.role}</dd>
             </div>
             {project.client && (
               <div className="py-2.5">
-                <dt className="font-mono text-[11px] uppercase tracking-[0.06em] text-neutral-500">Organization</dt>
-                <dd className="mt-0.5 font-medium text-neutral-900">{project.client}</dd>
+                <dt className="font-mono text-[11px] font-normal uppercase tracking-[0.06em] text-neutral-400">Organization</dt>
+                <dd className="mt-0.5 font-normal text-neutral-800">{project.client}</dd>
               </div>
             )}
             {indexEntry && (
               <>
                 <div className="py-2.5">
-                  <dt className="font-mono text-[11px] uppercase tracking-[0.06em] text-neutral-500">Problem Solved</dt>
-                  <dd className="mt-0.5 text-neutral-700 leading-relaxed">{indexEntry.problem}</dd>
+                  <dt className="font-mono text-[11px] font-normal uppercase tracking-[0.06em] text-neutral-500">Problem Solved</dt>
+                  <dd className="mt-0.5 font-normal text-neutral-700 leading-relaxed">{indexEntry.problem}</dd>
                 </div>
                 <div className="py-2.5">
-                  <dt className="font-mono text-[11px] uppercase tracking-[0.06em] text-neutral-500">Status</dt>
-                  <dd className="mt-0.5 font-mono text-xs text-neutral-900">{indexEntry.status}</dd>
+                  <dt className="font-mono text-[11px] font-normal uppercase tracking-[0.06em] text-neutral-400">Status</dt>
+                  <dd className="mt-0.5 font-mono text-xs font-normal text-neutral-800">{indexEntry.status}</dd>
                 </div>
               </>
             )}
             <div className="py-2.5">
-              <dt className="font-mono text-[11px] uppercase tracking-[0.06em] text-neutral-500">Stack</dt>
-              <dd className="mt-1 font-mono text-[13px] text-neutral-800">
+              <dt className="font-mono text-[11px] font-normal uppercase tracking-[0.06em] text-neutral-400">Stack</dt>
+              <dd className="mt-1 font-mono text-[13px] font-normal text-neutral-700">
                 {project.tags.join(' · ')}
               </dd>
             </div>
@@ -450,7 +452,7 @@ export default function DetailPanel({ projects }: DetailPanelProps) {
                 href={project.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center justify-between border-b border-neutral-900 py-2 text-sm font-semibold text-neutral-900 hover:text-neutral-600"
+                className="group flex items-center justify-between border-b border-neutral-900 py-2 text-sm font-medium text-neutral-900 hover:text-neutral-600"
               >
                 <span>Open Live System</span>
                 <span className="font-mono text-xs">↗</span>
@@ -461,7 +463,7 @@ export default function DetailPanel({ projects }: DetailPanelProps) {
 
         {otherProjects.length > 0 && (
           <div>
-            <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-neutral-500">
+            <p className="font-mono text-[11px] font-normal uppercase tracking-[0.08em] text-neutral-400">
               Other Systems
             </p>
             <div className="mt-3 divide-y divide-neutral-200 border-t border-neutral-200">
@@ -472,10 +474,10 @@ export default function DetailPanel({ projects }: DetailPanelProps) {
                   className="group flex items-baseline justify-between gap-3 py-3"
                 >
                   <div className="flex items-baseline gap-3 min-w-0">
-                    <span className="font-mono text-xs text-neutral-400 group-hover:text-neutral-900">
+                    <span className="font-mono text-xs font-normal text-neutral-400 group-hover:text-neutral-900">
                       0{idx + 1}
                     </span>
-                    <p className="text-sm font-medium text-neutral-900 group-hover:underline underline-offset-4 truncate">
+                    <p className="text-sm font-normal text-neutral-800 group-hover:text-neutral-950 group-hover:underline underline-offset-4 truncate">
                       {other.title}
                     </p>
                   </div>

@@ -84,23 +84,23 @@ export default function AboutPage() {
 
         {/* Facts grid */}
         <section data-reveal>
-          <p className="mb-5 font-mono text-xs uppercase tracking-[0.15em] text-neutral-500">
+          <p className="mb-4 font-mono text-[11px] font-normal uppercase tracking-[0.08em] text-neutral-400">
             Profile
           </p>
-          <dl className="grid grid-cols-1 gap-px bg-neutral-200 border border-neutral-200 rounded-xl overflow-hidden sm:grid-cols-2">
+          <dl className="divide-y divide-neutral-200 border-y border-neutral-200">
             {FACTS.map((fact) => (
-              <div key={fact.label} className="bg-white px-5 py-4 transition-colors duration-200 hover:bg-neutral-50">
-                <dt className="font-mono text-xs uppercase tracking-[0.12em] text-neutral-500">
+              <div key={fact.label} className="grid gap-1 py-3 sm:grid-cols-[9rem_1fr] sm:gap-6">
+                <dt className="font-mono text-xs font-normal text-neutral-500 sm:pt-0.5">
                   {fact.label}
                 </dt>
-                <dd className="mt-1 text-sm font-semibold text-neutral-900">
+                <dd className="text-sm font-normal text-neutral-900">
                   {fact.value}
                 </dd>
               </div>
             ))}
-            <div className="bg-white px-5 py-4 transition-colors duration-200 hover:bg-neutral-50">
-              <dt className="font-mono text-xs uppercase tracking-[0.12em] text-neutral-500">Contact</dt>
-              <dd className="mt-1 text-sm font-semibold text-neutral-900">
+            <div className="grid gap-1 py-3 sm:grid-cols-[9rem_1fr] sm:gap-6">
+              <dt className="font-mono text-xs font-normal text-neutral-500 sm:pt-0.5">Contact</dt>
+              <dd className="text-sm font-normal text-neutral-900">
                 <a href={PORTFOLIO_IDENTITY.phoneTel} className="hover:underline">{PORTFOLIO_IDENTITY.phone}</a>
                 {' · '}
                 <a href={`mailto:${PORTFOLIO_IDENTITY.email}`} className="hover:underline">{PORTFOLIO_IDENTITY.email}</a>
@@ -111,18 +111,18 @@ export default function AboutPage() {
 
         {/* Stack */}
         <section data-reveal>
-          <p className="mb-5 font-mono text-xs uppercase tracking-[0.15em] text-neutral-500">
+          <p className="mb-4 font-mono text-[11px] font-normal uppercase tracking-[0.08em] text-neutral-400">
             Stack
           </p>
-          <div className="grid grid-cols-2 gap-5 sm:grid-cols-4">
+          <div className="grid grid-cols-2 gap-6 sm:grid-cols-4 border-t border-neutral-200 pt-5">
             {STACK.map((col) => (
               <div key={col.group}>
-                <p className="mb-2.5 font-mono text-xs uppercase tracking-[0.1em] text-neutral-500">
+                <p className="mb-2.5 font-mono text-xs font-medium text-neutral-900">
                   {col.group}
                 </p>
                 <ul className="space-y-1.5">
                   {col.items.map((item) => (
-                    <li key={item} className="text-sm font-medium text-neutral-900">
+                    <li key={item} className="text-sm font-normal text-neutral-600">
                       {item}
                     </li>
                   ))}
@@ -134,27 +134,27 @@ export default function AboutPage() {
 
         {/* What I've built */}
         <section data-reveal>
-          <p className="mb-5 font-mono text-xs uppercase tracking-[0.15em] text-neutral-500">
+          <p className="mb-4 font-mono text-[11px] font-normal uppercase tracking-[0.08em] text-neutral-400">
             What I&apos;ve built
           </p>
-          <div className="space-y-px border border-neutral-200 rounded-xl overflow-hidden bg-neutral-200">
+          <div className="divide-y divide-neutral-200 border-y border-neutral-200">
             {BUILT.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className="group flex items-start justify-between gap-6 bg-white px-5 py-5 transition-all duration-200 hover:bg-neutral-50"
+                className="group flex items-start justify-between gap-6 py-4 transition-all duration-200"
               >
                 <div className="transition-transform duration-200 group-hover:translate-x-1">
-                  <p className="text-sm font-semibold text-neutral-900 group-hover:underline">
+                  <p className="text-base font-medium text-neutral-900 group-hover:underline underline-offset-4">
                     {item.name}
                   </p>
-                  <p className="mt-1 text-xs leading-relaxed text-neutral-600">
+                  <p className="mt-1 text-sm font-normal leading-relaxed text-neutral-600">
                     {item.detail}
                   </p>
                 </div>
                 <span
                   aria-hidden="true"
-                  className="mt-0.5 shrink-0 text-neutral-400 transition-transform duration-200 group-hover:translate-x-1 group-hover:text-neutral-900"
+                  className="mt-1 shrink-0 text-neutral-400 transition-transform duration-200 group-hover:translate-x-1 group-hover:text-neutral-900"
                 >
                   →
                 </span>

@@ -82,9 +82,9 @@ export default function ContextPanel({ projects }: ContextPanelProps) {
 
   return (
     <aside ref={panelRef} className="sticky top-0 h-screen overflow-y-auto px-8 py-8 space-y-9">
-      {/* Section 1: Open Editorial Ledger — Zero boxes */}
+      {/* Section 1: Open Editorial Ledger — Light labels (400), regular values (400) */}
       <div data-panel-reveal>
-        <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-neutral-500">
+        <p className="font-mono text-[11px] font-normal uppercase tracking-[0.08em] text-neutral-400">
           Candidate Ledger
         </p>
 
@@ -98,10 +98,10 @@ export default function ContextPanel({ projects }: ContextPanelProps) {
             { k: 'Location', v: 'Balingasa, Quezon City' },
           ].map(({ k, v, mono }) => (
             <div key={k} className="flex items-baseline justify-between gap-4 py-2.5">
-              <dt className="font-mono text-[11px] uppercase tracking-[0.06em] text-neutral-500 shrink-0">
+              <dt className="font-mono text-[11px] font-normal uppercase tracking-[0.06em] text-neutral-400 shrink-0">
                 {k}
               </dt>
-              <dd className={`text-right text-neutral-900 ${mono ? 'font-mono text-[13px]' : 'text-sm font-medium'}`}>
+              <dd className={`text-right font-normal text-neutral-800 ${mono ? 'font-mono text-[13px]' : 'text-sm'}`}>
                 {v}
               </dd>
             </div>
@@ -111,10 +111,10 @@ export default function ContextPanel({ projects }: ContextPanelProps) {
         <button
           type="button"
           onClick={handleCopyAts}
-          className="group mt-2 flex w-full items-center justify-between border-t border-b border-neutral-900 py-2.5 text-sm font-semibold text-neutral-900 transition-colors hover:text-neutral-600"
+          className="group mt-2 flex w-full items-center justify-between border-t border-b border-neutral-900 py-2.5 text-sm font-medium text-neutral-900 transition-colors hover:text-neutral-600"
         >
           <span>{copiedSummary ? '✓ Copied ATS Summary to Clipboard' : 'Copy ATS Candidate Summary'}</span>
-          <span className="font-mono text-xs text-neutral-500 transition-transform duration-150 group-hover:translate-x-0.5">
+          <span className="font-mono text-xs font-normal text-neutral-500 transition-transform duration-150 group-hover:translate-x-0.5">
             {copiedSummary ? 'Done' : 'Copy →'}
           </span>
         </button>
@@ -125,12 +125,12 @@ export default function ContextPanel({ projects }: ContextPanelProps) {
         {currentProject ? (
           <div className={`space-y-3 transition-opacity duration-150 ${isTransitioning ? 'opacity-50' : 'opacity-100'}`}>
             <div className="flex items-baseline justify-between border-b border-neutral-200 pb-2">
-              <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-neutral-500">
+              <p className="font-mono text-[11px] font-normal uppercase tracking-[0.08em] text-neutral-400">
                 Currently Viewing
               </p>
               <Link
                 href={`/projects/${currentProject.slug}`}
-                className="text-xs font-semibold text-neutral-900 underline underline-offset-4"
+                className="text-xs font-normal text-neutral-700 underline underline-offset-4 hover:text-neutral-950"
               >
                 Case study →
               </Link>
@@ -141,14 +141,14 @@ export default function ContextPanel({ projects }: ContextPanelProps) {
                 {currentProject.title}
               </h3>
               {currentProject.client && (
-                <p className="font-mono text-xs text-neutral-500">
+                <p className="font-mono text-xs font-normal text-neutral-500">
                   {currentProject.client}
                 </p>
               )}
-              <p className="text-sm leading-relaxed text-neutral-600">
+              <p className="text-sm font-normal leading-relaxed text-neutral-600">
                 {currentProject.description}
               </p>
-              <p className="pt-1 font-mono text-[13px] text-neutral-800">
+              <p className="pt-1 font-mono text-[13px] font-normal text-neutral-700">
                 {currentProject.tags.join(' · ')}
               </p>
             </div>
@@ -156,10 +156,10 @@ export default function ContextPanel({ projects }: ContextPanelProps) {
         ) : (
           <div>
             <div className="flex items-baseline justify-between border-b border-neutral-200 pb-2">
-              <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-neutral-500">
+              <p className="font-mono text-[11px] font-normal uppercase tracking-[0.08em] text-neutral-400">
                 Production Systems
               </p>
-              <Link href="/projects" className="text-xs font-medium text-neutral-600 hover:text-neutral-900 hover:underline">
+              <Link href="/projects" className="text-xs font-normal text-neutral-500 hover:text-neutral-900 hover:underline">
                 Index →
               </Link>
             </div>
@@ -191,14 +191,15 @@ export default function ContextPanel({ projects }: ContextPanelProps) {
                   className="group flex items-baseline justify-between gap-3 py-3 transition-colors"
                 >
                   <div className="flex items-baseline gap-3 min-w-0">
-                    <span className="font-mono text-xs text-neutral-400 group-hover:text-neutral-900 transition-colors">
+                    <span className="font-mono text-xs font-normal text-neutral-400 group-hover:text-neutral-900 transition-colors">
                       {item.num}
                     </span>
                     <div className="min-w-0">
+                      {/* Only the project title is medium weight (500); subtitle is regular (400) */}
                       <p className="text-sm font-medium text-neutral-900 group-hover:underline underline-offset-4 truncate">
                         {item.title}
                       </p>
-                      <p className="mt-0.5 text-xs text-neutral-500 truncate">{item.org}</p>
+                      <p className="mt-0.5 text-xs font-normal text-neutral-500 truncate">{item.org}</p>
                     </div>
                   </div>
                   <span className="text-xs text-neutral-400 transition-transform duration-200 group-hover:translate-x-1 group-hover:text-neutral-900 shrink-0">
@@ -213,31 +214,31 @@ export default function ContextPanel({ projects }: ContextPanelProps) {
 
       {/* Section 3: Direct Contact & Reference — Hairline rows */}
       <div data-panel-reveal>
-        <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-neutral-500">
+        <p className="font-mono text-[11px] font-normal uppercase tracking-[0.08em] text-neutral-400">
           Contact &amp; Reference
         </p>
 
         <div className="mt-3 divide-y divide-neutral-200 border-t border-neutral-200 text-sm">
           <div className="flex items-baseline justify-between py-2.5">
-            <span className="font-mono text-[11px] uppercase tracking-[0.06em] text-neutral-500">Phone / Viber</span>
-            <a href={PORTFOLIO_IDENTITY.phoneTel} className="font-mono text-[13px] font-medium text-neutral-900 hover:underline">
+            <span className="font-mono text-[11px] font-normal uppercase tracking-[0.06em] text-neutral-400">Phone / Viber</span>
+            <a href={PORTFOLIO_IDENTITY.phoneTel} className="font-mono text-[13px] font-normal text-neutral-900 hover:underline">
               {PORTFOLIO_IDENTITY.phone}
             </a>
           </div>
           <div className="flex items-baseline justify-between py-2.5">
-            <span className="font-mono text-[11px] uppercase tracking-[0.06em] text-neutral-500">Email</span>
-            <a href={`mailto:${PORTFOLIO_IDENTITY.email}`} className="text-sm font-medium text-neutral-900 hover:underline">
+            <span className="font-mono text-[11px] font-normal uppercase tracking-[0.06em] text-neutral-400">Email</span>
+            <a href={`mailto:${PORTFOLIO_IDENTITY.email}`} className="text-sm font-normal text-neutral-900 hover:underline">
               {PORTFOLIO_IDENTITY.email}
             </a>
           </div>
           <div className="py-3">
-            <span className="font-mono text-[11px] uppercase tracking-[0.06em] text-neutral-500 block">
+            <span className="font-mono text-[11px] font-normal uppercase tracking-[0.06em] text-neutral-400 block">
               Reference
             </span>
             <p className="mt-1 text-sm font-medium text-neutral-900">
               {PORTFOLIO_IDENTITY.reference.name}
             </p>
-            <p className="text-xs text-neutral-600 mt-0.5">
+            <p className="text-xs font-normal text-neutral-600 mt-0.5">
               {PORTFOLIO_IDENTITY.reference.role} ·{' '}
               <a
                 href={PORTFOLIO_IDENTITY.reference.companyUrl}
