@@ -14,6 +14,7 @@ const PLACEHOLDER_IMAGES: Record<string, string> = {
   'wordpress-ph-community': '/wp-community-1.webp',
   'wilcon-enterprise-systems': '/wilcon-enterprise.svg',
   'wilcon-collection-deposit-report': '/wilcon-cdr-branch.png',
+  'wilcon-month-end-closing': '/wilcon-closing-gl-balance.png',
 }
 
 const CATEGORY_COLORS: Record<string, string> = {

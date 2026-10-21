@@ -181,6 +181,63 @@ const ATS_DATA: Record<string, ProjectAtsData> = {
       },
     ],
   },
+  'wilcon-month-end-closing': {
+    summary:
+      'Internal financial closing platform that replaces spreadsheets and chat apps for Wilcon\'s monthly accounting close. Shifts entry submission directly to account owners, blocks unbalanced or duplicate entries automatically, runs a two-step approval workflow, and posts approved balances to Infor M3 in one click.',
+    stackSummary: 'Laravel, Vue.js, PHP, MySQL, Infor M3 ERP APIs',
+    bullets: [
+      {
+        title: 'Automatic COA Setup',
+        description:
+          'Pulls Chart of Accounts (COA) data directly from Infor M3 so account lists, access groups, and mandatory field rules stay current without manual maintenance.',
+      },
+      {
+        title: 'Error-Proof Submission',
+        description:
+          'Supervisors upload or enter journal adjustments directly into the platform. Validation blocks submissions with missing mandatory fields, unbalanced amounts, or duplicate entries.',
+      },
+      {
+        title: 'Two-Step Approval & One-Click ERP Posting',
+        description:
+          'Business Unit Managers review and approve entries first; Finance Managers give final approval and push balanced data into Infor M3 with one click.',
+      },
+      {
+        title: 'Automated Next-Month Reversals',
+        description:
+          'When an entry requires reversal, the system automatically generates the reversing entry scheduled for the first day of the following month.',
+      },
+      {
+        title: 'Live GL Balance & Status Tracking',
+        description:
+          'Central dashboard tracks submission progress across business units, monitors rejection rates, and displays unadjusted, posted, and projected GL balances in real time.',
+      },
+      {
+        title: 'Permanent Audit Log',
+        description:
+          'Records every action in an immutable history tab showing who submitted, approved, or rejected each entry and when.',
+      },
+    ],
+    metrics: [
+      { value: '2-Step', label: 'BU → Finance Approval' },
+      { value: '1-Click', label: 'Infor M3 Posting' },
+      { value: 'Auto', label: 'Next-Month Reversals' },
+      { value: 'Real-Time', label: 'GL Balance Tracking' },
+    ],
+    captions: [
+      {
+        title: 'Closing Status Summary Dashboard',
+        description: 'Tracks period closing status across BU Head approval, Finance review, rejections, and entries posted to Infor M3.',
+      },
+      {
+        title: 'Chart of Accounts (COA) Master File',
+        description: 'Account setup synced from accounting software with access group assignments and mandatory field rules.',
+      },
+      {
+        title: 'Live GL Balance Display',
+        description: 'Real-time comparison of unadjusted balances, posted/unposted adjustments, projected balances, and system balances.',
+      },
+    ],
+  },
   'wordpress-ph-community': {
     summary:
       'Active community involvement and volunteering with WordPress Philippines. Started as an attendee in 2025 eager to learn from web engineers, and stepped up in 2026 to serve as an official volunteer photographer documenting tech meetups and supporting the local developer community.',
@@ -359,13 +416,13 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
                   onClick={() => setLightboxImage(src)}
                   className="group cursor-pointer rounded-xl border border-neutral-200 bg-white p-2.5 transition-all hover:border-neutral-400 hover:shadow-md"
                 >
-                  <div className={`aspect-[16/10] overflow-hidden rounded-lg flex items-center justify-center ${project.slug === 'wilcon-collection-deposit-report' ? 'bg-white' : 'bg-neutral-100'}`}>
+                  <div className={`aspect-[16/10] overflow-hidden rounded-lg flex items-center justify-center ${project.slug === 'wilcon-collection-deposit-report' || project.slug === 'wilcon-month-end-closing' ? 'bg-white' : 'bg-neutral-100'}`}>
                     <img
                       src={src}
                       alt={caption.title}
                       decoding="async"
                       loading="lazy"
-                      className={`h-full w-full transition-transform duration-300 group-hover:scale-105 ${project.slug === 'wilcon-collection-deposit-report' ? 'object-contain' : 'object-cover'}`}
+                      className={`h-full w-full transition-transform duration-300 group-hover:scale-105 ${project.slug === 'wilcon-collection-deposit-report' || project.slug === 'wilcon-month-end-closing' ? 'object-contain' : 'object-cover'}`}
                     />
                   </div>
                   <div className="mt-2.5 px-1 pb-1">
