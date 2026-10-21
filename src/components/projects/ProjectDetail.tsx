@@ -241,39 +241,39 @@ const ATS_DATA: Record<string, ProjectAtsData> = {
   },
   'wordpress-ph-community': {
     summary:
-      'Active community involvement and volunteering with WordPress Philippines. Started as an attendee in 2025 eager to learn from web engineers, and stepped up in 2026 to serve as an official volunteer photographer documenting tech meetups and supporting the local developer community.',
-    stackSummary: 'WordPress, PHP, Community Operations, Event Photography',
+      'Active community involvement and volunteering with WordPress Philippines and the local open-source movement. Started as an attendee in 2025 eager to learn from web engineers, and stepped up in 2026 as an official volunteer photographer documenting major tech gatherings including Software Freedom Day 2026 Manila and the July 2026 WordPress Manila Meetup.',
+    stackSummary: 'Community Operations, Event Photography, Open-Source Support',
     bullets: [
       {
-        title: 'Community Progression',
+        title: 'Software Freedom Day 2026 Manila',
         description:
-          'Advanced from an attendee in 2025 to an active volunteer photographer in 2026, documenting tech meetups and developer workshops across Metro Manila.',
+          'Served as volunteer photographer celebrating "The Future Is Open" alongside developers, designers, students, and open-source advocates. Documented speaker sessions and community discussions supported by Huawei Cloud Developer Group PH and the Digital Freedom Foundation.',
       },
       {
-        title: 'Technical Networking & Learning',
+        title: 'WordPress Manila Meetup (July 2026)',
         description:
-          'Actively engaged with local software engineers and open-source advocates, discussing CMS architecture, modern PHP development, and web best practices.',
+          'Provided photo coverage for the community meetup hosted at Common Ground Work Philippines Don Antonio, capturing technical presentations, Q&As, and preparations leading into WordCamp Philippines 2026.',
       },
       {
-        title: 'On-Site Event Operations',
+        title: 'Community Progression (2025 Attendee → 2026 Volunteer)',
         description:
-          'Assisted community organizers with event setup, attendee reception, and professional media coverage for local developer gatherings.',
+          'Evolved from an active meetup participant in 2025 into an essential volunteer team member, actively giving back to the Philippine web and open-source developer ecosystem.',
       },
     ],
     metrics: [
       { value: '2025–Pres', label: 'Community Active' },
       { value: 'Volunteer', label: 'Event Photographer' },
-      { value: 'Meetups', label: 'Tech Gatherings' },
-      { value: 'Open Source', label: 'Community Support' },
+      { value: 'SFD 2026', label: 'Software Freedom Day' },
+      { value: 'WordCamp', label: 'Pathway to 2026' },
     ],
     captions: [
       {
-        title: 'WordPress Philippines Meetup',
-        description: 'Tech gathering and community discussions with local web developers and open-source contributors.',
+        title: 'Software Freedom Day 2026 Manila',
+        description: 'Celebrating "The Future Is Open" with open-source creators and developers in Metro Manila.',
       },
       {
-        title: 'Co-Working & Collaboration Session',
-        description: 'Community work session and technical discussions in Metro Manila.',
+        title: 'WordPress Manila Meetup (Common Ground Don Antonio)',
+        description: 'Community gathering of local WordPress and PHP developers discussing open-source web technologies.',
       },
     ],
   },
