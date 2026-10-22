@@ -5,6 +5,7 @@ import Link from 'next/link'
 import type { Project } from '@/lib/types'
 import { PROJECT_INDEX } from '@/lib/portfolio-config'
 import { PROJECT_DETAILS_DATA } from '@/lib/project-details-data'
+import { TECH_SPECS_BY_SLUG } from '@/components/home/EntryLedger'
 import ArchitectureDiagram from '@/components/projects/ArchitectureDiagram'
 import EngineeringDecisions from '@/components/projects/EngineeringDecisions'
 
@@ -26,6 +27,7 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
   const [hideOverlayText, setHideOverlayText] = useState(false)
 
   const ats = PROJECT_DETAILS_DATA[project.slug]
+  const spec = TECH_SPECS_BY_SLUG[project.slug]
   const indexMeta = PROJECT_INDEX.find((item) => item.slug === project.slug)
   const otherProjects = PROJECT_INDEX.filter(
     (item) => item.slug !== project.slug && item.kind === 'software'
@@ -77,9 +79,9 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
         </Link>
       </nav>
 
-      {/* 1. CLEAN HEADER (Right DetailPanel already shows System Spec on desktop) */}
+      {/* 1. COMPACT TECHNICAL HEADER (Stack + Modules Built — Zero Essay Paragraphs) */}
       <header className="border-b border-rule/60 pb-8">
-        <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1">
+        <div className="flex flex-wrap items-center gap-2">
           {indexMeta && (
             <span className="ledger-figures bg-paper-deep/80 px-2.5 py-0.5 text-[11px] uppercase tracking-[0.06em] text-ink">
               {indexMeta.groupLabel}
@@ -90,19 +92,43 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
           </span>
         </div>
 
-        <h1 className="mt-3 font-serif text-3xl font-medium leading-tight text-ink sm:text-4xl">
+        <h1 className="mt-2.5 font-serif text-3xl font-medium leading-tight text-ink sm:text-4xl">
           {project.title}
         </h1>
 
-        {indexMeta && (
-          <div className="mt-5 border-l-2 border-ledger bg-paper-deep/55 py-3 pl-4 pr-3">
-            <p className="text-[15px] leading-relaxed text-ink">
-              <span className="ledger-figures mr-2 text-xs uppercase tracking-[0.08em] text-ledger font-medium">
-                Result:
-              </span>
-              <strong className="font-medium text-ink">{indexMeta.result}</strong>
-            </p>
-          </div>
+        {spec && (
+          <p className="ledger-figures mt-1 text-xs text-ink-soft">
+            {spec.architecture} · {indexMeta?.usedBy}
+          </p>
+        )}
+
+        {/* Tech Stack Strip */}
+        <ul className="mt-4 flex flex-wrap items-center gap-1.5">
+          {(spec?.stack || project.tags).map((tag) => (
+            <li
+              key={tag}
+              className="ledger-figures bg-paper-deep/85 px-2.5 py-1 text-xs font-medium text-ink"
+            >
+              {tag}
+            </li>
+          ))}
+        </ul>
+
+        {/* 4 Concise Technical Modules Built */}
+        {spec && (
+          <ul className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2">
+            {spec.modules.map((mod) => (
+              <li
+                key={mod}
+                className="flex items-center gap-2 bg-paper-deep/45 px-3 py-2 text-xs font-medium text-ink"
+              >
+                <span className="text-ledger font-bold" aria-hidden="true">
+                  ✓
+                </span>
+                <span>{mod}</span>
+              </li>
+            ))}
+          </ul>
         )}
 
         <div className="mt-5 flex flex-wrap items-center gap-3">
@@ -111,7 +137,7 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
             onClick={() => setLightboxIndex(0)}
             className="ledger-figures inline-flex cursor-pointer items-center gap-1.5 bg-ink px-4 py-2 text-xs font-medium text-paper transition-colors hover:bg-ledger"
           >
-            Open Full-Screen Gallery ({images.length}) ⤢
+            Fullscreen Gallery ({images.length}) ⤢
           </button>
           {project.url && (
             <a
@@ -123,67 +149,18 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
               {project.slug === 'woh-attendance-system' ? 'Open Live Kiosk ↗' : 'Visit Live Link ↗'}
             </a>
           )}
-          {project.slug === 'woh-attendance-system' && (
-            <a
-              href="https://wohcaloocan.org/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="ledger-figures inline-flex items-center gap-1.5 px-3 py-2 text-xs text-ink-soft underline decoration-rule underline-offset-4 hover:text-ink"
-            >
-              wohcaloocan.org ↗
-            </a>
-          )}
         </div>
       </header>
 
-      {/* 2. SOFT SURFACE 3-COLUMN BREAKDOWN: Problem → What I Built → Result */}
-      {indexMeta && (
-        <section aria-label="Case study summary" className="mt-8">
-          <div className="grid gap-4 md:grid-cols-3">
-            <div className="bg-paper-deep/40 p-4">
-              <span className="ledger-figures text-xs uppercase tracking-[0.08em] text-ink-soft">
-                01 · Problem
-              </span>
-              <p className="mt-2.5 text-sm leading-relaxed text-ink">
-                {indexMeta.problem}
-              </p>
-            </div>
-
-            <div className="bg-paper-deep/40 p-4">
-              <span className="ledger-figures text-xs uppercase tracking-[0.08em] text-ink">
-                02 · What I Built
-              </span>
-              <p className="mt-2.5 text-sm leading-relaxed text-ink">
-                {indexMeta.whatIBuilt}
-              </p>
-            </div>
-
-            <div className="border-l-2 border-ledger bg-ledger/12 p-4">
-              <span className="ledger-figures text-xs font-medium uppercase tracking-[0.08em] text-ledger">
-                03 · Result
-              </span>
-              <p className="mt-2.5 text-sm font-medium leading-relaxed text-ink">
-                {indexMeta.resultDetail}
-              </p>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* 3. SCREENSHOTS & VISUAL EVIDENCE — Single Unified Gallery */}
+      {/* 2. PRIMARY VISUAL GALLERY (Large, Clear System Screens) */}
       {images.length > 0 && (
-        <section className="mt-10 border-t border-rule/60 pt-8">
+        <section className="mt-8">
           <div className="mb-4 flex items-baseline justify-between">
-            <div>
-              <p className="ledger-figures text-xs uppercase tracking-[0.08em] text-ink-soft">
-                Visual Walkthrough
-              </p>
-              <h2 className="mt-1 font-serif text-2xl font-medium text-ink">
-                Screenshots &amp; System Views ({images.length})
-              </h2>
-            </div>
+            <h2 className="font-serif text-2xl font-medium text-ink">
+              System Screens ({images.length})
+            </h2>
             <span className="ledger-figures text-xs text-ink-soft">
-              Click any screen to zoom ⤢
+              Click any screen to enlarge ⤢
             </span>
           </div>
 
@@ -234,24 +211,17 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
                       decoding="async"
                       loading="lazy"
                       className={`h-full w-full transition-transform duration-500 group-hover:scale-[1.02] ${
-                        isUiScreenshot ? 'object-contain pb-9' : 'object-cover'
+                        isUiScreenshot ? 'object-contain pb-8' : 'object-cover'
                       }`}
                     />
 
-                    {/* Planned Bottom Blurred-Back Overlay Bar */}
-                    <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-3 bg-ink/75 px-3 py-2 text-paper backdrop-blur-md transition-colors group-hover:bg-ink/85">
-                      <div className="min-w-0">
-                        <h3 className="truncate text-xs font-medium text-paper">
-                          {caption.title}
-                        </h3>
-                        {caption.description && (
-                          <p className="truncate text-[11px] text-paper/80">
-                            {caption.description}
-                          </p>
-                        )}
-                      </div>
-                      <span className="ledger-figures shrink-0 bg-paper/15 px-2 py-0.5 text-[10px] text-paper">
-                        Full view ⤢
+                    {/* Small Blurred-Back Overlay Bar */}
+                    <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-3 bg-ink/80 px-3 py-1.5 text-paper backdrop-blur-md">
+                      <h3 className="truncate text-xs font-medium text-paper">
+                        {caption.title}
+                      </h3>
+                      <span className="ledger-figures shrink-0 text-[10px] text-paper/85">
+                        ⤢
                       </span>
                     </div>
                   </div>
@@ -262,75 +232,32 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
         </section>
       )}
 
-      {/* 4. HOW IT WORKS — Structured Left/Right Section with Soft Surface Cards */}
-      {ats?.bullets && (
-        <section className="mt-10 border-t border-rule/60 pt-8 grid gap-8 md:grid-cols-[13.5rem_1fr] md:items-start">
-          <div>
-            <p className="ledger-figures text-xs uppercase tracking-[0.08em] text-ink-soft">
-              Key Features
-            </p>
-            <h2 className="mt-1 font-serif text-2xl font-medium text-ink">
-              How It Works
-            </h2>
-          </div>
-
-          <ol className="grid gap-3.5 sm:grid-cols-2">
-            {ats.bullets.map((bullet, idx) => (
-              <li
-                key={bullet.title}
-                className="bg-paper-deep/40 p-4"
-              >
-                <div className="flex items-center gap-2">
-                  <span className="ledger-figures flex h-5 w-5 items-center justify-center bg-ledger text-[10px] font-medium text-paper">
-                    {String(idx + 1).padStart(2, '0')}
-                  </span>
-                  <h3 className="text-sm font-medium text-ink">{bullet.title}</h3>
-                </div>
-                <p className="mt-2 text-sm leading-relaxed text-ink-soft">
-                  {bullet.description}
-                </p>
-              </li>
-            ))}
-          </ol>
+      {/* 3. TECHNICAL ARCHITECTURE DIAGRAM (Expanded by default for technical reviewers) */}
+      {(project.slug === 'woh-attendance-system' || project.slug === 'wilcon-enterprise-systems') && (
+        <section className="mt-10 border-t border-rule/60 pt-8 space-y-8">
+          <ArchitectureDiagram slug={project.slug} />
+          <EngineeringDecisions slug={project.slug} />
         </section>
       )}
 
-      {/* 5. OPTIONAL TECHNICAL ARCHITECTURE DEEP DIVE */}
-      {(project.slug === 'woh-attendance-system' || project.slug === 'wilcon-enterprise-systems') && (
-        <details className="mt-10 group bg-paper-deep/40">
-          <summary className="ledger-figures flex cursor-pointer list-none items-center justify-between p-4 text-xs uppercase tracking-[0.08em] text-ink-soft hover:text-ink [&::-webkit-details-marker]:hidden">
-            <span>Technical Architecture &amp; Database Notes</span>
-            <span className="transition-transform group-open:rotate-45">+</span>
-          </summary>
-          <div className="space-y-10 bg-paper p-6">
-            <ArchitectureDiagram slug={project.slug} />
-            <EngineeringDecisions slug={project.slug} />
-          </div>
-        </details>
-      )}
-
-      {/* 6. EXPLORE OTHER CASE STUDIES — Soft Surface Cards */}
+      {/* 4. OTHER SYSTEMS STRIP */}
       <section aria-label="Other projects" className="mt-12 border-t border-rule/60 pt-8">
         <div className="mb-4 flex items-center justify-between">
-          <div>
-            <p className="ledger-figures text-xs uppercase tracking-[0.08em] text-ink-soft">
-              Keep Exploring
-            </p>
-            <h2 className="mt-1 font-serif text-xl font-medium text-ink">
-              Other Case Studies
-            </h2>
-          </div>
+          <h2 className="font-serif text-xl font-medium text-ink">
+            Other Production Systems
+          </h2>
           <Link
             href="/projects"
             className="ledger-figures text-xs uppercase tracking-[0.06em] text-ink underline decoration-rule underline-offset-4 hover:decoration-ink"
           >
-            View all projects →
+            All systems →
           </Link>
         </div>
 
         <div className="grid gap-3.5 sm:grid-cols-3">
           {otherProjects.map((item, idx) => {
             const title = PROJECT_TITLES[item.slug] || item.slug
+            const otherSpec = TECH_SPECS_BY_SLUG[item.slug]
             return (
               <Link
                 key={item.slug}
@@ -341,16 +268,16 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
                   <span className="ledger-figures text-[10px] font-medium text-ledger">
                     0{idx + 1} · {item.groupLabel}
                   </span>
-                  <h3 className="mt-2 text-sm font-medium leading-snug text-ink group-hover:text-ledger transition-colors">
+                  <h3 className="mt-1.5 text-sm font-medium leading-snug text-ink group-hover:text-ledger transition-colors">
                     {title}
                   </h3>
-                  <p className="mt-1.5 line-clamp-2 text-xs leading-relaxed text-ink-soft">
-                    {item.result}
+                  <p className="ledger-figures mt-1.5 text-[11px] text-ink-soft">
+                    {(otherSpec?.stack || item.threeTags).slice(0, 3).join(' · ')}
                   </p>
                 </div>
 
                 <span className="ledger-figures mt-3 inline-block text-xs font-medium text-ink">
-                  View case study →
+                  Inspect →
                 </span>
               </Link>
             )
@@ -358,7 +285,7 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
         </div>
       </section>
 
-      {/* Full-Screen Modal for Enlargeable Screenshots + Details */}
+      {/* Fullscreen Lightbox */}
       {lightboxIndex !== null && images[lightboxIndex] && (
         <div
           role="dialog"
@@ -393,7 +320,7 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
               <img
                 src={images[lightboxIndex]}
                 alt="Enlarged view"
-                className="max-h-[70vh] w-auto object-contain"
+                className="max-h-[72vh] w-auto object-contain"
               />
 
               <button
@@ -401,13 +328,13 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
                 onClick={() => setHideOverlayText((prev) => !prev)}
                 className="ledger-figures absolute right-2.5 top-2.5 cursor-pointer bg-ink/70 px-2.5 py-1 text-[10px] text-paper backdrop-blur-md hover:bg-ink"
               >
-                {hideOverlayText ? 'Show caption' : 'Hide caption'}
+                {hideOverlayText ? 'Show label' : 'Hide label'}
               </button>
 
-              {!hideOverlayText && ats?.captions[lightboxIndex]?.description && (
-                <div className="absolute inset-x-3 bottom-2.5 mx-auto max-w-2xl bg-ink/75 px-3.5 py-2 text-paper backdrop-blur-md">
-                  <p className="text-xs leading-snug text-paper/90">
-                    {ats.captions[lightboxIndex].description}
+              {!hideOverlayText && ats?.captions[lightboxIndex]?.title && (
+                <div className="absolute inset-x-3 bottom-2.5 mx-auto max-w-xl bg-ink/80 px-3.5 py-2 text-paper backdrop-blur-md">
+                  <p className="text-xs font-medium text-paper">
+                    {ats.captions[lightboxIndex].title}
                   </p>
                 </div>
               )}

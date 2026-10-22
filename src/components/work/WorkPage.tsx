@@ -2,18 +2,156 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { PORTFOLIO_IDENTITY, PROJECT_INDEX } from '@/lib/portfolio-config'
+import { PORTFOLIO_IDENTITY } from '@/lib/portfolio-config'
 import CompanyLogo from '@/components/work/CompanyLogo'
 
-const PROJECT_TITLES: Record<string, string> = {
-  'wilcon-month-end-closing': 'Month-End Closing System',
-  'wilcon-collection-deposit-report': 'Collection & Deposit Report Modification',
-  'wilcon-enterprise-systems': 'Enterprise Web Apps & ERP Workflows',
-  'woh-attendance-system': 'WOH Attendance & Member Care System',
+interface VisualWorkEntry {
+  company: string
+  role: string
+  period: string
+  location: string
+  logoUrl?: string
+  stack: string[]
+  modules: string[]
+  photos: { src: string; caption: string }[]
+  caseStudies?: { slug: string; title: string; tag: string }[]
 }
 
+const VISUAL_WORK_ENTRIES: VisualWorkEntry[] = [
+  {
+    company: 'Wilcon Depot, Inc.',
+    role: 'Full Stack Junior System Developer',
+    period: 'May 2026 – Oct 2026 · 6 mos',
+    location: 'Quezon City · On-site',
+    logoUrl: '/logos/wilcon.png',
+    stack: ['Laravel', 'Vue.js', 'PHP', 'JavaScript', 'MySQL', 'REST APIs', 'Git'],
+    modules: [
+      'Month-End Closing Web App (GL & Approvals)',
+      'Collection & Deposit Report Modification',
+      'ERP Account & Vendor Master Sync',
+      'Multi-Step Voucher Approval Routing',
+      'REST API Endpoints & MySQL Optimization',
+      'QA & System Analyst Release Testing',
+    ],
+    photos: [
+      {
+        src: '/wilcon-workstation.webp',
+        caption: 'Dual-Monitor Developer Workstation · Wilcon Depot',
+      },
+      {
+        src: '/wilcon-building.webp',
+        caption: 'Wilcon Depot Corporate Headquarters · Quezon City',
+      },
+    ],
+    caseStudies: [
+      {
+        slug: 'wilcon-month-end-closing',
+        title: 'Month-End Closing System',
+        tag: 'Laravel · Vue.js · GL Sync',
+      },
+      {
+        slug: 'wilcon-collection-deposit-report',
+        title: 'Collection & Deposit Report',
+        tag: 'PHP · MySQL · PDF/Excel',
+      },
+      {
+        slug: 'wilcon-enterprise-systems',
+        title: 'Enterprise ERP Workflows',
+        tag: 'REST APIs · ERP Sync',
+      },
+    ],
+  },
+  {
+    company: 'Word of Hope Caloocan',
+    role: 'Solo Full Stack Developer',
+    period: 'Mar 2025 – Present · Production',
+    location: 'Caloocan City · Live System',
+    logoUrl: undefined,
+    stack: ['Laravel 12', 'PHP', 'MySQL', 'Tailwind CSS', 'QR Scanner API'],
+    modules: [
+      'Camera & Handheld QR Scanner Kiosk',
+      'Real-Time Sunday Service Dashboard',
+      '1–4 Week Absentee Follow-Up Tracker',
+      'Printable Member QR ID Generator',
+    ],
+    photos: [
+      {
+        src: '/woh-pilot.webp',
+        caption: 'Live QR Check-In Kiosk at Word of Hope Entrance',
+      },
+      {
+        src: '/woh-admin.webp',
+        caption: 'Real-Time Attendance & Absentee Care Dashboard',
+      },
+    ],
+    caseStudies: [
+      {
+        slug: 'woh-attendance-system',
+        title: 'WOH QR Attendance System',
+        tag: 'Laravel 12 · MySQL · QR API',
+      },
+    ],
+  },
+  {
+    company: 'WordPress Philippines',
+    role: 'Volunteer & Event Photographer',
+    period: '2025 – 2026 · Community',
+    location: 'Metro Manila',
+    logoUrl: '/logos/wordpress.png',
+    stack: ['WordPress', 'PHP', 'Open-Source Community'],
+    modules: [
+      'Software Freedom Day 2026 Manila',
+      'WordPress Manila Meetup (July 2026)',
+      'Developer Sessions & Technical Workshops',
+      'Open-Source Community Documentation',
+    ],
+    photos: [
+      {
+        src: '/wp-community-1.webp',
+        caption: 'Software Freedom Day 2026 Manila',
+      },
+      {
+        src: '/wp-community-2.webp',
+        caption: 'WordPress Manila Meetup · Common Ground Don Antonio',
+      },
+      {
+        src: '/wp-community-3.webp',
+        caption: 'Technical Sessions & Developer Talks',
+      },
+      {
+        src: '/wp-community-4.webp',
+        caption: 'Open-Source Community Networking · Manila',
+      },
+    ],
+  },
+  {
+    company: 'Radiant Force Human Resources',
+    role: 'HR Assistant & IT Support (OJT)',
+    period: 'Sep 2025 – Jan 2026 · 5 mos',
+    location: 'Quezon City · On-site',
+    logoUrl: undefined,
+    stack: ['HRIS Records', 'Data Validation', 'Document Digitization'],
+    modules: [
+      'Employee 201 File & Database Records',
+      'SSS, PhilHealth & Pag-IBIG Compliance',
+      'Digital Document Indexing & Verification',
+      'Internal Office IT & Hardware Support',
+    ],
+    photos: [
+      {
+        src: '/certificates/OJT coc .webp',
+        caption: 'OJT Certificate of Completion · Radiant Force HR',
+      },
+    ],
+  },
+]
+
+/**
+ * Visual-first Work Experience page:
+ * - Zero long paragraphs or behavioral stories
+ * - Focuses on Workplace/Event Visuals + Tech Stack + Short Technical Modules
+ */
 export default function WorkPage() {
-  const { workExperience } = PORTFOLIO_IDENTITY
   const [zoomPhoto, setZoomPhoto] = useState<{
     src: string
     caption: string
@@ -37,214 +175,162 @@ export default function WorkPage() {
   return (
     <div className="px-6 py-10 sm:py-14">
       <div className="max-w-4xl">
-        {/* Page Header */}
-        <header className="border-b border-rule/60 pb-8">
-          <p className="ledger-figures text-xs uppercase tracking-[0.08em] text-ink-soft">
-            Career Ledger · Newest First
-          </p>
-          <h1 className="mt-2 font-serif text-4xl font-medium leading-tight text-ink sm:text-5xl">
-            Work &amp; Community Experience
-          </h1>
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-ink-soft">
-            From working student in college to HR operations and 6 months building production finance software at Wilcon Depot, Inc.
-          </p>
+        {/* Compact Header */}
+        <header className="border-b border-rule/60 pb-6">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p className="ledger-figures text-xs uppercase tracking-[0.08em] text-ink-soft">
+                Technical &amp; Production Experience
+              </p>
+              <h1 className="mt-1 font-serif text-4xl font-medium leading-tight text-ink sm:text-5xl">
+                Work Experience
+              </h1>
+            </div>
 
-          {/* Soft Career Progression Strip (No boxy outer border) */}
-          <div className="mt-6 grid grid-cols-2 gap-2.5 sm:grid-cols-4">
-            <div className="bg-paper-deep/45 p-3">
-              <p className="ledger-figures text-[10px] text-ink-soft">2024 · Working Student</p>
-              <p className="mt-0.5 text-xs font-medium text-ink">Jollibee Service Crew</p>
-            </div>
-            <div className="bg-paper-deep/45 p-3">
-              <p className="ledger-figures text-[10px] text-ink-soft">2025 · Graduate</p>
-              <p className="mt-0.5 text-xs font-medium text-ink">BS Information Technology</p>
-            </div>
-            <div className="bg-paper-deep/45 p-3">
-              <p className="ledger-figures text-[10px] text-ink-soft">2025–2026 · Absorbed OJT</p>
-              <p className="mt-0.5 text-xs font-medium text-ink">Radiant Force HR Assistant</p>
-            </div>
-            <div className="border-l-2 border-ledger bg-ledger/12 p-3">
-              <p className="ledger-figures text-[10px] font-medium text-ledger">2026 · Enterprise Dev</p>
-              <p className="mt-0.5 text-xs font-medium text-ink">Wilcon Depot Full Stack Dev</p>
-            </div>
+            <a
+              href={PORTFOLIO_IDENTITY.resumeDocUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ledger-figures inline-flex items-center gap-1.5 bg-ink px-4 py-2 text-xs font-medium text-paper transition-colors hover:bg-ledger"
+            >
+              Full Resume (Google Doc) ↗
+            </a>
           </div>
         </header>
 
-        {/* Structured Left-Meta / Right-Content Experience Entries */}
+        {/* Visual + Technical Role Entries */}
         <div className="divide-y divide-rule/60">
-          {workExperience.map((role, index) => {
-            const photos = (role as { photos?: readonly string[] }).photos || []
-            const captions = (role as { photoCaptions?: readonly string[] }).photoCaptions || []
-            const relatedSlugs = (role as { relatedProjects?: readonly string[] }).relatedProjects || []
-
-            return (
-              <article
-                key={role.company}
-                className="py-10 grid gap-6 md:grid-cols-[13.5rem_1fr] md:items-start md:gap-8"
-              >
-                {/* Left Column: Company Logo, Period, Location & Progression */}
-                <div className="space-y-3">
-                  <div className="flex items-center gap-3">
-                    <div className="shrink-0 bg-white p-1.5 shadow-2xs">
-                      <CompanyLogo company={role.company} logoUrl={role.logoUrl} size={38} />
-                    </div>
-                    <div>
-                      <p className="text-sm font-medium text-ink">{role.company}</p>
-                      <p className="ledger-figures text-[11px] text-ledger font-medium">
-                        {role.period}
-                      </p>
-                    </div>
+          {VISUAL_WORK_ENTRIES.map((role, index) => (
+            <article
+              key={role.company}
+              className="py-9 grid gap-6 md:grid-cols-[13.5rem_1fr] md:items-start md:gap-8"
+            >
+              {/* Left Column: Company Logo, Period & Tech Stack */}
+              <div className="space-y-3">
+                <div className="flex items-center gap-3">
+                  <div className="shrink-0 bg-white p-1.5 shadow-2xs">
+                    <CompanyLogo company={role.company} logoUrl={role.logoUrl} size={38} />
                   </div>
-
-                  {role.location && (
-                    <p className="ledger-figures text-xs text-ink-soft">
-                      {role.location}
+                  <div>
+                    <p className="text-sm font-medium text-ink">{role.company}</p>
+                    <p className="ledger-figures text-[11px] text-ledger font-medium">
+                      {role.period}
                     </p>
-                  )}
-
-                  {role.progression && (
-                    <span className="ledger-figures inline-block bg-ledger/12 px-2.5 py-1 text-[11px] font-medium text-ledger">
-                      ✓ {role.progression}
-                    </span>
-                  )}
-
-                  {role.technologies.length > 0 && (
-                    <div className="flex flex-wrap gap-1 pt-1">
-                      {role.technologies.map((tech) => (
-                        <span
-                          key={tech}
-                          className="ledger-figures bg-paper-deep/75 px-2 py-0.5 text-[11px] text-ink"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  )}
+                  </div>
                 </div>
 
-                {/* Right Column: Role Title, Summary, Workplace Photos, Responsibilities & Case Studies */}
-                <div className="min-w-0">
-                  <div className="flex items-baseline gap-2">
-                    <span className="ledger-figures text-xs text-ink-soft">0{index + 1}</span>
-                    <h2 className="font-serif text-2xl font-medium text-ink sm:text-[1.7rem]">
-                      {role.role}
-                    </h2>
-                  </div>
+                <p className="ledger-figures text-xs text-ink-soft">
+                  {role.location}
+                </p>
 
-                  {role.highlight && (
-                    <div className="mt-4 border-l-2 border-ledger bg-paper-deep/55 py-2.5 pl-4 pr-3">
-                      <p className="text-[15px] leading-relaxed text-ink">
-                        {role.highlight}
-                      </p>
-                    </div>
-                  )}
+                <div className="flex flex-wrap gap-1 pt-1">
+                  {role.stack.map((tech) => (
+                    <span
+                      key={tech}
+                      className="ledger-figures bg-paper-deep/85 px-2 py-0.5 text-[11px] font-medium text-ink"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
 
-                  {/* Workplace / Event Visuals (Only photos keep a clean white frame) */}
-                  {photos.length > 0 && (
-                    <div className="mt-5">
-                      <div
-                        className={`grid gap-3 ${
-                          photos.length > 1
-                            ? 'grid-cols-1 sm:grid-cols-2'
-                            : 'grid-cols-1 sm:max-w-sm'
-                        }`}
+              {/* Right Column: Role Title, Visual Photos, Concise Technical Deliverables & Case Study Links */}
+              <div className="min-w-0">
+                <div className="flex items-baseline gap-2">
+                  <span className="ledger-figures text-xs text-ink-soft">0{index + 1}</span>
+                  <h2 className="font-serif text-2xl font-medium text-ink sm:text-[1.7rem]">
+                    {role.role}
+                  </h2>
+                </div>
+
+                {/* Workplace / Event Visuals First */}
+                {role.photos.length > 0 && (
+                  <div
+                    className={`mt-4 grid gap-3 ${
+                      role.photos.length > 1
+                        ? 'grid-cols-1 sm:grid-cols-2'
+                        : 'grid-cols-1 sm:max-w-sm'
+                    }`}
+                  >
+                    {role.photos.map((photo) => (
+                      <button
+                        key={photo.src}
+                        type="button"
+                        onClick={() =>
+                          setZoomPhoto({
+                            src: photo.src,
+                            caption: photo.caption,
+                            company: role.company,
+                            role: role.role,
+                          })
+                        }
+                        className="group relative block cursor-pointer overflow-hidden border border-rule/80 bg-white p-1.5 text-left shadow-xs transition-all hover:border-ink"
                       >
-                        {photos.map((src, pIdx) => {
-                          const cap = captions[pIdx] || `${role.company} — Photo ${pIdx + 1}`
-                          return (
-                            <button
-                              key={src}
-                              type="button"
-                              onClick={() =>
-                                setZoomPhoto({
-                                  src,
-                                  caption: cap,
-                                  company: role.company,
-                                  role: role.role,
-                                })
-                              }
-                              className="group relative block cursor-pointer overflow-hidden border border-rule/80 bg-white p-1.5 text-left shadow-xs transition-all hover:border-ink"
-                            >
-                              <div className="relative aspect-[16/10] w-full overflow-hidden bg-paper-deep">
-                                <img
-                                  src={src}
-                                  alt={cap}
-                                  loading="lazy"
-                                  decoding="async"
-                                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                                />
-                                <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-2 bg-ink/75 px-2.5 py-1.5 text-paper backdrop-blur-md">
-                                  <span className="truncate text-xs font-medium text-paper">
-                                    {cap}
-                                  </span>
-                                  <span className="ledger-figures shrink-0 text-[10px] text-paper/85">
-                                    ⤢
-                                  </span>
-                                </div>
-                              </div>
-                            </button>
-                          )
-                        })}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Responsibilities on Soft Surfaces (No harsh borders) */}
-                  <div className="mt-5 grid gap-2.5 sm:grid-cols-2">
-                    {role.evidence.map((item, evIdx) => (
-                      <div key={item.label} className="bg-paper-deep/40 p-3.5">
-                        <div className="flex items-center gap-2">
-                          <span className="ledger-figures text-[11px] font-medium text-ledger">
-                            0{evIdx + 1}
-                          </span>
-                          <h3 className="text-sm font-medium text-ink">{item.label}</h3>
+                        <div className="relative aspect-[16/10] w-full overflow-hidden bg-paper-deep">
+                          <img
+                            src={photo.src}
+                            alt={photo.caption}
+                            loading="lazy"
+                            decoding="async"
+                            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                          />
+                          <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-2 bg-ink/80 px-2.5 py-1.5 text-paper backdrop-blur-md">
+                            <span className="truncate text-xs font-medium text-paper">
+                              {photo.caption}
+                            </span>
+                            <span className="ledger-figures shrink-0 text-[10px] text-paper/85">
+                              ⤢
+                            </span>
+                          </div>
                         </div>
-                        <p className="mt-1 text-xs leading-relaxed text-ink-soft">
-                          {item.detail}
-                        </p>
-                      </div>
+                      </button>
                     ))}
                   </div>
+                )}
 
-                  {/* Connected Case Study Links (Soft surface cards, no duplicate thumbnails) */}
-                  {relatedSlugs.length > 0 && (
-                    <div className="mt-5">
-                      <p className="ledger-figures mb-2 text-[11px] uppercase tracking-[0.08em] text-ledger font-medium">
-                        Connected Case Studies
-                      </p>
-                      <div className="grid gap-2.5 sm:grid-cols-3">
-                        {relatedSlugs.map((slug) => {
-                          const meta = PROJECT_INDEX.find((p) => p.slug === slug)
-                          const title = PROJECT_TITLES[slug] || slug
-                          return (
-                            <Link
-                              key={slug}
-                              href={`/projects/${slug}`}
-                              className="group flex flex-col justify-between bg-paper-deep/55 p-3 transition-colors hover:bg-paper-deep"
-                            >
-                              <div>
-                                <h4 className="text-xs font-medium leading-snug text-ink group-hover:text-ledger transition-colors">
-                                  {title}
-                                </h4>
-                                {meta && (
-                                  <p className="mt-1 line-clamp-2 text-[11px] leading-relaxed text-ink-soft">
-                                    {meta.result}
-                                  </p>
-                                )}
-                              </div>
-                              <span className="ledger-figures mt-2 inline-block text-[11px] font-medium text-ink group-hover:translate-x-0.5 transition-transform">
-                                View case study →
-                              </span>
-                            </Link>
-                          )
-                        })}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </article>
-            )
-          })}
+                {/* Concise Technical Deliverables (Short 4–6 word chips, zero paragraphs) */}
+                <ul className="mt-4 grid grid-cols-1 gap-1.5 sm:grid-cols-2">
+                  {role.modules.map((mod) => (
+                    <li
+                      key={mod}
+                      className="flex items-center gap-2 bg-paper-deep/45 px-3 py-2 text-xs font-medium text-ink"
+                    >
+                      <span className="text-ledger font-bold" aria-hidden="true">
+                        ✓
+                      </span>
+                      <span className="truncate">{mod}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                {/* Connected System Case Studies */}
+                {role.caseStudies && role.caseStudies.length > 0 && (
+                  <div className="mt-4 grid gap-2 sm:grid-cols-3">
+                    {role.caseStudies.map((cs) => (
+                      <Link
+                        key={cs.slug}
+                        href={`/projects/${cs.slug}`}
+                        className="group flex flex-col justify-between bg-paper-deep/65 p-3 transition-colors hover:bg-ink hover:text-paper"
+                      >
+                        <div>
+                          <p className="text-xs font-medium leading-snug text-ink group-hover:text-paper">
+                            {cs.title}
+                          </p>
+                          <p className="ledger-figures mt-0.5 text-[10px] text-ink-soft group-hover:text-paper/80">
+                            {cs.tag}
+                          </p>
+                        </div>
+                        <span className="ledger-figures mt-2 inline-block text-[10px] font-medium text-ledger group-hover:text-paper">
+                          System Spec →
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </article>
+          ))}
         </div>
       </div>
 

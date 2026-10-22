@@ -2,74 +2,93 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { CAREER_LOG, PORTFOLIO_IDENTITY } from '@/lib/portfolio-config'
 
-const ORG_LOGOS: Record<string, string> = {
-  'Wilcon Depot, Inc.': '/logos/wilcon.png',
-  'WordPress Philippines': '/logos/wordpress.png',
-  'Jollibee Foods Corp.': '/logos/jollibee.png',
-}
-
-const ORG_BADGES: Record<string, string> = {
-  'Radiant Force Human Resources': 'RF',
-  'Access Computer College': 'BSIT',
-  'Word of Hope Caloocan': 'WOH',
-}
-
-interface RoleVisualConfig {
-  photos?: { src: string; caption: string }[]
-  evidence?: readonly { readonly label: string; readonly detail: string }[]
-  caseStudies?: { slug: string; label: string }[]
+interface TechExperienceEntry {
+  when: string
+  role: string
+  where: string
+  logo?: string
   badge?: string
+  stack: string[]
+  deliverables: string[]
+  photos?: { src: string; caption: string }[]
+  caseStudies?: { slug: string; label: string }[]
 }
 
-/**
- * Only show photos here that are NOT already shown in the Projects section above
- * (e.g. WordPress PH community photos and Radiant Force OJT certificate),
- * so no image is ever duplicated on the Home page.
- */
-const ROLE_VISUALS: Record<string, RoleVisualConfig> = {
-  'Wilcon Depot, Inc.': {
-    badge: '6 Months · Enterprise Software',
-    evidence: PORTFOLIO_IDENTITY.workExperience[0]?.evidence,
+const TECH_EXPERIENCE: TechExperienceEntry[] = [
+  {
+    when: 'May – Oct 2026 · 6 mos',
+    role: 'Full Stack Junior System Developer',
+    where: 'Wilcon Depot, Inc.',
+    logo: '/logos/wilcon.png',
+    stack: ['Laravel', 'Vue.js', 'PHP', 'JavaScript', 'MySQL', 'REST APIs', 'Git'],
+    deliverables: [
+      'Month-End Closing Web App (GL & Approvals)',
+      'Treasury Collection & Deposit Report Upgrade',
+      'ERP Account & Vendor Data Sync',
+      'SQL Query & Financial Report Optimization',
+    ],
     caseStudies: [
-      { slug: 'wilcon-month-end-closing', label: 'Month-End Closing Case Study' },
-      { slug: 'wilcon-collection-deposit-report', label: 'Treasury Report Case Study' },
-      { slug: 'wilcon-enterprise-systems', label: 'ERP & Voucher Workflows' },
+      { slug: 'wilcon-month-end-closing', label: 'Month-End Closing' },
+      { slug: 'wilcon-collection-deposit-report', label: 'Treasury Report' },
+      { slug: 'wilcon-enterprise-systems', label: 'ERP Workflows' },
     ],
   },
-  'WordPress Philippines': {
-    badge: '2025 Attendee → 2026 Volunteer',
+  {
+    when: '2025 – Present',
+    role: 'Solo Full Stack Developer',
+    where: 'Word of Hope Caloocan',
+    badge: 'WOH',
+    stack: ['Laravel 12', 'PHP', 'MySQL', 'Tailwind CSS', 'QR Scanner API'],
+    deliverables: [
+      'Real-Time QR Check-In Kiosk',
+      'Admin Attendance & Analytics Dashboard',
+      '1–4 Week Absentee Care Queue',
+      'Printable Member QR ID Generator',
+    ],
+    caseStudies: [
+      { slug: 'woh-attendance-system', label: 'WOH Attendance System' },
+    ],
+  },
+  {
+    when: '2025 – 2026',
+    role: 'Volunteer & Event Photographer',
+    where: 'WordPress Philippines',
+    logo: '/logos/wordpress.png',
+    stack: ['WordPress', 'PHP', 'Open-Source Community'],
+    deliverables: [
+      'Software Freedom Day 2026 Manila',
+      'WordPress Manila Meetup (July 2026)',
+    ],
     photos: [
       {
         src: '/wp-community-1.webp',
-        caption: 'Software Freedom Day 2026 Manila · Volunteer Photographer',
+        caption: 'Software Freedom Day 2026 Manila',
       },
       {
         src: '/wp-community-2.webp',
-        caption: 'WordPress Manila Meetup (July 2026) · Common Ground Don Antonio',
+        caption: 'WordPress Manila Meetup · July 2026',
       },
     ],
-    evidence: PORTFOLIO_IDENTITY.workExperience[1]?.evidence,
   },
-  'Radiant Force Human Resources': {
-    badge: 'OJT → Absorbed as HR Assistant',
-    photos: [
-      {
-        src: '/certificates/OJT coc .webp',
-        caption: 'OJT Certificate of Completion · Absorbed into HR Assistant Role',
-      },
-    ],
-    evidence: PORTFOLIO_IDENTITY.workExperience[2]?.evidence,
-  },
-  'Word of Hope Caloocan': {
-    badge: 'Live Every Sunday Since Mar 2025',
-    caseStudies: [
-      { slug: 'woh-attendance-system', label: 'WOH Attendance Case Study' },
+  {
+    when: '2021 – 2025',
+    role: 'BS Information Technology',
+    where: 'Access Computer College',
+    badge: 'BSIT',
+    stack: ['Web Development', 'Relational Databases', 'TESDA NC II'],
+    deliverables: [
+      'Full-Stack Web Systems Capstone',
+      'TESDA NC II Computer Systems Servicing',
     ],
   },
-}
+]
 
+/**
+ * Concise, technical-only Experience section on Home:
+ * Zero long paragraphs or behavioral stories — strictly Role, Tech Stack,
+ * short technical deliverables, and unique event photos.
+ */
 export default function AuditLog() {
   const [modalPhoto, setModalPhoto] = useState<{
     src: string
@@ -92,18 +111,18 @@ export default function AuditLog() {
   }, [modalPhoto])
 
   return (
-    <section aria-labelledby="experience-title" className="border-t border-rule px-6 py-12 sm:py-16">
+    <section aria-labelledby="experience-title" className="border-t border-rule/60 px-6 py-12 sm:py-14">
       <div className="max-w-4xl">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="ledger-figures text-xs uppercase tracking-[0.08em] text-ink-soft">
-              Audit log · newest first
+              Technical Career Log
             </p>
             <h2
               id="experience-title"
-              className="mt-2 font-serif text-[1.75rem] font-medium leading-tight text-ink sm:text-3xl"
+              className="mt-1 font-serif text-[1.75rem] font-medium leading-tight text-ink sm:text-3xl"
             >
-              Experience, Community &amp; Education
+              Experience &amp; Education
             </h2>
           </div>
 
@@ -111,75 +130,83 @@ export default function AuditLog() {
             href="/work"
             className="ledger-figures text-xs uppercase tracking-[0.06em] text-ink underline decoration-rule underline-offset-4 hover:decoration-ink"
           >
-            Full work experience page →
+            Visual work log →
           </Link>
         </div>
 
-        <ol className="mt-8">
-          {CAREER_LOG.map((entry, idx) => {
-            const logo = ORG_LOGOS[entry.where]
-            const badge = ORG_BADGES[entry.where]
-            const visual = ROLE_VISUALS[entry.where]
+        <ol className="mt-6 divide-y divide-rule/50">
+          {TECH_EXPERIENCE.map((entry, idx) => {
             const isFeatured = idx === 0
 
             return (
               <li
-                key={`${entry.when}-${entry.what}`}
-                className={`border-t border-rule py-6 ${
-                  isFeatured ? 'border-l-2 border-l-ledger bg-paper-deep/45 pl-4 pr-3' : ''
+                key={`${entry.when}-${entry.where}`}
+                className={`py-6 ${
+                  isFeatured ? 'border-l-2 border-l-ledger bg-paper-deep/35 pl-4 pr-3' : ''
                 }`}
               >
-                <div className="grid gap-x-6 gap-y-3 sm:grid-cols-[11.5rem_1fr]">
-                  {/* Left: Date & Progression Badge */}
-                  <div className="sm:pt-0.5">
+                <div className="grid gap-x-6 gap-y-3 sm:grid-cols-[11rem_1fr]">
+                  {/* Left: Date & Logo */}
+                  <div className="flex items-start justify-between sm:block">
                     <span className="ledger-figures block text-xs text-ink-soft">
                       {entry.when}
                     </span>
-                    {visual?.badge && (
-                      <span className="ledger-figures mt-1.5 inline-block border border-ledger/35 bg-ledger/10 px-2 py-0.5 text-[10px] font-medium text-ledger">
-                        {visual.badge}
-                      </span>
-                    )}
-                  </div>
 
-                  {/* Right: Role Info, Unique Photos, Responsibilities, and Case Study Links */}
-                  <div className="min-w-0">
-                    <div className="flex items-start justify-between gap-4">
-                      <div>
-                        <p className="text-lg font-medium leading-snug text-ink">
-                          {entry.what}
-                        </p>
-                        <p className="mt-0.5 text-[15px] leading-relaxed text-ink-soft">
-                          <span className="font-medium text-ink">{entry.where}</span>
-                          {entry.note ? ` · ${entry.note}` : ''}
-                        </p>
-                      </div>
-
-                      {logo ? (
-                        <div className="flex h-10 w-10 shrink-0 items-center justify-center border border-rule bg-white p-1.5 shadow-2xs">
+                    <div className="mt-2 flex items-center gap-2">
+                      {entry.logo ? (
+                        <div className="flex h-8 w-8 items-center justify-center bg-white p-1 shadow-2xs">
                           <img
-                            src={logo}
+                            src={entry.logo}
                             alt={entry.where}
                             className="h-full w-full object-contain"
                           />
                         </div>
-                      ) : badge ? (
-                        <div className="ledger-figures flex h-10 w-10 shrink-0 items-center justify-center border border-rule bg-paper-deep text-xs font-medium text-ink">
-                          {badge}
+                      ) : entry.badge ? (
+                        <div className="ledger-figures flex h-8 w-8 items-center justify-center bg-paper-deep text-[11px] font-medium text-ink">
+                          {entry.badge}
                         </div>
                       ) : null}
+                      <span className="text-xs font-medium text-ink">{entry.where}</span>
                     </div>
+                  </div>
 
-                    {/* Unique Event / Credential Photos (Never duplicated from Projects above) */}
-                    {visual?.photos && visual.photos.length > 0 && (
-                      <div
-                        className={`mt-4 grid gap-3 ${
-                          visual.photos.length > 1
-                            ? 'grid-cols-1 sm:grid-cols-2'
-                            : 'grid-cols-1 max-w-xs'
-                        }`}
-                      >
-                        {visual.photos.map((photo) => (
+                  {/* Right: Role, Stack Pills, Short Technical Deliverables & Unique Photos */}
+                  <div className="min-w-0">
+                    <h3 className="font-serif text-xl font-medium leading-snug text-ink">
+                      {entry.role}
+                    </h3>
+
+                    {/* Stack Pills */}
+                    <ul className="mt-2.5 flex flex-wrap gap-1.5">
+                      {entry.stack.map((tech) => (
+                        <li
+                          key={tech}
+                          className="ledger-figures bg-paper-deep/85 px-2.5 py-0.5 text-xs font-medium text-ink"
+                        >
+                          {tech}
+                        </li>
+                      ))}
+                    </ul>
+
+                    {/* Short Technical Deliverables (2-column chips, zero long sentences) */}
+                    <ul className="mt-3 grid grid-cols-1 gap-1.5 sm:grid-cols-2">
+                      {entry.deliverables.map((item) => (
+                        <li
+                          key={item}
+                          className="flex items-center gap-1.5 bg-paper-deep/40 px-2.5 py-1.5 text-xs text-ink"
+                        >
+                          <span className="text-ledger font-medium" aria-hidden="true">
+                            ✓
+                          </span>
+                          <span className="truncate">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    {/* Unique Event Photos */}
+                    {entry.photos && entry.photos.length > 0 && (
+                      <div className="mt-3.5 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                        {entry.photos.map((photo) => (
                           <button
                             key={photo.src}
                             type="button"
@@ -187,11 +214,11 @@ export default function AuditLog() {
                               setModalPhoto({
                                 src: photo.src,
                                 caption: photo.caption,
-                                role: entry.what,
+                                role: entry.role,
                                 where: entry.where,
                               })
                             }
-                            className="group relative block cursor-pointer overflow-hidden border border-rule bg-white p-1 text-left shadow-2xs transition-all hover:border-ink"
+                            className="group relative block cursor-pointer overflow-hidden border border-rule/80 bg-white p-1 text-left shadow-2xs transition-all hover:border-ink"
                           >
                             <div className="relative aspect-[16/10] w-full overflow-hidden bg-paper-deep">
                               <img
@@ -201,12 +228,12 @@ export default function AuditLog() {
                                 decoding="async"
                                 className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                               />
-                              <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-2 border-t border-white/15 bg-ink/75 px-2.5 py-1.5 text-paper backdrop-blur-md">
-                                <span className="truncate text-[11px] font-medium text-paper/95">
+                              <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-2 bg-ink/80 px-2.5 py-1.5 text-paper backdrop-blur-md">
+                                <span className="truncate text-[11px] font-medium text-paper">
                                   {photo.caption}
                                 </span>
                                 <span className="ledger-figures shrink-0 text-[10px] text-paper/85">
-                                  Zoom ⤢
+                                  ⤢
                                 </span>
                               </div>
                             </div>
@@ -215,44 +242,16 @@ export default function AuditLog() {
                       </div>
                     )}
 
-                    {/* Expandable Role Responsibilities */}
-                    {visual?.evidence && visual.evidence.length > 0 && (
-                      <details className="group mt-3">
-                        <summary className="inline-flex min-h-[32px] cursor-pointer list-none items-center gap-2 text-sm text-ink-soft hover:text-ink [&::-webkit-details-marker]:hidden">
-                          <span className="underline decoration-rule underline-offset-4 group-hover:decoration-ink">
-                            Role responsibilities &amp; highlights
-                          </span>
-                          <span className="ledger-figures text-xs transition-transform group-open:rotate-45">
-                            +
-                          </span>
-                        </summary>
-                        <dl className="mt-3 space-y-2.5 border-t border-rule pt-3 text-sm">
-                          {visual.evidence.map((ev) => (
-                            <div
-                              key={ev.label}
-                              className="grid gap-1 sm:grid-cols-[8.5rem_1fr] sm:gap-4"
-                            >
-                              <dt className="ledger-figures text-xs uppercase tracking-[0.06em] text-ledger font-medium sm:pt-0.5">
-                                {ev.label}
-                              </dt>
-                              <dd className="leading-relaxed text-ink">{ev.detail}</dd>
-                            </div>
-                          ))}
-                        </dl>
-                      </details>
-                    )}
-
-                    {/* Connected Case Studies */}
-                    {visual?.caseStudies && visual.caseStudies.length > 0 && (
-                      <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1.5">
-                        {visual.caseStudies.map((cs) => (
+                    {/* Case Study Quick Links */}
+                    {entry.caseStudies && entry.caseStudies.length > 0 && (
+                      <div className="mt-3 flex flex-wrap items-center gap-4">
+                        {entry.caseStudies.map((cs) => (
                           <Link
                             key={cs.slug}
                             href={`/projects/${cs.slug}`}
-                            className="inline-flex items-center gap-1 text-sm font-medium text-ink underline decoration-rule underline-offset-4 transition-colors hover:decoration-ink"
+                            className="ledger-figures inline-flex items-center gap-1 text-xs font-medium text-ink underline decoration-rule underline-offset-4 hover:decoration-ink"
                           >
-                            {cs.label}
-                            <span aria-hidden="true">→</span>
+                            {cs.label} →
                           </Link>
                         ))}
                       </div>
@@ -263,8 +262,6 @@ export default function AuditLog() {
             )
           })}
         </ol>
-
-        <div className="rule-single" aria-hidden="true" />
       </div>
 
       {/* Photo Zoom Modal */}
@@ -277,9 +274,9 @@ export default function AuditLog() {
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="max-h-[92vh] w-full max-w-4xl overflow-hidden border border-rule bg-paper p-4 shadow-2xl"
+            className="max-h-[92vh] w-full max-w-4xl overflow-hidden bg-paper p-4 shadow-2xl"
           >
-            <div className="mb-3 flex items-center justify-between border-b border-rule pb-2.5">
+            <div className="mb-3 flex items-center justify-between pb-2">
               <div>
                 <p className="ledger-figures text-xs uppercase tracking-[0.06em] text-ink-soft">
                   {modalPhoto.where} · {modalPhoto.role}
@@ -289,12 +286,12 @@ export default function AuditLog() {
               <button
                 type="button"
                 onClick={() => setModalPhoto(null)}
-                className="ledger-figures cursor-pointer border border-ink bg-ink px-3 py-1 text-xs text-paper"
+                className="ledger-figures cursor-pointer bg-ink px-3 py-1 text-xs text-paper"
               >
                 Close ✕
               </button>
             </div>
-            <div className="flex items-center justify-center border border-rule bg-white p-2">
+            <div className="flex items-center justify-center bg-white p-2">
               <img
                 src={modalPhoto.src}
                 alt={modalPhoto.caption}

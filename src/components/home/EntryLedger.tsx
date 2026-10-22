@@ -19,15 +19,65 @@ const HOME_ORDER = [
 
 const FILTERS: { id: 'all' | ProjectGroup; label: string }[] = [
   { id: 'all', label: 'All Systems' },
-  { id: 'work', label: 'Work · Wilcon Depot' },
-  { id: 'personal', label: 'Personal · Word of Hope' },
+  { id: 'work', label: 'Wilcon Depot' },
+  { id: 'personal', label: 'Word of Hope' },
 ]
 
+/** Short technical module specs per project — no long paragraphs */
+export const TECH_SPECS_BY_SLUG: Record<
+  string,
+  {
+    stack: string[]
+    modules: string[]
+    architecture: string
+  }
+> = {
+  'wilcon-month-end-closing': {
+    stack: ['Laravel', 'Vue.js', 'PHP', 'MySQL', 'REST API'],
+    architecture: 'Role-Based Multi-Approver GL Pipeline',
+    modules: [
+      'Debit = Credit Entry Validator',
+      '2-Step BU & Finance Approval',
+      'Auto-Reversing Journal Entries',
+      'Live Side-by-Side GL Balance Sync',
+    ],
+  },
+  'wilcon-collection-deposit-report': {
+    stack: ['Laravel', 'Vue.js', 'PHP', 'MySQL', 'PDF / Excel'],
+    architecture: 'Multi-Branch Treasury Reporting Engine',
+    modules: [
+      'Interactive Check Breakdown Modal',
+      'Separated Cash vs. Check Filters',
+      'Auto Accounting Date Alignment',
+      'Nationwide Branch Column & Export',
+    ],
+  },
+  'woh-attendance-system': {
+    stack: ['Laravel 12', 'PHP', 'MySQL', 'Tailwind CSS', 'QR API'],
+    architecture: 'Real-Time QR Kiosk & Member Care CRM',
+    modules: [
+      'Camera & Handheld QR Check-In Kiosk',
+      'Live Service Attendance Dashboard',
+      '1–4 Week Absentee Follow-Up Queue',
+      'Printable Member QR ID Generator',
+    ],
+  },
+  'wilcon-enterprise-systems': {
+    stack: ['Laravel', 'Vue.js', 'PHP', 'MySQL', 'REST APIs', 'Git'],
+    architecture: 'Internal ERP & Financial Web Modules',
+    modules: [
+      'ERP Account & Vendor Data Sync',
+      'Multi-Step Voucher Approval Routing',
+      'Role-Based Department Permissions',
+      'SQL Query & Report Optimization',
+    ],
+  },
+}
+
 /**
- * Structured Left-Visual / Right-Content layout for Projects:
- * - Left column: Real screenshot window with small blurred-back caption bar + thumbnails
- * - Right column: Clean typography, soft outcome highlight, borderless tag pills,
- *   and expandable "What it does"
+ * Visual-first Projects section:
+ * - Left (wider): Large interactive screenshot stage + thumbnails
+ * - Right: Title, Tech Stack pills, and 4 concise technical module chips (zero long paragraphs)
  */
 export default function EntryLedger({ projects }: EntryLedgerProps) {
   const [activeFilter, setActiveFilter] = useState<'all' | ProjectGroup>('all')
@@ -50,7 +100,7 @@ export default function EntryLedger({ projects }: EntryLedgerProps) {
     id === 'all' ? allEntries.length : allEntries.filter(({ meta }) => meta.group === id).length
 
   return (
-    <section id="projects" aria-labelledby="projects-title" className="border-t border-rule/60 px-6 py-12 sm:py-16">
+    <section id="projects" aria-labelledby="projects-title" className="border-t border-rule/60 px-6 py-12 sm:py-14">
       <div className="max-w-4xl">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
@@ -59,13 +109,13 @@ export default function EntryLedger({ projects }: EntryLedgerProps) {
             </p>
             <h2
               id="projects-title"
-              className="mt-2 font-serif text-[1.75rem] font-medium leading-tight text-ink sm:text-3xl"
+              className="mt-1 font-serif text-[1.75rem] font-medium leading-tight text-ink sm:text-3xl"
             >
               Projects
             </h2>
           </div>
 
-          {/* Borderless Soft Filter Chips */}
+          {/* Filter Chips */}
           <div
             role="group"
             aria-label="Filter projects by category"
@@ -79,7 +129,7 @@ export default function EntryLedger({ projects }: EntryLedgerProps) {
                   type="button"
                   onClick={() => setActiveFilter(filter.id)}
                   aria-pressed={active}
-                  className={`ledger-figures min-h-[34px] cursor-pointer px-3 py-1 text-xs transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ledger ${
+                  className={`ledger-figures min-h-[32px] cursor-pointer px-3 py-1 text-xs transition-colors ${
                     active
                       ? 'bg-ink text-paper font-medium'
                       : 'bg-paper-deep/65 text-ink-soft hover:bg-paper-deep hover:text-ink'
@@ -92,132 +142,100 @@ export default function EntryLedger({ projects }: EntryLedgerProps) {
           </div>
         </div>
 
-        <ol className="mt-8 divide-y divide-rule/50">
-          {filteredEntries.map(({ project, meta }, index) => (
-            <li
-              key={project.slug}
-              className="py-8 first:pt-2"
-            >
-              <div className="grid gap-6 sm:grid-cols-[18.5rem_1fr] sm:items-start sm:gap-8">
-                {/* Left Column: Visual Screenshot Preview */}
-                <div className="w-full">
-                  <ProjectVisualPreview
-                    project={project}
-                    meta={meta}
-                    isOpenExternal={openModalSlug === project.slug}
-                    onCloseExternal={() => setOpenModalSlug(null)}
-                  />
-                </div>
+        <ol className="mt-6 divide-y divide-rule/50">
+          {filteredEntries.map(({ project, meta }, index) => {
+            const spec = TECH_SPECS_BY_SLUG[project.slug]
 
-                {/* Right Column: Clean Typography & Soft Surfaces (No Box Clutter) */}
-                <div className="min-w-0">
-                  <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1">
-                    <span className="ledger-figures text-xs text-ink-soft">
-                      {String(index + 1).padStart(2, '0')}
-                    </span>
-                    <span className="ledger-figures text-xs text-ink-soft">·</span>
-                    <span className="ledger-figures text-xs uppercase tracking-[0.06em] text-ink-soft">
-                      {meta.groupLabel}
-                    </span>
-                    <span className="ledger-figures text-xs text-ink-soft">·</span>
-                    <span className="ledger-figures text-xs font-medium text-ledger">
-                      {meta.status}
-                    </span>
+            return (
+              <li key={project.slug} className="py-7">
+                <div className="grid gap-6 md:grid-cols-[22rem_1fr] md:items-start md:gap-7">
+                  {/* Left: Large Visual Screenshot Window */}
+                  <div className="w-full">
+                    <ProjectVisualPreview
+                      project={project}
+                      meta={meta}
+                      isOpenExternal={openModalSlug === project.slug}
+                      onCloseExternal={() => setOpenModalSlug(null)}
+                    />
                   </div>
 
-                  <h3 className="mt-1.5 font-serif text-2xl font-medium leading-snug text-ink">
-                    <Link
-                      href={`/projects/${project.slug}`}
-                      className="underline decoration-transparent underline-offset-4 transition-colors hover:decoration-ink"
-                    >
-                      {project.title}
-                    </Link>
-                  </h3>
-
-                  {/* Highlighted 1-line plain-English Result */}
-                  <div className="mt-3 border-l-2 border-ledger bg-paper-deep/55 py-2.5 pl-3.5 pr-3">
-                    <p className="text-[15px] leading-relaxed text-ink">
-                      <span className="ledger-figures mr-2 text-[11px] uppercase tracking-[0.08em] text-ledger font-medium">
-                        Result:
+                  {/* Right: Concise Tech Specs Only (Zero Long Paragraphs) */}
+                  <div className="min-w-0">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="ledger-figures text-xs text-ink-soft">
+                        0{index + 1}
                       </span>
-                      <strong className="font-medium text-ink">{meta.result}</strong>
-                    </p>
-                  </div>
+                      <span className="ledger-figures text-xs text-ink-soft">·</span>
+                      <span className="ledger-figures text-xs uppercase tracking-[0.06em] text-ink-soft">
+                        {meta.groupLabel}
+                      </span>
+                      <span className="ledger-figures bg-ledger/12 px-2 py-0.5 text-[10px] font-medium text-ledger">
+                        {meta.status}
+                      </span>
+                    </div>
 
-                  {/* 3 Soft Borderless Tag Words */}
-                  <ul
-                    aria-label="Key tools"
-                    className="mt-3 flex flex-wrap items-center gap-1.5"
-                  >
-                    {meta.threeTags.map((tag) => (
-                      <li
-                        key={tag}
-                        className="ledger-figures bg-paper-deep/75 px-2.5 py-0.5 text-xs text-ink"
+                    <h3 className="mt-1.5 font-serif text-2xl font-medium leading-snug text-ink">
+                      <Link
+                        href={`/projects/${project.slug}`}
+                        className="hover:text-ledger transition-colors"
                       >
-                        {tag}
-                      </li>
-                    ))}
-                  </ul>
+                        {project.title}
+                      </Link>
+                    </h3>
 
-                  {/* Interactive Tap-to-Expand "What it does" + Action Links */}
-                  <div className="mt-3.5">
-                    <details className="group">
-                      <summary className="inline-flex min-h-[34px] cursor-pointer list-none items-center gap-2 text-sm text-ink-soft transition-colors hover:text-ink [&::-webkit-details-marker]:hidden">
-                        <span className="underline decoration-rule underline-offset-4 group-hover:decoration-ink">
-                          What it does
-                        </span>
-                        <span
-                          aria-hidden="true"
-                          className="ledger-figures inline-block text-xs transition-transform group-open:rotate-45"
+                    {spec && (
+                      <p className="ledger-figures mt-1 text-xs text-ink-soft">
+                        {spec.architecture}
+                      </p>
+                    )}
+
+                    {/* Tech Stack Pills */}
+                    <ul
+                      aria-label="Tech stack"
+                      className="mt-3 flex flex-wrap items-center gap-1.5"
+                    >
+                      {(spec?.stack || meta.threeTags).map((tag) => (
+                        <li
+                          key={tag}
+                          className="ledger-figures bg-paper-deep/85 px-2.5 py-0.5 text-xs font-medium text-ink"
                         >
-                          +
-                        </span>
-                      </summary>
+                          {tag}
+                        </li>
+                      ))}
+                    </ul>
 
-                      <dl className="mt-2.5 space-y-2.5 bg-paper-deep/40 p-4 text-sm">
-                        <div className="grid gap-1 sm:grid-cols-[6.5rem_1fr] sm:gap-4">
-                          <dt className="ledger-figures text-xs uppercase tracking-[0.06em] text-ink-soft sm:pt-0.5">
-                            Problem
-                          </dt>
-                          <dd className="leading-relaxed text-ink">{meta.problem}</dd>
-                        </div>
-                        <div className="grid gap-1 sm:grid-cols-[6.5rem_1fr] sm:gap-4">
-                          <dt className="ledger-figures text-xs uppercase tracking-[0.06em] text-ink-soft sm:pt-0.5">
-                            What I built
-                          </dt>
-                          <dd className="leading-relaxed text-ink">{meta.whatIBuilt}</dd>
-                        </div>
-                        <div className="grid gap-1 sm:grid-cols-[6.5rem_1fr] sm:gap-4">
-                          <dt className="ledger-figures text-xs uppercase tracking-[0.06em] text-ledger font-medium sm:pt-0.5">
-                            Result
-                          </dt>
-                          <dd className="font-medium leading-relaxed text-ink">{meta.resultDetail}</dd>
-                        </div>
-                        <div className="grid gap-1 sm:grid-cols-[6.5rem_1fr] sm:gap-4">
-                          <dt className="ledger-figures text-xs uppercase tracking-[0.06em] text-ink-soft sm:pt-0.5">
-                            Tools
-                          </dt>
-                          <dd className="ledger-figures text-xs text-ink sm:pt-0.5">{meta.tools}</dd>
-                        </div>
-                      </dl>
-                    </details>
+                    {/* 4 Short Technical Modules Built (2-Column Grid) */}
+                    {spec && (
+                      <ul className="mt-3.5 grid grid-cols-1 gap-1.5 sm:grid-cols-2">
+                        {spec.modules.map((mod) => (
+                          <li
+                            key={mod}
+                            className="flex items-center gap-1.5 bg-paper-deep/40 px-2.5 py-1.5 text-xs text-ink"
+                          >
+                            <span className="text-ledger font-medium" aria-hidden="true">
+                              ✓
+                            </span>
+                            <span className="truncate">{mod}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
 
-                    <div className="mt-2.5 flex flex-wrap items-center gap-x-5 gap-y-2">
+                    {/* Direct Visual Actions */}
+                    <div className="mt-4 flex flex-wrap items-center gap-4">
                       <button
                         type="button"
                         onClick={() => setOpenModalSlug(project.slug)}
-                        className="inline-flex cursor-pointer items-center gap-1.5 text-sm font-medium text-ink underline decoration-rule underline-offset-4 transition-colors hover:decoration-ink"
+                        className="ledger-figures inline-flex cursor-pointer items-center gap-1.5 bg-ink px-3.5 py-1.5 text-xs font-medium text-paper transition-colors hover:bg-ledger"
                       >
-                        Picture &amp; full details
-                        <span aria-hidden="true">⤢</span>
+                        Inspect Screens ⤢
                       </button>
 
                       <Link
                         href={`/projects/${project.slug}`}
-                        className="inline-flex items-center gap-1.5 text-sm text-ink-soft underline decoration-rule underline-offset-4 transition-colors hover:text-ink hover:decoration-ink"
+                        className="ledger-figures inline-flex items-center gap-1 text-xs font-medium text-ink underline decoration-rule underline-offset-4 hover:decoration-ink"
                       >
-                        Case study page
-                        <span aria-hidden="true">→</span>
+                        Technical Spec →
                       </Link>
 
                       {project.url && meta.kind === 'software' && (
@@ -225,17 +243,17 @@ export default function EntryLedger({ projects }: EntryLedgerProps) {
                           href={project.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-sm text-ink-soft underline decoration-rule underline-offset-4 transition-colors hover:text-ink"
+                          className="ledger-figures inline-flex items-center gap-1 text-xs text-ledger font-medium underline decoration-ledger/40 underline-offset-4 hover:decoration-ledger"
                         >
-                          Open live site ↗
+                          Live App ↗
                         </a>
                       )}
                     </div>
                   </div>
                 </div>
-              </div>
-            </li>
-          ))}
+              </li>
+            )
+          })}
         </ol>
       </div>
     </section>
