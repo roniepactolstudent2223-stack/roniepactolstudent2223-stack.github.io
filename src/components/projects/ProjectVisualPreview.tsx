@@ -71,13 +71,28 @@ export default function ProjectVisualPreview({
 
   return (
     <div>
-      {/* Planned Visual Frame with Small Blurred-Back Overlay Bar */}
+      {/* Planned Visual Window Frame with Small Blurred-Back Overlay Bar */}
       <button
         type="button"
         onClick={() => setModalOpen(true)}
         className="group relative block w-full cursor-pointer overflow-hidden border border-rule bg-white p-1.5 text-left shadow-xs transition-all hover:border-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ledger"
         aria-label={`Open picture and complete details for ${project.title}`}
       >
+        {/* Window Top Chrome Bar */}
+        <div className="mb-1.5 flex items-center justify-between border-b border-rule px-1.5 pb-1">
+          <div className="flex items-center gap-1.5">
+            <span className="h-2 w-2 rounded-full bg-rule" />
+            <span className="h-2 w-2 rounded-full bg-rule" />
+            <span className="h-2 w-2 rounded-full bg-ledger/70" />
+            <span className="ledger-figures ml-1 text-[10px] text-ink-soft">
+              Screen 0{selectedIdx + 1} / 0{images.length}
+            </span>
+          </div>
+          <span className="ledger-figures text-[10px] text-ledger font-medium group-hover:underline">
+            Open modal ⤢
+          </span>
+        </div>
+
         <div className="relative aspect-[16/10] w-full overflow-hidden bg-white">
           <img
             src={currentSrc}
@@ -89,13 +104,8 @@ export default function ProjectVisualPreview({
             }`}
           />
 
-          {/* Top-Left Small Blurred Pill: Screen Count */}
-          <span className="ledger-figures absolute left-2 top-2 border border-white/20 bg-ink/70 px-2 py-0.5 text-[10px] font-medium text-paper backdrop-blur-md">
-            Screen {selectedIdx + 1} / {images.length}
-          </span>
-
           {/* Bottom Small Blurred-Back Bar: Keeps image visible while framing title & action */}
-          <div className=" inset-x-0 bottom-0 absolute flex items-center justify-between gap-2 border-t border-white/15 bg-ink/75 px-2.5 py-1.5 text-paper backdrop-blur-md transition-colors group-hover:bg-ink/85">
+          <div className="inset-x-0 bottom-0 absolute flex items-center justify-between gap-2 border-t border-white/15 bg-ink/75 px-2.5 py-1.5 text-paper backdrop-blur-md transition-colors group-hover:bg-ink/85">
             <span className="truncate text-[11px] font-medium text-paper/95">
               {currentCaption.title}
             </span>
