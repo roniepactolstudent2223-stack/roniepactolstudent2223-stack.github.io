@@ -11,8 +11,8 @@ interface VisualWorkEntry {
   period: string
   location: string
   logoUrl?: string
-  stack: string[]
-  modules: string[]
+  stack?: string[]
+  modules?: string[]
   photos: { src: string; caption: string }[]
   caseStudies?: { slug: string; title: string; tag: string }[]
 }
@@ -30,17 +30,15 @@ const VISUAL_WORK_ENTRIES: VisualWorkEntry[] = [
       'Collection & Deposit Report Modification',
       'ERP Account & Vendor Master Sync',
       'Multi-Step Voucher Approval Routing',
-      'REST API Endpoints & MySQL Optimization',
-      'QA & System Analyst Release Testing',
     ],
     photos: [
       {
         src: '/wilcon-workstation.webp',
-        caption: 'Dual-Monitor Developer Workstation · Wilcon Depot',
+        caption: 'Developer Workstation · Wilcon Depot',
       },
       {
         src: '/wilcon-building.webp',
-        caption: 'Wilcon Depot Corporate Headquarters · Quezon City',
+        caption: 'Wilcon Depot Headquarters · Quezon City',
       },
     ],
     caseStudies: [
@@ -77,11 +75,11 @@ const VISUAL_WORK_ENTRIES: VisualWorkEntry[] = [
     photos: [
       {
         src: '/woh-pilot.webp',
-        caption: 'Live QR Check-In Kiosk at Word of Hope Entrance',
+        caption: 'Live QR Check-In Kiosk · Word of Hope',
       },
       {
         src: '/woh-admin.webp',
-        caption: 'Real-Time Attendance & Absentee Care Dashboard',
+        caption: 'Attendance & Absentee Care Dashboard',
       },
     ],
     caseStudies: [
@@ -98,13 +96,6 @@ const VISUAL_WORK_ENTRIES: VisualWorkEntry[] = [
     period: '2025 – 2026 · Community',
     location: 'Metro Manila',
     logoUrl: '/logos/wordpress.png',
-    stack: ['WordPress', 'PHP', 'Open-Source Community'],
-    modules: [
-      'Software Freedom Day 2026 Manila',
-      'WordPress Manila Meetup (July 2026)',
-      'Developer Sessions & Technical Workshops',
-      'Open-Source Community Documentation',
-    ],
     photos: [
       {
         src: '/wp-community-1.webp',
@@ -112,15 +103,7 @@ const VISUAL_WORK_ENTRIES: VisualWorkEntry[] = [
       },
       {
         src: '/wp-community-2.webp',
-        caption: 'WordPress Manila Meetup · Common Ground Don Antonio',
-      },
-      {
-        src: '/wp-community-3.webp',
-        caption: 'Technical Sessions & Developer Talks',
-      },
-      {
-        src: '/wp-community-4.webp',
-        caption: 'Open-Source Community Networking · Manila',
+        caption: 'WordPress Manila Meetup · July 2026',
       },
     ],
   },
@@ -130,11 +113,8 @@ const VISUAL_WORK_ENTRIES: VisualWorkEntry[] = [
     period: 'Sep 2025 – Jan 2026 · 5 mos',
     location: 'Quezon City · On-site',
     logoUrl: undefined,
-    stack: ['HRIS Records', 'Data Validation', 'Document Digitization'],
     modules: [
       'Employee 201 File & Database Records',
-      'SSS, PhilHealth & Pag-IBIG Compliance',
-      'Digital Document Indexing & Verification',
       'Internal Office IT & Hardware Support',
     ],
     photos: [
@@ -261,30 +241,36 @@ export default function WorkPage() {
                 </div>
               )}
 
-              {/* Tech Stack + Deliverables */}
-              <div className="space-y-3 pt-1">
-                <div className="flex flex-wrap gap-1.5">
-                  {role.stack.map((tech) => (
-                    <span
-                      key={tech}
-                      className="ledger-figures bg-ink px-2.5 py-1 text-xs font-medium text-paper"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
+              {/* Tech Stack + Deliverables (only rendered when applicable) */}
+              {(role.stack || role.modules) && (
+                <div className="space-y-3 pt-1">
+                  {role.stack && role.stack.length > 0 && (
+                    <div className="flex flex-wrap gap-1.5">
+                      {role.stack.map((tech) => (
+                        <span
+                          key={tech}
+                          className="ledger-figures bg-ink px-2.5 py-1 text-xs font-medium text-paper"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  )}
 
-                <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
-                  {role.modules.map((mod) => (
-                    <li
-                      key={mod}
-                      className="bg-paper/85 px-3 py-2 text-xs font-medium text-ink shadow-2xs"
-                    >
-                      {mod}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                  {role.modules && role.modules.length > 0 && (
+                    <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                      {role.modules.map((mod) => (
+                        <li
+                          key={mod}
+                          className="bg-paper/85 px-3 py-2 text-xs font-medium text-ink shadow-2xs"
+                        >
+                          {mod}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              )}
 
               {/* Connected System Case Studies */}
               {role.caseStudies && role.caseStudies.length > 0 && (

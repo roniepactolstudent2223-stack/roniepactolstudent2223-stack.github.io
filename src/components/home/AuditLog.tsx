@@ -9,8 +9,8 @@ interface TechExperienceEntry {
   where: string
   logo?: string
   badge?: string
-  stack: string[]
-  deliverables: string[]
+  stack?: string[]
+  deliverables?: string[]
   photos?: { src: string; caption: string }[]
   caseStudies?: { slug: string; label: string }[]
 }
@@ -55,11 +55,6 @@ const TECH_EXPERIENCE: TechExperienceEntry[] = [
     role: 'Volunteer & Event Photographer',
     where: 'WordPress Philippines',
     logo: '/logos/wordpress.png',
-    stack: ['WordPress', 'PHP', 'Open-Source Community'],
-    deliverables: [
-      'Software Freedom Day 2026 Manila',
-      'WordPress Manila Meetup (July 2026)',
-    ],
     photos: [
       {
         src: '/wp-community-1.webp',
@@ -76,7 +71,6 @@ const TECH_EXPERIENCE: TechExperienceEntry[] = [
     role: 'BS Information Technology',
     where: 'Access Computer College',
     badge: 'BSIT',
-    stack: ['Web Development', 'Relational Databases', 'TESDA NC II'],
     deliverables: [
       'Full-Stack Web Systems Capstone',
       'TESDA NC II Computer Systems Servicing',
@@ -158,27 +152,31 @@ export default function AuditLog() {
                     {entry.role}
                   </h3>
 
-                  <ul className="mt-2.5 flex flex-wrap gap-1.5">
-                    {entry.stack.map((tech) => (
-                      <li
-                        key={tech}
-                        className="ledger-figures bg-paper-deep/85 px-2.5 py-0.5 text-xs font-medium text-ink"
-                      >
-                        {tech}
-                      </li>
-                    ))}
-                  </ul>
+                  {entry.stack && entry.stack.length > 0 && (
+                    <ul className="mt-2.5 flex flex-wrap gap-1.5">
+                      {entry.stack.map((tech) => (
+                        <li
+                          key={tech}
+                          className="ledger-figures bg-paper-deep/85 px-2.5 py-0.5 text-xs font-medium text-ink"
+                        >
+                          {tech}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
 
-                  <ul className="mt-3 grid grid-cols-1 gap-1.5 sm:grid-cols-2">
-                    {entry.deliverables.map((item) => (
-                      <li
-                        key={item}
-                        className="truncate bg-paper-deep/40 px-2.5 py-1.5 text-xs text-ink"
-                      >
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
+                  {entry.deliverables && entry.deliverables.length > 0 && (
+                    <ul className="mt-3 grid grid-cols-1 gap-1.5 sm:grid-cols-2">
+                      {entry.deliverables.map((item) => (
+                        <li
+                          key={item}
+                          className="truncate bg-paper-deep/40 px-2.5 py-1.5 text-xs text-ink"
+                        >
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
 
                   {entry.photos && entry.photos.length > 0 && (
                     <div className="mt-3.5 grid grid-cols-1 gap-3 sm:grid-cols-2">
