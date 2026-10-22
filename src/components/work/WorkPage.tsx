@@ -1,283 +1,303 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import gsap from 'gsap'
-import { PORTFOLIO_IDENTITY } from '@/lib/portfolio-config'
+import { PORTFOLIO_IDENTITY, PROJECT_INDEX } from '@/lib/portfolio-config'
 import CompanyLogo from '@/components/work/CompanyLogo'
 
-function calculateDuration(period: string): string {
-  const parts = period.split('–').map((s) => s.trim())
-  const startStr = parts[0]
-  const endStr = parts[1] || 'Present'
+const PROJECT_COVERS: Record<string, string> = {
+  'wilcon-month-end-closing': '/wilcon-closing-status.png',
+  'wilcon-collection-deposit-report': '/wilcon-cdr-branch.png',
+  'wilcon-enterprise-systems': '/wilcon-workstation.webp',
+  'woh-attendance-system': '/woh-pilot.webp',
+  'wordpress-ph-community': '/wp-community-1.webp',
+}
 
-  const parseYear = (s: string) => {
-    const match = s.match(/(\d{4})/)
-    return match ? parseInt(match[1], 10) : null
-  }
-
-  const startYear = parseYear(startStr)
-  const endYear = endStr === 'Present' ? new Date().getFullYear() : parseYear(endStr)
-
-  if (!startYear || !endYear) return ''
-
-  const totalMonths = (endYear - startYear) * 12
-  const years = Math.floor(totalMonths / 12)
-  const months = totalMonths % 12
-
-  if (years === 0) return `${months}mo`
-  if (months === 0) return `${years}yr`
-  return `${years}yr ${months}mo`
+const PROJECT_TITLES: Record<string, string> = {
+  'wilcon-month-end-closing': 'Month-End Closing System',
+  'wilcon-collection-deposit-report': 'Collection & Deposit Report Modification',
+  'wilcon-enterprise-systems': 'Enterprise Web Apps & ERP Workflows',
+  'woh-attendance-system': 'WOH Attendance & Member Care System',
+  'wordpress-ph-community': 'WordPress Philippines Community & Volunteering',
 }
 
 export default function WorkPage() {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const cardsRef = useRef<(HTMLElement | null)[]>([])
-
-  // Entrance animations — staggered card entrance
-  useEffect(() => {
-    const el = containerRef.current
-    if (!el) return
-
-    const ctx = gsap.context(() => {
-      const headerEls = el.querySelectorAll('[data-reveal]')
-      const cards = el.querySelectorAll('[data-work-card]')
-
-      gsap.from(headerEls, {
-        y: 20,
-        opacity: 0,
-        duration: 0.35,
-        stagger: 0.05,
-        ease: 'power2.out',
-        delay: 0.05,
-      })
-
-      gsap.from(cards, {
-        y: 25,
-        opacity: 0,
-        duration: 0.4,
-        stagger: 0.08,
-        ease: 'power2.out',
-        delay: 0.08,
-      })
-    }, containerRef)
-
-    return () => ctx.revert()
-  }, [])
-
-
-  // Hover lift per card
-  useEffect(() => {
-    const cleanups: (() => void)[] = []
-
-    cardsRef.current.filter(Boolean).forEach((card) => {
-      if (!card) return
-      const logo = card.querySelector('[data-logo]')
-
-      const handleEnter = () => {
-        gsap.to(card, {
-          y: -4, boxShadow: '0 16px 48px rgba(0,0,0,0.06)',
-          duration: 0.35, ease: 'power2.out',
-        })
-        if (logo) gsap.to(logo, { scale: 1.05, duration: 0.3, ease: 'power2.out' })
-      }
-
-      const handleLeave = () => {
-        gsap.to(card, {
-          y: 0, boxShadow: '0 0px 0px rgba(0,0,0,0)',
-          duration: 0.4, ease: 'power2.out',
-        })
-        if (logo) gsap.to(logo, { scale: 1, duration: 0.3, ease: 'power2.out' })
-      }
-
-      card.addEventListener('mouseenter', handleEnter)
-      card.addEventListener('mouseleave', handleLeave)
-
-      cleanups.push(() => {
-        card.removeEventListener('mouseenter', handleEnter)
-        card.removeEventListener('mouseleave', handleLeave)
-      })
-    })
-
-    return () => cleanups.forEach((fn) => fn())
-  }, [])
-
   const { workExperience } = PORTFOLIO_IDENTITY
+  const [zoomPhoto, setZoomPhoto] = useState<{
+    src: string
+    caption: string
+    company: string
+    role: string
+  } | null>(null)
+
+  useEffect(() => {
+    if (!zoomPhoto) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setZoomPhoto(null)
+    }
+    window.addEventListener('keydown', onKey)
+    document.body.style.overflow = 'hidden'
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      document.body.style.overflow = ''
+    }
+  }, [zoomPhoto])
 
   return (
-    <div ref={containerRef} className="px-6 py-10">
+    <div className="px-6 py-10 sm:py-14">
       <div className="max-w-4xl">
-
-        {/* Hero */}
-        <header data-reveal>
-          <p className="mb-5 text-sm font-medium uppercase tracking-[0.1em] text-neutral-500">
-            Experience
+        {/* Page Header */}
+        <header className="pb-6">
+          <p className="ledger-figures text-xs uppercase tracking-[0.08em] text-ink-soft">
+            Career Ledger · Newest First
           </p>
-          <h1 className="font-serif text-5xl font-bold leading-[1.1] tracking-tight text-neutral-900 sm:text-6xl">
-            Recent Work
+          <h1 className="mt-2 font-serif text-4xl font-medium leading-tight text-ink sm:text-5xl">
+            Work &amp; Community Experience
           </h1>
-          <div className="mt-6 h-px w-16 bg-neutral-900" />
-          <p className="mt-7 max-w-lg text-lg leading-relaxed text-neutral-500">
-            Each role shaped how I think about software — from the problems I solve to the systems I build.
+          <p className="mt-4 max-w-2xl text-base leading-relaxed text-ink-soft">
+            From working student in college to HR operations and 6 months building production finance software at Wilcon Depot, Inc. Click any workplace photo to zoom in or open the connected case studies below each role.
           </p>
+
+          {/* Visual Career Progression Strip */}
+          <div className="mt-6 grid grid-cols-2 gap-2 border border-rule bg-paper-deep/50 p-3 sm:grid-cols-4">
+            <div className="border-l-2 border-rule pl-2.5">
+              <p className="ledger-figures text-[10px] text-ink-soft">2024 · Working Student</p>
+              <p className="text-xs font-medium text-ink">Jollibee Service Crew</p>
+            </div>
+            <div className="border-l-2 border-rule pl-2.5">
+              <p className="ledger-figures text-[10px] text-ink-soft">2025 · Graduate</p>
+              <p className="text-xs font-medium text-ink">BS Information Technology</p>
+            </div>
+            <div className="border-l-2 border-rule pl-2.5">
+              <p className="ledger-figures text-[10px] text-ink-soft">2025–2026 · Absorbed OJT</p>
+              <p className="text-xs font-medium text-ink">Radiant Force HR Assistant</p>
+            </div>
+            <div className="border-l-2 border-ledger bg-ledger/10 py-0.5 pl-2.5">
+              <p className="ledger-figures text-[10px] font-medium text-ledger">2026 · Enterprise Dev</p>
+              <p className="text-xs font-medium text-ink">Wilcon Depot Full Stack Dev</p>
+            </div>
+          </div>
         </header>
 
-        {/* Role cards */}
-        <div className="mt-16 space-y-6">
+        {/* Experience Role Entries */}
+        <div className="mt-4 space-y-10">
           {workExperience.map((role, index) => {
-            const duration = (role as { duration?: string }).duration || calculateDuration(role.period)
+            const photos = (role as { photos?: readonly string[] }).photos || []
+            const captions = (role as { photoCaptions?: readonly string[] }).photoCaptions || []
+            const relatedSlugs = (role as { relatedProjects?: readonly string[] }).relatedProjects || []
+            const isPrimary = index === 0
 
             return (
               <article
                 key={role.company}
-                data-work-card
-                ref={(el) => { cardsRef.current[index] = el }}
-                className="group rounded-2xl border border-neutral-100 bg-white p-6 sm:p-8"
+                className={`border-t border-rule pt-8 ${
+                  isPrimary ? 'border-t-2 border-t-ink' : ''
+                }`}
               >
-                {/* Header — logo + role + period + duration */}
+                {/* Role Header */}
                 <div className="flex items-start gap-4">
-                  <div data-logo className="shrink-0">
-                    <CompanyLogo company={role.company} logoUrl={role.logoUrl} size={44} />
+                  <div className="shrink-0 border border-rule bg-white p-1.5 shadow-2xs">
+                    <CompanyLogo company={role.company} logoUrl={role.logoUrl} size={42} />
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
-                      <div>
-                        <h2 className="text-xl font-semibold text-neutral-900">
-                          {role.role}
-                        </h2>
-                        <p className="text-sm text-neutral-600">
-                          {role.company}
-                          {role.location && (
-                            <span className="ml-2 text-neutral-500">· {role.location}</span>
-                          )}
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2 shrink-0">
-                        {duration && (
-                          <span className="rounded-full bg-neutral-100 px-2 py-0.5 font-mono text-[10px] font-medium text-neutral-500">
-                            {duration}
-                          </span>
-                        )}
-                        <p className="font-mono text-xs text-neutral-500">
+
+                  <div className="min-w-0 flex-1">
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="ledger-figures text-xs text-ink-soft">
+                          0{index + 1}
+                        </span>
+                        <span className="ledger-figures text-xs text-ink-soft">·</span>
+                        <span className="ledger-figures text-xs text-ledger font-medium">
                           {role.period}
-                        </p>
+                        </span>
                       </div>
+
+                      {role.progression && (
+                        <span className="ledger-figures border border-ledger/40 bg-ledger/10 px-2.5 py-0.5 text-[11px] font-medium text-ledger">
+                          ✓ {role.progression}
+                        </span>
+                      )}
                     </div>
-                    {/* Company description */}
+
+                    <h2 className="mt-1 font-serif text-2xl font-medium text-ink sm:text-[1.7rem]">
+                      {role.role}
+                    </h2>
+
+                    <p className="mt-0.5 text-sm text-ink-soft">
+                      <span className="font-medium text-ink">{role.company}</span>
+                      {role.location && <span> · {role.location}</span>}
+                    </p>
                     {role.companyDescription && (
-                      <p className="mt-1 text-sm font-normal text-neutral-500">
-                        {role.companyDescription}
-                      </p>
+                      <p className="mt-1 text-xs text-ink-soft">{role.companyDescription}</p>
                     )}
                   </div>
                 </div>
 
-                {/* Key Metric — THE standout element */}
-                {role.metric && (
-                  <div data-metric className="mt-6 flex items-baseline gap-3">
-                    <span className="font-mono text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
-                      {role.metric.value}
-                    </span>
-                    <span className="text-sm font-normal text-neutral-500">
-                      {role.metric.label}
-                    </span>
-                  </div>
-                )}
-
-                {/* Team size — scope */}
-                {role.teamSize && (
-                  <div className="mt-3 flex items-center gap-2">
-                    <span className="font-mono text-[11px] font-normal uppercase tracking-[0.06em] text-neutral-400">
-                      Scope
-                    </span>
-                    <span className="text-sm font-normal text-neutral-600">
-                      {role.teamSize}
-                    </span>
-                  </div>
-                )}
-
-                {/* Highlight */}
+                {/* Highlighted Role Summary */}
                 {role.highlight && (
-                  <div data-highlight className="mt-5 border-l-2 border-neutral-900 pl-4">
-                    <p className="text-base font-normal leading-relaxed text-neutral-800">
-                      {role.highlight}
+                  <div className="mt-5 border-l-2 border-ledger bg-paper-deep/65 py-2.5 pl-4 pr-3">
+                    <p className="text-[15px] leading-relaxed text-ink">
+                      <span className="ledger-figures mr-2 text-[11px] uppercase tracking-[0.08em] text-ledger font-medium">
+                        Summary:
+                      </span>
+                      <strong className="font-medium text-ink">{role.highlight}</strong>
                     </p>
                   </div>
                 )}
 
-                {/* Evidence items — Regular muted label (400), regular dark detail (400) */}
-                <div className="mt-5 space-y-3">
-                  {role.evidence.map((item) => (
-                    <div key={item.label} data-evidence className="grid gap-1 sm:grid-cols-[9.5rem_1fr] sm:gap-4">
-                      <span className="font-mono text-xs font-normal text-neutral-500 sm:pt-0.5">
-                        {item.label}
+                {/* Visual Workplace / Event Photos with Small Blurred-Back Overlay Bar */}
+                {photos.length > 0 && (
+                  <div className="mt-6">
+                    <div className="mb-2.5 flex items-center justify-between">
+                      <span className="ledger-figures text-xs uppercase tracking-[0.08em] text-ink-soft">
+                        Workplace &amp; Event Visuals
                       </span>
-                      <p className="text-sm font-normal leading-relaxed text-neutral-800">
-                        {item.detail}
-                      </p>
+                      <span className="ledger-figures text-[11px] text-ink-soft">
+                        Click photo to enlarge ⤢
+                      </span>
                     </div>
-                  ))}
-                </div>
 
-                {/* Role progression */}
-                {role.progression && (
-                  <div data-progression className="mt-4 inline-flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                    <span className="text-xs font-medium text-emerald-700">
-                      {role.progression}
-                    </span>
+                    <div
+                      className={`grid gap-4 ${
+                        photos.length > 1
+                          ? 'grid-cols-1 sm:grid-cols-2'
+                          : 'grid-cols-1 sm:max-w-md'
+                      }`}
+                    >
+                      {photos.map((src, pIdx) => {
+                        const cap = captions[pIdx] || `${role.company} — Photo ${pIdx + 1}`
+                        return (
+                          <button
+                            key={src}
+                            type="button"
+                            onClick={() =>
+                              setZoomPhoto({
+                                src,
+                                caption: cap,
+                                company: role.company,
+                                role: role.role,
+                              })
+                            }
+                            className="group relative block cursor-pointer overflow-hidden border border-rule bg-white p-1.5 text-left shadow-xs transition-all hover:border-ink"
+                          >
+                            <div className="relative aspect-[16/10] w-full overflow-hidden bg-paper-deep">
+                              <img
+                                src={src}
+                                alt={cap}
+                                loading="lazy"
+                                decoding="async"
+                                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                              />
+                              <span className="ledger-figures absolute left-2 top-2 border border-white/20 bg-ink/70 px-2 py-0.5 text-[10px] text-paper backdrop-blur-md">
+                                Photo 0{pIdx + 1}
+                              </span>
+                              <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-2 border-t border-white/15 bg-ink/75 px-3 py-1.5 text-paper backdrop-blur-md transition-colors group-hover:bg-ink/85">
+                                <span className="truncate text-xs font-medium text-paper">
+                                  {cap}
+                                </span>
+                                <span className="ledger-figures shrink-0 border border-paper/30 bg-paper/10 px-1.5 py-0.5 text-[10px] text-paper">
+                                  Zoom ⤢
+                                </span>
+                              </div>
+                            </div>
+                          </button>
+                        )
+                      })}
+                    </div>
                   </div>
                 )}
 
-                {/* Key insight */}
-                <div data-insight className="mt-5 border-l-2 border-neutral-200 pl-4">
-                  <p className="text-sm italic text-neutral-500">
-                    {role.insight}
-                  </p>
+                {/* Key Responsibilities & Evidence Cards (2-Column Visual Grid) */}
+                <div className="mt-6">
+                  <h3 className="ledger-figures mb-3 text-xs uppercase tracking-[0.08em] text-ink-soft">
+                    What I Did &amp; Delivered
+                  </h3>
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    {role.evidence.map((item, evIdx) => (
+                      <div
+                        key={item.label}
+                        className="border border-rule bg-paper-deep/35 p-3.5"
+                      >
+                        <div className="flex items-center gap-2">
+                          <span className="ledger-figures text-[11px] text-ledger font-medium">
+                            0{evIdx + 1}
+                          </span>
+                          <h4 className="text-sm font-medium text-ink">{item.label}</h4>
+                        </div>
+                        <p className="mt-1.5 text-sm leading-relaxed text-ink-soft">
+                          {item.detail}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
 
-                {/* Workplace Photos (e.g. Wilcon workstation & building) */}
-                {(role as { photos?: readonly string[] }).photos && ((role as { photos?: readonly string[] }).photos?.length ?? 0) > 0 && (
-                  <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-3 overflow-hidden rounded-xl">
-                    {(role as { photos?: readonly string[] }).photos?.map((src: string, pIdx: number) => (
-                      <div key={pIdx} className="aspect-[16/10] overflow-hidden rounded-lg border border-neutral-100 bg-neutral-100">
-                        <img
-                          src={src}
-                          alt={`${role.company} photo ${pIdx + 1}`}
-                          loading="lazy"
-                          decoding="async"
-                          className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
-                        />
-                      </div>
+                {/* Technologies Strip */}
+                {role.technologies.length > 0 && (
+                  <div className="mt-5 flex flex-wrap items-center gap-2">
+                    <span className="ledger-figures mr-1 text-xs uppercase tracking-[0.06em] text-ink-soft">
+                      Tools:
+                    </span>
+                    {role.technologies.map((tech) => (
+                      <span
+                        key={tech}
+                        className="ledger-figures border border-rule bg-paper-deep/50 px-2.5 py-0.5 text-xs text-ink"
+                      >
+                        {tech}
+                      </span>
                     ))}
                   </div>
                 )}
 
-                {/* Technologies */}
-                <div className="mt-5 flex flex-wrap gap-1.5">
-                  {role.technologies.map((tech) => (
-                    <span
-                      key={tech}
-                      data-tech
-                      className="rounded-full border border-neutral-200 bg-white px-3 py-1 text-[10px] font-medium text-neutral-600 transition-colors duration-200 group-hover:border-neutral-300 group-hover:bg-neutral-900 group-hover:text-white"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
+                {/* Connected Visual Case Study Cards */}
+                {relatedSlugs.length > 0 && (
+                  <div className="mt-6 border-t border-rule pt-4">
+                    <p className="ledger-figures mb-3 text-xs uppercase tracking-[0.08em] text-ledger font-medium">
+                      Connected Case Studies ({relatedSlugs.length})
+                    </p>
+                    <div className="grid gap-3 sm:grid-cols-3">
+                      {relatedSlugs.map((slug) => {
+                        const meta = PROJECT_INDEX.find((p) => p.slug === slug)
+                        const cover = PROJECT_COVERS[slug]
+                        const title = PROJECT_TITLES[slug] || slug
+                        return (
+                          <div
+                            key={slug}
+                            className="flex flex-col justify-between border border-rule bg-white p-2 shadow-2xs"
+                          >
+                            <div>
+                              {cover && (
+                                <div className="relative aspect-[16/9] w-full overflow-hidden border border-rule/60 bg-white">
+                                  <img
+                                    src={cover}
+                                    alt={title}
+                                    loading="lazy"
+                                    className="h-full w-full object-cover"
+                                  />
+                                </div>
+                              )}
+                              <h4 className="mt-2 text-xs font-medium leading-snug text-ink">
+                                {title}
+                              </h4>
+                              {meta && (
+                                <p className="mt-1 line-clamp-2 text-[11px] leading-relaxed text-ink-soft">
+                                  {meta.result}
+                                </p>
+                              )}
+                            </div>
 
-                {/* Linked project */}
-                {role.project && (
-                  <div data-project-link className="mt-5 pt-3 border-t border-neutral-100">
-                    <Link
-                      href={`/projects/${role.project}`}
-                      className="group/link inline-flex items-center gap-1.5 text-xs font-medium text-neutral-900 transition-colors hover:text-neutral-600"
-                    >
-                      <span className="underline decoration-neutral-300 underline-offset-4 group-hover/link:decoration-neutral-900">
-                        View case study
-                      </span>
-                      <span aria-hidden="true" className="transition-transform duration-200 group-hover/link:translate-x-1">→</span>
-                    </Link>
+                            <div className="mt-2.5 border-t border-rule/60 pt-2">
+                              <Link
+                                href={`/projects/${slug}`}
+                                className="ledger-figures inline-flex items-center gap-1 text-[11px] font-medium text-ink underline decoration-rule underline-offset-4 hover:decoration-ink"
+                              >
+                                View case study →
+                              </Link>
+                            </div>
+                          </div>
+                        )
+                      })}
+                    </div>
                   </div>
                 )}
               </article>
@@ -285,31 +305,66 @@ export default function WorkPage() {
           })}
         </div>
 
-        {/* Resume download */}
-        <section className="mt-20" data-reveal>
-          <div className="h-px w-full bg-neutral-200" />
-          <div className="mt-10 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+        {/* Bottom Live Resume Section */}
+        <section className="mt-14 border-t-2 border-ink pt-8">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.1em] text-neutral-500">
-                Full details
+              <p className="ledger-figures text-xs uppercase tracking-[0.08em] text-ink-soft">
+                Always Up-To-Date Document
               </p>
-              <h2 className="font-serif text-2xl font-bold text-neutral-900">
-                Want the full picture?
+              <h2 className="mt-1 font-serif text-2xl font-medium text-ink">
+                Need the printable resume?
               </h2>
             </div>
             <a
               href={PORTFOLIO_IDENTITY.resumeDocUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full bg-neutral-900 px-6 py-3 text-sm font-medium text-white transition-shadow duration-300 hover:shadow-lg hover:shadow-neutral-300/50"
+              className="ledger-figures inline-flex items-center gap-2 border border-ink bg-ink px-5 py-2.5 text-xs font-medium uppercase tracking-[0.06em] text-paper transition-colors hover:bg-ink/85"
             >
-              View live resume
-              <span aria-hidden="true" className="text-xs">↗</span>
+              Open Live Google Doc Resume ↗
             </a>
           </div>
         </section>
-
       </div>
+
+      {/* Photo Lightbox Modal */}
+      {zoomPhoto && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          onClick={() => setZoomPhoto(null)}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-ink/85 p-4 backdrop-blur-xs"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="max-h-[92vh] w-full max-w-4xl overflow-hidden border border-rule bg-paper p-4 shadow-2xl"
+          >
+            <div className="mb-3 flex items-center justify-between border-b border-rule pb-2.5">
+              <div>
+                <p className="ledger-figures text-xs uppercase tracking-[0.06em] text-ink-soft">
+                  {zoomPhoto.company} · {zoomPhoto.role}
+                </p>
+                <h3 className="text-sm font-medium text-ink">{zoomPhoto.caption}</h3>
+              </div>
+              <button
+                type="button"
+                onClick={() => setZoomPhoto(null)}
+                className="ledger-figures cursor-pointer border border-ink bg-ink px-3 py-1 text-xs text-paper"
+              >
+                Close ✕
+              </button>
+            </div>
+            <div className="flex items-center justify-center border border-rule bg-white p-2">
+              <img
+                src={zoomPhoto.src}
+                alt={zoomPhoto.caption}
+                className="max-h-[75vh] w-auto object-contain"
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
