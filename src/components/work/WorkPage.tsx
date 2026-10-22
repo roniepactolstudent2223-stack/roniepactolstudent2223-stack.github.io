@@ -188,131 +188,128 @@ export default function WorkPage() {
           </div>
         </header>
 
-        {/* Visual + Technical Role Entries */}
-        <div className="divide-y divide-rule/60">
+        {/* Visual Role Cards */}
+        <div className="mt-8 space-y-9">
           {VISUAL_WORK_ENTRIES.map((role) => (
             <article
               key={role.company}
-              className="py-9 grid gap-6 md:grid-cols-[13.5rem_1fr] md:items-start md:gap-8"
+              className="bg-paper-deep/30 p-5 sm:p-6 space-y-5"
             >
-              {/* Left Column: Company Logo, Period & Tech Stack */}
-              <div className="space-y-3">
-                <div className="flex items-center gap-3">
+              {/* Top Role & Company Header */}
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between border-b border-rule/50 pb-4">
+                <div className="flex items-center gap-3.5">
                   <div className="shrink-0 bg-white p-1.5 shadow-2xs">
-                    <CompanyLogo company={role.company} logoUrl={role.logoUrl} size={38} />
+                    <CompanyLogo company={role.company} logoUrl={role.logoUrl} size={42} />
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-ink">{role.company}</p>
-                    <p className="ledger-figures text-[11px] text-ledger font-medium">
-                      {role.period}
+                    <h2 className="font-serif text-2xl font-medium leading-tight text-ink">
+                      {role.role}
+                    </h2>
+                    <p className="mt-0.5 text-xs font-medium text-ink-soft">
+                      {role.company} · {role.location}
                     </p>
                   </div>
                 </div>
 
-                <p className="ledger-figures text-xs text-ink-soft">
-                  {role.location}
-                </p>
+                <span className="ledger-figures self-start sm:self-center bg-paper px-3 py-1 text-xs font-medium text-ledger shadow-2xs">
+                  {role.period}
+                </span>
+              </div>
 
-                <div className="flex flex-wrap gap-1 pt-1">
+              {/* Large Workplace / Event Visual Gallery */}
+              {role.photos.length > 0 && (
+                <div
+                  className={`grid gap-3.5 ${
+                    role.photos.length > 1
+                      ? 'grid-cols-1 sm:grid-cols-2'
+                      : 'grid-cols-1 sm:max-w-md'
+                  }`}
+                >
+                  {role.photos.map((photo) => (
+                    <button
+                      key={photo.src}
+                      type="button"
+                      onClick={() =>
+                        setZoomPhoto({
+                          src: photo.src,
+                          caption: photo.caption,
+                          company: role.company,
+                          role: role.role,
+                        })
+                      }
+                      className="group relative block cursor-pointer overflow-hidden border border-rule/80 bg-white p-1.5 text-left shadow-xs transition-all hover:border-ink"
+                    >
+                      <div className="relative aspect-[16/10] w-full overflow-hidden bg-paper-deep">
+                        <img
+                          src={photo.src}
+                          alt={photo.caption}
+                          loading="lazy"
+                          decoding="async"
+                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                        />
+                        <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-2 bg-ink/82 px-3 py-1.5 text-paper backdrop-blur-md">
+                          <span className="truncate text-xs font-medium text-paper">
+                            {photo.caption}
+                          </span>
+                          <span className="ledger-figures shrink-0 text-[10px] text-paper/85">
+                            View
+                          </span>
+                        </div>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              )}
+
+              {/* Tech Stack + Deliverables */}
+              <div className="space-y-3 pt-1">
+                <div className="flex flex-wrap gap-1.5">
                   {role.stack.map((tech) => (
                     <span
                       key={tech}
-                      className="ledger-figures bg-paper-deep/85 px-2 py-0.5 text-[11px] font-medium text-ink"
+                      className="ledger-figures bg-ink px-2.5 py-1 text-xs font-medium text-paper"
                     >
                       {tech}
                     </span>
                   ))}
                 </div>
-              </div>
 
-              {/* Right Column: Role Title, Visual Photos, Concise Technical Deliverables & Case Study Links */}
-              <div className="min-w-0">
-                <h2 className="font-serif text-2xl font-medium text-ink sm:text-[1.7rem]">
-                  {role.role}
-                </h2>
-
-                {/* Workplace / Event Visuals First */}
-                {role.photos.length > 0 && (
-                  <div
-                    className={`mt-4 grid gap-3 ${
-                      role.photos.length > 1
-                        ? 'grid-cols-1 sm:grid-cols-2'
-                        : 'grid-cols-1 sm:max-w-sm'
-                    }`}
-                  >
-                    {role.photos.map((photo) => (
-                      <button
-                        key={photo.src}
-                        type="button"
-                        onClick={() =>
-                          setZoomPhoto({
-                            src: photo.src,
-                            caption: photo.caption,
-                            company: role.company,
-                            role: role.role,
-                          })
-                        }
-                        className="group relative block cursor-pointer overflow-hidden border border-rule/80 bg-white p-1.5 text-left shadow-xs transition-all hover:border-ink"
-                      >
-                        <div className="relative aspect-[16/10] w-full overflow-hidden bg-paper-deep">
-                          <img
-                            src={photo.src}
-                            alt={photo.caption}
-                            loading="lazy"
-                            decoding="async"
-                            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                          />
-                          <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-2 bg-ink/80 px-2.5 py-1.5 text-paper backdrop-blur-md">
-                            <span className="truncate text-xs font-medium text-paper">
-                              {photo.caption}
-                            </span>
-                            <span className="ledger-figures shrink-0 text-[10px] text-paper/85">
-                              View
-                            </span>
-                          </div>
-                        </div>
-                      </button>
-                    ))}
-                  </div>
-                )}
-
-                {/* Concise Technical Deliverables */}
-                <ul className="mt-4 grid grid-cols-1 gap-1.5 sm:grid-cols-2">
+                <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
                   {role.modules.map((mod) => (
                     <li
                       key={mod}
-                      className="bg-paper-deep/45 px-3 py-2 text-xs font-medium text-ink"
+                      className="bg-paper/85 px-3 py-2 text-xs font-medium text-ink shadow-2xs"
                     >
-                      <span className="truncate">{mod}</span>
+                      {mod}
                     </li>
                   ))}
                 </ul>
-
-                {/* Connected System Case Studies */}
-                {role.caseStudies && role.caseStudies.length > 0 && (
-                  <div className="mt-4 grid gap-2 sm:grid-cols-3">
-                    {role.caseStudies.map((cs) => (
-                      <Link
-                        key={cs.slug}
-                        href={`/projects/${cs.slug}`}
-                        className="group flex flex-col justify-between bg-paper-deep/65 p-3 transition-colors hover:bg-ink hover:text-paper"
-                      >
-                        <div>
-                          <p className="text-xs font-medium leading-snug text-ink group-hover:text-paper">
-                            {cs.title}
-                          </p>
-                          <p className="ledger-figures mt-0.5 text-[10px] text-ink-soft group-hover:text-paper/80">
-                            {cs.tag}
-                          </p>
-                        </div>
-                        <span className="ledger-figures mt-2 inline-block text-[10px] font-medium text-ledger group-hover:text-paper">
-                          System Spec →
-                        </span>
-                      </Link>
-                    ))}
-                  </div>
-                )}
               </div>
+
+              {/* Connected System Case Studies */}
+              {role.caseStudies && role.caseStudies.length > 0 && (
+                <div className="pt-2 border-t border-rule/40 grid gap-2.5 sm:grid-cols-3">
+                  {role.caseStudies.map((cs) => (
+                    <Link
+                      key={cs.slug}
+                      href={`/projects/${cs.slug}`}
+                      className="group flex items-center justify-between gap-2 bg-paper px-3.5 py-2.5 shadow-2xs transition-colors hover:bg-ink hover:text-paper"
+                    >
+                      <div className="min-w-0">
+                        <p className="truncate text-xs font-medium text-ink group-hover:text-paper">
+                          {cs.title}
+                        </p>
+                        <p className="ledger-figures truncate text-[10px] text-ink-soft group-hover:text-paper/75">
+                          {cs.tag}
+                        </p>
+                      </div>
+                      <span className="ledger-figures shrink-0 text-xs font-medium text-ledger group-hover:text-paper">
+                        →
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+              )}
             </article>
           ))}
         </div>

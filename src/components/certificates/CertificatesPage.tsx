@@ -85,24 +85,25 @@ export default function CertificatesPage() {
           </div>
         </header>
 
-        {/* Structured Left-Preview / Right-Details Certificate Rows */}
-        <ol className="mt-4 divide-y divide-rule/50">
+        {/* Visual 2-Column Document Gallery Grid */}
+        <ol className="mt-8 grid gap-6 sm:grid-cols-2">
           {filtered.map((cert) => (
             <li
               key={cert.title}
-              className="py-7"
+              className="bg-paper-deep/35 p-4 flex flex-col justify-between transition-colors hover:bg-paper-deep/65"
             >
-              <article
-                onClick={() => setSelectedCert(cert)}
-                className="group grid cursor-pointer gap-6 sm:grid-cols-[17rem_1fr] sm:items-start sm:gap-8"
-              >
-                {/* Left Column: Framed Document Preview with Blurred-Back Overlay */}
-                <div className="overflow-hidden border border-rule/80 bg-white p-1.5 shadow-xs transition-all group-hover:border-ink">
+              <div>
+                {/* Framed Certificate Preview with Blurred-Back Overlay */}
+                <button
+                  type="button"
+                  onClick={() => setSelectedCert(cert)}
+                  className="group relative block w-full cursor-pointer overflow-hidden border border-rule/80 bg-white p-1.5 text-left shadow-xs transition-all hover:border-ink"
+                >
                   <div className="relative overflow-hidden bg-paper-deep/40">
                     {cert.imageUrl.endsWith('.pdf') ? (
                       <iframe
                         src={`${cert.imageUrl}#toolbar=0`}
-                        className="pointer-events-none h-[165px] w-full border-0"
+                        className="pointer-events-none h-[210px] w-full border-0"
                         title={`${cert.title} certificate`}
                       />
                     ) : (
@@ -117,9 +118,8 @@ export default function CertificatesPage() {
                       </div>
                     )}
 
-                    {/* Small Blurred-Back Overlay Bar */}
-                    <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-2 bg-ink/80 px-2.5 py-1.5 text-paper backdrop-blur-md">
-                      <span className="truncate text-[11px] font-medium text-paper">
+                    <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-2 bg-ink/82 px-3 py-1.5 text-paper backdrop-blur-md">
+                      <span className="truncate text-xs font-medium text-paper">
                         {cert.issuer}
                       </span>
                       <span className="ledger-figures shrink-0 text-[10px] text-paper/85">
@@ -127,61 +127,46 @@ export default function CertificatesPage() {
                       </span>
                     </div>
                   </div>
+                </button>
+
+                {/* Concise Title & Skill Pill */}
+                <div className="mt-3.5 flex items-center justify-between gap-2">
+                  <span className="ledger-figures bg-ink px-2 py-0.5 text-[10px] font-medium text-paper">
+                    {cert.skill}
+                  </span>
+                  <span className="ledger-figures text-xs text-ink-soft">
+                    {cert.date}
+                  </span>
                 </div>
 
-                {/* Right Column: Clean Typography & Verification Links */}
-                <div className="min-w-0">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span className="ledger-figures text-xs text-ink-soft">
-                      {cert.date}
-                    </span>
-                    <span className="ledger-figures bg-ledger/12 px-2 py-0.5 text-[10px] font-medium text-ledger">
-                      {cert.skill}
-                    </span>
-                  </div>
+                <h2
+                  onClick={() => setSelectedCert(cert)}
+                  className="mt-2 cursor-pointer font-serif text-lg font-medium leading-snug text-ink hover:text-ledger transition-colors"
+                >
+                  {cert.title}
+                </h2>
+              </div>
 
-                  <h2 className="mt-1.5 font-serif text-xl font-medium leading-snug text-ink group-hover:text-ledger transition-colors">
-                    {cert.title}
-                  </h2>
+              <div className="mt-4 pt-3 border-t border-rule/40 flex flex-wrap items-center justify-between gap-2">
+                <button
+                  type="button"
+                  onClick={() => setSelectedCert(cert)}
+                  className="ledger-figures cursor-pointer text-xs font-medium text-ink underline decoration-rule underline-offset-4 hover:decoration-ink"
+                >
+                  Inspect Document →
+                </button>
 
-                  <p className="mt-1 text-xs font-medium text-ink-soft">
-                    {cert.issuer}
-                  </p>
-
-                  <p className="mt-2.5 text-sm leading-relaxed text-ink-soft">
-                    {cert.applied}
-                  </p>
-
-                  <div className="mt-3.5 flex flex-wrap items-center gap-4">
-                    <span className="ledger-figures text-xs font-medium text-ink underline decoration-rule underline-offset-4 group-hover:decoration-ink">
-                      View Certificate →
-                    </span>
-
-                    {'badgeUrl' in cert && cert.badgeUrl && (
-                      <a
-                        href={cert.badgeUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className="ledger-figures text-xs text-ink-soft underline decoration-rule underline-offset-4 hover:text-ink"
-                      >
-                        Official Badge ↗
-                      </a>
-                    )}
-                    {cert.verifyUrl && (
-                      <a
-                        href={cert.verifyUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className="ledger-figures text-xs font-medium text-ledger underline decoration-ledger/40 underline-offset-4 hover:decoration-ledger"
-                      >
-                        Verify Online ↗
-                      </a>
-                    )}
-                  </div>
-                </div>
-              </article>
+                {cert.verifyUrl && (
+                  <a
+                    href={cert.verifyUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="ledger-figures text-xs font-medium text-ledger underline decoration-ledger/40 underline-offset-4 hover:decoration-ledger"
+                  >
+                    Verify ↗
+                  </a>
+                )}
+              </div>
             </li>
           ))}
         </ol>
@@ -221,7 +206,7 @@ export default function CertificatesPage() {
             </div>
 
             {/* Modal Body */}
-            <div className="grid flex-1 gap-6 overflow-y-auto p-5 lg:grid-cols-[1.35fr_1fr] lg:items-start">
+            <div className="grid flex-1 gap-6 overflow-y-auto p-5 lg:grid-cols-[1.45fr_1fr] lg:items-start">
               <div className="bg-white p-2">
                 {selectedCert.imageUrl.endsWith('.pdf') ? (
                   <iframe
