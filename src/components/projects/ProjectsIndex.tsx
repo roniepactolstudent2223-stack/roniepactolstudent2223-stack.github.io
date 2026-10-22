@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import type { Project } from '@/lib/types'
 import { PROJECT_INDEX, type ProjectGroup } from '@/lib/portfolio-config'
-import ProjectMockScreen from '@/components/projects/ProjectMockScreen'
+import ProjectVisualPreview from '@/components/projects/ProjectVisualPreview'
 
 interface ProjectsIndexProps {
   projects: Project[]
@@ -38,8 +38,8 @@ export default function ProjectsIndex({ projects }: ProjectsIndexProps) {
 
   return (
     <div className="px-6 py-10 sm:py-14">
-      <div className="max-w-3xl">
-        <header className=" pb-6">
+      <div className="max-w-4xl">
+        <header className="pb-6">
           <p className="ledger-figures text-xs uppercase tracking-[0.08em] text-ink-soft">
             Index of Work &amp; Systems
           </p>
@@ -47,7 +47,7 @@ export default function ProjectsIndex({ projects }: ProjectsIndexProps) {
             Projects
           </h1>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-ink-soft">
-            Web systems built for Wilcon Depot&apos;s Finance and Treasury teams and Word of Hope Caloocan. Each row shows the workflow on the left and the plain-English result on the right. Tap <strong className="font-medium text-ink">What it does</strong> for the full breakdown.
+            Web systems built for Wilcon Depot&apos;s Finance and Treasury teams and Word of Hope Caloocan. Click any screenshot to zoom in, switch screens using the thumbnails below each photo, or tap <strong className="font-medium text-ink">What it does</strong> for the full breakdown.
           </p>
 
           {/* Filter Chips */}
@@ -81,12 +81,12 @@ export default function ProjectsIndex({ projects }: ProjectsIndexProps) {
           {filteredEntries.map(({ project, meta }, index) => (
             <li
               key={project.slug}
-              className="border-t border-rule py-7"
+              className="border-t border-rule py-8"
             >
-              <div className="grid gap-5 sm:grid-cols-[13.5rem_1fr] sm:items-start sm:gap-6">
-                {/* Left: Drawn mock screen */}
+              <div className="grid gap-6 sm:grid-cols-[17.5rem_1fr] sm:items-start sm:gap-7">
+                {/* Left: Large visible project screenshots with thumbnail switcher & zoom */}
                 <div className="w-full">
-                  <ProjectMockScreen slug={project.slug} variant="thumb" />
+                  <ProjectVisualPreview project={project} />
                 </div>
 
                 {/* Right: Title, Highlighted Result, 3 Tag Words, Tap-to-Expand */}

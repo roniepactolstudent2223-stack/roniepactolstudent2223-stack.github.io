@@ -5,11 +5,11 @@
   "category": "product",
   "description": "Enterprise financial closing workflow built for Wilcon Depot's Financial Reporting Department. Replaced manual spreadsheets and chat threads with a central web application where departments submit journal adjustments, the system checks that Debit equals Credit, managers approve in two steps, and next-month reversals run automatically.",
   "tags": ["laravel", "vue.js", "php", "mysql", "financial-automation", "closing-workflow"],
-  "coverImage": "/wilcon-enterprise.svg",
+  "coverImage": "/wilcon-closing-status.png",
   "images": [
-    "mock:closing-0",
-    "mock:closing-1",
-    "mock:closing-2"
+    "/wilcon-closing-status.png",
+    "/wilcon-closing-master-file.png",
+    "/wilcon-closing-gl-balance.png"
   ],
   "role": "Full Stack Junior System Developer",
   "client": "Wilcon Depot, Inc. · Financial Reporting Department"

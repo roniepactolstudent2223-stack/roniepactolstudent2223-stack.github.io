@@ -6,7 +6,6 @@ import type { Project } from '@/lib/types'
 import { PROJECT_INDEX } from '@/lib/portfolio-config'
 import ArchitectureDiagram from '@/components/projects/ArchitectureDiagram'
 import EngineeringDecisions from '@/components/projects/EngineeringDecisions'
-import ProjectMockScreen from '@/components/projects/ProjectMockScreen'
 
 interface ProjectDetailProps {
   project: Project
@@ -141,16 +140,16 @@ const ATS_DATA: Record<string, ProjectAtsData> = {
     ],
     captions: [
       {
-        title: 'Mock Flow 1 · Collection & Deposit Summary',
-        description: 'Drawn workflow view showing clickable check totals and export controls (generic data).',
+        title: 'Collection & Deposit Report Table',
+        description: 'Daily sales, cash, and check summaries with PDF and Excel export buttons.',
       },
       {
-        title: 'Mock Flow 2 · Nationwide Branch Filter',
-        description: 'Drawn workflow view showing the Branch column and separated cash vs. check filter.',
+        title: 'Nationwide Branch Column & Filter',
+        description: 'Added Branch column that displays all nationwide branches by default.',
       },
       {
-        title: 'Mock Flow 3 · Check Breakdown Pop-Up',
-        description: 'Drawn workflow view of the check detail modal with bank, check number, and date.',
+        title: 'Clickable Check Breakdown Modal',
+        description: 'Pop-up showing customer name, issuing bank, check number, date, and amount.',
       },
     ],
   },
@@ -187,16 +186,16 @@ const ATS_DATA: Record<string, ProjectAtsData> = {
     ],
     captions: [
       {
-        title: 'Mock Flow 1 · Three-Step Approval Chain',
-        description: 'Drawn workflow view of BU Supervisor submission, BU Manager review, and Finance posting.',
+        title: 'Closing Progress & Status Summary',
+        description: 'Tracks entries waiting for BU Head approval, Finance posting, and completed postings.',
       },
       {
-        title: 'Mock Flow 2 · Balance Validation & Auto-Reverse',
-        description: 'Drawn workflow view showing the Debit = Credit check and Day-1 next-month reversal.',
+        title: 'Chart of Accounts Master File & Access Rules',
+        description: 'Configures department access groups and mandatory fields per GL account.',
       },
       {
-        title: 'Mock Flow 3 · General Ledger Balance Comparison',
-        description: 'Drawn workflow view comparing locked baseline balances with approved adjustments.',
+        title: 'General Ledger Balance Display',
+        description: 'Side-by-side comparison of unadjusted, posted adjustment, and projected closing balances.',
       },
     ],
   },
@@ -235,16 +234,19 @@ const ATS_DATA: Record<string, ProjectAtsData> = {
 }
 
 export default function ProjectDetail({ project }: ProjectDetailProps) {
-  const [lightboxImage, setLightboxImage] = useState<string | null>(null)
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
 
   const ats = ATS_DATA[project.slug]
   const indexMeta = PROJECT_INDEX.find((item) => item.slug === project.slug)
+  const isUiScreenshot =
+    project.slug === 'wilcon-month-end-closing' ||
+    project.slug === 'wilcon-collection-deposit-report'
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setLightboxImage(null)
+      if (e.key === 'Escape') setLightboxIndex(null)
     }
-    if (lightboxImage) {
+    if (lightboxIndex !== null) {
       window.addEventListener('keydown', handleKeyDown)
       document.body.style.overflow = 'hidden'
     }
@@ -252,10 +254,10 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
       window.removeEventListener('keydown', handleKeyDown)
       document.body.style.overflow = ''
     }
-  }, [lightboxImage])
+  }, [lightboxIndex])
 
   return (
-    <article className="min-h-screen max-w-3xl px-6 py-10 sm:py-14">
+    <article className="min-h-screen max-w-4xl px-6 py-10 sm:py-14">
       {/* Back Link */}
       <div className="mb-6">
         <Link
@@ -351,21 +353,22 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
         )}
       </header>
 
-      {/* Workflow Diagrams / Visuals */}
+      {/* Screenshots & Visual Evidence — Large, Clear, Clickable */}
       {project.images.length > 0 && (
         <section className="mt-8">
           <div className="mb-4 flex items-baseline justify-between border-b border-rule pb-2">
             <h2 className="ledger-figures text-xs uppercase tracking-[0.08em] text-ink-soft">
-              {project.images[0]?.startsWith('mock:')
-                ? 'Workflow Screens (Simplified Mock Data)'
-                : 'Photos & Screens'}
+              Screenshots &amp; Visuals ({project.images.length})
             </h2>
+            <span className="ledger-figures text-xs text-ink-soft">
+              Click any image to zoom ⤢
+            </span>
           </div>
 
           <div
-            className={`grid gap-4 ${
-              project.images.length === 3
-                ? 'grid-cols-1 md:grid-cols-3'
+            className={`grid gap-5 ${
+              project.images.length === 1
+                ? 'grid-cols-1'
                 : 'grid-cols-1 sm:grid-cols-2'
             }`}
           >
@@ -374,44 +377,47 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
                 title: `Screen ${index + 1}`,
                 description: '',
               }
-              const isMock = src.startsWith('mock:')
 
               return (
-                <div
+                <button
                   key={src}
-                  onClick={() => {
-                    if (!isMock) setLightboxImage(src)
-                  }}
-                  className={`border border-rule bg-paper-deep/40 p-2.5 ${
-                    !isMock ? 'cursor-pointer transition-colors hover:border-ink' : ''
+                  type="button"
+                  onClick={() => setLightboxIndex(index)}
+                  className={`group cursor-pointer border border-rule bg-white p-2.5 text-left transition-all hover:border-ink ${
+                    project.images.length === 3 && index === 0 ? 'sm:col-span-2' : ''
                   }`}
                 >
-                  <div className="aspect-[16/11] overflow-hidden bg-paper">
-                    {isMock ? (
-                      <ProjectMockScreen
-                        slug={project.slug}
-                        variant="detail"
-                        screenIndex={index}
-                      />
-                    ) : (
-                      <img
-                        src={src}
-                        alt={caption.title}
-                        decoding="async"
-                        loading="lazy"
-                        className="h-full w-full object-cover"
-                      />
-                    )}
+                  <div
+                    className={`${
+                      project.images.length === 3 && index === 0
+                        ? 'aspect-[16/8]'
+                        : 'aspect-[16/10]'
+                    } w-full overflow-hidden bg-white`}
+                  >
+                    <img
+                      src={src}
+                      alt={caption.title}
+                      decoding="async"
+                      loading="lazy"
+                      className={`h-full w-full transition-transform duration-300 group-hover:scale-[1.02] ${
+                        isUiScreenshot ? 'object-contain' : 'object-cover'
+                      }`}
+                    />
                   </div>
-                  <div className="mt-2.5 px-0.5 pb-0.5">
-                    <h3 className="text-xs font-medium text-ink">{caption.title}</h3>
+                  <div className="mt-2.5 border-t border-rule/60 pt-2">
+                    <div className="flex items-center justify-between gap-2">
+                      <h3 className="text-sm font-medium text-ink">{caption.title}</h3>
+                      <span className="ledger-figures text-[11px] text-ink-soft group-hover:text-ink">
+                        Zoom ⤢
+                      </span>
+                    </div>
                     {caption.description && (
                       <p className="mt-1 text-xs leading-relaxed text-ink-soft">
                         {caption.description}
                       </p>
                     )}
                   </div>
-                </div>
+                </button>
               )
             })}
           </div>
@@ -458,33 +464,57 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
         </details>
       )}
 
-      {/* Lightbox Modal for Non-Mock Photos */}
-      {lightboxImage && (
+      {/* Lightbox Modal for Enlargeable Screenshots */}
+      {lightboxIndex !== null && project.images[lightboxIndex] && (
         <div
           role="dialog"
           aria-modal="true"
-          onClick={() => setLightboxImage(null)}
+          onClick={() => setLightboxIndex(null)}
           className="fixed inset-0 z-50 flex items-center justify-center bg-ink/85 p-4"
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="relative max-h-[90vh] w-full max-w-4xl overflow-hidden border border-rule bg-paper p-3"
+            className="relative max-h-[92vh] w-full max-w-5xl overflow-hidden border border-rule bg-paper p-3 shadow-2xl"
           >
-            <button
-              type="button"
-              onClick={() => setLightboxImage(null)}
-              className="ledger-figures absolute right-4 top-4 z-10 border border-rule bg-paper px-2.5 py-1 text-xs text-ink hover:border-ink"
-              aria-label="Close image preview"
-            >
-              Close ✕
-            </button>
-            <div className="flex items-center justify-center">
+            <div className="mb-2 flex items-center justify-between border-b border-rule pb-2">
+              <span className="ledger-figures text-xs text-ink">
+                {ats?.captions[lightboxIndex]?.title ||
+                  `${project.title} — Screen ${lightboxIndex + 1}`}
+              </span>
+              <button
+                type="button"
+                onClick={() => setLightboxIndex(null)}
+                className="ledger-figures cursor-pointer border border-rule bg-paper px-2.5 py-1 text-xs text-ink hover:border-ink"
+                aria-label="Close image preview"
+              >
+                Close ✕
+              </button>
+            </div>
+            <div className="flex items-center justify-center bg-white p-2">
               <img
-                src={lightboxImage}
+                src={project.images[lightboxIndex]}
                 alt="Enlarged view"
-                className="max-h-[82vh] w-auto object-contain"
+                className="max-h-[78vh] w-auto object-contain"
               />
             </div>
+            {project.images.length > 1 && (
+              <div className="mt-2.5 flex justify-center gap-2">
+                {project.images.map((src, idx) => (
+                  <button
+                    key={src}
+                    type="button"
+                    onClick={() => setLightboxIndex(idx)}
+                    className={`ledger-figures cursor-pointer border px-3 py-1 text-xs ${
+                      idx === lightboxIndex
+                        ? 'border-ink bg-ink text-paper'
+                        : 'border-rule bg-paper text-ink hover:border-ink'
+                    }`}
+                  >
+                    Screen {idx + 1}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       )}

@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import type { Project } from '@/lib/types'
 import { PROJECT_INDEX, type ProjectGroup } from '@/lib/portfolio-config'
-import ProjectMockScreen from '@/components/projects/ProjectMockScreen'
+import ProjectVisualPreview from '@/components/projects/ProjectVisualPreview'
 
 interface EntryLedgerProps {
   projects: Project[]
@@ -29,10 +29,9 @@ const FILTERS: { id: 'all' | ProjectGroup; label: string }[] = [
 /**
  * Projects as visual ledger rows:
  * - Filter chips at the top (All / Work / Personal / Community)
- * - Left: drawn mock screen of the workflow with generic data
- * - Right: title, highlighted 1-line plain-English Result, and 3 tag words
+ * - Left: High-visibility real screenshots with thumbnail switcher and click-to-zoom
+ * - Right: Title, highlighted 1-line plain-English Result, and 3 tag words
  * - Tap-to-expand "What it does" revealing: Problem · What I built · Result · Tools
- * - Only the title and "View case study" link navigate away
  */
 export default function EntryLedger({ projects }: EntryLedgerProps) {
   const [activeFilter, setActiveFilter] = useState<'all' | ProjectGroup>('all')
@@ -55,7 +54,7 @@ export default function EntryLedger({ projects }: EntryLedgerProps) {
 
   return (
     <section id="projects" aria-labelledby="projects-title" className="border-t border-rule px-6 py-12 sm:py-16">
-      <div className="max-w-3xl">
+      <div className="max-w-4xl">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="ledger-figures text-xs uppercase tracking-[0.08em] text-ink-soft">Entries</p>
@@ -98,12 +97,12 @@ export default function EntryLedger({ projects }: EntryLedgerProps) {
           {filteredEntries.map(({ project, meta }, index) => (
             <li
               key={project.slug}
-              className="border-t border-rule py-7"
+              className="border-t border-rule py-8"
             >
-              <div className="grid gap-5 sm:grid-cols-[13.5rem_1fr] sm:items-start sm:gap-6">
-                {/* Left: Simple drawn mock screen of the workflow */}
+              <div className="grid gap-6 sm:grid-cols-[17.5rem_1fr] sm:items-start sm:gap-7">
+                {/* Left: Large visible project screenshots with thumbnail switcher & zoom */}
                 <div className="w-full">
-                  <ProjectMockScreen slug={project.slug} variant="thumb" />
+                  <ProjectVisualPreview project={project} />
                 </div>
 
                 {/* Right: Title, Highlighted 1-line Result, 3 Tag Words, and Tap-to-Expand */}
