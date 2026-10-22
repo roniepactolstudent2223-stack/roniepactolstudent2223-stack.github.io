@@ -18,12 +18,11 @@ const HOME_ORDER = [
 ]
 
 const FILTERS: { id: 'all' | ProjectGroup; label: string }[] = [
-  { id: 'all', label: 'All Systems' },
+  { id: 'all', label: 'All' },
   { id: 'work', label: 'Wilcon Depot' },
   { id: 'personal', label: 'Word of Hope' },
 ]
 
-/** Short technical module specs per project — no long paragraphs */
 export const TECH_SPECS_BY_SLUG: Record<
   string,
   {
@@ -74,11 +73,6 @@ export const TECH_SPECS_BY_SLUG: Record<
   },
 }
 
-/**
- * Visual-first Projects section:
- * - Left (wider): Large interactive screenshot stage + thumbnails
- * - Right: Title, Tech Stack pills, and 4 concise technical module chips (zero long paragraphs)
- */
 export default function EntryLedger({ projects }: EntryLedgerProps) {
   const [activeFilter, setActiveFilter] = useState<'all' | ProjectGroup>('all')
   const [openModalSlug, setOpenModalSlug] = useState<string | null>(null)
@@ -96,29 +90,20 @@ export default function EntryLedger({ projects }: EntryLedgerProps) {
       ? allEntries
       : allEntries.filter(({ meta }) => meta.group === activeFilter)
 
-  const countFor = (id: 'all' | ProjectGroup) =>
-    id === 'all' ? allEntries.length : allEntries.filter(({ meta }) => meta.group === id).length
-
   return (
     <section id="projects" aria-labelledby="projects-title" className="border-t border-rule/60 px-6 py-12 sm:py-14">
       <div className="max-w-4xl">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <p className="ledger-figures text-xs uppercase tracking-[0.08em] text-ink-soft">
-              Production Systems
-            </p>
-            <h2
-              id="projects-title"
-              className="mt-1 font-serif text-[1.75rem] font-medium leading-tight text-ink sm:text-3xl"
-            >
-              Projects
-            </h2>
-          </div>
+          <h2
+            id="projects-title"
+            className="font-serif text-[1.75rem] font-medium leading-tight text-ink sm:text-3xl"
+          >
+            Projects
+          </h2>
 
-          {/* Filter Chips */}
           <div
             role="group"
-            aria-label="Filter projects by category"
+            aria-label="Filter projects"
             className="flex flex-wrap gap-1.5"
           >
             {FILTERS.map((filter) => {
@@ -135,7 +120,7 @@ export default function EntryLedger({ projects }: EntryLedgerProps) {
                       : 'bg-paper-deep/65 text-ink-soft hover:bg-paper-deep hover:text-ink'
                   }`}
                 >
-                  {filter.label} ({countFor(filter.id)})
+                  {filter.label}
                 </button>
               )
             })}
@@ -143,13 +128,13 @@ export default function EntryLedger({ projects }: EntryLedgerProps) {
         </div>
 
         <ol className="mt-6 divide-y divide-rule/50">
-          {filteredEntries.map(({ project, meta }, index) => {
+          {filteredEntries.map(({ project, meta }) => {
             const spec = TECH_SPECS_BY_SLUG[project.slug]
 
             return (
               <li key={project.slug} className="py-7">
                 <div className="grid gap-6 md:grid-cols-[22rem_1fr] md:items-start md:gap-7">
-                  {/* Left: Large Visual Screenshot Window */}
+                  {/* Left: Large Visual Screenshot Stage */}
                   <div className="w-full">
                     <ProjectVisualPreview
                       project={project}
@@ -159,22 +144,13 @@ export default function EntryLedger({ projects }: EntryLedgerProps) {
                     />
                   </div>
 
-                  {/* Right: Concise Tech Specs Only (Zero Long Paragraphs) */}
+                  {/* Right: Title, Stack & Modules Built */}
                   <div className="min-w-0">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <span className="ledger-figures text-xs text-ink-soft">
-                        0{index + 1}
-                      </span>
-                      <span className="ledger-figures text-xs text-ink-soft">·</span>
-                      <span className="ledger-figures text-xs uppercase tracking-[0.06em] text-ink-soft">
-                        {meta.groupLabel}
-                      </span>
-                      <span className="ledger-figures bg-ledger/12 px-2 py-0.5 text-[10px] font-medium text-ledger">
-                        {meta.status}
-                      </span>
-                    </div>
+                    <p className="ledger-figures text-xs text-ink-soft">
+                      {meta.groupLabel}
+                    </p>
 
-                    <h3 className="mt-1.5 font-serif text-2xl font-medium leading-snug text-ink">
+                    <h3 className="mt-1 font-serif text-2xl font-medium leading-snug text-ink">
                       <Link
                         href={`/projects/${project.slug}`}
                         className="hover:text-ledger transition-colors"
@@ -184,7 +160,7 @@ export default function EntryLedger({ projects }: EntryLedgerProps) {
                     </h3>
 
                     {spec && (
-                      <p className="ledger-figures mt-1 text-xs text-ink-soft">
+                      <p className="ledger-figures mt-0.5 text-xs text-ink-soft">
                         {spec.architecture}
                       </p>
                     )}
@@ -204,38 +180,34 @@ export default function EntryLedger({ projects }: EntryLedgerProps) {
                       ))}
                     </ul>
 
-                    {/* 4 Short Technical Modules Built (2-Column Grid) */}
+                    {/* 4 Short Technical Modules (No AI checkmarks) */}
                     {spec && (
                       <ul className="mt-3.5 grid grid-cols-1 gap-1.5 sm:grid-cols-2">
                         {spec.modules.map((mod) => (
                           <li
                             key={mod}
-                            className="flex items-center gap-1.5 bg-paper-deep/40 px-2.5 py-1.5 text-xs text-ink"
+                            className="truncate bg-paper-deep/40 px-2.5 py-1.5 text-xs text-ink"
                           >
-                            <span className="text-ledger font-medium" aria-hidden="true">
-                              ✓
-                            </span>
-                            <span className="truncate">{mod}</span>
+                            {mod}
                           </li>
                         ))}
                       </ul>
                     )}
 
-                    {/* Direct Visual Actions */}
                     <div className="mt-4 flex flex-wrap items-center gap-4">
                       <button
                         type="button"
                         onClick={() => setOpenModalSlug(project.slug)}
                         className="ledger-figures inline-flex cursor-pointer items-center gap-1.5 bg-ink px-3.5 py-1.5 text-xs font-medium text-paper transition-colors hover:bg-ledger"
                       >
-                        Inspect Screens ⤢
+                        View Screens
                       </button>
 
                       <Link
                         href={`/projects/${project.slug}`}
                         className="ledger-figures inline-flex items-center gap-1 text-xs font-medium text-ink underline decoration-rule underline-offset-4 hover:decoration-ink"
                       >
-                        Technical Spec →
+                        Details →
                       </Link>
 
                       {project.url && meta.kind === 'software' && (

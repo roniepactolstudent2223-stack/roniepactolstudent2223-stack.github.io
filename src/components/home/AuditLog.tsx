@@ -17,7 +17,7 @@ interface TechExperienceEntry {
 
 const TECH_EXPERIENCE: TechExperienceEntry[] = [
   {
-    when: 'May – Oct 2026 · 6 mos',
+    when: 'May – Oct 2026',
     role: 'Full Stack Junior System Developer',
     where: 'Wilcon Depot, Inc.',
     logo: '/logos/wilcon.png',
@@ -84,11 +84,6 @@ const TECH_EXPERIENCE: TechExperienceEntry[] = [
   },
 ]
 
-/**
- * Concise, technical-only Experience section on Home:
- * Zero long paragraphs or behavioral stories — strictly Role, Tech Stack,
- * short technical deliverables, and unique event photos.
- */
 export default function AuditLog() {
   const [modalPhoto, setModalPhoto] = useState<{
     src: string
@@ -114,157 +109,132 @@ export default function AuditLog() {
     <section aria-labelledby="experience-title" className="border-t border-rule/60 px-6 py-12 sm:py-14">
       <div className="max-w-4xl">
         <div className="flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <p className="ledger-figures text-xs uppercase tracking-[0.08em] text-ink-soft">
-              Technical Career Log
-            </p>
-            <h2
-              id="experience-title"
-              className="mt-1 font-serif text-[1.75rem] font-medium leading-tight text-ink sm:text-3xl"
-            >
-              Experience &amp; Education
-            </h2>
-          </div>
+          <h2
+            id="experience-title"
+            className="font-serif text-[1.75rem] font-medium leading-tight text-ink sm:text-3xl"
+          >
+            Experience &amp; Education
+          </h2>
 
           <Link
             href="/work"
-            className="ledger-figures text-xs uppercase tracking-[0.06em] text-ink underline decoration-rule underline-offset-4 hover:decoration-ink"
+            className="ledger-figures text-xs text-ink underline decoration-rule underline-offset-4 hover:decoration-ink"
           >
-            Visual work log →
+            Full work log →
           </Link>
         </div>
 
         <ol className="mt-6 divide-y divide-rule/50">
-          {TECH_EXPERIENCE.map((entry, idx) => {
-            const isFeatured = idx === 0
+          {TECH_EXPERIENCE.map((entry) => (
+            <li key={`${entry.when}-${entry.where}`} className="py-6">
+              <div className="grid gap-x-6 gap-y-3 sm:grid-cols-[11rem_1fr]">
+                {/* Left: Date & Organization */}
+                <div className="flex items-start justify-between sm:block">
+                  <span className="ledger-figures block text-xs text-ink-soft">
+                    {entry.when}
+                  </span>
 
-            return (
-              <li
-                key={`${entry.when}-${entry.where}`}
-                className={`py-6 ${
-                  isFeatured ? 'border-l-2 border-l-ledger bg-paper-deep/35 pl-4 pr-3' : ''
-                }`}
-              >
-                <div className="grid gap-x-6 gap-y-3 sm:grid-cols-[11rem_1fr]">
-                  {/* Left: Date & Logo */}
-                  <div className="flex items-start justify-between sm:block">
-                    <span className="ledger-figures block text-xs text-ink-soft">
-                      {entry.when}
-                    </span>
-
-                    <div className="mt-2 flex items-center gap-2">
-                      {entry.logo ? (
-                        <div className="flex h-8 w-8 items-center justify-center bg-white p-1 shadow-2xs">
-                          <img
-                            src={entry.logo}
-                            alt={entry.where}
-                            className="h-full w-full object-contain"
-                          />
-                        </div>
-                      ) : entry.badge ? (
-                        <div className="ledger-figures flex h-8 w-8 items-center justify-center bg-paper-deep text-[11px] font-medium text-ink">
-                          {entry.badge}
-                        </div>
-                      ) : null}
-                      <span className="text-xs font-medium text-ink">{entry.where}</span>
-                    </div>
-                  </div>
-
-                  {/* Right: Role, Stack Pills, Short Technical Deliverables & Unique Photos */}
-                  <div className="min-w-0">
-                    <h3 className="font-serif text-xl font-medium leading-snug text-ink">
-                      {entry.role}
-                    </h3>
-
-                    {/* Stack Pills */}
-                    <ul className="mt-2.5 flex flex-wrap gap-1.5">
-                      {entry.stack.map((tech) => (
-                        <li
-                          key={tech}
-                          className="ledger-figures bg-paper-deep/85 px-2.5 py-0.5 text-xs font-medium text-ink"
-                        >
-                          {tech}
-                        </li>
-                      ))}
-                    </ul>
-
-                    {/* Short Technical Deliverables (2-column chips, zero long sentences) */}
-                    <ul className="mt-3 grid grid-cols-1 gap-1.5 sm:grid-cols-2">
-                      {entry.deliverables.map((item) => (
-                        <li
-                          key={item}
-                          className="flex items-center gap-1.5 bg-paper-deep/40 px-2.5 py-1.5 text-xs text-ink"
-                        >
-                          <span className="text-ledger font-medium" aria-hidden="true">
-                            ✓
-                          </span>
-                          <span className="truncate">{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-
-                    {/* Unique Event Photos */}
-                    {entry.photos && entry.photos.length > 0 && (
-                      <div className="mt-3.5 grid grid-cols-1 gap-3 sm:grid-cols-2">
-                        {entry.photos.map((photo) => (
-                          <button
-                            key={photo.src}
-                            type="button"
-                            onClick={() =>
-                              setModalPhoto({
-                                src: photo.src,
-                                caption: photo.caption,
-                                role: entry.role,
-                                where: entry.where,
-                              })
-                            }
-                            className="group relative block cursor-pointer overflow-hidden border border-rule/80 bg-white p-1 text-left shadow-2xs transition-all hover:border-ink"
-                          >
-                            <div className="relative aspect-[16/10] w-full overflow-hidden bg-paper-deep">
-                              <img
-                                src={photo.src}
-                                alt={photo.caption}
-                                loading="lazy"
-                                decoding="async"
-                                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                              />
-                              <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-2 bg-ink/80 px-2.5 py-1.5 text-paper backdrop-blur-md">
-                                <span className="truncate text-[11px] font-medium text-paper">
-                                  {photo.caption}
-                                </span>
-                                <span className="ledger-figures shrink-0 text-[10px] text-paper/85">
-                                  ⤢
-                                </span>
-                              </div>
-                            </div>
-                          </button>
-                        ))}
+                  <div className="mt-2 flex items-center gap-2">
+                    {entry.logo ? (
+                      <div className="flex h-8 w-8 items-center justify-center bg-white p-1 shadow-2xs">
+                        <img
+                          src={entry.logo}
+                          alt={entry.where}
+                          className="h-full w-full object-contain"
+                        />
                       </div>
-                    )}
-
-                    {/* Case Study Quick Links */}
-                    {entry.caseStudies && entry.caseStudies.length > 0 && (
-                      <div className="mt-3 flex flex-wrap items-center gap-4">
-                        {entry.caseStudies.map((cs) => (
-                          <Link
-                            key={cs.slug}
-                            href={`/projects/${cs.slug}`}
-                            className="ledger-figures inline-flex items-center gap-1 text-xs font-medium text-ink underline decoration-rule underline-offset-4 hover:decoration-ink"
-                          >
-                            {cs.label} →
-                          </Link>
-                        ))}
+                    ) : entry.badge ? (
+                      <div className="ledger-figures flex h-8 w-8 items-center justify-center bg-paper-deep text-[11px] font-medium text-ink">
+                        {entry.badge}
                       </div>
-                    )}
+                    ) : null}
+                    <span className="text-xs font-medium text-ink">{entry.where}</span>
                   </div>
                 </div>
-              </li>
-            )
-          })}
+
+                {/* Right: Role, Stack Pills, Deliverables & Unique Photos */}
+                <div className="min-w-0">
+                  <h3 className="font-serif text-xl font-medium leading-snug text-ink">
+                    {entry.role}
+                  </h3>
+
+                  <ul className="mt-2.5 flex flex-wrap gap-1.5">
+                    {entry.stack.map((tech) => (
+                      <li
+                        key={tech}
+                        className="ledger-figures bg-paper-deep/85 px-2.5 py-0.5 text-xs font-medium text-ink"
+                      >
+                        {tech}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <ul className="mt-3 grid grid-cols-1 gap-1.5 sm:grid-cols-2">
+                    {entry.deliverables.map((item) => (
+                      <li
+                        key={item}
+                        className="truncate bg-paper-deep/40 px-2.5 py-1.5 text-xs text-ink"
+                      >
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+
+                  {entry.photos && entry.photos.length > 0 && (
+                    <div className="mt-3.5 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                      {entry.photos.map((photo) => (
+                        <button
+                          key={photo.src}
+                          type="button"
+                          onClick={() =>
+                            setModalPhoto({
+                              src: photo.src,
+                              caption: photo.caption,
+                              role: entry.role,
+                              where: entry.where,
+                            })
+                          }
+                          className="group relative block cursor-pointer overflow-hidden border border-rule/80 bg-white p-1 text-left shadow-2xs transition-all hover:border-ink"
+                        >
+                          <div className="relative aspect-[16/10] w-full overflow-hidden bg-paper-deep">
+                            <img
+                              src={photo.src}
+                              alt={photo.caption}
+                              loading="lazy"
+                              decoding="async"
+                              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                            />
+                            <div className="absolute inset-x-0 bottom-0 bg-ink/80 px-2.5 py-1.5 text-paper backdrop-blur-md">
+                              <span className="block truncate text-[11px] font-medium text-paper">
+                                {photo.caption}
+                              </span>
+                            </div>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  )}
+
+                  {entry.caseStudies && entry.caseStudies.length > 0 && (
+                    <div className="mt-3 flex flex-wrap items-center gap-4">
+                      {entry.caseStudies.map((cs) => (
+                        <Link
+                          key={cs.slug}
+                          href={`/projects/${cs.slug}`}
+                          className="ledger-figures inline-flex items-center gap-1 text-xs font-medium text-ink underline decoration-rule underline-offset-4 hover:decoration-ink"
+                        >
+                          {cs.label} →
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </li>
+          ))}
         </ol>
       </div>
 
-      {/* Photo Zoom Modal */}
       {modalPhoto && (
         <div
           role="dialog"
@@ -278,7 +248,7 @@ export default function AuditLog() {
           >
             <div className="mb-3 flex items-center justify-between pb-2">
               <div>
-                <p className="ledger-figures text-xs uppercase tracking-[0.06em] text-ink-soft">
+                <p className="ledger-figures text-xs text-ink-soft">
                   {modalPhoto.where} · {modalPhoto.role}
                 </p>
                 <p className="text-sm font-medium text-ink">{modalPhoto.caption}</p>
@@ -288,7 +258,7 @@ export default function AuditLog() {
                 onClick={() => setModalPhoto(null)}
                 className="ledger-figures cursor-pointer bg-ink px-3 py-1 text-xs text-paper"
               >
-                Close ✕
+                Close
               </button>
             </div>
             <div className="flex items-center justify-center bg-white p-2">

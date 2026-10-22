@@ -30,68 +30,35 @@ export default function SidebarIdentity({ compact = false }: SidebarIdentityProp
 
   return (
     <>
-      <div className="rounded-none bg-paper-deep/65 p-3.5">
-        <div className="flex items-center gap-3.5">
-          {/* Clickable Portrait Thumbnail */}
-          <button
-            type="button"
-            onClick={() => setIsModalOpen(true)}
-            className="group relative h-16 w-16 shrink-0 cursor-pointer overflow-hidden bg-white shadow-xs focus:outline-none"
-            title="Click to enlarge portrait"
-          >
-            <img
-              src="/Profile.webp"
-              alt={PORTFOLIO_IDENTITY.name}
-              decoding="async"
-              fetchPriority="high"
-              className="h-full w-full object-cover object-[center_35%] transition-transform duration-300 group-hover:scale-105"
-            />
-            <span
-              className="absolute bottom-1 right-1 h-2.5 w-2.5 rounded-full bg-ledger ring-2 ring-paper"
-              title="Available immediately"
-            />
-          </button>
+      <div className="flex items-center gap-3.5">
+        <button
+          type="button"
+          onClick={() => setIsModalOpen(true)}
+          className="group relative h-14 w-14 shrink-0 cursor-pointer overflow-hidden bg-white shadow-2xs focus:outline-none"
+          title="View full photo"
+        >
+          <img
+            src="/Profile.webp"
+            alt={PORTFOLIO_IDENTITY.name}
+            decoding="async"
+            fetchPriority="high"
+            className="h-full w-full object-cover object-[center_35%] transition-transform duration-300 group-hover:scale-105"
+          />
+        </button>
 
-          <div className="min-w-0">
-            <h2 className="font-serif text-lg font-medium leading-tight text-ink">
-              {PORTFOLIO_IDENTITY.name}
-            </h2>
-            <p className="mt-0.5 text-xs leading-snug text-ink-soft">
-              Junior Full Stack Developer
-            </p>
-            <p className="ledger-figures mt-1 inline-flex items-center gap-1.5 text-[10px] font-medium text-ledger">
-              <span>● 0-Day Notice</span>
-              <span className="text-ink-soft">· QC</span>
-            </p>
-          </div>
-        </div>
-
-        {/* Organization Logos Strip inside Identity */}
-        <div className="mt-3 flex items-center justify-between bg-paper/80 px-2.5 py-1.5">
-          <div className="flex items-center gap-2.5">
-            <img
-              src="/logos/wilcon.png"
-              alt="Wilcon Depot"
-              className="h-3.5 w-auto object-contain"
-            />
-            <img
-              src="/logos/wordpress.png"
-              alt="WordPress PH"
-              className="h-3.5 w-auto object-contain"
-            />
-            <img
-              src="/logos/jollibee.png"
-              alt="Jollibee"
-              className="h-3.5 w-auto object-contain"
-            />
-          </div>
-          <span className="ledger-figures text-[9px] uppercase tracking-[0.08em] text-ink-soft">
-            6 Mos Enterprise
-          </span>
+        <div className="min-w-0">
+          <h2 className="font-serif text-lg font-medium leading-tight text-ink">
+            {PORTFOLIO_IDENTITY.name}
+          </h2>
+          <p className="mt-0.5 text-xs leading-snug text-ink-soft">
+            Full Stack Developer
+          </p>
+          <p className="mt-0.5 text-[11px] text-ink-soft">
+            Quezon City, PH
+          </p>
         </div>
       </div>
 
-      {/* Lightbox Modal for Full Profile Photo */}
       {isModalOpen && (
         <div
           role="dialog"
@@ -115,7 +82,7 @@ export default function SidebarIdentity({ compact = false }: SidebarIdentityProp
                 onClick={() => setIsModalOpen(false)}
                 className="ledger-figures cursor-pointer bg-ink px-3 py-1 text-xs text-paper"
               >
-                Close ✕
+                Close
               </button>
             </div>
 
@@ -127,11 +94,6 @@ export default function SidebarIdentity({ compact = false }: SidebarIdentityProp
                 loading="lazy"
                 className="h-full w-full object-cover object-top"
               />
-              <div className="absolute inset-x-0 bottom-0 bg-ink/75 px-3.5 py-2 text-paper backdrop-blur-md">
-                <p className="text-xs font-medium text-paper">
-                  BS Information Technology (2025) · Quezon City, PH
-                </p>
-              </div>
             </div>
           </div>
         </div>

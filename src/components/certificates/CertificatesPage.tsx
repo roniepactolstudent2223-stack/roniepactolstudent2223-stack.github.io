@@ -34,8 +34,6 @@ export default function CertificatesPage() {
   const [selectedCert, setSelectedCert] = useState<CertData | null>(null)
 
   const filtered = certificates.filter((c) => matchesFilter(c, activeFilter))
-  const countFor = (id: FilterId) =>
-    certificates.filter((c) => matchesFilter(c, id)).length
 
   useEffect(() => {
     if (!selectedCert) return
@@ -53,47 +51,43 @@ export default function CertificatesPage() {
   return (
     <div className="px-6 py-10 sm:py-14">
       <div className="max-w-4xl">
-        {/* Header + Soft Filter Chips */}
+        {/* Header + Filter Chips */}
         <header className="border-b border-rule/60 pb-6">
-          <p className="ledger-figures text-xs uppercase tracking-[0.08em] text-ink-soft">
-            Verified Credentials &amp; Certifications
-          </p>
-          <h1 className="mt-2 font-serif text-4xl font-medium leading-tight text-ink sm:text-5xl">
-            Certificates
-          </h1>
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-ink-soft">
-            Technical certifications from Cisco Networking Academy, DICT-ITU, Scrimba, TESDA (NC2 Computer Systems Servicing), and my OJT completion certificate. Click any certificate to inspect the full document and verification links.
-          </p>
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <h1 className="font-serif text-4xl font-medium leading-tight text-ink sm:text-5xl">
+              Certificates
+            </h1>
 
-          <div
-            role="group"
-            aria-label="Filter certificates"
-            className="mt-6 flex flex-wrap gap-1.5"
-          >
-            {FILTERS.map((f) => {
-              const active = activeFilter === f.id
-              return (
-                <button
-                  key={f.id}
-                  type="button"
-                  onClick={() => setActiveFilter(f.id)}
-                  aria-pressed={active}
-                  className={`ledger-figures min-h-[34px] cursor-pointer px-3 py-1 text-xs transition-colors ${
-                    active
-                      ? 'bg-ink font-medium text-paper'
-                      : 'bg-paper-deep/65 text-ink-soft hover:bg-paper-deep hover:text-ink'
-                  }`}
-                >
-                  {f.label} ({countFor(f.id)})
-                </button>
-              )
-            })}
+            <div
+              role="group"
+              aria-label="Filter certificates"
+              className="flex flex-wrap gap-1.5"
+            >
+              {FILTERS.map((f) => {
+                const active = activeFilter === f.id
+                return (
+                  <button
+                    key={f.id}
+                    type="button"
+                    onClick={() => setActiveFilter(f.id)}
+                    aria-pressed={active}
+                    className={`ledger-figures min-h-[34px] cursor-pointer px-3 py-1 text-xs transition-colors ${
+                      active
+                        ? 'bg-ink font-medium text-paper'
+                        : 'bg-paper-deep/65 text-ink-soft hover:bg-paper-deep hover:text-ink'
+                    }`}
+                  >
+                    {f.label}
+                  </button>
+                )
+              })}
+            </div>
           </div>
         </header>
 
         {/* Structured Left-Preview / Right-Details Certificate Rows */}
         <ol className="mt-4 divide-y divide-rule/50">
-          {filtered.map((cert, index) => (
+          {filtered.map((cert) => (
             <li
               key={cert.title}
               className="py-7"
@@ -123,25 +117,21 @@ export default function CertificatesPage() {
                       </div>
                     )}
 
-                    {/* Planned Small Blurred-Back Overlay Bar */}
+                    {/* Small Blurred-Back Overlay Bar */}
                     <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-2 bg-ink/80 px-2.5 py-1.5 text-paper backdrop-blur-md">
                       <span className="truncate text-[11px] font-medium text-paper">
                         {cert.issuer}
                       </span>
                       <span className="ledger-figures shrink-0 text-[10px] text-paper/85">
-                        Inspect ⤢
+                        View
                       </span>
                     </div>
                   </div>
                 </div>
 
-                {/* Right Column: Clean Typography & Verification Links (No Box Clutter) */}
+                {/* Right Column: Clean Typography & Verification Links */}
                 <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-2">
-                    <span className="ledger-figures text-xs text-ink-soft">
-                      0{index + 1}
-                    </span>
-                    <span className="ledger-figures text-xs text-ink-soft">·</span>
                     <span className="ledger-figures text-xs text-ink-soft">
                       {cert.date}
                     </span>
@@ -155,7 +145,7 @@ export default function CertificatesPage() {
                   </h2>
 
                   <p className="mt-1 text-xs font-medium text-ink-soft">
-                    Issued by {cert.issuer}
+                    {cert.issuer}
                   </p>
 
                   <p className="mt-2.5 text-sm leading-relaxed text-ink-soft">
@@ -164,7 +154,7 @@ export default function CertificatesPage() {
 
                   <div className="mt-3.5 flex flex-wrap items-center gap-4">
                     <span className="ledger-figures text-xs font-medium text-ink underline decoration-rule underline-offset-4 group-hover:decoration-ink">
-                      Open full credential ⤢
+                      View Certificate →
                     </span>
 
                     {'badgeUrl' in cert && cert.badgeUrl && (
@@ -197,7 +187,7 @@ export default function CertificatesPage() {
         </ol>
       </div>
 
-      {/* Complete Credential & Verification Modal */}
+      {/* Credential & Verification Modal */}
       {selectedCert && (
         <div
           role="dialog"
@@ -213,8 +203,8 @@ export default function CertificatesPage() {
             {/* Modal Header */}
             <div className="flex items-center justify-between gap-4 bg-paper-deep px-5 py-3.5">
               <div className="min-w-0">
-                <p className="ledger-figures text-[11px] uppercase tracking-[0.08em] text-ledger font-medium">
-                  Verified Credential · {selectedCert.skill}
+                <p className="ledger-figures text-[11px] text-ledger font-medium">
+                  {selectedCert.issuer} · {selectedCert.skill}
                 </p>
                 <h2 className="truncate font-serif text-lg font-medium text-ink sm:text-xl">
                   {selectedCert.title}
@@ -226,11 +216,11 @@ export default function CertificatesPage() {
                 onClick={() => setSelectedCert(null)}
                 className="ledger-figures shrink-0 cursor-pointer bg-ink px-3 py-1.5 text-xs font-medium text-paper hover:bg-ink/85"
               >
-                Close ✕
+                Close
               </button>
             </div>
 
-            {/* Modal Body: Left Document Viewer + Right Details */}
+            {/* Modal Body */}
             <div className="grid flex-1 gap-6 overflow-y-auto p-5 lg:grid-cols-[1.35fr_1fr] lg:items-start">
               <div className="bg-white p-2">
                 {selectedCert.imageUrl.endsWith('.pdf') ? (
@@ -252,17 +242,14 @@ export default function CertificatesPage() {
 
               <div className="space-y-4">
                 <div className="border-l-2 border-ledger bg-paper-deep/65 py-3 pl-3.5 pr-3">
-                  <p className="ledger-figures text-[11px] uppercase tracking-[0.08em] text-ledger font-medium">
-                    What It Covers
-                  </p>
-                  <p className="mt-1 text-sm leading-relaxed text-ink">
+                  <p className="text-sm leading-relaxed text-ink">
                     {selectedCert.applied}
                   </p>
                 </div>
 
                 <dl className="space-y-3 bg-paper-deep/40 p-4 text-sm">
                   <div>
-                    <dt className="ledger-figures text-xs uppercase tracking-[0.06em] text-ink-soft">
+                    <dt className="ledger-figures text-xs text-ink-soft">
                       Issued By
                     </dt>
                     <dd className="mt-0.5 font-medium text-ink">
@@ -270,8 +257,8 @@ export default function CertificatesPage() {
                     </dd>
                   </div>
                   <div>
-                    <dt className="ledger-figures text-xs uppercase tracking-[0.06em] text-ink-soft">
-                      Year Completed
+                    <dt className="ledger-figures text-xs text-ink-soft">
+                      Year
                     </dt>
                     <dd className="ledger-figures mt-0.5 text-xs text-ink">
                       {selectedCert.date}
@@ -286,7 +273,7 @@ export default function CertificatesPage() {
                     rel="noopener noreferrer"
                     className="ledger-figures inline-flex items-center justify-center gap-1.5 bg-ink px-4 py-2.5 text-xs font-medium text-paper transition-colors hover:bg-ledger"
                   >
-                    Open Full Certificate File ↗
+                    Open File ↗
                   </a>
 
                   {selectedCert.verifyUrl && (
@@ -296,7 +283,7 @@ export default function CertificatesPage() {
                       rel="noopener noreferrer"
                       className="ledger-figures inline-flex items-center justify-center gap-1.5 bg-paper-deep px-4 py-2.5 text-xs font-medium text-ink transition-colors hover:bg-paper-deep/75"
                     >
-                      Verify Credential Online ↗
+                      Verify Online ↗
                     </a>
                   )}
                 </div>

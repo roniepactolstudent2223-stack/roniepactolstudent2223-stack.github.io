@@ -16,7 +16,6 @@ const FORMSPREE_ID = process.env.NEXT_PUBLIC_FORMSPREE_ID || 'mppwevqd'
 export default function ContactPage() {
   const [copiedPhone, setCopiedPhone] = useState(false)
   const [copiedEmail, setCopiedEmail] = useState(false)
-  const [summaryCopied, setSummaryCopied] = useState(false)
 
   const handleCopyNumber = () => {
     navigator.clipboard.writeText('09931263221')
@@ -30,115 +29,65 @@ export default function ContactPage() {
     setTimeout(() => setCopiedEmail(false), 2000)
   }
 
-  const copyCandidateSummary = () => {
-    const summaryText = `Candidate: Ronie Pactol
-Role: Junior System Developer (Full Stack)
-Core Stack: Laravel, Vue.js, MySQL, PHP, REST APIs
-Experience: 6 months at Wilcon Depot (Enterprise Financial & Accounting Systems) + Solo developer of live WOH Attendance System
-Reference: John Carlo Pattugan (IT Operations Administrator, LevelUp - https://levelup.support/) | +63 905 1779 250
-Availability: Immediate (0-day notice) | Location: Balingasa, Quezon City | SSS, PhilHealth & Pag-IBIG ready
-Contact: 0993 126 3221 (Viber) | roniepactol@gmail.com
-Portfolio: https://roniepactol.me/
-Resume (Live Google Doc): ${PORTFOLIO_IDENTITY.resumeDocUrl}`
-
-    navigator.clipboard.writeText(summaryText)
-    setSummaryCopied(true)
-    setTimeout(() => setSummaryCopied(false), 2500)
-  }
-
   const externalLinks = PORTFOLIO_IDENTITY.externalLinks ?? []
 
   return (
     <div className="px-6 py-10 sm:py-14">
       <div className="max-w-4xl space-y-12">
-        {/* 1. CLEAN HERO HEADER (No excess borders) */}
-        <header className="border-b border-rule/60 pb-10">
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="ledger-figures text-xs uppercase tracking-[0.08em] text-ink-soft">
-              Contact &amp; Availability
-            </span>
-            <span className="ledger-figures text-xs text-ink-soft">·</span>
-            <span className="ledger-figures bg-ledger/12 px-2.5 py-0.5 text-[11px] font-medium text-ledger">
-              ✓ Notice period: 0 days · Quezon City, PH
-            </span>
-          </div>
+        {/* 1. CLEAN HEADER */}
+        <header className="border-b border-rule/60 pb-8">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <h1 className="font-serif text-4xl font-medium leading-tight text-ink sm:text-5xl">
+                Contact
+              </h1>
+              <p className="mt-2 text-sm text-ink-soft">
+                Quezon City, Metro Manila · Open to Full-Stack &amp; Web Developer roles
+              </p>
+            </div>
 
-          <h1 className="mt-2 font-serif text-4xl font-medium leading-tight text-ink sm:text-5xl">
-            Let&apos;s connect
-          </h1>
-
-          <div className="mt-5 border-l-2 border-ledger bg-paper-deep/55 px-4 py-3.5">
-            <p className="text-[15px] leading-relaxed text-ink">
-              Available for immediate full-time start (0-day notice) in Quezon City or Metro Manila — with complete SSS, PhilHealth, and Pag-IBIG statutory readiness.
-            </p>
-          </div>
-
-          <div className="mt-6 flex flex-wrap items-center gap-3">
             <a
               href={PORTFOLIO_IDENTITY.resumeDocUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="ledger-figures inline-flex items-center gap-2 bg-ink px-4 py-2.5 text-xs font-medium uppercase tracking-[0.08em] text-paper transition-colors hover:bg-ledger"
+              className="ledger-figures inline-flex items-center gap-2 bg-ink px-4 py-2.5 text-xs font-medium text-paper transition-colors hover:bg-ledger"
             >
-              <span>Open Live Resume (Google Doc)</span>
+              <span>Resume (Google Doc)</span>
               <span aria-hidden="true">↗</span>
             </a>
-
-            <button
-              type="button"
-              onClick={copyCandidateSummary}
-              className={`ledger-figures inline-flex cursor-pointer items-center gap-2 px-4 py-2.5 text-xs font-medium uppercase tracking-[0.08em] transition-colors ${
-                summaryCopied
-                  ? 'bg-ledger text-paper'
-                  : 'bg-paper-deep/80 text-ink hover:bg-paper-deep'
-              }`}
-            >
-              <span>
-                {summaryCopied
-                  ? '✓ Candidate Summary Copied'
-                  : 'Copy Summary for Hiring Team'}
-              </span>
-            </button>
           </div>
         </header>
 
-        {/* 2. SOFT SURFACE DIRECT CHANNELS (No heavy card borders) */}
+        {/* 2. DIRECT CONTACT CHANNELS */}
         <section>
-          <p className="ledger-figures mb-3 text-xs uppercase tracking-[0.08em] text-ink-soft">
-            Direct Channels
-          </p>
-
           <div className="grid gap-4 md:grid-cols-3">
             {/* Mobile & SMS */}
             <div className="flex flex-col justify-between bg-paper-deep/45 p-5">
               <div>
                 <div className="flex items-center justify-between">
-                  <span className="ledger-figures text-[10px] font-medium uppercase tracking-[0.12em] text-ledger">
-                    01 · Mobile &amp; SMS
+                  <span className="ledger-figures text-xs font-medium text-ledger">
+                    Phone / SMS
                   </span>
                   <PhoneIcon className="h-4 w-4 text-ledger" />
                 </div>
                 <p className="mt-3 font-serif text-2xl font-medium text-ink">
                   0993 126 3221
                 </p>
-                <p className="mt-1 text-xs leading-relaxed text-ink-soft">
-                  Direct mobile line (+63 993 126 3221) for phone screening or SMS.
-                </p>
               </div>
 
               <div className="mt-4 flex items-center gap-2">
                 <a
                   href={PORTFOLIO_IDENTITY.phoneTel}
-                  className="ledger-figures inline-flex flex-1 items-center justify-center gap-1.5 bg-ink px-3 py-2 text-[11px] font-medium uppercase tracking-[0.06em] text-paper transition-colors hover:bg-ledger"
+                  className="ledger-figures inline-flex flex-1 items-center justify-center gap-1.5 bg-ink px-3 py-2 text-xs font-medium text-paper transition-colors hover:bg-ledger"
                 >
-                  Call Now
+                  Call
                 </a>
                 <button
                   type="button"
                   onClick={handleCopyNumber}
-                  className="ledger-figures inline-flex cursor-pointer items-center justify-center bg-paper px-3 py-2 text-[11px] font-medium uppercase tracking-[0.06em] text-ink transition-colors hover:bg-paper/80"
+                  className="ledger-figures inline-flex cursor-pointer items-center justify-center bg-paper px-3 py-2 text-xs font-medium text-ink transition-colors hover:bg-paper/80"
                 >
-                  {copiedPhone ? '✓ Copied' : 'Copy'}
+                  {copiedPhone ? 'Copied' : 'Copy'}
                 </button>
               </div>
             </div>
@@ -147,26 +96,23 @@ Resume (Live Google Doc): ${PORTFOLIO_IDENTITY.resumeDocUrl}`
             <div className="flex flex-col justify-between bg-paper-deep/45 p-5">
               <div>
                 <div className="flex items-center justify-between">
-                  <span className="ledger-figures text-[10px] font-medium uppercase tracking-[0.12em] text-ledger">
-                    02 · Viber Direct
+                  <span className="ledger-figures text-xs font-medium text-ledger">
+                    Viber
                   </span>
                   <ViberIcon className="h-4 w-4 text-[#7360F2]" />
                 </div>
                 <p className="mt-3 font-serif text-2xl font-medium text-ink">
                   +63 993 126 3221
                 </p>
-                <p className="mt-1 text-xs leading-relaxed text-ink-soft">
-                  For fast interview coordination and HR follow-ups on Viber.
-                </p>
               </div>
 
               <div className="mt-4">
                 <a
                   href={PORTFOLIO_IDENTITY.viberUrl}
-                  className="ledger-figures inline-flex w-full items-center justify-center gap-2 bg-paper px-3 py-2 text-[11px] font-medium uppercase tracking-[0.06em] text-ink transition-colors hover:bg-ink hover:text-paper"
+                  className="ledger-figures inline-flex w-full items-center justify-center gap-2 bg-paper px-3 py-2 text-xs font-medium text-ink transition-colors hover:bg-ink hover:text-paper"
                 >
                   <ViberIcon className="h-3.5 w-3.5 text-[#7360F2]" />
-                  Open Viber Chat ↗
+                  Open Viber ↗
                 </a>
               </div>
             </div>
@@ -175,32 +121,29 @@ Resume (Live Google Doc): ${PORTFOLIO_IDENTITY.resumeDocUrl}`
             <div className="flex flex-col justify-between bg-paper-deep/45 p-5">
               <div>
                 <div className="flex items-center justify-between">
-                  <span className="ledger-figures text-[10px] font-medium uppercase tracking-[0.12em] text-ledger">
-                    03 · Direct Email
+                  <span className="ledger-figures text-xs font-medium text-ledger">
+                    Email
                   </span>
                   <MailIcon className="h-4 w-4 text-ledger" />
                 </div>
                 <p className="mt-3 font-serif text-xl font-medium text-ink break-all">
                   {PORTFOLIO_IDENTITY.email}
                 </p>
-                <p className="mt-1 text-xs leading-relaxed text-ink-soft">
-                  For formal interview invitations and technical assessments.
-                </p>
               </div>
 
               <div className="mt-4 flex items-center gap-2">
                 <a
                   href={`mailto:${PORTFOLIO_IDENTITY.email}`}
-                  className="ledger-figures inline-flex flex-1 items-center justify-center gap-1.5 bg-ink px-3 py-2 text-[11px] font-medium uppercase tracking-[0.06em] text-paper transition-colors hover:bg-ledger"
+                  className="ledger-figures inline-flex flex-1 items-center justify-center gap-1.5 bg-ink px-3 py-2 text-xs font-medium text-paper transition-colors hover:bg-ledger"
                 >
-                  Email Me
+                  Email
                 </a>
                 <button
                   type="button"
                   onClick={handleCopyEmail}
-                  className="ledger-figures inline-flex cursor-pointer items-center justify-center bg-paper px-3 py-2 text-[11px] font-medium uppercase tracking-[0.06em] text-ink transition-colors hover:bg-paper/80"
+                  className="ledger-figures inline-flex cursor-pointer items-center justify-center bg-paper px-3 py-2 text-xs font-medium text-ink transition-colors hover:bg-paper/80"
                 >
-                  {copiedEmail ? '✓ Copied' : 'Copy'}
+                  {copiedEmail ? 'Copied' : 'Copy'}
                 </button>
               </div>
             </div>
@@ -211,21 +154,18 @@ Resume (Live Google Doc): ${PORTFOLIO_IDENTITY.resumeDocUrl}`
         <section className="border-t border-rule/60 pt-10 grid gap-8 lg:grid-cols-12 lg:items-start">
           {/* Left 7 Cols: Message Form */}
           <div className="lg:col-span-7">
-            <p className="ledger-figures text-xs uppercase tracking-[0.08em] text-ink-soft">
-              Direct Message
-            </p>
-            <h2 className="mt-1 mb-4 font-serif text-2xl font-medium text-ink">
+            <h2 className="mb-4 font-serif text-2xl font-medium text-ink">
               Send a message
             </h2>
             <ContactForm formspreeId={FORMSPREE_ID} />
           </div>
 
-          {/* Right 5 Cols: Soft Reference & Readiness Surfaces */}
+          {/* Right 5 Cols: Reference & Profiles */}
           <div className="lg:col-span-5 space-y-4">
             {PORTFOLIO_IDENTITY.reference && (
               <div className="bg-paper-deep/45 p-5">
-                <span className="ledger-figures text-[10px] font-medium uppercase tracking-[0.12em] text-ledger">
-                  Character Reference
+                <span className="ledger-figures text-xs font-medium text-ledger">
+                  Reference
                 </span>
 
                 <h3 className="mt-2 font-serif text-xl font-medium text-ink">
@@ -245,8 +185,8 @@ Resume (Live Google Doc): ${PORTFOLIO_IDENTITY.resumeDocUrl}`
                 </a>
 
                 <div className="mt-3 pt-3 border-t border-rule/50 flex items-center justify-between">
-                  <span className="ledger-figures text-[10px] uppercase text-ink-soft">
-                    Mobile
+                  <span className="ledger-figures text-xs text-ink-soft">
+                    Phone
                   </span>
                   <a
                     href={`tel:${PORTFOLIO_IDENTITY.reference.phone.replace(/[^0-9+]/g, '')}`}
@@ -261,7 +201,7 @@ Resume (Live Google Doc): ${PORTFOLIO_IDENTITY.resumeDocUrl}`
 
             {externalLinks.length > 0 && (
               <div className="bg-paper-deep/45 p-5">
-                <span className="ledger-figures block text-[10px] uppercase tracking-[0.12em] text-ink-soft">
+                <span className="ledger-figures block text-xs text-ink-soft">
                   Profiles
                 </span>
                 <div className="mt-3 flex flex-wrap gap-2">

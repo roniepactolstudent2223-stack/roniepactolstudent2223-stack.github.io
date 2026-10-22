@@ -146,11 +146,6 @@ const VISUAL_WORK_ENTRIES: VisualWorkEntry[] = [
   },
 ]
 
-/**
- * Visual-first Work Experience page:
- * - Zero long paragraphs or behavioral stories
- * - Focuses on Workplace/Event Visuals + Tech Stack + Short Technical Modules
- */
 export default function WorkPage() {
   const [zoomPhoto, setZoomPhoto] = useState<{
     src: string
@@ -175,17 +170,12 @@ export default function WorkPage() {
   return (
     <div className="px-6 py-10 sm:py-14">
       <div className="max-w-4xl">
-        {/* Compact Header */}
+        {/* Clean Header */}
         <header className="border-b border-rule/60 pb-6">
           <div className="flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <p className="ledger-figures text-xs uppercase tracking-[0.08em] text-ink-soft">
-                Technical &amp; Production Experience
-              </p>
-              <h1 className="mt-1 font-serif text-4xl font-medium leading-tight text-ink sm:text-5xl">
-                Work Experience
-              </h1>
-            </div>
+            <h1 className="font-serif text-4xl font-medium leading-tight text-ink sm:text-5xl">
+              Work Experience
+            </h1>
 
             <a
               href={PORTFOLIO_IDENTITY.resumeDocUrl}
@@ -193,14 +183,14 @@ export default function WorkPage() {
               rel="noopener noreferrer"
               className="ledger-figures inline-flex items-center gap-1.5 bg-ink px-4 py-2 text-xs font-medium text-paper transition-colors hover:bg-ledger"
             >
-              Full Resume (Google Doc) ↗
+              Resume (Google Doc) ↗
             </a>
           </div>
         </header>
 
         {/* Visual + Technical Role Entries */}
         <div className="divide-y divide-rule/60">
-          {VISUAL_WORK_ENTRIES.map((role, index) => (
+          {VISUAL_WORK_ENTRIES.map((role) => (
             <article
               key={role.company}
               className="py-9 grid gap-6 md:grid-cols-[13.5rem_1fr] md:items-start md:gap-8"
@@ -237,12 +227,9 @@ export default function WorkPage() {
 
               {/* Right Column: Role Title, Visual Photos, Concise Technical Deliverables & Case Study Links */}
               <div className="min-w-0">
-                <div className="flex items-baseline gap-2">
-                  <span className="ledger-figures text-xs text-ink-soft">0{index + 1}</span>
-                  <h2 className="font-serif text-2xl font-medium text-ink sm:text-[1.7rem]">
-                    {role.role}
-                  </h2>
-                </div>
+                <h2 className="font-serif text-2xl font-medium text-ink sm:text-[1.7rem]">
+                  {role.role}
+                </h2>
 
                 {/* Workplace / Event Visuals First */}
                 {role.photos.length > 0 && (
@@ -280,7 +267,7 @@ export default function WorkPage() {
                               {photo.caption}
                             </span>
                             <span className="ledger-figures shrink-0 text-[10px] text-paper/85">
-                              ⤢
+                              View
                             </span>
                           </div>
                         </div>
@@ -289,16 +276,13 @@ export default function WorkPage() {
                   </div>
                 )}
 
-                {/* Concise Technical Deliverables (Short 4–6 word chips, zero paragraphs) */}
+                {/* Concise Technical Deliverables */}
                 <ul className="mt-4 grid grid-cols-1 gap-1.5 sm:grid-cols-2">
                   {role.modules.map((mod) => (
                     <li
                       key={mod}
-                      className="flex items-center gap-2 bg-paper-deep/45 px-3 py-2 text-xs font-medium text-ink"
+                      className="bg-paper-deep/45 px-3 py-2 text-xs font-medium text-ink"
                     >
-                      <span className="text-ledger font-bold" aria-hidden="true">
-                        ✓
-                      </span>
                       <span className="truncate">{mod}</span>
                     </li>
                   ))}
@@ -348,7 +332,7 @@ export default function WorkPage() {
           >
             <div className="mb-3 flex items-center justify-between pb-2">
               <div>
-                <p className="ledger-figures text-xs uppercase tracking-[0.06em] text-ink-soft">
+                <p className="ledger-figures text-xs text-ink-soft">
                   {zoomPhoto.company} · {zoomPhoto.role}
                 </p>
                 <h3 className="text-sm font-medium text-ink">{zoomPhoto.caption}</h3>
@@ -358,7 +342,7 @@ export default function WorkPage() {
                 onClick={() => setZoomPhoto(null)}
                 className="ledger-figures cursor-pointer bg-ink px-3 py-1 text-xs text-paper"
               >
-                Close ✕
+                Close
               </button>
             </div>
             <div className="flex items-center justify-center bg-white p-2">

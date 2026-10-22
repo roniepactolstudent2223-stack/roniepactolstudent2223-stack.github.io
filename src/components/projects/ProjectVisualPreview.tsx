@@ -14,12 +14,6 @@ interface ProjectVisualPreviewProps {
   onCloseExternal?: () => void
 }
 
-/**
- * Visual Screen Preview + Technical Inspection Modal:
- * - Main preview shows the real screenshot with a small frosted-blur title bar.
- * - Clicking opens a visual-first modal (large screen stage on the left,
- *   concise Tech Stack + Modules Built on the right — no long paragraphs).
- */
 export default function ProjectVisualPreview({
   project,
   meta,
@@ -71,27 +65,13 @@ export default function ProjectVisualPreview({
 
   return (
     <div>
-      {/* Visual Window Frame with Small Blurred-Back Overlay Bar */}
+      {/* Clean Screenshot Frame with Small Blurred-Back Overlay Bar */}
       <button
         type="button"
         onClick={() => setModalOpen(true)}
         className="group relative block w-full cursor-pointer overflow-hidden border border-rule/80 bg-white p-1.5 text-left shadow-xs transition-all hover:border-ink"
-        aria-label={`Inspect screens and technical specs for ${project.title}`}
+        aria-label={`View screens for ${project.title}`}
       >
-        <div className="mb-1 flex items-center justify-between px-1.5 pb-1">
-          <div className="flex items-center gap-1.5">
-            <span className="h-2 w-2 rounded-full bg-rule" />
-            <span className="h-2 w-2 rounded-full bg-rule" />
-            <span className="h-2 w-2 rounded-full bg-ledger/70" />
-            <span className="ledger-figures ml-1 text-[10px] text-ink-soft">
-              Screen 0{selectedIdx + 1} / 0{images.length}
-            </span>
-          </div>
-          <span className="ledger-figures text-[10px] font-medium text-ledger group-hover:underline">
-            Inspect ⤢
-          </span>
-        </div>
-
         <div className="relative aspect-[16/10] w-full overflow-hidden bg-white">
           <img
             src={currentSrc}
@@ -103,19 +83,18 @@ export default function ProjectVisualPreview({
             }`}
           />
 
-          {/* Small Blurred-Back Bar along bottom edge */}
           <div className="inset-x-0 bottom-0 absolute flex items-center justify-between gap-2 bg-ink/80 px-2.5 py-1.5 text-paper backdrop-blur-md">
             <span className="truncate text-[11px] font-medium text-paper">
               {currentCaption.title}
             </span>
             <span className="ledger-figures shrink-0 text-[10px] text-paper/85">
-              ⤢
+              {selectedIdx + 1}/{images.length}
             </span>
           </div>
         </div>
       </button>
 
-      {/* Multi-Screenshot Thumbnail Strip Below Card */}
+      {/* Multi-Screenshot Thumbnail Strip */}
       {images.length > 1 && (
         <div
           className="mt-1.5 grid grid-cols-3 gap-1.5"
@@ -148,9 +127,6 @@ export default function ProjectVisualPreview({
                       isUiScreenshot ? 'object-contain' : 'object-cover'
                     }`}
                   />
-                  <span className="ledger-figures absolute bottom-0.5 left-0.5 bg-ink/75 px-1 text-[9px] text-paper backdrop-blur-xs">
-                    0{idx + 1}
-                  </span>
                 </div>
               </button>
             )
@@ -158,12 +134,12 @@ export default function ProjectVisualPreview({
         </div>
       )}
 
-      {/* Visual-First Screen & Tech Spec Modal */}
+      {/* Visual Screen & Tech Spec Modal */}
       {isModalActive && (
         <div
           role="dialog"
           aria-modal="true"
-          aria-label={`${project.title} screen inspector`}
+          aria-label={project.title}
           onClick={closeModal}
           className="fixed inset-0 z-50 flex items-center justify-center bg-ink/85 p-3 sm:p-6 backdrop-blur-xs"
         >
@@ -171,11 +147,10 @@ export default function ProjectVisualPreview({
             onClick={(e) => e.stopPropagation()}
             className="flex max-h-[92vh] w-full max-w-5xl flex-col overflow-hidden bg-paper shadow-2xl"
           >
-            {/* Modal Top Header */}
             <div className="flex items-center justify-between gap-4 bg-paper-deep px-5 py-3.5">
               <div className="min-w-0">
-                <p className="ledger-figures text-[11px] uppercase tracking-[0.08em] text-ledger font-medium">
-                  {meta.groupLabel} · {meta.status}
+                <p className="ledger-figures text-[11px] text-ink-soft">
+                  {meta.groupLabel}
                 </p>
                 <h2 className="truncate font-serif text-lg font-medium text-ink sm:text-xl">
                   {project.title}
@@ -187,11 +162,10 @@ export default function ProjectVisualPreview({
                 onClick={closeModal}
                 className="ledger-figures shrink-0 cursor-pointer bg-ink px-3 py-1.5 text-xs font-medium text-paper hover:bg-ink/85"
               >
-                Close ✕
+                Close
               </button>
             </div>
 
-            {/* Modal Body: Left Large Screen Stage + Right Compact Tech Specs */}
             <div className="grid flex-1 gap-6 overflow-y-auto p-5 lg:grid-cols-[1.5fr_1fr] lg:items-start">
               {/* Left: Interactive Screen Viewer */}
               <div>
@@ -218,7 +192,7 @@ export default function ProjectVisualPreview({
                             {currentCaption.title}
                           </p>
                           <span className="ledger-figures shrink-0 text-[10px] text-paper/80">
-                            0{selectedIdx + 1} / 0{images.length}
+                            {selectedIdx + 1} / {images.length}
                           </span>
                         </div>
                       </div>
@@ -226,7 +200,6 @@ export default function ProjectVisualPreview({
                   </div>
                 </div>
 
-                {/* Prev / Next + Thumbnail Strip */}
                 {images.length > 1 && (
                   <div className="mt-3 space-y-2">
                     <div className="flex items-center justify-between">
@@ -237,17 +210,17 @@ export default function ProjectVisualPreview({
                         }
                         className="ledger-figures cursor-pointer bg-paper-deep px-3 py-1 text-xs text-ink hover:bg-ink hover:text-paper"
                       >
-                        ← Prev Screen
+                        ← Prev
                       </button>
                       <span className="ledger-figures text-xs text-ink-soft">
-                        Screen {selectedIdx + 1} of {images.length}
+                        {selectedIdx + 1} of {images.length}
                       </span>
                       <button
                         type="button"
                         onClick={() => setSelectedIdx((prev) => (prev + 1) % images.length)}
                         className="ledger-figures cursor-pointer bg-paper-deep px-3 py-1 text-xs text-ink hover:bg-ink hover:text-paper"
                       >
-                        Next Screen →
+                        Next →
                       </button>
                     </div>
 
@@ -272,7 +245,7 @@ export default function ProjectVisualPreview({
                               }`}
                             />
                             <p className="ledger-figures mt-1 truncate text-[10px] text-ink">
-                              0{idx + 1} · {cap}
+                              {cap}
                             </p>
                           </button>
                         )
@@ -282,13 +255,10 @@ export default function ProjectVisualPreview({
                 )}
               </div>
 
-              {/* Right: Concise Technical Specs Only (No long paragraphs) */}
+              {/* Right: Concise Technical Specs */}
               <div className="space-y-4">
                 <div className="bg-paper-deep/55 p-4">
-                  <p className="ledger-figures text-[10px] uppercase tracking-[0.12em] text-ledger font-medium">
-                    Architecture
-                  </p>
-                  <p className="mt-1 text-sm font-medium text-ink">
+                  <p className="text-sm font-medium text-ink">
                     {spec?.architecture || project.role}
                   </p>
                   <p className="mt-0.5 text-xs text-ink-soft">
@@ -296,39 +266,28 @@ export default function ProjectVisualPreview({
                   </p>
                 </div>
 
-                <div>
-                  <p className="ledger-figures mb-2 text-[10px] uppercase tracking-[0.12em] text-ink-soft">
-                    Tech Stack
-                  </p>
-                  <div className="flex flex-wrap gap-1.5">
-                    {(spec?.stack || meta.threeTags).map((t) => (
-                      <span
-                        key={t}
-                        className="ledger-figures bg-paper-deep/80 px-2.5 py-1 text-xs font-medium text-ink"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
+                <div className="flex flex-wrap gap-1.5">
+                  {(spec?.stack || meta.threeTags).map((t) => (
+                    <span
+                      key={t}
+                      className="ledger-figures bg-paper-deep/80 px-2.5 py-1 text-xs font-medium text-ink"
+                    >
+                      {t}
+                    </span>
+                  ))}
                 </div>
 
                 {spec && (
-                  <div>
-                    <p className="ledger-figures mb-2 text-[10px] uppercase tracking-[0.12em] text-ink-soft">
-                      Modules Built
-                    </p>
-                    <ul className="space-y-1.5">
-                      {spec.modules.map((mod) => (
-                        <li
-                          key={mod}
-                          className="flex items-center gap-2 bg-paper-deep/40 px-3 py-2 text-xs text-ink"
-                        >
-                          <span className="text-ledger font-medium">✓</span>
-                          <span>{mod}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                  <ul className="space-y-1.5">
+                    {spec.modules.map((mod) => (
+                      <li
+                        key={mod}
+                        className="bg-paper-deep/40 px-3 py-2 text-xs text-ink"
+                      >
+                        {mod}
+                      </li>
+                    ))}
+                  </ul>
                 )}
 
                 <div className="flex flex-wrap items-center gap-3 pt-2">
@@ -337,7 +296,7 @@ export default function ProjectVisualPreview({
                     onClick={closeModal}
                     className="ledger-figures inline-flex items-center gap-1.5 bg-ink px-4 py-2 text-xs font-medium text-paper transition-colors hover:bg-ledger"
                   >
-                    Full Technical Spec →
+                    Full Page →
                   </Link>
 
                   {project.url && meta.kind === 'software' && (
@@ -347,7 +306,7 @@ export default function ProjectVisualPreview({
                       rel="noopener noreferrer"
                       className="ledger-figures inline-flex items-center gap-1.5 bg-paper-deep px-3.5 py-2 text-xs font-medium text-ink hover:bg-paper-deep/75"
                     >
-                      Open Live App ↗
+                      Live App ↗
                     </a>
                   )}
                 </div>

@@ -63,46 +63,39 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
 
   return (
     <article className="min-h-screen max-w-4xl px-6 py-10 sm:py-14">
-      {/* Top Breadcrumb Bar */}
       <nav aria-label="Case study navigation" className="mb-6 flex flex-wrap items-center justify-between gap-4 border-b border-rule/60 pb-3">
         <Link
           href="/projects"
-          className="ledger-figures inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.08em] text-ink-soft underline decoration-rule underline-offset-4 transition-colors hover:text-ink hover:decoration-ink"
+          className="ledger-figures inline-flex items-center gap-1.5 text-xs text-ink-soft underline decoration-rule underline-offset-4 transition-colors hover:text-ink hover:decoration-ink"
         >
-          ← All projects
+          ← Projects
         </Link>
         <Link
           href="/work"
-          className="ledger-figures inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.08em] text-ink-soft underline decoration-rule underline-offset-4 transition-colors hover:text-ink hover:decoration-ink"
+          className="ledger-figures inline-flex items-center gap-1.5 text-xs text-ink-soft underline decoration-rule underline-offset-4 transition-colors hover:text-ink hover:decoration-ink"
         >
           Work experience →
         </Link>
       </nav>
 
-      {/* 1. COMPACT TECHNICAL HEADER (Stack + Modules Built — Zero Essay Paragraphs) */}
+      {/* 1. COMPACT TECHNICAL HEADER */}
       <header className="border-b border-rule/60 pb-8">
-        <div className="flex flex-wrap items-center gap-2">
-          {indexMeta && (
-            <span className="ledger-figures bg-paper-deep/80 px-2.5 py-0.5 text-[11px] uppercase tracking-[0.06em] text-ink">
-              {indexMeta.groupLabel}
-            </span>
-          )}
-          <span className="ledger-figures bg-ledger/12 px-2.5 py-0.5 text-[11px] font-medium text-ledger">
-            ✓ {indexMeta?.status || project.year}
-          </span>
-        </div>
+        {indexMeta && (
+          <p className="ledger-figures text-xs text-ink-soft">
+            {indexMeta.groupLabel} · {indexMeta.usedBy}
+          </p>
+        )}
 
-        <h1 className="mt-2.5 font-serif text-3xl font-medium leading-tight text-ink sm:text-4xl">
+        <h1 className="mt-1.5 font-serif text-3xl font-medium leading-tight text-ink sm:text-4xl">
           {project.title}
         </h1>
 
         {spec && (
           <p className="ledger-figures mt-1 text-xs text-ink-soft">
-            {spec.architecture} · {indexMeta?.usedBy}
+            {spec.architecture}
           </p>
         )}
 
-        {/* Tech Stack Strip */}
         <ul className="mt-4 flex flex-wrap items-center gap-1.5">
           {(spec?.stack || project.tags).map((tag) => (
             <li
@@ -114,55 +107,39 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
           ))}
         </ul>
 
-        {/* 4 Concise Technical Modules Built */}
         {spec && (
           <ul className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2">
             {spec.modules.map((mod) => (
               <li
                 key={mod}
-                className="flex items-center gap-2 bg-paper-deep/45 px-3 py-2 text-xs font-medium text-ink"
+                className="bg-paper-deep/45 px-3 py-2 text-xs font-medium text-ink"
               >
-                <span className="text-ledger font-bold" aria-hidden="true">
-                  ✓
-                </span>
-                <span>{mod}</span>
+                {mod}
               </li>
             ))}
           </ul>
         )}
 
-        <div className="mt-5 flex flex-wrap items-center gap-3">
-          <button
-            type="button"
-            onClick={() => setLightboxIndex(0)}
-            className="ledger-figures inline-flex cursor-pointer items-center gap-1.5 bg-ink px-4 py-2 text-xs font-medium text-paper transition-colors hover:bg-ledger"
-          >
-            Fullscreen Gallery ({images.length}) ⤢
-          </button>
-          {project.url && (
+        {project.url && (
+          <div className="mt-5">
             <a
               href={project.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="ledger-figures inline-flex items-center gap-1.5 bg-paper-deep/80 px-4 py-2 text-xs font-medium text-ink transition-colors hover:bg-paper-deep"
+              className="ledger-figures inline-flex items-center gap-1.5 bg-ink px-4 py-2 text-xs font-medium text-paper transition-colors hover:bg-ledger"
             >
               {project.slug === 'woh-attendance-system' ? 'Open Live Kiosk ↗' : 'Visit Live Link ↗'}
             </a>
-          )}
-        </div>
+          </div>
+        )}
       </header>
 
-      {/* 2. PRIMARY VISUAL GALLERY (Large, Clear System Screens) */}
+      {/* 2. PRIMARY VISUAL GALLERY */}
       {images.length > 0 && (
         <section className="mt-8">
-          <div className="mb-4 flex items-baseline justify-between">
-            <h2 className="font-serif text-2xl font-medium text-ink">
-              System Screens ({images.length})
-            </h2>
-            <span className="ledger-figures text-xs text-ink-soft">
-              Click any screen to enlarge ⤢
-            </span>
-          </div>
+          <h2 className="mb-4 font-serif text-2xl font-medium text-ink">
+            Screens
+          </h2>
 
           <div
             className={`grid gap-5 ${
@@ -184,20 +161,6 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
                     images.length === 3 && index === 0 ? 'sm:col-span-2' : ''
                   }`}
                 >
-                  <div className="mb-1.5 flex items-center justify-between px-1.5 pb-1">
-                    <div className="flex items-center gap-1.5">
-                      <span className="h-2 w-2 rounded-full bg-rule" />
-                      <span className="h-2 w-2 rounded-full bg-rule" />
-                      <span className="h-2 w-2 rounded-full bg-ledger/70" />
-                      <span className="ledger-figures ml-1 text-[10px] text-ink-soft">
-                        0{index + 1} · {caption.title}
-                      </span>
-                    </div>
-                    <span className="ledger-figures text-[10px] text-ledger font-medium group-hover:underline">
-                      Enlarge ⤢
-                    </span>
-                  </div>
-
                   <div
                     className={`relative ${
                       images.length === 3 && index === 0
@@ -215,13 +178,12 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
                       }`}
                     />
 
-                    {/* Small Blurred-Back Overlay Bar */}
                     <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-3 bg-ink/80 px-3 py-1.5 text-paper backdrop-blur-md">
                       <h3 className="truncate text-xs font-medium text-paper">
                         {caption.title}
                       </h3>
-                      <span className="ledger-figures shrink-0 text-[10px] text-paper/85">
-                        ⤢
+                      <span className="ledger-figures shrink-0 text-[10px] text-paper/80">
+                        {index + 1}/{images.length}
                       </span>
                     </div>
                   </div>
@@ -232,7 +194,7 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
         </section>
       )}
 
-      {/* 3. TECHNICAL ARCHITECTURE DIAGRAM (Expanded by default for technical reviewers) */}
+      {/* 3. TECHNICAL ARCHITECTURE DIAGRAM */}
       {(project.slug === 'woh-attendance-system' || project.slug === 'wilcon-enterprise-systems') && (
         <section className="mt-10 border-t border-rule/60 pt-8 space-y-8">
           <ArchitectureDiagram slug={project.slug} />
@@ -242,20 +204,12 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
 
       {/* 4. OTHER SYSTEMS STRIP */}
       <section aria-label="Other projects" className="mt-12 border-t border-rule/60 pt-8">
-        <div className="mb-4 flex items-center justify-between">
-          <h2 className="font-serif text-xl font-medium text-ink">
-            Other Production Systems
-          </h2>
-          <Link
-            href="/projects"
-            className="ledger-figures text-xs uppercase tracking-[0.06em] text-ink underline decoration-rule underline-offset-4 hover:decoration-ink"
-          >
-            All systems →
-          </Link>
-        </div>
+        <h2 className="mb-4 font-serif text-xl font-medium text-ink">
+          Other Systems
+        </h2>
 
         <div className="grid gap-3.5 sm:grid-cols-3">
-          {otherProjects.map((item, idx) => {
+          {otherProjects.map((item) => {
             const title = PROJECT_TITLES[item.slug] || item.slug
             const otherSpec = TECH_SPECS_BY_SLUG[item.slug]
             return (
@@ -265,10 +219,10 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
                 className="group flex flex-col justify-between bg-paper-deep/45 p-4 transition-colors hover:bg-paper-deep"
               >
                 <div>
-                  <span className="ledger-figures text-[10px] font-medium text-ledger">
-                    0{idx + 1} · {item.groupLabel}
+                  <span className="ledger-figures text-[10px] text-ink-soft">
+                    {item.groupLabel}
                   </span>
-                  <h3 className="mt-1.5 text-sm font-medium leading-snug text-ink group-hover:text-ledger transition-colors">
+                  <h3 className="mt-1 text-sm font-medium leading-snug text-ink group-hover:text-ledger transition-colors">
                     {title}
                   </h3>
                   <p className="ledger-figures mt-1.5 text-[11px] text-ink-soft">
@@ -277,7 +231,7 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
                 </div>
 
                 <span className="ledger-figures mt-3 inline-block text-xs font-medium text-ink">
-                  Inspect →
+                  View →
                 </span>
               </Link>
             )
@@ -299,8 +253,8 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
           >
             <div className="mb-3 flex items-center justify-between pb-2.5">
               <div>
-                <p className="ledger-figures text-[11px] uppercase tracking-[0.06em] text-ink-soft">
-                  {project.title} · Screen {lightboxIndex + 1} of {images.length}
+                <p className="ledger-figures text-[11px] text-ink-soft">
+                  {project.title} · {lightboxIndex + 1} of {images.length}
                 </p>
                 <h3 className="text-base font-medium text-ink">
                   {ats?.captions[lightboxIndex]?.title || `Screen ${lightboxIndex + 1}`}
@@ -312,7 +266,7 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
                 className="ledger-figures cursor-pointer bg-ink px-3 py-1 text-xs font-medium text-paper hover:bg-ink/85"
                 aria-label="Close image preview"
               >
-                Close ✕
+                Close
               </button>
             </div>
 
@@ -353,7 +307,7 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
                         : 'bg-paper-deep text-ink hover:bg-paper-deep/75'
                     }`}
                   >
-                    0{idx + 1} · {ats?.captions[idx]?.title || `Screen ${idx + 1}`}
+                    {ats?.captions[idx]?.title || `Screen ${idx + 1}`}
                   </button>
                 ))}
               </div>

@@ -11,7 +11,7 @@ const TECH_FLOW = [
   {
     step: '02',
     title: 'BU Manager Review',
-    spec: 'Role-based access · Approve or return with remarks',
+    spec: 'Role-based access · Approve or return',
   },
   {
     step: '03',
@@ -25,10 +25,6 @@ const TECH_FLOW = [
   },
 ]
 
-/**
- * Compact visual 4-step technical architecture flow for Month-End Closing.
- * Zero long paragraphs — pure system flow + tech stack.
- */
 export default function ApprovalTrail() {
   return (
     <section
@@ -38,50 +34,28 @@ export default function ApprovalTrail() {
     >
       <div className="max-w-4xl">
         <div className="flex flex-wrap items-baseline justify-between gap-2">
-          <div>
-            <p className="ledger-figures text-xs uppercase tracking-[0.08em] text-ledger font-medium">
-              System Architecture · Wilcon Depot Finance
-            </p>
-            <h2
-              id="trail-title"
-              className="mt-1 font-serif text-2xl font-medium text-ink sm:text-[1.7rem]"
-            >
-              Month-End Closing Pipeline
-            </h2>
-          </div>
+          <h2
+            id="trail-title"
+            className="font-serif text-2xl font-medium text-ink sm:text-[1.7rem]"
+          >
+            Month-End Closing Pipeline
+          </h2>
 
           <Link
             href="/projects/wilcon-month-end-closing"
             className="ledger-figures text-xs font-medium text-ink underline decoration-rule underline-offset-4 hover:decoration-ink"
           >
-            System specs &amp; screens →
+            View screens →
           </Link>
         </div>
 
-        {/* 4-Column Compact Visual Flow */}
-        <ol className="mt-5 grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-4">
-          {TECH_FLOW.map((node, idx) => (
-            <li
-              key={node.step}
-              className={`p-3.5 ${
-                idx === 2
-                  ? 'border-l-2 border-ledger bg-ledger/12'
-                  : 'bg-paper-deep/45'
-              }`}
-            >
-              <div className="flex items-center justify-between">
-                <span className="ledger-figures bg-ledger px-1.5 py-0.5 text-[10px] font-medium text-paper">
-                  {node.step}
-                </span>
-                {idx < 3 ? (
-                  <span className="ledger-figures text-xs text-ink-soft">→</span>
-                ) : (
-                  <span className="ledger-figures text-[10px] font-medium text-ledger">
-                    ✓ Synced
-                  </span>
-                )}
-              </div>
-              <p className="mt-2 text-sm font-medium text-ink">{node.title}</p>
+        <ol className="mt-4 grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-4">
+          {TECH_FLOW.map((node) => (
+            <li key={node.step} className="bg-paper-deep/45 p-3.5">
+              <span className="ledger-figures text-[11px] font-medium text-ledger">
+                {node.step}
+              </span>
+              <p className="mt-1 text-sm font-medium text-ink">{node.title}</p>
               <p className="ledger-figures mt-1 text-[11px] leading-snug text-ink-soft">
                 {node.spec}
               </p>

@@ -14,7 +14,7 @@ type FormStatus = 'idle' | 'submitting' | 'success' | 'error'
 const QUICK_SUBJECTS = [
   'Junior System Developer Interview',
   'Full-Stack / Laravel Role Inquiry',
-  'Request for System Demo / Walkthrough',
+  'Request for System Demo',
 ]
 
 export default function ContactForm({ formspreeId = 'mppwevqd' }: ContactFormProps) {
@@ -81,21 +81,18 @@ export default function ContactForm({ formspreeId = 'mppwevqd' }: ContactFormPro
 
   if (status === 'success') {
     return (
-      <div className="border border-ledger bg-ledger-Faint/60 p-8 text-center">
+      <div className="bg-paper-deep/55 p-8 text-center">
         <div className="mx-auto mb-4 flex h-10 w-10 items-center justify-center bg-ledger text-paper">
           <MailIcon className="h-5 w-5" />
         </div>
-        <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-ledger font-semibold">
-          DISPATCH CONFIRMED
-        </p>
-        <p className="mt-1 font-serif text-xl font-medium text-ink">Message received</p>
+        <p className="font-serif text-xl font-medium text-ink">Message sent</p>
         <p className="mt-1.5 text-sm text-ink-soft">
-          Thanks for reaching out. I respond promptly via email or phone within a few hours.
+          Thanks for reaching out. I will reply via email or phone shortly.
         </p>
         <button
           type="button"
           onClick={() => setStatus('idle')}
-          className="mt-5 border border-ink bg-white px-4 py-2 font-mono text-[11px] font-semibold uppercase tracking-[0.1em] text-ink transition-colors hover:bg-ink hover:text-paper"
+          className="ledger-figures mt-5 bg-ink px-4 py-2 text-xs font-medium text-paper transition-colors hover:bg-ledger"
         >
           Send another message
         </button>
@@ -104,56 +101,36 @@ export default function ContactForm({ formspreeId = 'mppwevqd' }: ContactFormPro
   }
 
   return (
-    <div className="border border-rule bg-white shadow-sm">
-      {/* Window Header Bar */}
-      <div className="flex items-center justify-between border-b border-rule bg-paper-deep px-4 py-2.5">
-        <div className="flex items-center gap-1.5">
-          <span className="h-2 w-2 rounded-full bg-rule" />
-          <span className="h-2 w-2 rounded-full bg-rule" />
-          <span className="h-2 w-2 rounded-full bg-ledger/60" />
-          <span className="ml-2 font-mono text-[10px] font-semibold uppercase tracking-[0.1em] text-ink">
-            Direct Message Dispatch
-          </span>
-        </div>
-        <span className="font-mono text-[10px] uppercase tracking-[0.08em] text-ledger">
-          ● Active Inbox
-        </span>
-      </div>
-
-      <form onSubmit={handleSubmit} noValidate className="p-5 sm:p-6 space-y-5">
-        {/* Quick-fill subject chips for recruiters */}
-        <div>
-          <span className="mb-2 block font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-ink-muted">
-            Quick Topic Preset (Optional)
-          </span>
-          <div className="flex flex-wrap gap-1.5">
-            {QUICK_SUBJECTS.map((preset) => {
-              const active = subject === preset
-              return (
-                <button
-                  key={preset}
-                  type="button"
-                  onClick={() => setSubject(preset)}
-                  className={`border px-2.5 py-1 font-mono text-[10px] transition-colors ${
-                    active
-                      ? 'border-ledger bg-ledger text-paper font-semibold'
-                      : 'border-rule bg-paper/60 text-ink-soft hover:border-ink hover:text-ink'
-                  }`}
-                >
-                  {preset}
-                </button>
-              )
-            })}
-          </div>
+    <div className="bg-paper-deep/45 p-5 sm:p-6">
+      <form onSubmit={handleSubmit} noValidate className="space-y-4">
+        {/* Quick-fill subject chips */}
+        <div className="flex flex-wrap gap-1.5">
+          {QUICK_SUBJECTS.map((preset) => {
+            const active = subject === preset
+            return (
+              <button
+                key={preset}
+                type="button"
+                onClick={() => setSubject(preset)}
+                className={`ledger-figures cursor-pointer px-2.5 py-1 text-xs transition-colors ${
+                  active
+                    ? 'bg-ink text-paper font-medium'
+                    : 'bg-paper text-ink-soft hover:text-ink'
+                }`}
+              >
+                {preset}
+              </button>
+            )
+          })}
         </div>
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
             <label
               htmlFor="contact-email"
-              className="mb-1.5 block font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-ledger"
+              className="ledger-figures mb-1.5 block text-xs font-medium text-ink"
             >
-              01 · Your Email
+              Your Email
             </label>
             <input
               id="contact-email"
@@ -162,21 +139,21 @@ export default function ContactForm({ formspreeId = 'mppwevqd' }: ContactFormPro
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="hiring@company.com"
-              className={`w-full border bg-paper/30 px-3.5 py-2.5 text-sm text-ink placeholder-ink-muted transition-colors focus:bg-white focus:outline-none ${
-                errors.email ? 'border-stamp' : 'border-rule focus:border-ink'
+              className={`w-full border bg-white px-3.5 py-2.5 text-sm text-ink placeholder-ink-muted transition-colors focus:outline-none ${
+                errors.email ? 'border-stamp' : 'border-rule/80 focus:border-ink'
               }`}
             />
             {errors.email && (
-              <p className="mt-1 font-mono text-[11px] text-stamp">{errors.email}</p>
+              <p className="mt-1 text-xs text-stamp">{errors.email}</p>
             )}
           </div>
 
           <div>
             <label
               htmlFor="contact-subject"
-              className="mb-1.5 block font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-ledger"
+              className="ledger-figures mb-1.5 block text-xs font-medium text-ink"
             >
-              02 · Subject / Role
+              Subject
             </label>
             <input
               id="contact-subject"
@@ -185,12 +162,12 @@ export default function ContactForm({ formspreeId = 'mppwevqd' }: ContactFormPro
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
               placeholder="Junior System Developer Role"
-              className={`w-full border bg-paper/30 px-3.5 py-2.5 text-sm text-ink placeholder-ink-muted transition-colors focus:bg-white focus:outline-none ${
-                errors.subject ? 'border-stamp' : 'border-rule focus:border-ink'
+              className={`w-full border bg-white px-3.5 py-2.5 text-sm text-ink placeholder-ink-muted transition-colors focus:outline-none ${
+                errors.subject ? 'border-stamp' : 'border-rule/80 focus:border-ink'
               }`}
             />
             {errors.subject && (
-              <p className="mt-1 font-mono text-[11px] text-stamp">{errors.subject}</p>
+              <p className="mt-1 text-xs text-stamp">{errors.subject}</p>
             )}
           </div>
         </div>
@@ -198,9 +175,9 @@ export default function ContactForm({ formspreeId = 'mppwevqd' }: ContactFormPro
         <div>
           <label
             htmlFor="contact-message"
-            className="mb-1.5 block font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-ledger"
+            className="ledger-figures mb-1.5 block text-xs font-medium text-ink"
           >
-            03 · Message
+            Message
           </label>
           <textarea
             id="contact-message"
@@ -209,12 +186,12 @@ export default function ContactForm({ formspreeId = 'mppwevqd' }: ContactFormPro
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Share interview schedule, role details, or questions..."
             rows={4}
-            className={`w-full resize-none border bg-paper/30 px-3.5 py-2.5 text-sm text-ink placeholder-ink-muted transition-colors focus:bg-white focus:outline-none ${
-              errors.message ? 'border-stamp' : 'border-rule focus:border-ink'
+            className={`w-full resize-none border bg-white px-3.5 py-2.5 text-sm text-ink placeholder-ink-muted transition-colors focus:outline-none ${
+              errors.message ? 'border-stamp' : 'border-rule/80 focus:border-ink'
             }`}
           />
           {errors.message && (
-            <p className="mt-1 font-mono text-[11px] text-stamp">{errors.message}</p>
+            <p className="mt-1 text-xs text-stamp">{errors.message}</p>
           )}
         </div>
 
@@ -222,31 +199,22 @@ export default function ContactForm({ formspreeId = 'mppwevqd' }: ContactFormPro
           <button
             type="submit"
             disabled={status === 'submitting'}
-            className="inline-flex items-center gap-2 border border-ink bg-ink px-5 py-2.5 font-mono text-xs font-medium uppercase tracking-[0.1em] text-paper transition-colors hover:bg-ledger hover:border-ledger disabled:opacity-50 disabled:cursor-not-allowed"
+            className="ledger-figures inline-flex cursor-pointer items-center gap-2 bg-ink px-5 py-2.5 text-xs font-medium text-paper transition-colors hover:bg-ledger disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {status === 'submitting' ? (
-              <>
-                <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-paper border-t-transparent" />
-                Sending Dispatch...
-              </>
+              'Sending...'
             ) : (
               <>
                 <MailIcon className="h-3.5 w-3.5" />
-                Send Message →
+                Send Message
               </>
             )}
           </button>
 
-          {status === 'error' ? (
-            <p className="font-mono text-[11px] text-stamp">
-              {formspreeId
-                ? 'Could not send right now. Please email roniepactol@gmail.com directly.'
-                : 'Form not configured yet. Email me directly.'}
+          {status === 'error' && (
+            <p className="text-xs text-stamp">
+              Could not send right now. Please email roniepactol@gmail.com directly.
             </p>
-          ) : (
-            <span className="font-mono text-[10px] uppercase tracking-[0.08em] text-ink-muted">
-              Delivered directly to roniepactol@gmail.com
-            </span>
           )}
         </div>
       </form>

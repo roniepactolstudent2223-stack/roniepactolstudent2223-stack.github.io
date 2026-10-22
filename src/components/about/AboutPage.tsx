@@ -24,31 +24,19 @@ export default function AboutPage() {
   const softwareProjects = PROJECT_INDEX.filter((item) => item.kind === 'software')
 
   const facts = [
-    { label: 'Target Role', value: 'Junior Full Stack Developer / Web Developer' },
+    { label: 'Role', value: 'Full Stack Junior System Developer' },
     { label: 'Core Stack', value: 'Laravel · Vue.js · PHP · MySQL · REST APIs' },
-    { label: 'Recent Role', value: 'Full Stack Junior System Developer · Wilcon Depot, Inc. (6 mos)' },
+    { label: 'Experience', value: 'Wilcon Depot, Inc. (6 mos) · Word of Hope Caloocan' },
     { label: 'Education', value: 'BS Information Technology · Access Computer College (2021–2025)' },
-    { label: 'Availability', value: 'Immediate · 0-day notice period' },
-    { label: 'Location', value: 'Balingasa, Quezon City, Philippines' },
-    { label: 'Statutory Ready', value: 'SSS · PhilHealth · Pag-IBIG ready' },
+    { label: 'Location', value: 'Quezon City, Metro Manila' },
   ]
 
   return (
     <div className="px-6 py-10 sm:py-14">
       <div className="max-w-4xl space-y-12">
-        {/* 1. Clean Editorial Hero (No boxed borders) */}
+        {/* 1. Clean Hero */}
         <header className="border-b border-rule/60 pb-10">
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="ledger-figures text-xs uppercase tracking-[0.08em] text-ink-soft">
-              Candidate Profile
-            </span>
-            <span className="ledger-figures text-xs text-ink-soft">·</span>
-            <span className="ledger-figures bg-ledger/12 px-2.5 py-0.5 text-[11px] font-medium text-ledger">
-              ✓ Notice period: 0 days
-            </span>
-          </div>
-
-          <h1 className="mt-2 font-serif text-4xl font-medium leading-tight text-ink sm:text-5xl">
+          <h1 className="font-serif text-4xl font-medium leading-tight text-ink sm:text-5xl">
             {PORTFOLIO_IDENTITY.name}
           </h1>
           <p className="ledger-figures mt-2 text-sm text-ink-soft">
@@ -57,7 +45,7 @@ export default function AboutPage() {
 
           <div className="mt-6 border-l-2 border-ledger bg-paper-deep/55 py-3.5 pl-4 pr-4">
             <p className="text-[15px] leading-relaxed text-ink">
-              I build web systems that replace manual spreadsheets and paper sign-ins with validated workflows. Over 6 months at <strong className="font-medium text-ink">Wilcon Depot, Inc.</strong>, I built the Finance team&apos;s Month-End Closing system and upgraded the Treasury Department&apos;s daily Collection and Deposit Report. Outside of work, I built and maintain the live QR attendance system for <strong className="font-medium text-ink">Word of Hope Caloocan</strong> and volunteer as an event photographer for <strong className="font-medium text-ink">WordPress Philippines</strong>.
+              I build web systems that replace manual spreadsheets and paper sign-ins with validated workflows. At <strong className="font-medium text-ink">Wilcon Depot, Inc.</strong>, I built the Finance team&apos;s Month-End Closing system and upgraded the Treasury Department&apos;s daily Collection and Deposit Report. I also built and maintain the live QR attendance system for <strong className="font-medium text-ink">Word of Hope Caloocan</strong> and volunteer as an event photographer for <strong className="font-medium text-ink">WordPress Philippines</strong>.
             </p>
           </div>
 
@@ -66,30 +54,27 @@ export default function AboutPage() {
               href={PORTFOLIO_IDENTITY.resumeDocUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="ledger-figures inline-flex items-center gap-1.5 bg-ink px-4 py-2.5 text-xs font-medium uppercase tracking-[0.06em] text-paper transition-colors hover:bg-ledger"
+              className="ledger-figures inline-flex items-center gap-1.5 bg-ink px-4 py-2.5 text-xs font-medium text-paper transition-colors hover:bg-ledger"
             >
-              Open Live Resume ↗
+              Resume (Google Doc) ↗
             </a>
             <Link
               href="/contact"
-              className="ledger-figures inline-flex items-center gap-1.5 bg-paper-deep/80 px-4 py-2.5 text-xs font-medium uppercase tracking-[0.06em] text-ink transition-colors hover:bg-paper-deep"
+              className="ledger-figures inline-flex items-center gap-1.5 bg-paper-deep/80 px-4 py-2.5 text-xs font-medium text-ink transition-colors hover:bg-paper-deep"
             >
-              Contact Details →
+              Contact →
             </Link>
           </div>
         </header>
 
-        {/* 2. Structured Left/Right Candidate Profile Facts */}
+        {/* 2. Background Facts */}
         <section aria-labelledby="profile-facts-heading" className="grid gap-8 md:grid-cols-[14rem_1fr] md:items-start">
           <div>
-            <p className="ledger-figures text-xs uppercase tracking-[0.08em] text-ink-soft">
-              Candidate Reference
-            </p>
             <h2
               id="profile-facts-heading"
-              className="mt-1 font-serif text-2xl font-medium text-ink"
+              className="font-serif text-2xl font-medium text-ink"
             >
-              Profile &amp; Logistics
+              Background
             </h2>
           </div>
 
@@ -99,7 +84,7 @@ export default function AboutPage() {
                 key={fact.label}
                 className="grid gap-1 py-3 sm:grid-cols-[9.5rem_1fr] sm:gap-4"
               >
-                <dt className="ledger-figures text-xs uppercase tracking-[0.06em] text-ink-soft sm:pt-0.5">
+                <dt className="ledger-figures text-xs text-ink-soft sm:pt-0.5">
                   {fact.label}
                 </dt>
                 <dd className="text-sm text-ink">{fact.value}</dd>
@@ -107,7 +92,7 @@ export default function AboutPage() {
             ))}
             {PORTFOLIO_IDENTITY.reference && (
               <div className="grid gap-1 py-3 sm:grid-cols-[9.5rem_1fr] sm:gap-4">
-                <dt className="ledger-figures text-xs uppercase tracking-[0.06em] text-ink-soft sm:pt-0.5">
+                <dt className="ledger-figures text-xs text-ink-soft sm:pt-0.5">
                   Reference
                 </dt>
                 <dd className="text-sm text-ink">
@@ -128,15 +113,12 @@ export default function AboutPage() {
           </dl>
         </section>
 
-        {/* 3. Structured Left/Right Skills & Tools (Soft surfaces, no borders) */}
+        {/* 3. Skills & Tools */}
         <section aria-labelledby="about-stack-heading" className="border-t border-rule/60 pt-10 grid gap-8 md:grid-cols-[14rem_1fr] md:items-start">
           <div>
-            <p className="ledger-figures text-xs uppercase tracking-[0.08em] text-ink-soft">
-              Technical Index
-            </p>
             <h2
               id="about-stack-heading"
-              className="mt-1 font-serif text-2xl font-medium text-ink"
+              className="font-serif text-2xl font-medium text-ink"
             >
               Skills &amp; Tools
             </h2>
@@ -145,7 +127,7 @@ export default function AboutPage() {
           <div className="grid gap-4 sm:grid-cols-2">
             {SKILL_GROUPS.map((col) => (
               <div key={col.group} className="bg-paper-deep/40 p-4">
-                <p className="ledger-figures text-xs font-medium uppercase tracking-[0.08em] text-ink">
+                <p className="ledger-figures text-xs font-medium text-ink">
                   {col.group}
                 </p>
                 <div className="mt-3 flex flex-wrap gap-1.5">
@@ -160,11 +142,6 @@ export default function AboutPage() {
                             : 'bg-paper/60 text-ink-soft'
                         }`}
                       >
-                        {isPrimary && (
-                          <span className="mr-1.5 text-ledger" aria-hidden="true">
-                            ●
-                          </span>
-                        )}
                         {item}
                       </span>
                     )
@@ -175,30 +152,27 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* 4. Structured Left/Right Systems Summary */}
+        {/* 4. Systems Built */}
         <section aria-labelledby="about-built-heading" className="border-t border-rule/60 pt-10 grid gap-8 md:grid-cols-[14rem_1fr] md:items-start">
           <div>
-            <p className="ledger-figures text-xs uppercase tracking-[0.08em] text-ink-soft">
-              Production Portfolio
-            </p>
             <h2
               id="about-built-heading"
-              className="mt-1 font-serif text-2xl font-medium text-ink"
+              className="font-serif text-2xl font-medium text-ink"
             >
               Systems Built
             </h2>
             <div className="mt-3">
               <Link
                 href="/projects"
-                className="ledger-figures text-xs uppercase tracking-[0.06em] text-ink underline decoration-rule underline-offset-4 hover:decoration-ink"
+                className="ledger-figures text-xs text-ink underline decoration-rule underline-offset-4 hover:decoration-ink"
               >
-                View with screenshots →
+                All projects →
               </Link>
             </div>
           </div>
 
           <div className="grid gap-3 sm:grid-cols-2">
-            {softwareProjects.map((item, idx) => {
+            {softwareProjects.map((item) => {
               const title = PROJECT_TITLES[item.slug] || item.slug
               return (
                 <Link
@@ -208,20 +182,17 @@ export default function AboutPage() {
                 >
                   <div>
                     <div className="flex items-center justify-between">
-                      <span className="ledger-figures text-[10px] font-medium text-ledger">
-                        0{idx + 1} · {item.groupLabel}
+                      <span className="ledger-figures text-[11px] font-medium text-ledger">
+                        {item.groupLabel}
                       </span>
-                      <span className="ledger-figures text-[10px] text-ink-soft">
+                      <span className="ledger-figures text-xs text-ink-soft">
                         →
                       </span>
                     </div>
 
-                    <h3 className="mt-2 text-base font-medium text-ink group-hover:text-ledger transition-colors">
+                    <h3 className="mt-1.5 text-base font-medium text-ink group-hover:text-ledger transition-colors">
                       {title}
                     </h3>
-                    <p className="mt-1 text-xs leading-relaxed text-ink-soft">
-                      {item.result}
-                    </p>
                   </div>
 
                   <p className="ledger-figures mt-3 text-[11px] text-ink-soft">
