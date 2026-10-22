@@ -52,7 +52,7 @@ export default function ProjectsIndex({ projects }: ProjectsIndexProps) {
             Web systems built for Wilcon Depot&apos;s Finance and Treasury teams and Word of Hope Caloocan. Click any screenshot to open the <strong className="font-medium text-ink">Picture &amp; Complete Details modal</strong>, switch screens using the thumbnails below each photo, or tap <strong className="font-medium text-ink">What it does</strong> for a quick summary.
           </p>
 
-          {/* Filter Chips */}
+          {/* Soft Borderless Filter Chips */}
           <div
             role="group"
             aria-label="Filter projects by category"
@@ -66,10 +66,10 @@ export default function ProjectsIndex({ projects }: ProjectsIndexProps) {
                   type="button"
                   onClick={() => setActiveFilter(filter.id)}
                   aria-pressed={active}
-                  className={`ledger-figures min-h-[36px] cursor-pointer border px-3 py-1 text-xs transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ledger ${
+                  className={`ledger-figures min-h-[34px] cursor-pointer px-3 py-1 text-xs transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ledger ${
                     active
-                      ? 'border-ink bg-ink text-paper font-medium'
-                      : 'border-rule bg-paper text-ink-soft hover:border-ink hover:text-ink'
+                      ? 'bg-ink text-paper font-medium'
+                      : 'bg-paper-deep/65 text-ink-soft hover:bg-paper-deep hover:text-ink'
                   }`}
                 >
                   {filter.label} ({countFor(filter.id)})
@@ -79,14 +79,14 @@ export default function ProjectsIndex({ projects }: ProjectsIndexProps) {
           </div>
         </header>
 
-        <ol className="mt-2">
+        <ol className="mt-2 divide-y divide-rule/50">
           {filteredEntries.map(({ project, meta }, index) => (
             <li
               key={project.slug}
-              className="border-t border-rule py-8"
+              className="py-8"
             >
-              <div className="grid gap-6 sm:grid-cols-[18.5rem_1fr] sm:items-start sm:gap-7">
-                {/* Left: Large visible project screenshots with blurred-back bar & Complete Modal */}
+              <div className="grid gap-6 sm:grid-cols-[18.5rem_1fr] sm:items-start sm:gap-8">
+                {/* Left: Visual Screenshot Window */}
                 <div className="w-full">
                   <ProjectVisualPreview
                     project={project}
@@ -96,9 +96,9 @@ export default function ProjectsIndex({ projects }: ProjectsIndexProps) {
                   />
                 </div>
 
-                {/* Right: Title, Highlighted Result, 3 Tag Words, Tap-to-Expand */}
+                {/* Right: Clean Typography & Soft Surfaces */}
                 <div className="min-w-0">
-                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                  <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1">
                     <span className="ledger-figures text-xs text-ink-soft">
                       {String(index + 1).padStart(2, '0')}
                     </span>
@@ -107,22 +107,22 @@ export default function ProjectsIndex({ projects }: ProjectsIndexProps) {
                       {meta.groupLabel}
                     </span>
                     <span className="ledger-figures text-xs text-ink-soft">·</span>
-                    <span className="ledger-figures text-xs text-ledger">
+                    <span className="ledger-figures text-xs font-medium text-ledger">
                       {meta.status}
                     </span>
                   </div>
 
-                  <h2 className="mt-1.5 text-xl font-medium leading-snug text-ink">
+                  <h2 className="mt-1.5 font-serif text-2xl font-medium leading-snug text-ink">
                     <Link
                       href={`/projects/${project.slug}`}
-                      className="underline decoration-transparent underline-offset-4 transition-colors hover:decoration-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ledger"
+                      className="underline decoration-transparent underline-offset-4 transition-colors hover:decoration-ink"
                     >
                       {project.title}
                     </Link>
                   </h2>
 
                   {/* Highlighted 1-line plain-English Result */}
-                  <div className="mt-3 border-l-2 border-ledger bg-paper-deep/60 py-2 pl-3 pr-2.5">
+                  <div className="mt-3 border-l-2 border-ledger bg-paper-deep/55 py-2.5 pl-3.5 pr-3">
                     <p className="text-[15px] leading-relaxed text-ink">
                       <span className="ledger-figures mr-2 text-[11px] uppercase tracking-[0.08em] text-ledger font-medium">
                         Result:
@@ -131,25 +131,25 @@ export default function ProjectsIndex({ projects }: ProjectsIndexProps) {
                     </p>
                   </div>
 
-                  {/* 3 Tag Words */}
+                  {/* 3 Soft Borderless Tag Words */}
                   <ul
                     aria-label="Key tools"
-                    className="mt-3 flex flex-wrap items-center gap-2"
+                    className="mt-3 flex flex-wrap items-center gap-1.5"
                   >
                     {meta.threeTags.map((tag) => (
                       <li
                         key={tag}
-                        className="ledger-figures border border-rule bg-paper-deep/40 px-2.5 py-0.5 text-xs text-ink"
+                        className="ledger-figures bg-paper-deep/75 px-2.5 py-0.5 text-xs text-ink"
                       >
                         {tag}
                       </li>
                     ))}
                   </ul>
 
-                  {/* Tap-to-Expand "What it does" + Modal & Case Study Links */}
+                  {/* Tap-to-Expand "What it does" + Links */}
                   <div className="mt-3.5">
                     <details className="group">
-                      <summary className="inline-flex min-h-[36px] cursor-pointer list-none items-center gap-2 text-sm text-ink-soft transition-colors hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ledger [&::-webkit-details-marker]:hidden">
+                      <summary className="inline-flex min-h-[34px] cursor-pointer list-none items-center gap-2 text-sm text-ink-soft transition-colors hover:text-ink [&::-webkit-details-marker]:hidden">
                         <span className="underline decoration-rule underline-offset-4 group-hover:decoration-ink">
                           What it does
                         </span>
@@ -161,7 +161,7 @@ export default function ProjectsIndex({ projects }: ProjectsIndexProps) {
                         </span>
                       </summary>
 
-                      <dl className="mt-3 space-y-2.5 border-t border-rule pt-3 text-sm">
+                      <dl className="mt-2.5 space-y-2.5 bg-paper-deep/40 p-4 text-sm">
                         <div className="grid gap-1 sm:grid-cols-[6.5rem_1fr] sm:gap-4">
                           <dt className="ledger-figures text-xs uppercase tracking-[0.06em] text-ink-soft sm:pt-0.5">
                             Problem
@@ -189,11 +189,11 @@ export default function ProjectsIndex({ projects }: ProjectsIndexProps) {
                       </dl>
                     </details>
 
-                    <div className="mt-2 flex flex-wrap items-center gap-x-5 gap-y-2">
+                    <div className="mt-2.5 flex flex-wrap items-center gap-x-5 gap-y-2">
                       <button
                         type="button"
                         onClick={() => setOpenModalSlug(project.slug)}
-                        className="inline-flex cursor-pointer items-center gap-1.5 text-sm font-medium text-ink underline decoration-rule underline-offset-4 transition-colors hover:decoration-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ledger"
+                        className="inline-flex cursor-pointer items-center gap-1.5 text-sm font-medium text-ink underline decoration-rule underline-offset-4 transition-colors hover:decoration-ink"
                       >
                         Picture &amp; full details
                         <span aria-hidden="true">⤢</span>
@@ -201,7 +201,7 @@ export default function ProjectsIndex({ projects }: ProjectsIndexProps) {
 
                       <Link
                         href={`/projects/${project.slug}`}
-                        className="inline-flex items-center gap-1.5 text-sm text-ink-soft underline decoration-rule underline-offset-4 transition-colors hover:text-ink hover:decoration-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ledger"
+                        className="inline-flex items-center gap-1.5 text-sm text-ink-soft underline decoration-rule underline-offset-4 transition-colors hover:text-ink hover:decoration-ink"
                       >
                         Case study page
                         <span aria-hidden="true">→</span>
@@ -212,7 +212,7 @@ export default function ProjectsIndex({ projects }: ProjectsIndexProps) {
                           href={project.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-sm text-ink-soft underline decoration-rule underline-offset-4 transition-colors hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ledger"
+                          className="inline-flex items-center gap-1 text-sm text-ink-soft underline decoration-rule underline-offset-4 transition-colors hover:text-ink"
                         >
                           Open live site ↗
                         </a>
@@ -224,13 +224,6 @@ export default function ProjectsIndex({ projects }: ProjectsIndexProps) {
             </li>
           ))}
         </ol>
-
-        <div className="rule-double ledger-figures flex justify-between pt-3 text-xs uppercase tracking-[0.08em] text-ink">
-          <span>Showing entries</span>
-          <span>
-            {filteredEntries.length} of {allEntries.length}
-          </span>
-        </div>
       </div>
     </div>
   )

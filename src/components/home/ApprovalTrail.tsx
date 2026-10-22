@@ -6,9 +6,10 @@ import gsap from 'gsap'
 import { APPROVAL_FLOW } from '@/lib/portfolio-config'
 
 /**
- * Signature element: the 4-step approval path of the Month-End Closing system.
- * Keeps the workflow diagram focused without repeating the screenshots shown
- * immediately below in the Projects section.
+ * Structured Left-to-Right layout for the Month-End Closing workflow:
+ * - Left column: Overview, stack, and case study link
+ * - Right column: Clean 4-step vertical approval pipeline on a single soft surface
+ *   (no noisy nested box borders)
  */
 export default function ApprovalTrail() {
   const rootRef = useRef<HTMLElement>(null)
@@ -80,92 +81,97 @@ export default function ApprovalTrail() {
       ref={rootRef}
       id="approval-trail"
       aria-labelledby="trail-title"
-      className="scroll-mt-6 border-t border-rule px-6 py-12 sm:py-16"
+      className="scroll-mt-6 border-t border-rule/60 px-6 py-12 sm:py-16"
     >
-      <div className="max-w-4xl">
-        <div className="flex flex-wrap items-center justify-between gap-2">
+      <div className="max-w-4xl grid gap-8 md:grid-cols-[15rem_1fr] md:items-start">
+        {/* Left Column: Section Context */}
+        <div>
           <p className="ledger-figures text-xs uppercase tracking-[0.08em] text-ledger font-medium">
-            Signature Enterprise Workflow · Wilcon Depot
+            Signature Workflow
           </p>
-          <span className="ledger-figures border border-rule bg-paper-deep px-2.5 py-0.5 text-xs text-ink">
+          <h2
+            id="trail-title"
+            className="mt-2 font-serif text-2xl font-medium leading-tight text-ink sm:text-[1.75rem]"
+          >
+            Month-End Closing System
+          </h2>
+          <p className="mt-3 text-sm leading-relaxed text-ink-soft">
+            The 4-step path one adjusting entry takes from a Business Unit supervisor to the General Ledger at Wilcon Depot.
+          </p>
+          <p className="ledger-figures mt-3 inline-block bg-paper-deep/80 px-2.5 py-1 text-[11px] text-ink">
             Laravel · Vue.js · PHP · MySQL
-          </span>
+          </p>
+          <div className="mt-5">
+            <Link
+              href="/projects/wilcon-month-end-closing"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-ink underline decoration-rule underline-offset-4 transition-colors hover:decoration-ink"
+            >
+              Read full case study →
+            </Link>
+          </div>
         </div>
 
-        <h2
-          id="trail-title"
-          className="mt-2 font-serif text-[1.75rem] font-medium leading-tight text-ink sm:text-3xl"
-        >
-          Month-End Closing System — How It Works
-        </h2>
-        <p className="mt-2 max-w-2xl text-base leading-relaxed text-ink-soft">
-          The 4-step path one adjusting entry takes from a Business Unit supervisor to the General Ledger.
-        </p>
+        {/* Right Column: Clean 4-Step Vertical Approval Pipeline on One Soft Surface */}
+        <ol className="bg-paper-deep/40 p-6">
+          {APPROVAL_FLOW.map((step, index) => {
+            const isLast = index === APPROVAL_FLOW.length - 1
 
-        {/* Animated 4-Step Approval Pipeline */}
-        <ol className="mt-8 grid gap-4 sm:grid-cols-2">
-          {APPROVAL_FLOW.map((step, index) => (
-            <li
-              key={step.key}
-              data-step={step.key}
-              className="relative border border-rule bg-paper-deep/35 p-4"
-            >
-              <div className="flex items-center justify-between border-b border-rule pb-2.5">
-                <div className="flex items-center gap-2.5">
-                  <span
-                    data-marker
-                    data-done="true"
-                    className="ledger-figures flex h-6 w-6 items-center justify-center border border-ledger bg-ledger text-xs text-paper transition-colors duration-300 data-[done=false]:border-ink-soft data-[done=false]:bg-paper data-[done=false]:text-ink-soft"
-                  >
-                    {String(index + 1).padStart(2, '0')}
-                  </span>
-                  <p className="ledger-figures text-xs uppercase tracking-[0.08em] text-ledger font-medium">
-                    {step.status}
-                  </p>
-                </div>
+            return (
+              <li
+                key={step.key}
+                data-step={step.key}
+                className="relative grid grid-cols-[1.75rem_1fr] gap-x-4 pb-7 last:pb-0"
+              >
+                <span
+                  data-marker
+                  data-done="true"
+                  className="ledger-figures relative z-10 flex h-7 w-7 items-center justify-center bg-ledger text-xs text-paper transition-colors duration-300 data-[done=false]:bg-paper data-[done=false]:text-ink-soft"
+                >
+                  {String(index + 1).padStart(2, '0')}
+                </span>
 
-                {step.key === 'approve' && (
-                  <span data-stamp aria-hidden="true" className="inline-block">
-                    <span className="ledger-figures inline-block -rotate-2 border-2 border-double border-ledger bg-ledger/10 px-2 py-0.5 text-[10px] font-medium uppercase tracking-[0.14em] text-ledger">
-                      Posted to GL
-                    </span>
+                {!isLast && (
+                  <span aria-hidden="true" className="absolute bottom-1 left-[13px] top-8 w-px bg-rule/80">
+                    <span data-rail className="block h-full w-px bg-ledger" />
                   </span>
                 )}
-              </div>
 
-              <p className="mt-3 text-base font-medium text-ink">{step.actor}</p>
-              <p className="mt-1 text-sm leading-relaxed text-ink-soft">{step.action}</p>
-
-              {step.checks && (
-                <ul className="mt-3 flex flex-wrap gap-1.5">
-                  {step.checks.map((check) => (
-                    <li
-                      key={check}
-                      className="ledger-figures inline-flex items-center gap-1.5 border border-ledger/35 bg-paper px-2 py-0.5 text-xs text-ink"
-                    >
-                      <span data-tick aria-hidden="true" className="text-ledger font-medium">
-                        ✓
+                <div>
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                    <p className="ledger-figures text-xs uppercase tracking-[0.08em] text-ledger font-medium">
+                      {step.status}
+                    </p>
+                    {step.key === 'approve' && (
+                      <span data-stamp aria-hidden="true" className="inline-block">
+                        <span className="ledger-figures inline-block -rotate-2 bg-ledger/15 px-2 py-0.5 text-[10px] font-medium uppercase tracking-[0.14em] text-ledger">
+                          Posted to GL
+                        </span>
                       </span>
-                      {check}
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </li>
-          ))}
-        </ol>
+                    )}
+                  </div>
+                  <p className="mt-0.5 text-base font-medium text-ink">{step.actor}</p>
+                  <p className="mt-1 text-sm leading-relaxed text-ink-soft">{step.action}</p>
 
-        <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-rule pt-4">
-          <p className="max-w-xl text-sm leading-relaxed text-ink-soft">
-            <span className="font-medium text-ink">Audit log built in:</span> Every submission, manager review, rejection, and GL posting is recorded with user and timestamp.
-          </p>
-          <Link
-            href="/projects/wilcon-month-end-closing"
-            className="inline-flex items-center gap-2 text-sm font-medium text-ink underline decoration-rule underline-offset-4 transition-colors hover:decoration-ink"
-          >
-            Read full case study →
-          </Link>
-        </div>
+                  {step.checks && (
+                    <ul className="mt-2.5 flex flex-wrap gap-2">
+                      {step.checks.map((check) => (
+                        <li
+                          key={check}
+                          className="ledger-figures inline-flex items-center gap-1.5 bg-paper px-2.5 py-0.5 text-xs text-ink"
+                        >
+                          <span data-tick aria-hidden="true" className="text-ledger font-medium">
+                            ✓
+                          </span>
+                          {check}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </li>
+            )
+          })}
+        </ol>
       </div>
     </section>
   )

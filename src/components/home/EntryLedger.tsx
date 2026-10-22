@@ -10,10 +10,6 @@ interface EntryLedgerProps {
   projects: Project[]
 }
 
-/**
- * Software projects only (Community volunteering lives in the Experience section
- * so it is never duplicated across Projects and Experience).
- */
 const HOME_ORDER = [
   'wilcon-month-end-closing',
   'wilcon-collection-deposit-report',
@@ -28,12 +24,10 @@ const FILTERS: { id: 'all' | ProjectGroup; label: string }[] = [
 ]
 
 /**
- * Projects as visual ledger rows:
- * - Filter chips at the top (All Systems / Work / Personal)
- * - Left: High-visibility real screenshots with small blurred-back caption bar,
- *   thumbnail switcher, and a Complete Picture & Details Modal on click
- * - Right: Title, highlighted 1-line plain-English Result, and 3 tag words
- * - Tap-to-expand "What it does" revealing: Problem · What I built · Result · Tools
+ * Structured Left-Visual / Right-Content layout for Projects:
+ * - Left column: Real screenshot window with small blurred-back caption bar + thumbnails
+ * - Right column: Clean typography, soft outcome highlight, borderless tag pills,
+ *   and expandable "What it does"
  */
 export default function EntryLedger({ projects }: EntryLedgerProps) {
   const [activeFilter, setActiveFilter] = useState<'all' | ProjectGroup>('all')
@@ -56,7 +50,7 @@ export default function EntryLedger({ projects }: EntryLedgerProps) {
     id === 'all' ? allEntries.length : allEntries.filter(({ meta }) => meta.group === id).length
 
   return (
-    <section id="projects" aria-labelledby="projects-title" className="border-t border-rule px-6 py-12 sm:py-16">
+    <section id="projects" aria-labelledby="projects-title" className="border-t border-rule/60 px-6 py-12 sm:py-16">
       <div className="max-w-4xl">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
@@ -71,7 +65,7 @@ export default function EntryLedger({ projects }: EntryLedgerProps) {
             </h2>
           </div>
 
-          {/* Filter Chips: All Systems / Work / Personal */}
+          {/* Borderless Soft Filter Chips */}
           <div
             role="group"
             aria-label="Filter projects by category"
@@ -85,10 +79,10 @@ export default function EntryLedger({ projects }: EntryLedgerProps) {
                   type="button"
                   onClick={() => setActiveFilter(filter.id)}
                   aria-pressed={active}
-                  className={`ledger-figures min-h-[36px] cursor-pointer border px-3 py-1 text-xs transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ledger ${
+                  className={`ledger-figures min-h-[34px] cursor-pointer px-3 py-1 text-xs transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ledger ${
                     active
-                      ? 'border-ink bg-ink text-paper font-medium'
-                      : 'border-rule bg-paper text-ink-soft hover:border-ink hover:text-ink'
+                      ? 'bg-ink text-paper font-medium'
+                      : 'bg-paper-deep/65 text-ink-soft hover:bg-paper-deep hover:text-ink'
                   }`}
                 >
                   {filter.label} ({countFor(filter.id)})
@@ -98,14 +92,14 @@ export default function EntryLedger({ projects }: EntryLedgerProps) {
           </div>
         </div>
 
-        <ol className="mt-8">
+        <ol className="mt-8 divide-y divide-rule/50">
           {filteredEntries.map(({ project, meta }, index) => (
             <li
               key={project.slug}
-              className="border-t border-rule py-8"
+              className="py-8 first:pt-2"
             >
-              <div className="grid gap-6 sm:grid-cols-[18.5rem_1fr] sm:items-start sm:gap-7">
-                {/* Left: Large visible project screenshots with blurred-back bar & Complete Modal */}
+              <div className="grid gap-6 sm:grid-cols-[18.5rem_1fr] sm:items-start sm:gap-8">
+                {/* Left Column: Visual Screenshot Preview */}
                 <div className="w-full">
                   <ProjectVisualPreview
                     project={project}
@@ -115,9 +109,9 @@ export default function EntryLedger({ projects }: EntryLedgerProps) {
                   />
                 </div>
 
-                {/* Right: Title, Highlighted 1-line Result, 3 Tag Words, and Tap-to-Expand */}
+                {/* Right Column: Clean Typography & Soft Surfaces (No Box Clutter) */}
                 <div className="min-w-0">
-                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                  <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1">
                     <span className="ledger-figures text-xs text-ink-soft">
                       {String(index + 1).padStart(2, '0')}
                     </span>
@@ -126,22 +120,22 @@ export default function EntryLedger({ projects }: EntryLedgerProps) {
                       {meta.groupLabel}
                     </span>
                     <span className="ledger-figures text-xs text-ink-soft">·</span>
-                    <span className="ledger-figures text-xs text-ledger">
+                    <span className="ledger-figures text-xs font-medium text-ledger">
                       {meta.status}
                     </span>
                   </div>
 
-                  <h3 className="mt-1.5 text-xl font-medium leading-snug text-ink">
+                  <h3 className="mt-1.5 font-serif text-2xl font-medium leading-snug text-ink">
                     <Link
                       href={`/projects/${project.slug}`}
-                      className="underline decoration-transparent underline-offset-4 transition-colors hover:decoration-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ledger"
+                      className="underline decoration-transparent underline-offset-4 transition-colors hover:decoration-ink"
                     >
                       {project.title}
                     </Link>
                   </h3>
 
                   {/* Highlighted 1-line plain-English Result */}
-                  <div className="mt-3 border-l-2 border-ledger bg-paper-deep/60 py-2 pl-3 pr-2.5">
+                  <div className="mt-3 border-l-2 border-ledger bg-paper-deep/55 py-2.5 pl-3.5 pr-3">
                     <p className="text-[15px] leading-relaxed text-ink">
                       <span className="ledger-figures mr-2 text-[11px] uppercase tracking-[0.08em] text-ledger font-medium">
                         Result:
@@ -150,25 +144,25 @@ export default function EntryLedger({ projects }: EntryLedgerProps) {
                     </p>
                   </div>
 
-                  {/* 3 Tag Words */}
+                  {/* 3 Soft Borderless Tag Words */}
                   <ul
                     aria-label="Key tools"
-                    className="mt-3 flex flex-wrap items-center gap-2"
+                    className="mt-3 flex flex-wrap items-center gap-1.5"
                   >
                     {meta.threeTags.map((tag) => (
                       <li
                         key={tag}
-                        className="ledger-figures border border-rule bg-paper-deep/40 px-2.5 py-0.5 text-xs text-ink"
+                        className="ledger-figures bg-paper-deep/75 px-2.5 py-0.5 text-xs text-ink"
                       >
                         {tag}
                       </li>
                     ))}
                   </ul>
 
-                  {/* Interactive Tap-to-Expand "What it does" + Modal & Case Study Links */}
+                  {/* Interactive Tap-to-Expand "What it does" + Action Links */}
                   <div className="mt-3.5">
                     <details className="group">
-                      <summary className="inline-flex min-h-[36px] cursor-pointer list-none items-center gap-2 text-sm text-ink-soft transition-colors hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ledger [&::-webkit-details-marker]:hidden">
+                      <summary className="inline-flex min-h-[34px] cursor-pointer list-none items-center gap-2 text-sm text-ink-soft transition-colors hover:text-ink [&::-webkit-details-marker]:hidden">
                         <span className="underline decoration-rule underline-offset-4 group-hover:decoration-ink">
                           What it does
                         </span>
@@ -180,7 +174,7 @@ export default function EntryLedger({ projects }: EntryLedgerProps) {
                         </span>
                       </summary>
 
-                      <dl className="mt-3 space-y-2.5 border-t border-rule pt-3 text-sm">
+                      <dl className="mt-2.5 space-y-2.5 bg-paper-deep/40 p-4 text-sm">
                         <div className="grid gap-1 sm:grid-cols-[6.5rem_1fr] sm:gap-4">
                           <dt className="ledger-figures text-xs uppercase tracking-[0.06em] text-ink-soft sm:pt-0.5">
                             Problem
@@ -208,11 +202,11 @@ export default function EntryLedger({ projects }: EntryLedgerProps) {
                       </dl>
                     </details>
 
-                    <div className="mt-2 flex flex-wrap items-center gap-x-5 gap-y-2">
+                    <div className="mt-2.5 flex flex-wrap items-center gap-x-5 gap-y-2">
                       <button
                         type="button"
                         onClick={() => setOpenModalSlug(project.slug)}
-                        className="inline-flex cursor-pointer items-center gap-1.5 text-sm font-medium text-ink underline decoration-rule underline-offset-4 transition-colors hover:decoration-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ledger"
+                        className="inline-flex cursor-pointer items-center gap-1.5 text-sm font-medium text-ink underline decoration-rule underline-offset-4 transition-colors hover:decoration-ink"
                       >
                         Picture &amp; full details
                         <span aria-hidden="true">⤢</span>
@@ -220,7 +214,7 @@ export default function EntryLedger({ projects }: EntryLedgerProps) {
 
                       <Link
                         href={`/projects/${project.slug}`}
-                        className="inline-flex items-center gap-1.5 text-sm text-ink-soft underline decoration-rule underline-offset-4 transition-colors hover:text-ink hover:decoration-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ledger"
+                        className="inline-flex items-center gap-1.5 text-sm text-ink-soft underline decoration-rule underline-offset-4 transition-colors hover:text-ink hover:decoration-ink"
                       >
                         Case study page
                         <span aria-hidden="true">→</span>
@@ -231,7 +225,7 @@ export default function EntryLedger({ projects }: EntryLedgerProps) {
                           href={project.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-sm text-ink-soft underline decoration-rule underline-offset-4 transition-colors hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ledger"
+                          className="inline-flex items-center gap-1 text-sm text-ink-soft underline decoration-rule underline-offset-4 transition-colors hover:text-ink"
                         >
                           Open live site ↗
                         </a>
@@ -243,13 +237,6 @@ export default function EntryLedger({ projects }: EntryLedgerProps) {
             </li>
           ))}
         </ol>
-
-        <div className="rule-double ledger-figures flex justify-between pt-3 text-xs uppercase tracking-[0.08em] text-ink">
-          <span>Showing systems</span>
-          <span>
-            {filteredEntries.length} of {allEntries.length}
-          </span>
-        </div>
       </div>
     </section>
   )

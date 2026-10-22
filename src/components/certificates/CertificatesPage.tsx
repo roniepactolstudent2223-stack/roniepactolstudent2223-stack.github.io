@@ -53,8 +53,8 @@ export default function CertificatesPage() {
   return (
     <div className="px-6 py-10 sm:py-14">
       <div className="max-w-4xl">
-        {/* Header + Filter Chips */}
-        <header className="border-b border-rule pb-6">
+        {/* Header + Soft Filter Chips */}
+        <header className="border-b border-rule/60 pb-6">
           <p className="ledger-figures text-xs uppercase tracking-[0.08em] text-ink-soft">
             Verified Credentials &amp; Certifications
           </p>
@@ -78,10 +78,10 @@ export default function CertificatesPage() {
                   type="button"
                   onClick={() => setActiveFilter(f.id)}
                   aria-pressed={active}
-                  className={`ledger-figures min-h-[36px] cursor-pointer border px-3 py-1 text-xs transition-colors ${
+                  className={`ledger-figures min-h-[34px] cursor-pointer px-3 py-1 text-xs transition-colors ${
                     active
-                      ? 'border-ink bg-ink font-medium text-paper'
-                      : 'border-rule bg-paper text-ink-soft hover:border-ink hover:text-ink'
+                      ? 'bg-ink font-medium text-paper'
+                      : 'bg-paper-deep/65 text-ink-soft hover:bg-paper-deep hover:text-ink'
                   }`}
                 >
                   {f.label} ({countFor(f.id)})
@@ -91,204 +91,200 @@ export default function CertificatesPage() {
           </div>
         </header>
 
-        {/* Certificate Visual Grid */}
-        <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
+        {/* Structured Left-Preview / Right-Details Certificate Rows */}
+        <ol className="mt-4 divide-y divide-rule/50">
           {filtered.map((cert, index) => (
-            <article
+            <li
               key={cert.title}
-              onClick={() => setSelectedCert(cert)}
-              className="group flex cursor-pointer flex-col justify-between border border-rule bg-white p-2.5 shadow-xs transition-all hover:border-ink"
+              className="py-7"
             >
-              <div>
-                {/* Window Chrome Bar */}
-                <div className="mb-1.5 flex items-center justify-between border-b border-rule px-1.5 pb-1">
-                  <div className="flex items-center gap-1.5">
-                    <span className="h-2 w-2 rounded-full bg-rule" />
-                    <span className="h-2 w-2 rounded-full bg-rule" />
-                    <span className="h-2 w-2 rounded-full bg-ledger/70" />
-                    <span className="ledger-figures ml-1 text-[10px] text-ink-soft">
-                      Credential 0{index + 1} · {cert.date}
-                    </span>
-                  </div>
-                  <span className="ledger-figures text-[10px] font-medium text-ledger group-hover:underline">
-                    Inspect ⤢
-                  </span>
-                </div>
-
-                {/* Certificate Document / Image Preview + Small Blurred-Back Overlay Bar */}
-                <div className="relative overflow-hidden border border-rule/60 bg-paper-deep/40">
-                  {cert.imageUrl.endsWith('.pdf') ? (
-                    <iframe
-                      src={`${cert.imageUrl}#toolbar=0`}
-                      className="pointer-events-none h-[210px] w-full border-0 sm:h-[240px]"
-                      title={`${cert.title} certificate`}
-                    />
-                  ) : (
-                    <div className="aspect-[16/10] w-full overflow-hidden">
-                      <img
-                        src={cert.imageUrl}
-                        alt={`${cert.title} certificate`}
-                        loading="lazy"
-                        decoding="async"
-                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+              <article
+                onClick={() => setSelectedCert(cert)}
+                className="group grid cursor-pointer gap-6 sm:grid-cols-[17rem_1fr] sm:items-start sm:gap-8"
+              >
+                {/* Left Column: Framed Document Preview with Blurred-Back Overlay */}
+                <div className="overflow-hidden border border-rule/80 bg-white p-1.5 shadow-xs transition-all group-hover:border-ink">
+                  <div className="relative overflow-hidden bg-paper-deep/40">
+                    {cert.imageUrl.endsWith('.pdf') ? (
+                      <iframe
+                        src={`${cert.imageUrl}#toolbar=0`}
+                        className="pointer-events-none h-[165px] w-full border-0"
+                        title={`${cert.title} certificate`}
                       />
-                    </div>
-                  )}
+                    ) : (
+                      <div className="aspect-[16/10] w-full overflow-hidden">
+                        <img
+                          src={cert.imageUrl}
+                          alt={`${cert.title} certificate`}
+                          loading="lazy"
+                          decoding="async"
+                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                        />
+                      </div>
+                    )}
 
-                  {/* Planned Bottom Blurred-Back Overlay Bar */}
-                  <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-2 border-t border-white/15 bg-ink/80 px-3 py-1.5 text-paper backdrop-blur-md">
-                    <span className="truncate text-[11px] font-medium text-paper">
-                      {cert.issuer}
-                    </span>
-                    <span className="ledger-figures shrink-0 border border-paper/30 bg-paper/10 px-1.5 py-0.5 text-[10px] text-paper">
-                      View &amp; Verify ⤢
-                    </span>
+                    {/* Planned Small Blurred-Back Overlay Bar */}
+                    <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-2 bg-ink/80 px-2.5 py-1.5 text-paper backdrop-blur-md">
+                      <span className="truncate text-[11px] font-medium text-paper">
+                        {cert.issuer}
+                      </span>
+                      <span className="ledger-figures shrink-0 text-[10px] text-paper/85">
+                        Inspect ⤢
+                      </span>
+                    </div>
                   </div>
                 </div>
 
-                {/* Card Details */}
-                <div className="mt-3 px-1">
-                  <div className="flex items-start justify-between gap-3">
-                    <h2 className="text-base font-medium leading-snug text-ink">
-                      {cert.title}
-                    </h2>
-                    <span className="ledger-figures shrink-0 border border-ledger/40 bg-ledger/10 px-2 py-0.5 text-[10px] font-medium text-ledger">
+                {/* Right Column: Clean Typography & Verification Links (No Box Clutter) */}
+                <div className="min-w-0">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="ledger-figures text-xs text-ink-soft">
+                      0{index + 1}
+                    </span>
+                    <span className="ledger-figures text-xs text-ink-soft">·</span>
+                    <span className="ledger-figures text-xs text-ink-soft">
+                      {cert.date}
+                    </span>
+                    <span className="ledger-figures bg-ledger/12 px-2 py-0.5 text-[10px] font-medium text-ledger">
                       {cert.skill}
                     </span>
                   </div>
 
-                  <p className="mt-2 text-xs leading-relaxed text-ink-soft">
+                  <h2 className="mt-1.5 font-serif text-xl font-medium leading-snug text-ink group-hover:text-ledger transition-colors">
+                    {cert.title}
+                  </h2>
+
+                  <p className="mt-1 text-xs font-medium text-ink-soft">
+                    Issued by {cert.issuer}
+                  </p>
+
+                  <p className="mt-2.5 text-sm leading-relaxed text-ink-soft">
                     {cert.applied}
                   </p>
-                </div>
-              </div>
 
-              {/* Card Footer Actions */}
-              <div className="mt-3 flex flex-wrap items-center justify-between gap-2 border-t border-rule/60 px-1 pt-2.5">
-                <span className="ledger-figures text-[11px] font-medium text-ink underline decoration-rule underline-offset-4 group-hover:decoration-ink">
-                  Open full document →
-                </span>
+                  <div className="mt-3.5 flex flex-wrap items-center gap-4">
+                    <span className="ledger-figures text-xs font-medium text-ink underline decoration-rule underline-offset-4 group-hover:decoration-ink">
+                      Open full credential ⤢
+                    </span>
 
-                <div className="flex items-center gap-3">
-                  {'badgeUrl' in cert && cert.badgeUrl && (
-                    <a
-                      href={cert.badgeUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      className="ledger-figures text-[11px] text-ink-soft underline decoration-rule underline-offset-4 hover:text-ink"
-                    >
-                      Badge ↗
-                    </a>
-                  )}
-                  {cert.verifyUrl && (
-                    <a
-                      href={cert.verifyUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      className="ledger-figures text-[11px] font-medium text-ledger underline decoration-ledger/40 underline-offset-4 hover:decoration-ledger"
-                    >
-                      Verify ↗
-                    </a>
-                  )}
+                    {'badgeUrl' in cert && cert.badgeUrl && (
+                      <a
+                        href={cert.badgeUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="ledger-figures text-xs text-ink-soft underline decoration-rule underline-offset-4 hover:text-ink"
+                      >
+                        Official Badge ↗
+                      </a>
+                    )}
+                    {cert.verifyUrl && (
+                      <a
+                        href={cert.verifyUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="ledger-figures text-xs font-medium text-ledger underline decoration-ledger/40 underline-offset-4 hover:decoration-ledger"
+                      >
+                        Verify Online ↗
+                      </a>
+                    )}
+                  </div>
                 </div>
-              </div>
-            </article>
+              </article>
+            </li>
           ))}
-        </div>
+        </ol>
       </div>
 
-      {/* Complete Certificate & Verification Modal */}
+      {/* Complete Credential & Verification Modal */}
       {selectedCert && (
         <div
           role="dialog"
           aria-modal="true"
+          aria-label={selectedCert.title}
           onClick={() => setSelectedCert(null)}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-ink/85 p-4 backdrop-blur-xs sm:p-6"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-ink/85 p-3 sm:p-6 backdrop-blur-xs"
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="relative flex max-h-[92vh] w-full max-w-5xl flex-col overflow-hidden border border-rule bg-paper shadow-2xl"
+            className="flex max-h-[92vh] w-full max-w-5xl flex-col overflow-hidden bg-paper shadow-2xl"
           >
             {/* Modal Header */}
-            <header className="flex items-center justify-between gap-4 border-b border-rule bg-paper px-5 py-3.5">
+            <div className="flex items-center justify-between gap-4 bg-paper-deep px-5 py-3.5">
               <div className="min-w-0">
-                <p className="ledger-figures text-xs uppercase tracking-[0.06em] text-ink-soft">
-                  {selectedCert.issuer} · {selectedCert.date}
+                <p className="ledger-figures text-[11px] uppercase tracking-[0.08em] text-ledger font-medium">
+                  Verified Credential · {selectedCert.skill}
                 </p>
-                <h2 className="truncate font-serif text-xl font-medium text-ink sm:text-2xl">
+                <h2 className="truncate font-serif text-lg font-medium text-ink sm:text-xl">
                   {selectedCert.title}
                 </h2>
               </div>
+
               <button
                 type="button"
                 onClick={() => setSelectedCert(null)}
-                className="ledger-figures shrink-0 cursor-pointer border border-ink bg-ink px-3 py-1.5 text-xs font-medium text-paper hover:bg-ink/85"
+                className="ledger-figures shrink-0 cursor-pointer bg-ink px-3 py-1.5 text-xs font-medium text-paper hover:bg-ink/85"
               >
                 Close ✕
               </button>
-            </header>
+            </div>
 
-            {/* Modal Content */}
-            <div className="grid flex-1 overflow-y-auto p-5 sm:grid-cols-[1.45fr_1fr] sm:gap-6">
-              {/* Left: Document Viewer */}
-              <div className="border border-rule bg-white p-2">
+            {/* Modal Body: Left Document Viewer + Right Details */}
+            <div className="grid flex-1 gap-6 overflow-y-auto p-5 lg:grid-cols-[1.35fr_1fr] lg:items-start">
+              <div className="bg-white p-2">
                 {selectedCert.imageUrl.endsWith('.pdf') ? (
                   <iframe
-                    src={`${selectedCert.imageUrl}#toolbar=0`}
-                    className="h-[52vh] w-full border-0 sm:h-[64vh]"
-                    title={selectedCert.title}
+                    src={selectedCert.imageUrl}
+                    className="h-[58vh] w-full border-0"
+                    title={`${selectedCert.title} full certificate`}
                   />
                 ) : (
-                  <div className="flex h-full items-center justify-center bg-white">
+                  <div className="flex items-center justify-center bg-white">
                     <img
                       src={selectedCert.imageUrl}
-                      alt={selectedCert.title}
-                      className="max-h-[64vh] w-auto object-contain"
+                      alt={`${selectedCert.title} full certificate`}
+                      className="max-h-[62vh] w-auto object-contain"
                     />
                   </div>
                 )}
               </div>
 
-              {/* Right: Complete Credential Details */}
-              <div className="mt-5 flex flex-col justify-between sm:mt-0">
-                <div className="space-y-4">
-                  <div>
-                    <span className="ledger-figures border border-ledger/40 bg-ledger/10 px-2.5 py-0.5 text-xs font-medium text-ledger">
-                      Skill: {selectedCert.skill}
-                    </span>
-                  </div>
-
-                  <dl className="space-y-3 border-t border-rule pt-4 text-sm">
-                    <div>
-                      <dt className="ledger-figures text-xs uppercase tracking-[0.06em] text-ink-soft">
-                        Issued By
-                      </dt>
-                      <dd className="mt-0.5 font-medium text-ink">{selectedCert.issuer}</dd>
-                    </div>
-                    <div>
-                      <dt className="ledger-figures text-xs uppercase tracking-[0.06em] text-ink-soft">
-                        Year Completed
-                      </dt>
-                      <dd className="ledger-figures mt-0.5 text-ink">{selectedCert.date}</dd>
-                    </div>
-                    <div>
-                      <dt className="ledger-figures text-xs uppercase tracking-[0.06em] text-ledger font-medium">
-                        What It Covers
-                      </dt>
-                      <dd className="mt-1 leading-relaxed text-ink">{selectedCert.applied}</dd>
-                    </div>
-                  </dl>
+              <div className="space-y-4">
+                <div className="border-l-2 border-ledger bg-paper-deep/65 py-3 pl-3.5 pr-3">
+                  <p className="ledger-figures text-[11px] uppercase tracking-[0.08em] text-ledger font-medium">
+                    What It Covers
+                  </p>
+                  <p className="mt-1 text-sm leading-relaxed text-ink">
+                    {selectedCert.applied}
+                  </p>
                 </div>
 
-                {/* Action Links */}
-                <div className="mt-6 space-y-2.5 border-t border-rule pt-4">
+                <dl className="space-y-3 bg-paper-deep/40 p-4 text-sm">
+                  <div>
+                    <dt className="ledger-figures text-xs uppercase tracking-[0.06em] text-ink-soft">
+                      Issued By
+                    </dt>
+                    <dd className="mt-0.5 font-medium text-ink">
+                      {selectedCert.issuer}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="ledger-figures text-xs uppercase tracking-[0.06em] text-ink-soft">
+                      Year Completed
+                    </dt>
+                    <dd className="ledger-figures mt-0.5 text-xs text-ink">
+                      {selectedCert.date}
+                    </dd>
+                  </div>
+                </dl>
+
+                <div className="flex flex-col gap-2 pt-1">
                   <a
                     href={selectedCert.imageUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="ledger-figures flex w-full items-center justify-center gap-1.5 border border-ink bg-ink px-4 py-2.5 text-xs font-medium uppercase tracking-[0.06em] text-paper transition-colors hover:bg-ink/85"
+                    className="ledger-figures inline-flex items-center justify-center gap-1.5 bg-ink px-4 py-2.5 text-xs font-medium text-paper transition-colors hover:bg-ledger"
                   >
                     Open Full Certificate File ↗
                   </a>
@@ -298,20 +294,9 @@ export default function CertificatesPage() {
                       href={selectedCert.verifyUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="ledger-figures flex w-full items-center justify-center gap-1.5 border border-ledger bg-ledger/10 px-4 py-2 text-xs font-medium uppercase tracking-[0.06em] text-ledger transition-colors hover:bg-ledger/20"
+                      className="ledger-figures inline-flex items-center justify-center gap-1.5 bg-paper-deep px-4 py-2.5 text-xs font-medium text-ink transition-colors hover:bg-paper-deep/75"
                     >
                       Verify Credential Online ↗
-                    </a>
-                  )}
-
-                  {'badgeUrl' in selectedCert && selectedCert.badgeUrl && (
-                    <a
-                      href={selectedCert.badgeUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="ledger-figures flex w-full items-center justify-center gap-1.5 border border-rule bg-paper px-4 py-2 text-xs text-ink underline decoration-rule underline-offset-4 hover:border-ink"
-                    >
-                      View Official Badge ↗
                     </a>
                   )}
                 </div>

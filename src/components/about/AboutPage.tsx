@@ -36,130 +36,68 @@ export default function AboutPage() {
   return (
     <div className="px-6 py-10 sm:py-14">
       <div className="max-w-4xl space-y-12">
-        {/* 1. Split Hero: Bio + Academic & Organization Ledger Card (No duplicate portrait on desktop) */}
-        <header className="grid gap-8 border-b border-rule pb-10 lg:grid-cols-[1fr_17rem] lg:items-start">
-          <div>
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="ledger-figures text-xs uppercase tracking-[0.08em] text-ink-soft">
-                Candidate Dossier
-              </span>
-              <span className="ledger-figures text-xs text-ink-soft">·</span>
-              <span className="ledger-figures border border-ledger/40 bg-ledger/10 px-2 py-0.5 text-[11px] font-medium text-ledger">
-                ✓ Notice period: 0 days
-              </span>
-            </div>
-
-            <h1 className="mt-2 font-serif text-4xl font-medium leading-tight text-ink sm:text-5xl">
-              {PORTFOLIO_IDENTITY.name}
-            </h1>
-            <p className="ledger-figures mt-2 text-sm text-ink-soft">
-              Full Stack Junior System Developer · Laravel · Vue.js · PHP · MySQL
-            </p>
-
-            <div className="mt-5 border-l-2 border-ledger bg-paper-deep/65 py-3 pl-4 pr-3.5">
-              <p className="text-[15px] leading-relaxed text-ink">
-                I build web systems that replace manual spreadsheets and paper sign-ins with validated workflows. Over 6 months at <strong className="font-medium text-ink">Wilcon Depot, Inc.</strong>, I built the Finance team&apos;s Month-End Closing system and upgraded the Treasury Department&apos;s daily Collection and Deposit Report. Outside of work, I built and maintain the live QR attendance system for <strong className="font-medium text-ink">Word of Hope Caloocan</strong> and volunteer as an event photographer for <strong className="font-medium text-ink">WordPress Philippines</strong>.
-              </p>
-            </div>
-
-            <div className="mt-5 flex flex-wrap items-center gap-3">
-              <a
-                href={PORTFOLIO_IDENTITY.resumeDocUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="ledger-figures inline-flex items-center gap-1.5 border border-ink bg-ink px-4 py-2 text-xs font-medium uppercase tracking-[0.06em] text-paper transition-colors hover:bg-ink/85"
-              >
-                Open Live Resume ↗
-              </a>
-              <Link
-                href="/contact"
-                className="ledger-figures inline-flex items-center gap-1.5 border border-rule bg-paper px-4 py-2 text-xs font-medium uppercase tracking-[0.06em] text-ink transition-colors hover:border-ink"
-              >
-                Contact Details →
-              </Link>
-              <a
-                href={PORTFOLIO_IDENTITY.phoneTel}
-                className="ledger-figures inline-flex items-center gap-1.5 px-2 py-2 text-xs text-ink-soft underline decoration-rule underline-offset-4 hover:text-ink"
-              >
-                Call {PORTFOLIO_IDENTITY.phone}
-              </a>
-            </div>
+        {/* 1. Clean Editorial Hero (No boxed borders) */}
+        <header className="border-b border-rule/60 pb-10">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="ledger-figures text-xs uppercase tracking-[0.08em] text-ink-soft">
+              Candidate Profile
+            </span>
+            <span className="ledger-figures text-xs text-ink-soft">·</span>
+            <span className="ledger-figures bg-ledger/12 px-2.5 py-0.5 text-[11px] font-medium text-ledger">
+              ✓ Notice period: 0 days
+            </span>
           </div>
 
-          {/* Right: Academic & Organization Verification Card */}
-          <div className="border border-rule bg-white p-4 shadow-xs">
-            <div className="flex items-center justify-between border-b border-rule pb-2.5">
-              <span className="ledger-figures text-[10px] font-medium uppercase tracking-[0.12em] text-ledger">
-                Verified Background
-              </span>
-              <span className="ledger-figures text-[10px] text-ink-soft">
-                2021–2026
-              </span>
-            </div>
+          <h1 className="mt-2 font-serif text-4xl font-medium leading-tight text-ink sm:text-5xl">
+            {PORTFOLIO_IDENTITY.name}
+          </h1>
+          <p className="ledger-figures mt-2 text-sm text-ink-soft">
+            Full Stack Junior System Developer · Laravel · Vue.js · PHP · MySQL
+          </p>
 
-            <dl className="mt-3 divide-y divide-rule/70 text-xs">
-              <div className="py-2">
-                <dt className="ledger-figures text-[10px] uppercase tracking-[0.08em] text-ink-soft">
-                  Degree
-                </dt>
-                <dd className="mt-0.5 font-medium text-ink">
-                  BS Information Technology (2025)
-                </dd>
-              </div>
-              <div className="py-2">
-                <dt className="ledger-figures text-[10px] uppercase tracking-[0.08em] text-ink-soft">
-                  Enterprise Dev
-                </dt>
-                <dd className="mt-0.5 font-medium text-ink">
-                  Wilcon Depot, Inc. (6 Mos)
-                </dd>
-              </div>
-              <div className="py-2">
-                <dt className="ledger-figures text-[10px] uppercase tracking-[0.08em] text-ink-soft">
-                  National Certificate
-                </dt>
-                <dd className="mt-0.5 font-medium text-ink">
-                  TESDA NC II · Computer Systems
-                </dd>
-              </div>
-              <div className="py-2">
-                <dt className="ledger-figures text-[10px] uppercase tracking-[0.08em] text-ink-soft">
-                  Community Role
-                </dt>
-                <dd className="mt-0.5 font-medium text-ink">
-                  WordPress PH Volunteer (2025–2026)
-                </dd>
-              </div>
-            </dl>
+          <div className="mt-6 border-l-2 border-ledger bg-paper-deep/55 py-3.5 pl-4 pr-4">
+            <p className="text-[15px] leading-relaxed text-ink">
+              I build web systems that replace manual spreadsheets and paper sign-ins with validated workflows. Over 6 months at <strong className="font-medium text-ink">Wilcon Depot, Inc.</strong>, I built the Finance team&apos;s Month-End Closing system and upgraded the Treasury Department&apos;s daily Collection and Deposit Report. Outside of work, I built and maintain the live QR attendance system for <strong className="font-medium text-ink">Word of Hope Caloocan</strong> and volunteer as an event photographer for <strong className="font-medium text-ink">WordPress Philippines</strong>.
+            </p>
+          </div>
 
-            <div className="mt-3 flex items-center justify-between border-t border-rule pt-3">
-              <div className="flex items-center gap-2.5">
-                <img src="/logos/wilcon.png" alt="Wilcon Depot" className="h-4 w-auto object-contain" />
-                <img src="/logos/wordpress.png" alt="WordPress PH" className="h-4 w-auto object-contain" />
-                <img src="/logos/jollibee.png" alt="Jollibee" className="h-4 w-auto object-contain" />
-              </div>
-              <span className="ledger-figures text-[10px] text-ink-soft">Verified</span>
-            </div>
+          <div className="mt-6 flex flex-wrap items-center gap-3">
+            <a
+              href={PORTFOLIO_IDENTITY.resumeDocUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ledger-figures inline-flex items-center gap-1.5 bg-ink px-4 py-2.5 text-xs font-medium uppercase tracking-[0.06em] text-paper transition-colors hover:bg-ledger"
+            >
+              Open Live Resume ↗
+            </a>
+            <Link
+              href="/contact"
+              className="ledger-figures inline-flex items-center gap-1.5 bg-paper-deep/80 px-4 py-2.5 text-xs font-medium uppercase tracking-[0.06em] text-ink transition-colors hover:bg-paper-deep"
+            >
+              Contact Details →
+            </Link>
           </div>
         </header>
 
-        {/* 2. Candidate Profile Ledger Table */}
-        <section aria-labelledby="profile-facts-heading">
-          <p className="ledger-figures text-xs uppercase tracking-[0.08em] text-ink-soft">
-            Quick Candidate Reference
-          </p>
-          <h2
-            id="profile-facts-heading"
-            className="mt-1 font-serif text-2xl font-medium text-ink"
-          >
-            Profile &amp; Logistics
-          </h2>
+        {/* 2. Structured Left/Right Candidate Profile Facts */}
+        <section aria-labelledby="profile-facts-heading" className="grid gap-8 md:grid-cols-[14rem_1fr] md:items-start">
+          <div>
+            <p className="ledger-figures text-xs uppercase tracking-[0.08em] text-ink-soft">
+              Candidate Reference
+            </p>
+            <h2
+              id="profile-facts-heading"
+              className="mt-1 font-serif text-2xl font-medium text-ink"
+            >
+              Profile &amp; Logistics
+            </h2>
+          </div>
 
-          <dl className="mt-5 border-t border-rule">
+          <dl className="divide-y divide-rule/50 bg-paper-deep/35 px-5 py-2">
             {facts.map((fact) => (
               <div
                 key={fact.label}
-                className="grid gap-1 border-b border-rule py-3 sm:grid-cols-[10rem_1fr] sm:gap-6"
+                className="grid gap-1 py-3 sm:grid-cols-[9.5rem_1fr] sm:gap-4"
               >
                 <dt className="ledger-figures text-xs uppercase tracking-[0.06em] text-ink-soft sm:pt-0.5">
                   {fact.label}
@@ -168,7 +106,7 @@ export default function AboutPage() {
               </div>
             ))}
             {PORTFOLIO_IDENTITY.reference && (
-              <div className="grid gap-1 border-b border-rule py-3 sm:grid-cols-[10rem_1fr] sm:gap-6">
+              <div className="grid gap-1 py-3 sm:grid-cols-[9.5rem_1fr] sm:gap-4">
                 <dt className="ledger-figures text-xs uppercase tracking-[0.06em] text-ink-soft sm:pt-0.5">
                   Reference
                 </dt>
@@ -190,108 +128,106 @@ export default function AboutPage() {
           </dl>
         </section>
 
-        {/* 3. Technical Stack & Tools */}
-        <section aria-labelledby="about-stack-heading" className="border-t border-rule pt-8">
-          <p className="ledger-figures text-xs uppercase tracking-[0.08em] text-ink-soft">
-            Technical Index
-          </p>
-          <h2
-            id="about-stack-heading"
-            className="mt-1 font-serif text-2xl font-medium text-ink"
-          >
-            Skills &amp; Tools
-          </h2>
+        {/* 3. Structured Left/Right Skills & Tools (Soft surfaces, no borders) */}
+        <section aria-labelledby="about-stack-heading" className="border-t border-rule/60 pt-10 grid gap-8 md:grid-cols-[14rem_1fr] md:items-start">
+          <div>
+            <p className="ledger-figures text-xs uppercase tracking-[0.08em] text-ink-soft">
+              Technical Index
+            </p>
+            <h2
+              id="about-stack-heading"
+              className="mt-1 font-serif text-2xl font-medium text-ink"
+            >
+              Skills &amp; Tools
+            </h2>
+          </div>
 
-          <div className="mt-5 grid gap-4 sm:grid-cols-2 md:grid-cols-4">
+          <div className="grid gap-4 sm:grid-cols-2">
             {SKILL_GROUPS.map((col) => (
-              <div key={col.group} className="border border-rule bg-paper-deep/35 p-4">
-                <p className="ledger-figures border-b border-rule pb-2 text-xs font-medium uppercase tracking-[0.08em] text-ink">
+              <div key={col.group} className="bg-paper-deep/40 p-4">
+                <p className="ledger-figures text-xs font-medium uppercase tracking-[0.08em] text-ink">
                   {col.group}
                 </p>
-                <ul className="mt-3 space-y-1.5">
+                <div className="mt-3 flex flex-wrap gap-1.5">
                   {col.items.map((item) => {
                     const isPrimary = PRIMARY_SKILLS.has(item)
                     return (
-                      <li
+                      <span
                         key={item}
-                        className={`ledger-figures flex items-center gap-1.5 text-xs ${
-                          isPrimary ? 'font-medium text-ink' : 'text-ink-soft'
+                        className={`ledger-figures px-2.5 py-1 text-xs ${
+                          isPrimary
+                            ? 'bg-paper font-medium text-ink'
+                            : 'bg-paper/60 text-ink-soft'
                         }`}
                       >
-                        <span
-                          className={isPrimary ? 'text-ledger' : 'text-rule'}
-                          aria-hidden="true"
-                        >
-                          ●
-                        </span>
+                        {isPrimary && (
+                          <span className="mr-1.5 text-ledger" aria-hidden="true">
+                            ●
+                          </span>
+                        )}
                         {item}
-                      </li>
+                      </span>
                     )
                   })}
-                </ul>
+                </div>
               </div>
             ))}
           </div>
         </section>
 
-        {/* 4. Software Systems Summary (Clean Ledger Cards — No duplicate photos from /projects or /work) */}
-        <section aria-labelledby="about-built-heading" className="border-t border-rule pt-8">
-          <div className="mb-4 flex items-center justify-between">
-            <div>
-              <p className="ledger-figures text-xs uppercase tracking-[0.08em] text-ink-soft">
-                Production Portfolio
-              </p>
-              <h2
-                id="about-built-heading"
-                className="mt-1 font-serif text-2xl font-medium text-ink"
-              >
-                Software Systems I&apos;ve Built ({softwareProjects.length})
-              </h2>
-            </div>
-            <Link
-              href="/projects"
-              className="ledger-figures text-xs uppercase tracking-[0.06em] text-ink underline decoration-rule underline-offset-4 hover:decoration-ink"
+        {/* 4. Structured Left/Right Systems Summary */}
+        <section aria-labelledby="about-built-heading" className="border-t border-rule/60 pt-10 grid gap-8 md:grid-cols-[14rem_1fr] md:items-start">
+          <div>
+            <p className="ledger-figures text-xs uppercase tracking-[0.08em] text-ink-soft">
+              Production Portfolio
+            </p>
+            <h2
+              id="about-built-heading"
+              className="mt-1 font-serif text-2xl font-medium text-ink"
             >
-              View with screenshots →
-            </Link>
+              Systems Built
+            </h2>
+            <div className="mt-3">
+              <Link
+                href="/projects"
+                className="ledger-figures text-xs uppercase tracking-[0.06em] text-ink underline decoration-rule underline-offset-4 hover:decoration-ink"
+              >
+                View with screenshots →
+              </Link>
+            </div>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid gap-3 sm:grid-cols-2">
             {softwareProjects.map((item, idx) => {
               const title = PROJECT_TITLES[item.slug] || item.slug
               return (
-                <div
+                <Link
                   key={item.slug}
-                  className="flex flex-col justify-between border border-rule bg-white p-4 shadow-2xs"
+                  href={`/projects/${item.slug}`}
+                  className="group flex flex-col justify-between bg-paper-deep/45 p-4 transition-colors hover:bg-paper-deep/80"
                 >
                   <div>
-                    <div className="flex items-center justify-between border-b border-rule pb-2">
-                      <span className="ledger-figures text-[11px] font-medium text-ledger">
+                    <div className="flex items-center justify-between">
+                      <span className="ledger-figures text-[10px] font-medium text-ledger">
                         0{idx + 1} · {item.groupLabel}
                       </span>
                       <span className="ledger-figures text-[10px] text-ink-soft">
-                        {item.status}
+                        →
                       </span>
                     </div>
 
-                    <h3 className="mt-3 text-base font-medium text-ink">{title}</h3>
-                    <p className="mt-1.5 text-xs leading-relaxed text-ink-soft">
+                    <h3 className="mt-2 text-base font-medium text-ink group-hover:text-ledger transition-colors">
+                      {title}
+                    </h3>
+                    <p className="mt-1 text-xs leading-relaxed text-ink-soft">
                       {item.result}
                     </p>
                   </div>
 
-                  <div className="mt-4 flex items-center justify-between border-t border-rule/60 pt-2.5">
-                    <span className="ledger-figures text-[11px] text-ink-soft">
-                      {item.threeTags.join(' · ')}
-                    </span>
-                    <Link
-                      href={`/projects/${item.slug}`}
-                      className="ledger-figures inline-flex items-center gap-1 text-xs font-medium text-ink underline decoration-rule underline-offset-4 hover:decoration-ink"
-                    >
-                      View case study →
-                    </Link>
-                  </div>
-                </div>
+                  <p className="ledger-figures mt-3 text-[11px] text-ink-soft">
+                    {item.threeTags.join(' · ')}
+                  </p>
+                </Link>
               )
             })}
           </div>

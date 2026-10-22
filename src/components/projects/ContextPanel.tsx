@@ -1,64 +1,54 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
-import gsap from 'gsap'
 import type { Project } from '@/lib/types'
-import { PORTFOLIO_IDENTITY } from '@/lib/portfolio-config'
+import { PORTFOLIO_IDENTITY, PROJECT_INDEX } from '@/lib/portfolio-config'
+import { PhoneIcon, ViberIcon, MailIcon } from '@/components/ui/Icons'
 
 interface ContextPanelProps {
   projects: Project[]
 }
 
+const SYSTEM_CARDS = [
+  {
+    num: '01',
+    slug: 'wilcon-month-end-closing',
+    title: 'Month-End Closing System',
+    org: 'Wilcon Depot · Finance',
+    logo: '/logos/wilcon.png',
+    tag: 'Laravel · Vue.js',
+  },
+  {
+    num: '02',
+    slug: 'wilcon-collection-deposit-report',
+    title: 'Collection & Deposit Report',
+    org: 'Wilcon Depot · Treasury',
+    logo: '/logos/wilcon.png',
+    tag: 'PHP · MySQL',
+  },
+  {
+    num: '03',
+    slug: 'woh-attendance-system',
+    title: 'WOH QR Attendance System',
+    org: 'Word of Hope · Live Kiosk',
+    logo: undefined,
+    badge: 'WOH',
+    tag: 'Laravel · QR',
+  },
+  {
+    num: '04',
+    slug: 'wilcon-enterprise-systems',
+    title: 'Enterprise ERP Workflows',
+    org: 'Wilcon Depot · Internal',
+    logo: '/logos/wilcon.png',
+    tag: 'REST APIs · SQL',
+  },
+]
+
 export default function ContextPanel({ projects }: ContextPanelProps) {
-  const panelRef = useRef<HTMLElement>(null)
-  const [currentProject, setCurrentProject] = useState<Project | undefined>(undefined)
-  const [isTransitioning, setIsTransitioning] = useState(false)
   const [copiedSummary, setCopiedSummary] = useState(false)
-
-  useEffect(() => {
-    const el = panelRef.current
-    if (!el) return
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        el.querySelectorAll('[data-panel-reveal]'),
-        { y: 16, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.45, stagger: 0.06, ease: 'power2.out' }
-      )
-    }, panelRef)
-    return () => ctx.revert()
-  }, [])
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const projectId = entry.target.getAttribute('data-project-id')
-            const project = projects.find((p) => p.slug === projectId)
-            if (project && project.slug !== currentProject?.slug) {
-              setIsTransitioning(true)
-              setTimeout(() => {
-                setCurrentProject(project)
-                setIsTransitioning(false)
-              }, 150)
-            }
-          }
-        })
-      },
-      {
-        rootMargin: '-20% 0px -60% 0px',
-        threshold: 0,
-      }
-    )
-
-    const articleElements = document.querySelectorAll('article[data-project-id]')
-    articleElements.forEach((el) => observer.observe(el))
-
-    return () => {
-      articleElements.forEach((el) => observer.unobserve(el))
-    }
-  }, [projects, currentProject?.slug])
+  void projects
 
   const handleCopyAts = () => {
     const text = [
@@ -68,9 +58,9 @@ export default function ContextPanel({ projects }: ContextPanelProps) {
       `EXPERIENCE: Full Stack Junior System Developer at Wilcon Depot, Inc. (6 mos, May–Oct 2026)`,
       `EDUCATION: BS Information Technology — Access Computer College (2025)`,
       `PRODUCTION SYSTEMS:`,
-      `• WOH Attendance System (Word of Hope Caloocan, live since Mar 2025)`,
       `• Month-End Closing System (Wilcon Depot Finance)`,
       `• Collection and Deposit Report Modification (Wilcon Depot Treasury)`,
+      `• WOH Attendance System (Word of Hope Caloocan, live since Mar 2025)`,
       `CONTACT: ${PORTFOLIO_IDENTITY.phone} | ${PORTFOLIO_IDENTITY.email} | Quezon City`,
       `REFERENCE: ${PORTFOLIO_IDENTITY.reference.name} (${PORTFOLIO_IDENTITY.reference.role}, ${PORTFOLIO_IDENTITY.reference.company}) — ${PORTFOLIO_IDENTITY.reference.phone}`,
     ].join('\n')
@@ -80,175 +70,166 @@ export default function ContextPanel({ projects }: ContextPanelProps) {
     setTimeout(() => setCopiedSummary(false), 2000)
   }
 
-  return (
-    <aside ref={panelRef} className="sticky top-0 h-screen overflow-y-auto px-8 py-8 space-y-9">
-      {/* Section 1: Open Editorial Ledger — Light labels (400), regular values (400) */}
-      <div data-panel-reveal>
-        <p className="font-mono text-[11px] font-normal uppercase tracking-[0.08em] text-neutral-400">
-          Candidate Ledger
-        </p>
+  const softwareCount = PROJECT_INDEX.filter((p) => p.kind === 'software').length
 
-        <dl className="mt-3 divide-y divide-neutral-200 border-t border-neutral-200 text-sm">
-          {[
-            { k: 'Role', v: 'Junior System Developer' },
-            { k: 'Stack', v: 'Laravel · Vue.js · PHP · MySQL', mono: true },
-            { k: 'Experience', v: 'Wilcon Depot, Inc. (6 mos)' },
-            { k: 'Education', v: 'BSIT · ACC 2025' },
-            { k: 'Location', v: 'Balingasa, Quezon City' },
-          ].map(({ k, v, mono }) => (
-            <div key={k} className="flex items-baseline justify-between gap-4 py-2.5">
-              <dt className="font-mono text-[11px] font-normal uppercase tracking-[0.06em] text-neutral-400 shrink-0">
-                {k}
-              </dt>
-              <dd className={`text-right font-normal text-neutral-800 ${mono ? 'font-mono text-[13px]' : 'text-sm'}`}>
-                {v}
-              </dd>
-            </div>
-          ))}
-        </dl>
+  return (
+    <aside className="sticky top-0 h-screen overflow-y-auto bg-paper-deep/25 px-6 py-7 space-y-6">
+      {/* 1. Candidate Overview Surface (Soft surface, no box borders) */}
+      <div className="bg-paper-deep/65 p-4">
+        <div className="flex items-center justify-between">
+          <span className="ledger-figures text-[10px] font-medium uppercase tracking-[0.12em] text-ledger">
+            At a Glance
+          </span>
+          <span className="ledger-figures bg-ledger/15 px-2 py-0.5 text-[10px] font-medium text-ledger">
+            Immediate Start
+          </span>
+        </div>
+
+        <div className="mt-3 grid grid-cols-2 gap-2.5">
+          <div className="bg-paper p-2.5">
+            <p className="font-serif text-xl font-medium text-ink">6 Mos</p>
+            <p className="ledger-figures mt-0.5 text-[10px] text-ink-soft">
+              Wilcon Depot Dev
+            </p>
+          </div>
+          <div className="bg-paper p-2.5">
+            <p className="font-serif text-xl font-medium text-ink">0{softwareCount}</p>
+            <p className="ledger-figures mt-0.5 text-[10px] text-ink-soft">
+              Shipped Systems
+            </p>
+          </div>
+          <div className="bg-paper p-2.5">
+            <p className="font-serif text-xl font-medium text-ink">BSIT</p>
+            <p className="ledger-figures mt-0.5 text-[10px] text-ink-soft">
+              Graduate · 2025
+            </p>
+          </div>
+          <div className="bg-paper p-2.5">
+            <p className="font-serif text-xl font-medium text-ledger">0 Days</p>
+            <p className="ledger-figures mt-0.5 text-[10px] text-ink-soft">
+              Notice Period
+            </p>
+          </div>
+        </div>
 
         <button
           type="button"
           onClick={handleCopyAts}
-          className="group mt-2 flex w-full items-center justify-between border-t border-b border-neutral-900 py-2.5 text-sm font-medium text-neutral-900 transition-colors hover:text-neutral-600"
+          className="ledger-figures mt-3 flex w-full cursor-pointer items-center justify-between bg-ink px-3.5 py-2 text-xs font-medium text-paper transition-colors hover:bg-ledger"
         >
-          <span>{copiedSummary ? '✓ Copied ATS Summary to Clipboard' : 'Copy ATS Candidate Summary'}</span>
-          <span className="font-mono text-xs font-normal text-neutral-500 transition-transform duration-150 group-hover:translate-x-0.5">
-            {copiedSummary ? 'Done' : 'Copy →'}
-          </span>
+          <span>{copiedSummary ? '✓ Summary Copied' : 'Copy Hiring Summary'}</span>
+          <span>{copiedSummary ? 'Done' : 'Copy →'}</span>
         </button>
       </div>
 
-      {/* Section 2: Currently Viewing (on scroll) OR Numbered Systems Index */}
-      <div data-panel-reveal>
-        {currentProject ? (
-          <div className={`space-y-3 transition-opacity duration-150 ${isTransitioning ? 'opacity-50' : 'opacity-100'}`}>
-            <div className="flex items-baseline justify-between border-b border-neutral-200 pb-2">
-              <p className="font-mono text-[11px] font-normal uppercase tracking-[0.08em] text-neutral-400">
-                Currently Viewing
-              </p>
-              <Link
-                href={`/projects/${currentProject.slug}`}
-                className="text-xs font-normal text-neutral-700 underline underline-offset-4 hover:text-neutral-950"
-              >
-                Case study →
-              </Link>
-            </div>
+      {/* 2. Visual System Jump List (Logo + Title + Tag, soft surface hover, no borders) */}
+      <div>
+        <div className="mb-2.5 flex items-baseline justify-between px-1">
+          <p className="ledger-figures text-[10px] uppercase tracking-[0.12em] text-ink-soft">
+            Production Systems
+          </p>
+          <Link
+            href="/projects"
+            className="ledger-figures text-[11px] text-ink-soft hover:text-ink"
+          >
+            All →
+          </Link>
+        </div>
 
-            <div className="pt-1 space-y-2">
-              <h3 className="text-base font-semibold text-neutral-900">
-                {currentProject.title}
-              </h3>
-              {currentProject.client && (
-                <p className="font-mono text-xs font-normal text-neutral-500">
-                  {currentProject.client}
-                </p>
+        <div className="space-y-2">
+          {SYSTEM_CARDS.map((item) => (
+            <Link
+              key={item.slug}
+              href={`/projects/${item.slug}`}
+              className="group flex items-center gap-3 bg-paper-deep/50 p-3 transition-colors hover:bg-paper-deep"
+            >
+              {item.logo ? (
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center bg-white p-1.5">
+                  <img
+                    src={item.logo}
+                    alt={item.org}
+                    className="h-full w-full object-contain"
+                  />
+                </div>
+              ) : (
+                <div className="ledger-figures flex h-9 w-9 shrink-0 items-center justify-center bg-ledger/15 text-[11px] font-medium text-ledger">
+                  {item.badge}
+                </div>
               )}
-              <p className="text-sm font-normal leading-relaxed text-neutral-600">
-                {currentProject.description}
-              </p>
-              <p className="pt-1 font-mono text-[13px] font-normal text-neutral-700">
-                {currentProject.tags.join(' · ')}
-              </p>
-            </div>
-          </div>
-        ) : (
-          <div>
-            <div className="flex items-baseline justify-between border-b border-neutral-200 pb-2">
-              <p className="font-mono text-[11px] font-normal uppercase tracking-[0.08em] text-neutral-400">
-                Production Systems
-              </p>
-              <Link href="/projects" className="text-xs font-normal text-neutral-500 hover:text-neutral-900 hover:underline">
-                Index →
-              </Link>
-            </div>
 
-            <div className="divide-y divide-neutral-200">
-              {[
-                {
-                  num: '01',
-                  slug: 'woh-attendance-system',
-                  title: 'WOH Attendance System',
-                  org: 'Word of Hope Caloocan · Since Mar 2025',
-                },
-                {
-                  num: '02',
-                  slug: 'wilcon-month-end-closing',
-                  title: 'Month-End Closing System',
-                  org: 'Wilcon Depot · Finance Department',
-                },
-                {
-                  num: '03',
-                  slug: 'wilcon-collection-deposit-report',
-                  title: 'Collection & Deposit Report',
-                  org: 'Wilcon Depot · Treasury Department',
-                },
-              ].map((item) => (
-                <Link
-                  key={item.slug}
-                  href={`/projects/${item.slug}`}
-                  className="group flex items-baseline justify-between gap-3 py-3 transition-colors"
-                >
-                  <div className="flex items-baseline gap-3 min-w-0">
-                    <span className="font-mono text-xs font-normal text-neutral-400 group-hover:text-neutral-900 transition-colors">
-                      {item.num}
-                    </span>
-                    <div className="min-w-0">
-                      {/* Only the project title is medium weight (500); subtitle is regular (400) */}
-                      <p className="text-sm font-medium text-neutral-900 group-hover:underline underline-offset-4 truncate">
-                        {item.title}
-                      </p>
-                      <p className="mt-0.5 text-xs font-normal text-neutral-500 truncate">{item.org}</p>
-                    </div>
-                  </div>
-                  <span className="text-xs text-neutral-400 transition-transform duration-200 group-hover:translate-x-1 group-hover:text-neutral-900 shrink-0">
-                    →
-                  </span>
-                </Link>
-              ))}
-            </div>
-          </div>
-        )}
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-xs font-medium text-ink group-hover:text-ledger transition-colors">
+                  {item.title}
+                </p>
+                <p className="mt-0.5 truncate text-[11px] text-ink-soft">
+                  {item.org}
+                </p>
+              </div>
+
+              <span className="ledger-figures shrink-0 text-xs text-ink-soft transition-transform group-hover:translate-x-0.5 group-hover:text-ink">
+                →
+              </span>
+            </Link>
+          ))}
+        </div>
       </div>
 
-      {/* Section 3: Direct Contact & Reference — Hairline rows */}
-      <div data-panel-reveal>
-        <p className="font-mono text-[11px] font-normal uppercase tracking-[0.08em] text-neutral-400">
-          Contact &amp; Reference
+      {/* 3. Direct Contact & Verified Reference (Soft surface block) */}
+      <div className="bg-paper-deep/55 p-4 space-y-3">
+        <p className="ledger-figures text-[10px] uppercase tracking-[0.12em] text-ink-soft">
+          Direct Dispatch
         </p>
 
-        <div className="mt-3 divide-y divide-neutral-200 border-t border-neutral-200 text-sm">
-          <div className="flex items-baseline justify-between py-2.5">
-            <span className="font-mono text-[11px] font-normal uppercase tracking-[0.06em] text-neutral-400">Phone / Viber</span>
-            <a href={PORTFOLIO_IDENTITY.phoneTel} className="font-mono text-[13px] font-normal text-neutral-900 hover:underline">
-              {PORTFOLIO_IDENTITY.phone}
+        <div className="grid grid-cols-2 gap-2">
+          <a
+            href={PORTFOLIO_IDENTITY.phoneTel}
+            className="flex items-center gap-2 bg-paper px-3 py-2 text-xs font-medium text-ink transition-colors hover:bg-ink hover:text-paper"
+          >
+            <PhoneIcon className="h-3.5 w-3.5 text-ledger shrink-0" />
+            <span className="truncate">Call Now</span>
+          </a>
+          <a
+            href={PORTFOLIO_IDENTITY.viberUrl}
+            className="flex items-center gap-2 bg-paper px-3 py-2 text-xs font-medium text-ink transition-colors hover:bg-ink hover:text-paper"
+          >
+            <ViberIcon className="h-3.5 w-3.5 text-[#7360F2] shrink-0" />
+            <span className="truncate">Viber Chat</span>
+          </a>
+        </div>
+
+        <a
+          href={`mailto:${PORTFOLIO_IDENTITY.email}`}
+          className="flex items-center gap-2 bg-paper px-3 py-2 text-xs text-ink-soft transition-colors hover:text-ink"
+        >
+          <MailIcon className="h-3.5 w-3.5 text-ledger shrink-0" />
+          <span className="truncate">{PORTFOLIO_IDENTITY.email}</span>
+        </a>
+
+        {/* Reference Sub-block */}
+        <div className="bg-paper/80 p-3">
+          <span className="ledger-figures block text-[9px] uppercase tracking-[0.12em] text-ledger font-medium">
+            Character Reference
+          </span>
+          <p className="mt-1 text-xs font-medium text-ink">
+            {PORTFOLIO_IDENTITY.reference.name}
+          </p>
+          <p className="text-[11px] text-ink-soft">
+            {PORTFOLIO_IDENTITY.reference.role} ·{' '}
+            <a
+              href={PORTFOLIO_IDENTITY.reference.companyUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline decoration-rule underline-offset-2 hover:text-ink"
+            >
+              {PORTFOLIO_IDENTITY.reference.company}
             </a>
-          </div>
-          <div className="flex items-baseline justify-between py-2.5">
-            <span className="font-mono text-[11px] font-normal uppercase tracking-[0.06em] text-neutral-400">Email</span>
-            <a href={`mailto:${PORTFOLIO_IDENTITY.email}`} className="text-sm font-normal text-neutral-900 hover:underline">
-              {PORTFOLIO_IDENTITY.email}
-            </a>
-          </div>
-          <div className="py-3">
-            <span className="font-mono text-[11px] font-normal uppercase tracking-[0.06em] text-neutral-400 block">
-              Reference
-            </span>
-            <p className="mt-1 text-sm font-medium text-neutral-900">
-              {PORTFOLIO_IDENTITY.reference.name}
-            </p>
-            <p className="text-xs font-normal text-neutral-600 mt-0.5">
-              {PORTFOLIO_IDENTITY.reference.role} ·{' '}
-              <a
-                href={PORTFOLIO_IDENTITY.reference.companyUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline underline-offset-2 hover:text-neutral-900"
-              >
-                {PORTFOLIO_IDENTITY.reference.company}
-              </a>
-            </p>
-          </div>
+          </p>
+          <a
+            href={`tel:${PORTFOLIO_IDENTITY.reference.phone.replace(/[^0-9+]/g, '')}`}
+            className="ledger-figures mt-1 inline-block text-[11px] font-medium text-ink hover:text-ledger"
+          >
+            {PORTFOLIO_IDENTITY.reference.phone}
+          </a>
         </div>
       </div>
     </aside>
