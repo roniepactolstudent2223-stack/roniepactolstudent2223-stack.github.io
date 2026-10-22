@@ -194,7 +194,20 @@ export const PORTFOLIO_IDENTITY = {
     },
   ],
   // Certificates
+  coeUrl: 'https://drive.google.com/file/d/1rMC9GD5x8NFLZ40nG5kf7Afc083rLxwG/view?usp=sharing',
+  coePdfUrl: '/certificates/Wilcon_Depot_COE.pdf',
   certificates: [
+    {
+      title: 'Certificate of Employment — Junior System Developer',
+      skill: 'Work Experience',
+      issuer: 'Wilcon Depot, Inc.',
+      date: 'May 28, 2026 – Oct 22, 2026',
+      category: 'development',
+      imageUrl: '/certificates/Wilcon_Depot_COE.pdf',
+      badgeUrl: undefined,
+      applied: 'Official Certificate of Employment certifying service as Junior System Developer at Wilcon Depot, Inc. (Head Office, Ugong Norte, Quezon City).',
+      verifyUrl: 'https://drive.google.com/file/d/1rMC9GD5x8NFLZ40nG5kf7Afc083rLxwG/view?usp=sharing',
+    },
     {
       title: 'English for IT 1',
       skill: 'English Communication',

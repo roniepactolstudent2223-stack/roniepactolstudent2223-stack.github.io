@@ -11,6 +11,8 @@ interface VisualWorkEntry {
   period: string
   location: string
   logoUrl?: string
+  coeUrl?: string
+  coePdfUrl?: string
   stack?: string[]
   modules?: string[]
   photos: { src: string; caption: string }[]
@@ -21,9 +23,11 @@ const VISUAL_WORK_ENTRIES: VisualWorkEntry[] = [
   {
     company: 'Wilcon Depot, Inc.',
     role: 'Full Stack Junior System Developer',
-    period: 'May 2026 – Oct 2026 · 6 mos',
-    location: 'Quezon City · On-site',
+    period: 'May 28, 2026 – Oct 22, 2026',
+    location: 'Quezon City · Head Office',
     logoUrl: '/logos/wilcon.png',
+    coeUrl: 'https://drive.google.com/file/d/1rMC9GD5x8NFLZ40nG5kf7Afc083rLxwG/view?usp=sharing',
+    coePdfUrl: '/certificates/Wilcon_Depot_COE.pdf',
     stack: ['Laravel', 'Vue.js', 'PHP', 'JavaScript', 'MySQL', 'REST APIs', 'Git'],
     modules: [
       'Month-End Closing Web App (GL & Approvals)',
@@ -132,6 +136,7 @@ export default function WorkPage() {
     caption: string
     company: string
     role: string
+    externalUrl?: string
   } | null>(null)
 
   useEffect(() => {
@@ -157,14 +162,24 @@ export default function WorkPage() {
               Work Experience
             </h1>
 
-            <a
-              href={PORTFOLIO_IDENTITY.resumeDocUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="ledger-figures inline-flex items-center gap-1.5 bg-ink px-4 py-2 text-xs font-medium text-paper transition-colors hover:bg-ledger"
-            >
-              Resume (Google Doc) ↗
-            </a>
+            <div className="flex flex-wrap items-center gap-2">
+              <a
+                href={PORTFOLIO_IDENTITY.coeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="ledger-figures inline-flex items-center gap-1.5 bg-ledger px-3.5 py-2 text-xs font-medium text-paper transition-colors hover:bg-ink"
+              >
+                Wilcon Depot COE ↗
+              </a>
+              <a
+                href={PORTFOLIO_IDENTITY.resumeDocUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="ledger-figures inline-flex items-center gap-1.5 bg-ink px-4 py-2 text-xs font-medium text-paper transition-colors hover:bg-ledger"
+              >
+                Resume (Google Doc) ↗
+              </a>
+            </div>
           </div>
         </header>
 
@@ -191,9 +206,29 @@ export default function WorkPage() {
                   </div>
                 </div>
 
-                <span className="ledger-figures self-start sm:self-center bg-paper px-3 py-1 text-xs font-medium text-ledger shadow-2xs">
-                  {role.period}
-                </span>
+                <div className="flex flex-wrap items-center gap-2 self-start sm:self-center">
+                  <span className="ledger-figures bg-paper px-3 py-1 text-xs font-medium text-ledger shadow-2xs">
+                    {role.period}
+                  </span>
+
+                  {role.coePdfUrl && (
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setZoomPhoto({
+                          src: role.coePdfUrl!,
+                          caption: 'Certificate of Employment · Wilcon Depot, Inc.',
+                          company: role.company,
+                          role: role.role,
+                          externalUrl: role.coeUrl,
+                        })
+                      }
+                      className="ledger-figures cursor-pointer bg-ink px-3 py-1 text-xs font-medium text-paper transition-colors hover:bg-ledger"
+                    >
+                      View COE
+                    </button>
+                  )}
+                </div>
               </div>
 
               {/* Large Workplace / Event Visual Gallery */}
@@ -241,7 +276,7 @@ export default function WorkPage() {
                 </div>
               )}
 
-              {/* Tech Stack + Deliverables (only rendered when applicable) */}
+              {/* Tech Stack + Deliverables */}
               {(role.stack || role.modules) && (
                 <div className="space-y-3 pt-1">
                   {role.stack && role.stack.length > 0 && (
@@ -301,7 +336,7 @@ export default function WorkPage() {
         </div>
       </div>
 
-      {/* Photo Lightbox Modal */}
+      {/* Photo & PDF COE Lightbox Modal */}
       {zoomPhoto && (
         <div
           role="dialog"
@@ -313,27 +348,48 @@ export default function WorkPage() {
             onClick={(e) => e.stopPropagation()}
             className="max-h-[92vh] w-full max-w-4xl overflow-hidden bg-paper p-4 shadow-2xl"
           >
-            <div className="mb-3 flex items-center justify-between pb-2">
+            <div className="mb-3 flex flex-wrap items-center justify-between gap-2 pb-2">
               <div>
                 <p className="ledger-figures text-xs text-ink-soft">
                   {zoomPhoto.company} · {zoomPhoto.role}
                 </p>
                 <h3 className="text-sm font-medium text-ink">{zoomPhoto.caption}</h3>
               </div>
-              <button
-                type="button"
-                onClick={() => setZoomPhoto(null)}
-                className="ledger-figures cursor-pointer bg-ink px-3 py-1 text-xs text-paper"
-              >
-                Close
-              </button>
+
+              <div className="flex items-center gap-2">
+                {zoomPhoto.externalUrl && (
+                  <a
+                    href={zoomPhoto.externalUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="ledger-figures bg-ledger px-3 py-1 text-xs font-medium text-paper hover:bg-ink"
+                  >
+                    Open in Google Drive ↗
+                  </a>
+                )}
+                <button
+                  type="button"
+                  onClick={() => setZoomPhoto(null)}
+                  className="ledger-figures cursor-pointer bg-ink px-3 py-1 text-xs text-paper"
+                >
+                  Close
+                </button>
+              </div>
             </div>
             <div className="flex items-center justify-center bg-white p-2">
-              <img
-                src={zoomPhoto.src}
-                alt={zoomPhoto.caption}
-                className="max-h-[75vh] w-auto object-contain"
-              />
+              {zoomPhoto.src.endsWith('.pdf') ? (
+                <iframe
+                  src={zoomPhoto.src}
+                  className="h-[72vh] w-full border-0"
+                  title={zoomPhoto.caption}
+                />
+              ) : (
+                <img
+                  src={zoomPhoto.src}
+                  alt={zoomPhoto.caption}
+                  className="max-h-[75vh] w-auto object-contain"
+                />
+              )}
             </div>
           </div>
         </div>

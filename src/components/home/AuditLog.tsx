@@ -9,6 +9,8 @@ interface TechExperienceEntry {
   where: string
   logo?: string
   badge?: string
+  coeUrl?: string
+  coePdfUrl?: string
   stack?: string[]
   deliverables?: string[]
   photos?: { src: string; caption: string }[]
@@ -17,10 +19,12 @@ interface TechExperienceEntry {
 
 const TECH_EXPERIENCE: TechExperienceEntry[] = [
   {
-    when: 'May – Oct 2026',
+    when: 'May 28 – Oct 22, 2026',
     role: 'Full Stack Junior System Developer',
     where: 'Wilcon Depot, Inc.',
     logo: '/logos/wilcon.png',
+    coeUrl: 'https://drive.google.com/file/d/1rMC9GD5x8NFLZ40nG5kf7Afc083rLxwG/view?usp=sharing',
+    coePdfUrl: '/certificates/Wilcon_Depot_COE.pdf',
     stack: ['Laravel', 'Vue.js', 'PHP', 'JavaScript', 'MySQL', 'REST APIs', 'Git'],
     deliverables: [
       'Month-End Closing Web App (GL & Approvals)',
@@ -84,6 +88,7 @@ export default function AuditLog() {
     caption: string
     role: string
     where: string
+    externalUrl?: string
   } | null>(null)
 
   useEffect(() => {
@@ -148,9 +153,29 @@ export default function AuditLog() {
 
                 {/* Right: Role, Stack Pills, Deliverables & Unique Photos */}
                 <div className="min-w-0">
-                  <h3 className="font-serif text-xl font-medium leading-snug text-ink">
-                    {entry.role}
-                  </h3>
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <h3 className="font-serif text-xl font-medium leading-snug text-ink">
+                      {entry.role}
+                    </h3>
+
+                    {entry.coePdfUrl && (
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setModalPhoto({
+                            src: entry.coePdfUrl!,
+                            caption: 'Certificate of Employment · Wilcon Depot, Inc.',
+                            role: entry.role,
+                            where: entry.where,
+                            externalUrl: entry.coeUrl,
+                          })
+                        }
+                        className="ledger-figures cursor-pointer bg-ledger/12 px-2.5 py-1 text-xs font-medium text-ledger transition-colors hover:bg-ledger hover:text-paper"
+                      >
+                        Certificate of Employment (COE) ↗
+                      </button>
+                    )}
+                  </div>
 
                   {entry.stack && entry.stack.length > 0 && (
                     <ul className="mt-2.5 flex flex-wrap gap-1.5">
@@ -244,27 +269,47 @@ export default function AuditLog() {
             onClick={(e) => e.stopPropagation()}
             className="max-h-[92vh] w-full max-w-4xl overflow-hidden bg-paper p-4 shadow-2xl"
           >
-            <div className="mb-3 flex items-center justify-between pb-2">
+            <div className="mb-3 flex flex-wrap items-center justify-between gap-2 pb-2">
               <div>
                 <p className="ledger-figures text-xs text-ink-soft">
                   {modalPhoto.where} · {modalPhoto.role}
                 </p>
                 <p className="text-sm font-medium text-ink">{modalPhoto.caption}</p>
               </div>
-              <button
-                type="button"
-                onClick={() => setModalPhoto(null)}
-                className="ledger-figures cursor-pointer bg-ink px-3 py-1 text-xs text-paper"
-              >
-                Close
-              </button>
+              <div className="flex items-center gap-2">
+                {modalPhoto.externalUrl && (
+                  <a
+                    href={modalPhoto.externalUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="ledger-figures bg-ledger px-3 py-1 text-xs font-medium text-paper hover:bg-ink"
+                  >
+                    Open in Google Drive ↗
+                  </a>
+                )}
+                <button
+                  type="button"
+                  onClick={() => setModalPhoto(null)}
+                  className="ledger-figures cursor-pointer bg-ink px-3 py-1 text-xs text-paper"
+                >
+                  Close
+                </button>
+              </div>
             </div>
             <div className="flex items-center justify-center bg-white p-2">
-              <img
-                src={modalPhoto.src}
-                alt={modalPhoto.caption}
-                className="max-h-[75vh] w-auto object-contain"
-              />
+              {modalPhoto.src.endsWith('.pdf') ? (
+                <iframe
+                  src={modalPhoto.src}
+                  className="h-[72vh] w-full border-0"
+                  title={modalPhoto.caption}
+                />
+              ) : (
+                <img
+                  src={modalPhoto.src}
+                  alt={modalPhoto.caption}
+                  className="max-h-[75vh] w-auto object-contain"
+                />
+              )}
             </div>
           </div>
         </div>

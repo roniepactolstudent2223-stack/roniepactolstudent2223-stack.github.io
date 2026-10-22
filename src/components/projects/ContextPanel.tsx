@@ -73,13 +73,13 @@ export default function ContextPanel({ projects, currentProject }: ContextPanelP
 
   return (
     <aside className="sticky top-0 h-screen overflow-y-auto bg-paper-deep/25 px-6 py-7 space-y-5">
-      {/* 1. Prominent Visual Resume + Profiles + Direct Contact Hub */}
-      <div className="bg-paper-deep/65 p-4 space-y-3.5">
+      {/* 1. Prominent Visual Resume +COE + Profiles + Direct Contact Hub */}
+      <div className="bg-paper-deep/65 p-4 space-y-3">
         <a
           href={PORTFOLIO_IDENTITY.resumeDocUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="group block bg-ink p-4 text-paper shadow-xs transition-colors hover:bg-ledger"
+          className="group block bg-ink p-3.5 text-paper shadow-xs transition-colors hover:bg-ledger"
         >
           <div className="flex items-center justify-between gap-3">
             <div>
@@ -90,10 +90,29 @@ export default function ContextPanel({ projects, currentProject }: ContextPanelP
                 Open or download in Google Docs
               </p>
             </div>
-            <span className="ledger-figures flex h-8 w-8 shrink-0 items-center justify-center bg-paper/15 text-xs text-paper transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+            <span className="ledger-figures flex h-7 w-7 shrink-0 items-center justify-center bg-paper/15 text-xs text-paper transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
               ↗
             </span>
           </div>
+        </a>
+
+        <a
+          href={PORTFOLIO_IDENTITY.coeUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group flex items-center justify-between gap-2 bg-paper px-3 py-2.5 text-xs font-medium text-ink shadow-2xs transition-colors hover:bg-ink hover:text-paper"
+        >
+          <div className="flex min-w-0 items-center gap-2">
+            <img
+              src="/logos/wilcon.png"
+              alt="Wilcon Depot"
+              className="h-4 w-4 shrink-0 object-contain"
+            />
+            <span className="truncate">Wilcon Depot COE</span>
+          </div>
+          <span className="ledger-figures shrink-0 text-[11px] text-ledger group-hover:text-paper">
+            Verify ↗
+          </span>
         </a>
 
         {/* LinkedIn, GitHub & Social Tiles */}
@@ -106,7 +125,7 @@ export default function ContextPanel({ projects, currentProject }: ContextPanelP
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex flex-col items-center justify-center gap-1.5 bg-paper py-3 px-2 text-xs font-medium text-ink shadow-2xs transition-colors hover:bg-ink hover:text-paper"
+                className="flex flex-col items-center justify-center gap-1.5 bg-paper py-2.5 px-2 text-xs font-medium text-ink shadow-2xs transition-colors hover:bg-ink hover:text-paper"
               >
                 {Icon && <Icon className="h-4 w-4" />}
                 <span className="ledger-figures text-[11px]">{link.label}</span>
@@ -116,8 +135,8 @@ export default function ContextPanel({ projects, currentProject }: ContextPanelP
         </div>
 
         {/* Direct Phone, Viber & Email */}
-        <div className="space-y-1.5 pt-1">
-          <div className="flex items-center justify-between gap-2 bg-paper px-3 py-2.5 shadow-2xs">
+        <div className="space-y-1.5 pt-0.5">
+          <div className="flex items-center justify-between gap-2 bg-paper px-3 py-2 shadow-2xs">
             <a
               href={PORTFOLIO_IDENTITY.phoneTel}
               className="flex min-w-0 items-center gap-2 text-xs font-medium text-ink hover:text-ledger"
@@ -144,7 +163,7 @@ export default function ContextPanel({ projects, currentProject }: ContextPanelP
             </div>
           </div>
 
-          <div className="flex items-center justify-between gap-2 bg-paper px-3 py-2.5 shadow-2xs">
+          <div className="flex items-center justify-between gap-2 bg-paper px-3 py-2 shadow-2xs">
             <a
               href={`mailto:${PORTFOLIO_IDENTITY.email}`}
               className="flex min-w-0 items-center gap-2 text-xs text-ink hover:text-ledger"
@@ -166,7 +185,6 @@ export default function ContextPanel({ projects, currentProject }: ContextPanelP
 
       {/* 2. Categorized Systems Switcher */}
       <div className="space-y-4">
-        {/* Enterprise Systems (Wilcon Depot) */}
         <div>
           <div className="mb-2 flex items-center justify-between px-1">
             <span className="ledger-figures text-[11px] font-medium text-ink">
@@ -219,7 +237,6 @@ export default function ContextPanel({ projects, currentProject }: ContextPanelP
           </div>
         </div>
 
-        {/* Independent Production System */}
         <div>
           <div className="mb-2 flex items-center justify-between px-1">
             <span className="ledger-figures text-[11px] font-medium text-ink">
