@@ -1,27 +1,65 @@
 @import "tailwindcss";
 
+/*
+ * Paper & ink palette (accounting-ledger concept).
+ * Contrast on --paper: ink 15:1, ink-soft 6.7:1, ledger 6.6:1 (all pass WCAG AA).
+ * --rule is decorative only and never carries text.
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --sidebar-accent: #c4956a;
+  --paper: #f5f0e4;
+  --paper-deep: #ebe4d1;
+  --ink: #1d1b16;
+  --ink-soft: #57524a;
+  --rule: #cdc4ad;
+  --ledger: #2f5f49;
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --sidebar-accent: var(--ledger);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-serif: var(--font-playfair);
+  --color-paper: var(--paper);
+  --color-paper-deep: var(--paper-deep);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-rule: var(--rule);
+  --color-ledger: var(--ledger);
+  --font-sans: var(--font-plex-sans);
+  --font-mono: var(--font-plex-mono);
+  --font-serif: var(--font-newsreader);
 }
 
 html {
   scroll-behavior: smooth;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  font-family: var(--font-plex-sans), Arial, Helvetica, sans-serif;
+}
+
+/* Accounting rules: a single rule above a subtotal, a double rule under a total. */
+.rule-single {
+  border-top: 1px solid var(--ink);
+}
+
+.rule-double {
+  border-top: 3px double var(--ink);
+}
+
+/* Tabular figures keep dates and counters aligned like ledger columns. */
+.ledger-figures {
+  font-family: var(--font-plex-mono), monospace;
+  font-variant-numeric: tabular-nums;
 }
 
 /* Sidebar accent bar */
@@ -73,7 +111,7 @@ body {
 
 /* Monogram */
 .sidebar-monogram {
-  font-family: var(--font-playfair), Georgia, serif;
+  font-family: var(--font-newsreader), Georgia, serif;
   font-size: 28px;
   font-weight: 700;
   line-height: 1;
@@ -114,7 +152,7 @@ body {
 }
 
 .sidebar-stat-value {
-  font-family: var(--font-geist-mono), monospace;
+  font-family: var(--font-plex-mono), monospace;
   font-size: 16px;
   font-weight: 600;
   line-height: 1;

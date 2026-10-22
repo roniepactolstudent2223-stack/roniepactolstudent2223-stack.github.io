@@ -3,14 +3,9 @@
 import { useEffect, useRef } from 'react'
 import Link from 'next/link'
 import gsap from 'gsap'
-import { PORTFOLIO_IDENTITY } from '@/lib/portfolio-config'
+import { PORTFOLIO_IDENTITY, SKILL_GROUPS } from '@/lib/portfolio-config'
 
-const STACK = [
-  { group: 'Backend', items: ['Laravel', 'PHP', 'Eloquent ORM', 'REST APIs'] },
-  { group: 'Frontend', items: ['Vue.js', 'JavaScript', 'Tailwind CSS', 'HTML5 / CSS3'] },
-  { group: 'Database', items: ['MySQL', 'Relational Schema', 'CRUD Queries', 'Data Indexing'] },
-  { group: 'Tools', items: ['Git', 'GitHub', 'Postman', 'Composer'] },
-]
+const STACK = SKILL_GROUPS
 
 const FACTS = [
   { label: 'Role', value: 'Full Stack Junior System Developer' },

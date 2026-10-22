@@ -23,7 +23,7 @@ export default function MobileNavigation() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 border-b border-neutral-200 bg-white px-4 py-4 lg:hidden">
+      <header className="sticky top-0 z-50 border-b border-rule bg-paper px-4 py-4 lg:hidden">
         <div className="flex items-center justify-between">
           <SidebarIdentity compact />
           <button
@@ -44,7 +44,7 @@ export default function MobileNavigation() {
       </header>
 
       {isOpen && (
-        <div className="fixed inset-0 z-40 overflow-y-auto bg-white px-6 pb-8 pt-20 lg:hidden">
+        <div className="fixed inset-0 z-40 overflow-y-auto bg-paper px-6 pb-8 pt-20 lg:hidden">
           <div className="mb-8 border-b border-neutral-200 pb-6">
             <SidebarIdentity />
           </div>

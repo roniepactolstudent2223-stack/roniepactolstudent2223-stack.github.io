@@ -3,8 +3,8 @@
   "title": "Collection and Deposit Report Modification",
   "year": 2026,
   "category": "product",
-  "description": "Upgraded the Collection and Deposit Report in Wilcon's WBI Reports and Omnibus systems for the Treasury Department. Added clickable check drill-down, separate cash and check filters for unreconciled records, PDF and Excel export, a Branch column with an all-branches default, and accounting date alignment.",
-  "tags": ["laravel", "vue.js", "php", "mysql", "reporting", "finance"],
+  "description": "Financial reporting enhancement developed for Wilcon Depot's Treasury Department. Upgraded the daily Collection and Deposit reporting workflow with clickable check drill-downs, separated cash and check filters for unreconciled accounts, automated accounting date alignment, a multi-branch tracking column with nationwide defaults, and one-click PDF/Excel export.",
+  "tags": ["laravel", "vue.js", "php", "mysql", "financial-reporting", "treasury"],
   "coverImage": "/wilcon-cdr-branch.png",
   "images": [
     "/wilcon-cdr-report.png",

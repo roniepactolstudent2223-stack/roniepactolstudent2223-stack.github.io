@@ -1,134 +1,69 @@
-'use client'
-
-import { useEffect, useRef } from 'react'
-import gsap from 'gsap'
 import { PORTFOLIO_IDENTITY } from '@/lib/portfolio-config'
-import { MailIcon, LinkedInIcon, GitHubIcon } from '@/components/ui/Icons'
 
-const SOCIAL_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
-  LinkedIn: LinkedInIcon,
-  GitHub: GitHubIcon,
-}
-
+/**
+ * Contact block. Phone is a tap-to-call link because most screeners open the
+ * site on a phone. Plain text rows, no buttons-in-boxes, no tagline.
+ */
 export default function Footer() {
-  const footerRef = useRef<HTMLDivElement>(null)
-  const emailBtnRef = useRef<HTMLAnchorElement>(null)
+  const { email, phone, phoneTel, resumeDocUrl, externalLinks } = PORTFOLIO_IDENTITY
 
-  useEffect(() => {
-    const el = footerRef.current
-    if (!el) return
-
-    const ctx = gsap.context(() => {
-      gsap.from(el.querySelectorAll('[data-reveal]'), {
-        y: 20,
-        opacity: 0,
-        duration: 0.6,
-        stagger: 0.1,
-        ease: 'power3.out',
-        delay: 0.15,
-      })
-    }, footerRef)
-
-    return () => ctx.revert()
-  }, [])
-
-  // Magnetic hover on email CTA
-  useEffect(() => {
-    const btn = emailBtnRef.current
-    if (!btn) return
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = btn.getBoundingClientRect()
-      const x = e.clientX - rect.left - rect.width / 2
-      const y = e.clientY - rect.top - rect.height / 2
-      gsap.to(btn, { x: x * 0.2, y: y * 0.2, duration: 0.3, ease: 'power2.out' })
-    }
-
-    const handleMouseLeave = () => {
-      gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1, 0.5)' })
-    }
-
-    btn.addEventListener('mousemove', handleMouseMove)
-    btn.addEventListener('mouseleave', handleMouseLeave)
-
-    return () => {
-      btn.removeEventListener('mousemove', handleMouseMove)
-      btn.removeEventListener('mouseleave', handleMouseLeave)
-    }
-  }, [])
+  const rows = [
+    { label: 'Phone / Viber', href: phoneTel, text: phone },
+    { label: 'Email', href: `mailto:${email}`, text: email },
+    { label: 'Resume', href: resumeDocUrl, text: 'Live Google Doc ↗', external: true },
+  ]
 
   return (
-    <footer ref={footerRef} className="bg-neutral-100 px-6 py-10">
-      <div className="max-w-4xl">
-        <div className="flex flex-col gap-10 sm:flex-row sm:items-start sm:justify-between">
-          <div data-reveal>
-            <p className="mb-3 text-[10px] font-medium uppercase tracking-[0.1em] text-neutral-500">
-              Get in touch
-            </p>
-            <h2 className="font-serif text-3xl font-bold leading-tight text-neutral-900 sm:text-4xl">
-              Let&apos;s build something
-            </h2>
-            <p className="mt-4 max-w-sm text-sm leading-relaxed text-neutral-500">
-              Always open to discussing junior developer roles, Laravel &amp; Vue.js systems, or new opportunities.
-            </p>
+    <footer id="contact" className="border-t border-rule px-6 py-12 sm:py-16">
+      <div className="max-w-3xl">
+        <p className="ledger-figures text-xs uppercase tracking-[0.08em] text-ink-soft">Contact</p>
+        <h2 className="mt-2 font-serif text-[1.75rem] font-medium leading-tight text-ink sm:text-3xl">
+          Reach Ronie
+        </h2>
 
-            <div className="mt-6">
-              <a
-                ref={emailBtnRef}
-                href={`mailto:${PORTFOLIO_IDENTITY.email}`}
-                className="inline-flex items-center gap-2 rounded-full bg-neutral-900 px-6 py-3 text-sm font-medium text-white transition-shadow duration-300 hover:shadow-lg hover:shadow-neutral-300/50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-900"
-              >
-                <MailIcon className="h-4 w-4" />
-                {PORTFOLIO_IDENTITY.email}
-              </a>
+        <dl className="mt-8">
+          {rows.map((row) => (
+            <div key={row.label} className="grid gap-x-6 gap-y-1 border-t border-rule py-3.5 sm:grid-cols-[8rem_1fr]">
+              <dt className="ledger-figures text-xs uppercase tracking-[0.08em] text-ink-soft sm:pt-1">{row.label}</dt>
+              <dd>
+                <a
+                  href={row.href}
+                  {...(row.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                  className="text-base text-ink underline decoration-rule underline-offset-4 transition-colors hover:decoration-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ledger"
+                >
+                  {row.text}
+                </a>
+              </dd>
             </div>
+          ))}
+          <div className="grid gap-x-6 gap-y-1 border-t border-rule py-3.5 sm:grid-cols-[8rem_1fr]">
+            <dt className="ledger-figures text-xs uppercase tracking-[0.08em] text-ink-soft sm:pt-1">Location</dt>
+            <dd className="text-base text-ink">Balingasa, Quezon City, Philippines</dd>
           </div>
-
-          <div className="flex flex-col gap-6" data-reveal>
-            <div>
-              <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.1em] text-neutral-500">
-                Connect
-              </p>
-              <div className="flex items-center gap-2">
-                {PORTFOLIO_IDENTITY.externalLinks.map((link) => {
-                  const IconComponent = SOCIAL_ICONS[link.label]
-                  return (
-                    <a
-                      key={link.href}
-                      href={link.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 rounded-full bg-white px-4 py-2 text-xs font-medium text-neutral-600 transition-all duration-300 hover:bg-neutral-900 hover:text-white hover:shadow-lg hover:shadow-neutral-300/50"
-                    >
-                      {IconComponent && <IconComponent className="h-3.5 w-3.5" />}
-                      {link.label}
-                    </a>
-                  )
-                })}
-              </div>
-            </div>
-
-            <div>
-              <p className="mb-1 text-[10px] font-medium uppercase tracking-[0.1em] text-neutral-500">
-                Location
-              </p>
-              <p className="text-xs text-neutral-500">
-                {PORTFOLIO_IDENTITY.location}
-              </p>
-            </div>
+          <div className="grid gap-x-6 gap-y-1 border-t border-rule py-3.5 sm:grid-cols-[8rem_1fr]">
+            <dt className="ledger-figures text-xs uppercase tracking-[0.08em] text-ink-soft sm:pt-1">Profiles</dt>
+            <dd className="flex flex-wrap gap-x-5 gap-y-1">
+              {externalLinks
+                .filter((link) => link.label === 'LinkedIn' || link.label === 'GitHub')
+                .map((link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-base text-ink underline decoration-rule underline-offset-4 transition-colors hover:decoration-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ledger"
+                  >
+                    {link.label} ↗
+                  </a>
+                ))}
+            </dd>
           </div>
-        </div>
+        </dl>
+        <div className="rule-double" aria-hidden="true" />
 
-        <div className="mt-12 pt-6" data-reveal>
-          <div className="flex flex-col items-center justify-between gap-2 sm:flex-row">
-            <p className="text-xs text-neutral-500">
-              &copy; {new Date().getFullYear()} {PORTFOLIO_IDENTITY.name}
-            </p>
-            <p className="text-xs text-neutral-500">
-              Designed &amp; built with care
-            </p>
-          </div>
-        </div>
+        <p className="ledger-figures mt-6 text-xs text-ink-soft">
+          © {new Date().getFullYear()} {PORTFOLIO_IDENTITY.name}
+        </p>
       </div>
     </footer>
   )

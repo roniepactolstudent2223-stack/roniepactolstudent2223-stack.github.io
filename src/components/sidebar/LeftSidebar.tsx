@@ -21,7 +21,7 @@ export default function LeftSidebar() {
 
   return (
     <aside
-      className="sidebar-accent sticky top-0 flex h-screen flex-col border-r border-neutral-200 bg-white"
+      className="sidebar-accent sticky top-0 flex h-screen flex-col border-r border-rule bg-paper"
       aria-label="Portfolio navigation"
     >
       <div className="flex h-full flex-col">

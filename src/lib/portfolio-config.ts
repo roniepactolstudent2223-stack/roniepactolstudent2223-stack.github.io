@@ -29,8 +29,11 @@ export const PORTFOLIO_IDENTITY = {
   },
   // Homepage orientation
   orientation: {
-    headline: 'Strong fundamentals in Laravel, Vue.js.',
-    subtext: '6 months of internal enterprise software development at Wilcon Depot, creator of the Word of Hope live attendance system, and active WordPress Philippines volunteer.',
+    role: 'Junior Full Stack Developer',
+    stackLine: 'Laravel · Vue.js · PHP · MySQL',
+    outcome:
+      'I built the Month-End Closing system for the Finance team at Wilcon Depot. It replaced spreadsheets and chat threads with validated entries and a two-step approval.',
+    notice: 'Notice period: 0 days',
   },
   featuredProject: {
     slug: 'woh-attendance-system',
@@ -297,10 +300,10 @@ export const PROJECT_INDEX: ProjectIndexEntry[] = [
   {
     slug: 'wilcon-month-end-closing',
     kind: 'software',
-    usedBy: 'Wilcon Depot: supervisors, Business Unit Managers, Finance Managers',
-    problem: 'Monthly closing was tracked across spreadsheets and chat apps, forcing Finance to collate entries manually.',
-    myPart: 'Built COA sync from Infor M3 ERP, entry validation, two-step BU/Finance approval with one-click ERP posting, auto reversals, live GL balances, and audit log.',
-    stack: 'Laravel · Vue.js · PHP · MySQL · REST APIs',
+    usedBy: 'Wilcon Depot: Business Unit Supervisors, BU Managers, Financial Reporting Managers',
+    problem: 'Monthly closing was collated manually via spreadsheets and chat apps, causing closing delays, missing mandatory data, and duplicate entries across departments.',
+    myPart: 'Built centralized submission interface, automated net-balance validation (Debit = Credit), multi-tier BU-to-Finance approval chain, automated next-month reversing entries, and live GL balance comparison.',
+    stack: 'Laravel · Vue.js · PHP · MySQL',
     status: 'Delivered to Finance, 2026',
     live: true,
   },
@@ -308,8 +311,8 @@ export const PROJECT_INDEX: ProjectIndexEntry[] = [
     slug: 'wilcon-collection-deposit-report',
     kind: 'software',
     usedBy: 'Wilcon Depot Treasury Department',
-    problem: 'Treasury couldn\'t open check details, filter by branch, or export the report.',
-    myPart: 'Added check drill-down, cash/check filters, PDF/Excel export, Branch column, date alignment.',
+    problem: 'Static financial reports prevented Treasury staff from verifying check breakdowns, caused data overlap in unreconciled accounts, and lacked nationwide branch filters.',
+    myPart: 'Built interactive check drill-down modal, separated cash vs. check reconciliation filters, automated accounting date alignment, added multi-branch tracking with nationwide defaults, and enabled PDF/Excel export.',
     stack: 'Laravel · Vue.js · PHP · MySQL',
     status: 'Delivered to Treasury, 2026',
     live: true,
@@ -383,3 +386,75 @@ export function filterProjectsByDomain(
   const domain = getWorkDomains(projects).find((d) => d.id === domainId)
   return domain ? projects.filter(domain.filter) : projects
 }
+
+/**
+ * Skills as plain, regular-weight text. Grouped so an ATS parser and a human
+ * both see "Backend: Laravel, PHP ..." rather than a cloud of badges.
+ * Only list what appears on the resume.
+ */
+export const SKILL_GROUPS: { group: string; items: string[] }[] = [
+  { group: 'Backend', items: ['Laravel', 'PHP', 'Eloquent ORM', 'REST APIs'] },
+  { group: 'Frontend', items: ['Vue.js', 'JavaScript', 'Tailwind CSS', 'HTML5 / CSS3'] },
+  { group: 'Database', items: ['MySQL', 'Relational Schema', 'CRUD Queries', 'Data Indexing'] },
+  { group: 'Tools', items: ['Git', 'GitHub', 'Composer'] },
+]
+
+/**
+ * Career history written as an audit log: newest first, one fact per line.
+ * Dates are exactly what is on the resume. Do not add months that are unknown.
+ */
+export interface CareerLogEntry {
+  when: string
+  what: string
+  where: string
+  note?: string
+}
+
+export const CAREER_LOG: CareerLogEntry[] = [
+  { when: 'May 2026 – Oct 2026', what: 'Full Stack Junior System Developer', where: 'Wilcon Depot, Inc.', note: '6 months · Laravel, Vue.js, MySQL' },
+  { when: 'Jan 2026 – present', what: 'Volunteer and Event Photographer', where: 'WordPress Philippines', note: 'Attendee in 2025' },
+  { when: 'Sep 2025 – Jan 2026', what: 'HR Assistant', where: 'Radiant Force Human Resources', note: 'Started as an OJT trainee' },
+  { when: '2025', what: 'Graduated BS Information Technology', where: 'Access Computer College', note: 'Studied 2021 to 2025' },
+  { when: 'Mar 2025', what: 'WOH Attendance System went live', where: 'Word of Hope Caloocan', note: 'Built end to end · in use every Sunday' },
+  { when: 'Jan 2024 – Jun 2024', what: 'Service Crew (working student)', where: 'Jollibee Foods Corp.' },
+]
+
+/**
+ * The approval flow of the Month-End Closing system, as the roles actually use it.
+ * Shown on the home page as the signature element. No amounts, no company data.
+ */
+export interface ApprovalStep {
+  key: string
+  status: string
+  actor: string
+  action: string
+  checks?: string[]
+}
+
+export const APPROVAL_FLOW: ApprovalStep[] = [
+  {
+    key: 'submit',
+    status: 'Submitted',
+    actor: 'Business Unit supervisor',
+    action: 'Enters or uploads the adjustment. The system checks it before it can be sent.',
+    checks: ['Required fields complete', 'Debit equals credit', 'No duplicate entry'],
+  },
+  {
+    key: 'review',
+    status: 'Reviewed',
+    actor: 'Business Unit manager',
+    action: 'Reviews the entry, then approves or rejects it.',
+  },
+  {
+    key: 'approve',
+    status: 'Approved and posted',
+    actor: 'Financial Reporting manager',
+    action: 'Gives final approval and posts the balances to the accounting system in one click.',
+  },
+  {
+    key: 'reverse',
+    status: 'Reversed',
+    actor: 'System',
+    action: 'Creates the reversing entry for the first day of the next month when one is needed.',
+  },
+]

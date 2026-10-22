@@ -1,28 +1,57 @@
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono, Playfair_Display } from 'next/font/google'
+import { IBM_Plex_Sans, IBM_Plex_Mono, Newsreader } from 'next/font/google'
 import './globals.css'
 import PortfolioLayout from '@/components/layout/PortfolioLayout'
 import { getProjects } from '@/lib/getProjects'
+import { PORTFOLIO_IDENTITY, SKILL_GROUPS } from '@/lib/portfolio-config'
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+const plexSans = IBM_Plex_Sans({
+  variable: '--font-plex-sans',
   subsets: ['latin'],
+  weight: ['400', '500', '600'],
 })
 
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
+const plexMono = IBM_Plex_Mono({
+  variable: '--font-plex-mono',
   subsets: ['latin'],
+  weight: ['400', '500', '600'],
 })
 
-const playfair = Playfair_Display({
-  variable: '--font-playfair',
+const newsreader = Newsreader({
+  variable: '--font-newsreader',
   subsets: ['latin'],
-  weight: ['400', '600', '700'],
+  style: ['normal', 'italic'],
 })
 
 export const metadata: Metadata = {
-  title: 'Ronie Pactol — Junior System Developer',
-  description: 'Portfolio of Ronie Pactol, a junior system developer building enterprise web applications.',
+  metadataBase: new URL('https://roniepactol.me'),
+  title: 'Ronie Pactol — Junior Full Stack Developer (Laravel, Vue.js)',
+  description:
+    'Junior Full Stack Developer in Quezon City, Philippines. Laravel, Vue.js, PHP and MySQL. Built the Month-End Closing system for Wilcon Depot Finance and the live WOH Attendance System. Available immediately.',
+}
+
+/**
+ * Structured data for search and applicant-tracking crawlers. Every value is
+ * read from the same config that renders the visible page, so the two cannot drift.
+ */
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: PORTFOLIO_IDENTITY.name,
+  jobTitle: 'Junior Full Stack Developer',
+  url: 'https://roniepactol.me/',
+  email: PORTFOLIO_IDENTITY.email,
+  telephone: PORTFOLIO_IDENTITY.phoneRaw,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Quezon City',
+    addressCountry: 'PH',
+  },
+  alumniOf: { '@type': 'CollegeOrUniversity', name: 'Access Computer College' },
+  knowsAbout: SKILL_GROUPS.flatMap((group) => group.items),
+  sameAs: PORTFOLIO_IDENTITY.externalLinks
+    .filter((link) => link.label === 'LinkedIn' || link.label === 'GitHub')
+    .map((link) => link.href),
 }
 
 export default function RootLayout({
@@ -35,9 +64,15 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} h-full antialiased`}
+      className={`${plexSans.variable} ${plexMono.variable} ${newsreader.variable} h-full antialiased`}
     >
       <body className="flex h-screen overflow-hidden">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(personJsonLd).replace(/</g, '\\u003c'),
+          }}
+        />
         <PortfolioLayout projects={projects}>
           {children}
         </PortfolioLayout>

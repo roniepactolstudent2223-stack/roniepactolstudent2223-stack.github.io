@@ -1,80 +1,39 @@
-'use client'
-
-import { useEffect, useRef } from 'react'
-import gsap from 'gsap'
+import Link from 'next/link'
 import { PORTFOLIO_IDENTITY } from '@/lib/portfolio-config'
 
+/**
+ * Hero. Built for a 10-second read on a phone:
+ *   1. who (name + city)            2. what (role as the H1)
+ *   3. one provable outcome         4. the one logistics fact HR needs (notice period)
+ * Plain server-rendered text, no animation, so it is readable the instant it paints.
+ */
 export default function Masthead() {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const headlineRef = useRef<HTMLHeadingElement>(null)
-  const ctaRefs = useRef<(HTMLAnchorElement | null)[]>([])
-
-  useEffect(() => {
-    const el = containerRef.current
-    if (!el) return
-
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
-
-      tl.fromTo(
-        el.querySelector('[data-eyebrow]'),
-        { y: 16, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.5 }
-      )
-        .fromTo(
-          el.querySelectorAll('[data-word]'),
-          { y: 40, opacity: 0, rotateX: -20 },
-          { y: 0, opacity: 1, rotateX: 0, duration: 0.65, stagger: 0.06 },
-          '-=0.25'
-        )
-        .fromTo(
-          el.querySelector('[data-line]'),
-          { scaleX: 0, transformOrigin: 'left center' },
-          { scaleX: 1, duration: 0.6, ease: 'expo.out' },
-          '-=0.3'
-        )
-        .fromTo(
-          el.querySelector('[data-subtext]'),
-          { y: 20, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.6 },
-          '-=0.35'
-        )
-    }, containerRef)
-
-    return () => ctx.revert()
-  }, [])
-
-  const words = PORTFOLIO_IDENTITY.orientation.headline.split(' ')
+  const { role, stackLine, outcome, notice } = PORTFOLIO_IDENTITY.orientation
 
   return (
-    <header className="min-h-[46vh] px-6 pt-12 pb-10 flex items-center">
-      <div className="max-w-4xl" ref={containerRef}>
-        <p
-          data-eyebrow
-          className="mb-5 font-mono text-xs font-semibold uppercase tracking-[0.12em] text-neutral-500"
-        >
-          Wilcon Depot, Inc. · Laravel &amp; Vue.js · BSIT 2025
+    <header className="px-6 pb-12 pt-10 sm:pb-16 sm:pt-14">
+      <div className="max-w-3xl">
+        <p className="ledger-figures flex flex-wrap justify-between gap-x-6 gap-y-1 text-xs uppercase tracking-[0.08em] text-ink-soft">
+          <span>{PORTFOLIO_IDENTITY.name} · Quezon City, PH</span>
+          <span>{notice}</span>
         </p>
+        <div className="rule-double mt-3" aria-hidden="true" />
 
-        <h1
-          ref={headlineRef}
-          className="font-serif text-5xl font-bold leading-[1.1] tracking-tight text-neutral-900 sm:text-6xl flex flex-wrap gap-x-3 gap-y-1"
-        >
-          {words.map((word, idx) => (
-            <span key={idx} data-word className="inline-block">
-              {word}
-            </span>
-          ))}
+        <h1 className="mt-8 font-serif text-[2.5rem] font-medium leading-[1.08] tracking-tight text-ink sm:text-6xl">
+          {role}
         </h1>
+        <p className="ledger-figures mt-3 text-sm text-ink-soft">{stackLine}</p>
 
-        {/* Accent underline */}
-        <div data-line className="mt-6 h-0.5 w-20 bg-neutral-900" />
+        <p className="mt-8 max-w-xl text-lg leading-relaxed text-ink">{outcome}</p>
 
-        <p
-          data-subtext
-          className="mt-6 max-w-xl text-base sm:text-lg leading-relaxed text-neutral-600"
-        >
-          {PORTFOLIO_IDENTITY.orientation.subtext}
+        <p className="mt-6">
+          <Link
+            href="#approval-trail"
+            className="inline-flex items-center gap-2 text-[15px] text-ink underline decoration-rule underline-offset-4 transition-colors hover:decoration-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ledger"
+          >
+            See how it works
+            <span aria-hidden="true">↓</span>
+          </Link>
         </p>
       </div>
     </header>

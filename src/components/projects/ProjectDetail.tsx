@@ -132,110 +132,110 @@ const ATS_DATA: Record<string, ProjectAtsData> = {
   },
   'wilcon-collection-deposit-report': {
     summary:
-      'Modified the Collection and Deposit Report in Wilcon\'s WBI Reports and Omnibus systems so the Treasury Department can trace collections down to individual checks, filter unreconciled records correctly, and export reports for offline review.',
-    stackSummary: 'Laravel, Vue.js, PHP, MySQL',
+      'Financial reporting enhancement for Wilcon Depot\'s Treasury Department. Upgraded the daily Collection and Deposit reporting workflow by transforming static financial figures into interactive transaction drill-downs, separating unreconciled cash from check records, adding nationwide multi-branch tracking, and enabling one-click PDF and Excel offline reporting.',
+    stackSummary: 'Laravel, Vue.js, PHP, MySQL, Financial Reporting',
     bullets: [
       {
-        title: 'Check drill-down',
+        title: 'Interactive Check Drill-Down',
         description:
-          'Made report amounts clickable so Treasury staff can open the remittance, customer, issuing bank, check number, date, and amount of each check directly from the report.',
+          'Transformed static financial totals into clickable elements. Treasury users can click any check amount on the dashboard to immediately inspect individual check details — including customer name, issuing bank, check number, date, and remittance breakdown.',
       },
       {
-        title: 'Cash and check filtering',
+        title: 'Accurate Cash & Check Filtering',
         description:
-          'Separated unreconciled cash and check records in the filter logic so each view only shows its own transactions, with no overlap between the two.',
+          'Resolved transaction overlap in unreconciled accounts by establishing clear separation between cash and check records, ensuring finance staff only view transaction data relevant to what they are reconciling.',
       },
       {
-        title: 'PDF and Excel export',
+        title: 'Automated Accounting Date Alignment',
         description:
-          'Added export to PDF and Excel so users can download the report for offline analysis and filing.',
+          'Streamlined reconciliation by aligning transaction dates with accounting periods so valid check records automatically populate into the correct report columns without manual adjustments.',
       },
       {
-        title: 'Branch column',
+        title: 'Flexible Branch Tracking & Nationwide Default',
         description:
-          'Added a Branch column to the report and made it show all branches by default when no single branch is selected.',
+          'Added a dedicated Branch column to track store performance and configured the report to display data across all nationwide branches automatically whenever a specific location is not selected.',
       },
       {
-        title: 'Accounting date alignment',
+        title: 'One-Click PDF & Excel Exports',
         description:
-          'Aligned accounting dates so valid check transactions land in the correct section of the Collection and Deposit Report automatically.',
+          'Built flexible export options allowing finance and treasury officers to download complete reports in PDF or Excel spreadsheet formats for offline audits, reconciliation meetings, and record-keeping.',
       },
     ],
     metrics: [
-      { value: '5', label: 'Features Shipped' },
-      { value: 'PDF + XLSX', label: 'Export Formats' },
-      { value: 'All', label: 'Branches by Default' },
-      { value: 'Treasury', label: 'Department Users' },
+      { value: 'Treasury', label: 'Primary Department' },
+      { value: 'Drill-Down', label: 'Instant Check Details' },
+      { value: 'PDF + XLSX', label: 'Export Options' },
+      { value: 'Nationwide', label: 'All-Branch Coverage' },
     ],
     captions: [
       {
-        title: 'Collection and Deposit Report (before)',
-        description: 'Original report layout with no branch information.',
+        title: 'Collection and Deposit Report Dashboard',
+        description: 'Modernized financial dashboard displaying sales, collections, cash, and check summaries by date and branch.',
       },
       {
-        title: 'Branch column added',
-        description: 'New Branch column; defaults to all branches when none is selected.',
+        title: 'Branch Column Addition & Overview',
+        description: 'Dedicated branch tracking that automatically displays nationwide store transactions by default.',
       },
       {
-        title: 'Check detail view',
-        description: 'Clicking a check amount opens its remittance, customer, bank, check number, date, and amount, with PDF export.',
+        title: 'Clickable Check Detail View',
+        description: 'Drill-down modal displaying individual check information, bank details, and instant export options.',
       },
     ],
   },
   'wilcon-month-end-closing': {
     summary:
-      'Internal financial closing platform that replaces spreadsheets and chat apps for Wilcon\'s monthly accounting close. Shifts entry submission directly to account owners, blocks unbalanced or duplicate entries automatically, runs a two-step approval workflow, and posts approved balances to Infor M3 in one click.',
-    stackSummary: 'Laravel, Vue.js, PHP, MySQL, REST APIs',
+      'Enterprise financial automation platform built for Wilcon Depot\'s Financial Reporting Department. Replaces fragmented spreadsheets, emails, and chat threads with a centralized, automated closing pipeline. Distributes journal entry adjustments directly to Business Unit owners, prevents math and duplicate errors through automated validation, streamlines multi-tier managerial approvals, and automates next-month reversing entries with real-time General Ledger balance tracking.',
+    stackSummary: 'Laravel, Vue.js, PHP, MySQL, Financial Workflow Automation',
     bullets: [
       {
-        title: 'Automatic COA Setup',
+        title: 'Distributed Entry & Decentralized Ownership',
         description:
-          'Pulls Chart of Accounts (COA) data directly from Infor M3 so account lists, access groups, and mandatory field rules stay current without manual maintenance.',
+          'Eliminated the bottleneck of the central finance team manually collating hundreds of spreadsheet working papers by shifting direct data entry and file imports to individual Business Unit supervisors.',
       },
       {
-        title: 'Error-Proof Submission',
+        title: 'Strict Automated Validation & Zero-Error Submission',
         description:
-          'Supervisors upload or enter journal adjustments directly into the platform. Validation blocks submissions with missing mandatory fields, unbalanced amounts, or duplicate entries.',
+          'Engineered automatic validation checks that block submission if debit and credit totals are unbalanced (Net Amount ≠ 0), mandatory accounting fields are incomplete, or duplicate entries exist across business units.',
       },
       {
-        title: 'Two-Step Approval & One-Click ERP Posting',
+        title: 'Role-Based Multi-Tier Approval Workflow',
         description:
-          'Business Unit Managers review and approve entries first; Finance Managers give final approval and push balanced data into Infor M3 with one click.',
+          'Implemented a structured approval chain: Business Unit Supervisors submit entries → Business Unit Managers review and verify → Financial Reporting Managers give final approval with batch posting capabilities.',
       },
       {
-        title: 'Automated Next-Month Reversals',
+        title: 'Automated Next-Month Reversing Entries',
         description:
-          'When an entry requires reversal, the system automatically generates the reversing entry scheduled for the first day of the following month.',
+          'Eliminated manual re-entry for accruals and temporary adjustments by automatically generating reciprocal reversing entries (debit/credit swap) scheduled for the 1st day of the following month.',
       },
       {
-        title: 'Live GL Balance & Status Tracking',
+        title: 'Real-Time General Ledger Balance Comparison',
         description:
-          'Central dashboard tracks submission progress across business units, monitors rejection rates, and displays unadjusted, posted, and projected GL balances in real time.',
+          'Built a side-by-side reconciliation dashboard displaying unadjusted, posted adjustment, projected, and system balances, complete with an unadjusted balance lock feature during closing.',
       },
       {
-        title: 'Permanent Audit Log',
+        title: 'Audit Trail & Closing Status Dashboard',
         description:
-          'Records every action in an immutable history tab showing who submitted, approved, or rejected each entry and when.',
+          'Provides visual status tracking (Submitted, Pending Approval, Completed) across all business units, alongside an immutable activity history log recording all submissions, reviews, rejections, and approvals.',
       },
     ],
     metrics: [
-      { value: '2-Step', label: 'BU → Finance Approval' },
-      { value: '1-Click', label: 'Infor M3 Posting' },
-      { value: 'Auto', label: 'Next-Month Reversals' },
-      { value: 'Real-Time', label: 'GL Balance Tracking' },
+      { value: 'Multi-Tier', label: 'Role-Based Approval' },
+      { value: '100% Validated', label: 'Balanced Net Entries' },
+      { value: 'Auto-Reverse', label: 'Next-Month Accruals' },
+      { value: 'Real-Time', label: 'GL Reconciliation' },
     ],
     captions: [
       {
-        title: 'Closing Status Summary Dashboard',
-        description: 'Tracks period closing status across BU Head approval, Finance review, rejections, and entries posted to Infor M3.',
+        title: 'Closing Progress & Status Dashboard',
+        description: 'Visual status breakdown tracking submissions, reviews, and completion rates across all business units.',
       },
       {
-        title: 'Chart of Accounts (COA) Master File',
-        description: 'Account setup synced from accounting software with access group assignments and mandatory field rules.',
+        title: 'Account Master File & Access Configuration',
+        description: 'Centralized account directory defining team assignments, active statuses, and mandatory field rules.',
       },
       {
-        title: 'Live GL Balance Display',
-        description: 'Real-time comparison of unadjusted balances, posted/unposted adjustments, projected balances, and system balances.',
+        title: 'Side-by-Side GL Balance Reconciliation',
+        description: 'Real-time ledger comparison showing unadjusted balances, posted adjustments, and projected closing balances.',
       },
     ],
   },
