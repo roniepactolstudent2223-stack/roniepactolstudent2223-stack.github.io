@@ -18,30 +18,33 @@ interface ContextPanelProps {
   currentProject?: Project
 }
 
-const SYSTEM_CARDS = [
+const ENTERPRISE_SYSTEMS = [
   {
     slug: 'wilcon-month-end-closing',
     title: 'Month-End Closing System',
-    org: 'Wilcon Depot · Finance',
+    dept: 'Finance & Accounting',
     logo: '/logos/wilcon.png',
   },
   {
     slug: 'wilcon-collection-deposit-report',
     title: 'Collection & Deposit Report',
-    org: 'Wilcon Depot · Treasury',
+    dept: 'Treasury Dept',
     logo: '/logos/wilcon.png',
-  },
-  {
-    slug: 'woh-attendance-system',
-    title: 'WOH QR Attendance System',
-    org: 'Word of Hope Caloocan',
-    badge: 'WOH',
   },
   {
     slug: 'wilcon-enterprise-systems',
     title: 'Enterprise ERP Workflows',
-    org: 'Wilcon Depot · Internal',
+    dept: 'Internal Systems',
     logo: '/logos/wilcon.png',
+  },
+]
+
+const SOLO_SYSTEMS = [
+  {
+    slug: 'woh-attendance-system',
+    title: 'WOH QR Attendance System',
+    dept: 'Word of Hope · Live Kiosk',
+    badge: 'WOH',
   },
 ]
 
@@ -72,7 +75,6 @@ export default function ContextPanel({ projects, currentProject }: ContextPanelP
     <aside className="sticky top-0 h-screen overflow-y-auto bg-paper-deep/25 px-6 py-7 space-y-5">
       {/* 1. Prominent Visual Resume + Profiles + Direct Contact Hub */}
       <div className="bg-paper-deep/65 p-4 space-y-3.5">
-        {/* Highlighted Resume Action */}
         <a
           href={PORTFOLIO_IDENTITY.resumeDocUrl}
           target="_blank"
@@ -162,66 +164,108 @@ export default function ContextPanel({ projects, currentProject }: ContextPanelP
         </div>
       </div>
 
-      {/* 2. Quick Jump to Systems Built */}
-      <div>
-        <div className="mb-2.5 flex items-baseline justify-between px-1">
-          <h2 className="text-xs font-medium text-ink">Systems Built</h2>
-          <Link
-            href="/projects"
-            className="ledger-figures text-[11px] text-ink-soft hover:text-ink"
-          >
-            All →
-          </Link>
-        </div>
+      {/* 2. Categorized Systems Switcher */}
+      <div className="space-y-4">
+        {/* Enterprise Systems (Wilcon Depot) */}
+        <div>
+          <div className="mb-2 flex items-center justify-between px-1">
+            <span className="ledger-figures text-[11px] font-medium text-ink">
+              Wilcon Depot · Enterprise
+            </span>
+          </div>
 
-        <div className="space-y-1.5">
-          {SYSTEM_CARDS.map((item) => {
-            const isCurrent = currentProject?.slug === item.slug
-            return (
-              <Link
-                key={item.slug}
-                href={`/projects/${item.slug}`}
-                className={`group flex items-center gap-3 p-2.5 transition-colors ${
-                  isCurrent
-                    ? 'bg-ink text-paper'
-                    : 'bg-paper-deep/50 hover:bg-paper-deep'
-                }`}
-              >
-                {item.logo ? (
-                  <div className="flex h-8 w-8 shrink-0 items-center justify-center bg-white p-1.5">
+          <div className="space-y-1.5">
+            {ENTERPRISE_SYSTEMS.map((item) => {
+              const isCurrent = currentProject?.slug === item.slug
+              return (
+                <Link
+                  key={item.slug}
+                  href={`/projects/${item.slug}`}
+                  className={`group flex items-center gap-3 p-2.5 transition-colors ${
+                    isCurrent
+                      ? 'bg-ink text-paper'
+                      : 'bg-paper-deep/50 hover:bg-paper-deep'
+                  }`}
+                >
+                  <div className="flex h-7 w-7 shrink-0 items-center justify-center bg-white p-1">
                     <img
                       src={item.logo}
-                      alt={item.org}
+                      alt="Wilcon Depot"
                       className="h-full w-full object-contain"
                     />
                   </div>
-                ) : (
-                  <div className="ledger-figures flex h-8 w-8 shrink-0 items-center justify-center bg-paper text-[10px] font-medium text-ink">
+
+                  <div className="min-w-0 flex-1">
+                    <p
+                      className={`truncate text-xs font-medium transition-colors ${
+                        isCurrent
+                          ? 'text-paper'
+                          : 'text-ink group-hover:text-ledger'
+                      }`}
+                    >
+                      {item.title}
+                    </p>
+                    <p
+                      className={`truncate text-[10px] ${
+                        isCurrent ? 'text-paper/75' : 'text-ink-soft'
+                      }`}
+                    >
+                      {item.dept}
+                    </p>
+                  </div>
+                </Link>
+              )
+            })}
+          </div>
+        </div>
+
+        {/* Independent Production System */}
+        <div>
+          <div className="mb-2 flex items-center justify-between px-1">
+            <span className="ledger-figures text-[11px] font-medium text-ink">
+              Solo Live System
+            </span>
+          </div>
+
+          <div className="space-y-1.5">
+            {SOLO_SYSTEMS.map((item) => {
+              const isCurrent = currentProject?.slug === item.slug
+              return (
+                <Link
+                  key={item.slug}
+                  href={`/projects/${item.slug}`}
+                  className={`group flex items-center gap-3 p-2.5 transition-colors ${
+                    isCurrent
+                      ? 'bg-ink text-paper'
+                      : 'bg-paper-deep/50 hover:bg-paper-deep'
+                  }`}
+                >
+                  <div className="ledger-figures flex h-7 w-7 shrink-0 items-center justify-center bg-paper text-[10px] font-medium text-ink">
                     {item.badge}
                   </div>
-                )}
 
-                <div className="min-w-0 flex-1">
-                  <p
-                    className={`truncate text-xs font-medium transition-colors ${
-                      isCurrent
-                        ? 'text-paper'
-                        : 'text-ink group-hover:text-ledger'
-                    }`}
-                  >
-                    {item.title}
-                  </p>
-                  <p
-                    className={`mt-0.5 truncate text-[11px] ${
-                      isCurrent ? 'text-paper/75' : 'text-ink-soft'
-                    }`}
-                  >
-                    {item.org}
-                  </p>
-                </div>
-              </Link>
-            )
-          })}
+                  <div className="min-w-0 flex-1">
+                    <p
+                      className={`truncate text-xs font-medium transition-colors ${
+                        isCurrent
+                          ? 'text-paper'
+                          : 'text-ink group-hover:text-ledger'
+                      }`}
+                    >
+                      {item.title}
+                    </p>
+                    <p
+                      className={`truncate text-[10px] ${
+                        isCurrent ? 'text-paper/75' : 'text-ink-soft'
+                      }`}
+                    >
+                      {item.dept}
+                    </p>
+                  </div>
+                </Link>
+              )
+            })}
+          </div>
         </div>
       </div>
 

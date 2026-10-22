@@ -67,6 +67,11 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
     }
   }, [lightboxIndex, images.length])
 
+  const stackText = (spec?.stack || project.tags).join(', ')
+  const roleLabel = spec?.roleLabel || project.role
+  const summaryLine = spec?.summaryLine || indexMeta?.result || ''
+  const overlineLabel = spec?.overline || indexMeta?.groupLabel || ''
+
   return (
     <article className="min-h-screen max-w-4xl px-6 py-10 sm:py-14">
       <nav aria-label="Case study navigation" className="mb-6 flex flex-wrap items-center justify-between gap-4 border-b border-rule/60 pb-3">
@@ -84,130 +89,150 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
         </Link>
       </nav>
 
-      {/* 1. COMPACT HEADER + INTERACTIVE HERO VISUAL STAGE */}
-      <header className="space-y-5">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            {indexMeta && (
-              <p className="ledger-figures text-xs font-medium text-ledger">
-                {indexMeta.groupLabel} · {indexMeta.usedBy}
-              </p>
-            )}
-            <h1 className="mt-1 font-serif text-3xl font-medium leading-tight text-ink sm:text-4xl">
+      {/* 1. UNIFIED HERO STAGE: Screenshot in Back + Progressive Blurred Bottom Overlay */}
+      <header className="space-y-6">
+        <div className="group relative w-full overflow-hidden rounded-xl bg-[#0b0d13] shadow-lg ring-1 ring-ink/10">
+          {images.length > 1 && (
+            <div
+              className="absolute right-3.5 top-3.5 z-30 flex flex-wrap items-center gap-1 rounded-lg bg-[#0b0d13]/80 p-1 backdrop-blur-md ring-1 ring-white/15"
+              role="tablist"
+            >
+              {images.map((src, idx) => {
+                const isActive = idx === activeScreenIdx
+                return (
+                  <button
+                    key={src}
+                    type="button"
+                    onClick={() => setActiveScreenIdx(idx)}
+                    className={`ledger-figures cursor-pointer rounded-md px-2.5 py-1 text-[11px] font-medium transition-all ${
+                      isActive
+                        ? 'bg-white text-[#0b0d13] shadow-2xs'
+                        : 'text-white/70 hover:bg-white/10 hover:text-white'
+                    }`}
+                  >
+                    {idx + 1}
+                  </button>
+                )
+              })}
+            </div>
+          )}
+
+          <div
+            onClick={() => setLightboxIndex(activeScreenIdx)}
+            className="relative h-[430px] w-full cursor-pointer overflow-hidden bg-[#0b0d13] px-4 pt-5 sm:h-[500px] sm:px-8 sm:pt-7"
+          >
+            <div className="h-full w-full overflow-hidden rounded-t-lg bg-white shadow-2xl ring-1 ring-white/15">
+              <img
+                src={images[activeScreenIdx]}
+                alt={activeCaption.title}
+                className={`h-full w-full transition-transform duration-700 group-hover:scale-[1.02] ${
+                  isUiScreenshot ? 'object-cover object-top' : 'object-cover object-center'
+                }`}
+              />
+            </div>
+          </div>
+
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-[58%] backdrop-blur-[6px] [mask-image:linear-gradient(to_top,black_55%,transparent_100%)]"
+          />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-[72%] bg-gradient-to-t from-[#0b0d13] via-[#0b0d13]/88 to-transparent"
+          />
+
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 flex flex-col items-start justify-end p-5 sm:p-8">
+            <span className="ledger-figures text-[11px] font-medium uppercase tracking-[0.14em] text-white/75">
+              {overlineLabel}
+            </span>
+
+            <h1 className="mt-1 font-serif text-3xl font-medium leading-[1.06] tracking-tight text-white sm:text-4xl md:text-[2.65rem]">
               {project.title}
             </h1>
-            {spec && (
-              <p className="ledger-figures mt-0.5 text-xs text-ink-soft">
-                {spec.architecture}
-              </p>
-            )}
-          </div>
 
-          {project.url && (
-            <a
-              href={project.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="ledger-figures inline-flex shrink-0 items-center gap-1.5 bg-ink px-4 py-2 text-xs font-medium text-paper transition-colors hover:bg-ledger"
-            >
-              {project.slug === 'woh-attendance-system' ? 'Open Live Kiosk ↗' : 'Visit Live Link ↗'}
-            </a>
-          )}
+            <p className="mt-2 max-w-2xl text-sm leading-snug text-white/90 sm:text-[15px]">
+              {summaryLine}
+            </p>
+
+            <p className="ledger-figures mt-2 text-xs text-white/65">
+              {roleLabel} &nbsp;·&nbsp; {stackText}
+            </p>
+
+            <div className="pointer-events-auto mt-4 flex flex-wrap items-center gap-2.5">
+              <button
+                type="button"
+                onClick={() => setLightboxIndex(activeScreenIdx)}
+                className="inline-flex cursor-pointer items-center gap-2 rounded-lg bg-white/15 px-4 py-2 text-xs font-medium text-white ring-1 ring-white/15 backdrop-blur-md transition-all hover:bg-white hover:text-[#0b0d13]"
+              >
+                Enlarge screen ({activeScreenIdx + 1}/{images.length})
+              </button>
+
+              {project.url && (
+                <a
+                  href={project.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="ledger-figures inline-flex items-center gap-1 rounded-lg bg-ledger/85 px-3.5 py-2 text-xs font-medium text-white ring-1 ring-white/15 backdrop-blur-md transition-all hover:bg-ledger"
+                >
+                  {project.slug === 'woh-attendance-system' ? 'Open live kiosk ↗' : 'Visit live link ↗'}
+                </a>
+              )}
+            </div>
+          </div>
         </div>
 
-        {/* Interactive Hero Screen Showcase */}
-        {images.length > 0 && (
-          <div className="bg-paper-deep/55 p-3 sm:p-4">
-            <button
-              type="button"
-              onClick={() => setLightboxIndex(activeScreenIdx)}
-              className="group relative block w-full cursor-pointer overflow-hidden border border-rule/80 bg-white shadow-sm"
-            >
-              <div className="relative aspect-[16/9] w-full overflow-hidden bg-white">
-                <img
-                  src={images[activeScreenIdx]}
-                  alt={activeCaption.title}
-                  className={`h-full w-full transition-transform duration-500 group-hover:scale-[1.02] ${
-                    isUiScreenshot ? 'object-contain p-1 pb-9' : 'object-cover'
-                  }`}
-                />
-
-                <div className="inset-x-0 bottom-0 absolute flex items-center justify-between gap-3 bg-ink/82 px-3.5 py-2 text-paper backdrop-blur-md">
-                  <span className="truncate text-xs font-medium text-paper">
-                    {activeCaption.title}
-                  </span>
-                  <span className="ledger-figures shrink-0 text-[11px] text-paper/85">
-                    Enlarge {activeScreenIdx + 1}/{images.length}
-                  </span>
-                </div>
-              </div>
-            </button>
-
-            {images.length > 1 && (
-              <div className="mt-2.5 grid grid-cols-3 gap-2">
-                {images.map((src, idx) => {
-                  const active = idx === activeScreenIdx
-                  const cap = ats?.captions[idx]?.title || `Screen ${idx + 1}`
-                  return (
-                    <button
-                      key={src}
-                      type="button"
-                      onClick={() => setActiveScreenIdx(idx)}
-                      className={`flex cursor-pointer items-center gap-2.5 p-2 text-left transition-all ${
-                        active
-                          ? 'bg-ink text-paper shadow-2xs'
-                          : 'bg-paper text-ink-soft hover:text-ink'
-                      }`}
-                    >
-                      <div className="h-10 w-16 shrink-0 overflow-hidden bg-white">
-                        <img
-                          src={src}
-                          alt=""
-                          className={`h-full w-full ${
-                            isUiScreenshot ? 'object-contain' : 'object-cover'
-                          }`}
-                        />
-                      </div>
-                      <span className="ledger-figures truncate text-xs font-medium">
-                        {cap}
-                      </span>
-                    </button>
-                  )
-                })}
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* Stack & Modules Built Strip */}
-        <div className="bg-paper-deep/35 p-4 sm:p-5 space-y-3.5">
-          <ul className="flex flex-wrap items-center gap-1.5">
-            {(spec?.stack || project.tags).map((tag) => (
+        {/* Concise Technical Modules Strip */}
+        {spec && (
+          <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-4">
+            {spec.modules.map((mod) => (
               <li
-                key={tag}
-                className="ledger-figures bg-ink px-2.5 py-1 text-xs font-medium text-paper"
+                key={mod}
+                className="bg-paper-deep/50 px-3.5 py-2.5 text-xs font-medium text-ink"
               >
-                {tag}
+                {mod}
               </li>
             ))}
           </ul>
-
-          {spec && (
-            <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-4">
-              {spec.modules.map((mod) => (
-                <li
-                  key={mod}
-                  className="bg-paper px-3 py-2 text-xs font-medium text-ink shadow-2xs"
-                >
-                  {mod}
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
+        )}
       </header>
 
-      {/* 2. TECHNICAL ARCHITECTURE DIAGRAM */}
+      {/* 2. ALL SCREENS GALLERY */}
+      {images.length > 1 && (
+        <section className="mt-10 border-t border-rule/60 pt-8">
+          <h2 className="mb-4 font-serif text-2xl font-medium text-ink">
+            All Screens
+          </h2>
+
+          <div className="grid gap-4 sm:grid-cols-3">
+            {images.map((src, idx) => {
+              const cap = ats?.captions[idx]?.title || `Screen ${idx + 1}`
+              return (
+                <button
+                  key={src}
+                  type="button"
+                  onClick={() => setLightboxIndex(idx)}
+                  className="group relative cursor-pointer overflow-hidden rounded-lg bg-[#0b0d13] p-2 text-left shadow-sm transition-transform hover:-translate-y-0.5"
+                >
+                  <div className="aspect-[16/10] w-full overflow-hidden rounded bg-white">
+                    <img
+                      src={src}
+                      alt={cap}
+                      className={`h-full w-full ${
+                        isUiScreenshot ? 'object-contain' : 'object-cover'
+                      }`}
+                    />
+                  </div>
+                  <p className="ledger-figures mt-2 truncate px-1 text-xs font-medium text-white/90">
+                    {cap}
+                  </p>
+                </button>
+              )
+            })}
+          </div>
+        </section>
+      )}
+
+      {/* 3. TECHNICAL ARCHITECTURE DIAGRAM */}
       {(project.slug === 'woh-attendance-system' || project.slug === 'wilcon-enterprise-systems') && (
         <section className="mt-10 border-t border-rule/60 pt-8 space-y-8">
           <ArchitectureDiagram slug={project.slug} />
@@ -215,7 +240,7 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
         </section>
       )}
 
-      {/* 3. OTHER SYSTEMS STRIP */}
+      {/* 4. OTHER SYSTEMS STRIP */}
       <section aria-label="Other projects" className="mt-12 border-t border-rule/60 pt-8">
         <h2 className="mb-4 font-serif text-xl font-medium text-ink">
           Other Systems
@@ -244,7 +269,7 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
                 </div>
 
                 <span className="ledger-figures mt-3 inline-block text-xs font-medium text-ink">
-                  View →
+                  Read case study →
                 </span>
               </Link>
             )
@@ -262,7 +287,7 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="relative max-h-[92vh] w-full max-w-5xl overflow-y-auto bg-paper p-4 shadow-2xl"
+            className="relative max-h-[92vh] w-full max-w-5xl overflow-y-auto rounded-xl bg-paper p-4 shadow-2xl"
           >
             <div className="mb-3 flex items-center justify-between pb-2.5">
               <div>
@@ -276,7 +301,7 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
               <button
                 type="button"
                 onClick={() => setLightboxIndex(null)}
-                className="ledger-figures cursor-pointer bg-ink px-3 py-1 text-xs font-medium text-paper hover:bg-ink/85"
+                className="ledger-figures cursor-pointer rounded bg-ink px-3 py-1 text-xs font-medium text-paper hover:bg-ink/85"
                 aria-label="Close image preview"
               >
                 Close
@@ -293,13 +318,13 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
               <button
                 type="button"
                 onClick={() => setHideOverlayText((prev) => !prev)}
-                className="ledger-figures absolute right-2.5 top-2.5 cursor-pointer bg-ink/70 px-2.5 py-1 text-[10px] text-paper backdrop-blur-md hover:bg-ink"
+                className="ledger-figures absolute right-2.5 top-2.5 cursor-pointer rounded bg-ink/70 px-2.5 py-1 text-[10px] text-paper backdrop-blur-md hover:bg-ink"
               >
                 {hideOverlayText ? 'Show label' : 'Hide label'}
               </button>
 
               {!hideOverlayText && ats?.captions[lightboxIndex]?.title && (
-                <div className="absolute inset-x-3 bottom-2.5 mx-auto max-w-xl bg-ink/80 px-3.5 py-2 text-paper backdrop-blur-md">
+                <div className="absolute inset-x-3 bottom-2.5 mx-auto max-w-xl rounded bg-ink/80 px-3.5 py-2 text-paper backdrop-blur-md">
                   <p className="text-xs font-medium text-paper">
                     {ats.captions[lightboxIndex].title}
                   </p>
@@ -314,7 +339,7 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
                     key={src}
                     type="button"
                     onClick={() => setLightboxIndex(idx)}
-                    className={`ledger-figures cursor-pointer px-3 py-1 text-xs ${
+                    className={`ledger-figures cursor-pointer rounded px-3 py-1 text-xs ${
                       idx === lightboxIndex
                         ? 'bg-ink text-paper'
                         : 'bg-paper-deep text-ink hover:bg-paper-deep/75'
