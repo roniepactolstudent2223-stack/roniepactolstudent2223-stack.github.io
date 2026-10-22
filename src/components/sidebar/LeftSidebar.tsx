@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { SECTIONS } from '@/lib/portfolio-config'
 import SidebarIdentity from '@/components/sidebar/SidebarIdentity'
-import SidebarHiringZone from '@/components/sidebar/SidebarHiringZone'
 
 export default function LeftSidebar() {
   const pathname = usePathname()
@@ -24,38 +23,32 @@ export default function LeftSidebar() {
       className="sticky top-0 flex h-screen flex-col border-r border-rule/60 bg-paper-deep/25"
       aria-label="Portfolio navigation"
     >
-      <div className="flex h-full flex-col justify-between px-6 py-7">
-        <div className="space-y-6">
-          <SidebarIdentity />
+      <div className="flex h-full flex-col px-6 py-7">
+        <SidebarIdentity />
 
-          <nav aria-label="Main">
-            <ul className="space-y-0.5">
-              {SECTIONS.map((section) => {
-                const isActive = activeSection === section.id
+        <nav aria-label="Main" className="mt-7">
+          <ul className="space-y-1">
+            {SECTIONS.map((section) => {
+              const isActive = activeSection === section.id
 
-                return (
-                  <li key={section.id}>
-                    <Link
-                      href={section.href}
-                      aria-current={isActive ? 'page' : undefined}
-                      className={`block px-3 py-2 text-sm transition-colors ${
-                        isActive
-                          ? 'bg-paper-deep font-medium text-ink'
-                          : 'text-ink-soft hover:bg-paper-deep/50 hover:text-ink'
-                      }`}
-                    >
-                      {section.label}
-                    </Link>
-                  </li>
-                )
-              })}
-            </ul>
-          </nav>
-        </div>
-
-        <div className="pt-4">
-          <SidebarHiringZone />
-        </div>
+              return (
+                <li key={section.id}>
+                  <Link
+                    href={section.href}
+                    aria-current={isActive ? 'page' : undefined}
+                    className={`block px-3.5 py-2.5 text-sm transition-colors ${
+                      isActive
+                        ? 'bg-ink font-medium text-paper'
+                        : 'text-ink-soft hover:bg-paper-deep/65 hover:text-ink'
+                    }`}
+                  >
+                    {section.label}
+                  </Link>
+                </li>
+              )
+            })}
+          </ul>
+        </nav>
       </div>
     </aside>
   )
