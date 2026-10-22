@@ -5,14 +5,6 @@ import Link from 'next/link'
 import { PORTFOLIO_IDENTITY, PROJECT_INDEX } from '@/lib/portfolio-config'
 import CompanyLogo from '@/components/work/CompanyLogo'
 
-const PROJECT_COVERS: Record<string, string> = {
-  'wilcon-month-end-closing': '/wilcon-closing-status.png',
-  'wilcon-collection-deposit-report': '/wilcon-cdr-branch.png',
-  'wilcon-enterprise-systems': '/wilcon-workstation.webp',
-  'woh-attendance-system': '/woh-pilot.webp',
-  'wordpress-ph-community': '/wp-community-1.webp',
-}
-
 const PROJECT_TITLES: Record<string, string> = {
   'wilcon-month-end-closing': 'Month-End Closing System',
   'wilcon-collection-deposit-report': 'Collection & Deposit Report Modification',
@@ -249,47 +241,46 @@ export default function WorkPage() {
                   </div>
                 )}
 
-                {/* Connected Visual Case Study Cards */}
+                {/* Connected Case Study Ledger Cards (No duplicate image thumbnails) */}
                 {relatedSlugs.length > 0 && (
                   <div className="mt-6 border-t border-rule pt-4">
                     <p className="ledger-figures mb-3 text-xs uppercase tracking-[0.08em] text-ledger font-medium">
                       Connected Case Studies ({relatedSlugs.length})
                     </p>
                     <div className="grid gap-3 sm:grid-cols-3">
-                      {relatedSlugs.map((slug) => {
+                      {relatedSlugs.map((slug, cIdx) => {
                         const meta = PROJECT_INDEX.find((p) => p.slug === slug)
-                        const cover = PROJECT_COVERS[slug]
                         const title = PROJECT_TITLES[slug] || slug
                         return (
                           <div
                             key={slug}
-                            className="flex flex-col justify-between border border-rule bg-white p-2 shadow-2xs"
+                            className="flex flex-col justify-between border border-rule bg-white p-3.5 shadow-2xs"
                           >
                             <div>
-                              {cover && (
-                                <div className="relative aspect-[16/9] w-full overflow-hidden border border-rule/60 bg-white">
-                                  <img
-                                    src={cover}
-                                    alt={title}
-                                    loading="lazy"
-                                    className="h-full w-full object-cover"
-                                  />
-                                </div>
-                              )}
-                              <h4 className="mt-2 text-xs font-medium leading-snug text-ink">
+                              <div className="flex items-center justify-between border-b border-rule/70 pb-1.5">
+                                <span className="ledger-figures text-[10px] text-ledger font-medium">
+                                  Case Study 0{cIdx + 1}
+                                </span>
+                                {meta && (
+                                  <span className="ledger-figures text-[10px] text-ink-soft">
+                                    {meta.status}
+                                  </span>
+                                )}
+                              </div>
+                              <h4 className="mt-2 text-sm font-medium leading-snug text-ink">
                                 {title}
                               </h4>
                               {meta && (
-                                <p className="mt-1 line-clamp-2 text-[11px] leading-relaxed text-ink-soft">
+                                <p className="mt-1.5 text-xs leading-relaxed text-ink-soft">
                                   {meta.result}
                                 </p>
                               )}
                             </div>
 
-                            <div className="mt-2.5 border-t border-rule/60 pt-2">
+                            <div className="mt-3 border-t border-rule/60 pt-2">
                               <Link
                                 href={`/projects/${slug}`}
-                                className="ledger-figures inline-flex items-center gap-1 text-[11px] font-medium text-ink underline decoration-rule underline-offset-4 hover:decoration-ink"
+                                className="ledger-figures inline-flex items-center gap-1 text-xs font-medium text-ink underline decoration-rule underline-offset-4 hover:decoration-ink"
                               >
                                 View case study →
                               </Link>

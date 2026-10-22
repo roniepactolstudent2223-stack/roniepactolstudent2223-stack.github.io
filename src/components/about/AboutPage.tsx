@@ -1,6 +1,5 @@
 'use client'
 
-import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { PORTFOLIO_IDENTITY, SKILL_GROUPS, PROJECT_INDEX } from '@/lib/portfolio-config'
 
@@ -14,58 +13,15 @@ const PRIMARY_SKILLS = new Set([
   'Git',
 ])
 
-const GALLERY_PHOTOS = [
-  {
-    src: '/wilcon-workstation.webp',
-    tag: 'Enterprise Development · Wilcon Depot',
-    title: 'Dual-Monitor Developer Workstation',
-    caption: 'Building and testing Laravel and Vue.js finance systems at Wilcon Depot, Inc.',
-  },
-  {
-    src: '/woh-pilot.webp',
-    tag: 'Production System · Word of Hope',
-    title: 'QR Attendance Kiosk in Live Use',
-    caption: 'Solo-built church check-in kiosk and absentee follow-up system running every Sunday.',
-  },
-  {
-    src: '/wp-community-1.webp',
-    tag: 'Open-Source Community · Manila',
-    title: 'Software Freedom Day 2026 Manila',
-    caption: 'Volunteering as event photographer for the local open-source and WordPress community.',
-  },
-]
-
-const PROJECT_COVERS: Record<string, string> = {
-  'wilcon-month-end-closing': '/wilcon-closing-status.png',
-  'wilcon-collection-deposit-report': '/wilcon-cdr-branch.png',
-  'woh-attendance-system': '/woh-pilot.webp',
-  'wilcon-enterprise-systems': '/wilcon-workstation.webp',
-  'wordpress-ph-community': '/wp-community-1.webp',
-}
-
 const PROJECT_TITLES: Record<string, string> = {
   'wilcon-month-end-closing': 'Month-End Closing System',
   'wilcon-collection-deposit-report': 'Collection & Deposit Report Modification',
   'woh-attendance-system': 'WOH Attendance & Member Care System',
   'wilcon-enterprise-systems': 'Enterprise Web Apps & ERP Workflows',
-  'wordpress-ph-community': 'WordPress Philippines Community & Volunteering',
 }
 
 export default function AboutPage() {
-  const [zoomPhoto, setZoomPhoto] = useState<(typeof GALLERY_PHOTOS)[number] | null>(null)
-
-  useEffect(() => {
-    if (!zoomPhoto) return
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setZoomPhoto(null)
-    }
-    window.addEventListener('keydown', onKey)
-    document.body.style.overflow = 'hidden'
-    return () => {
-      window.removeEventListener('keydown', onKey)
-      document.body.style.overflow = ''
-    }
-  }, [zoomPhoto])
+  const softwareProjects = PROJECT_INDEX.filter((item) => item.kind === 'software')
 
   const facts = [
     { label: 'Target Role', value: 'Junior Full Stack Developer / Web Developer' },
@@ -80,8 +36,8 @@ export default function AboutPage() {
   return (
     <div className="px-6 py-10 sm:py-14">
       <div className="max-w-4xl space-y-12">
-        {/* 1. Split Hero: Bio + Framed Portrait Card */}
-        <header className="grid gap-8 border-b border-rule pb-10 sm:grid-cols-[1fr_15.5rem] sm:items-start">
+        {/* 1. Split Hero: Bio + Academic & Organization Ledger Card (No duplicate portrait on desktop) */}
+        <header className="grid gap-8 border-b border-rule pb-10 lg:grid-cols-[1fr_17rem] lg:items-start">
           <div>
             <div className="flex flex-wrap items-center gap-2">
               <span className="ledger-figures text-xs uppercase tracking-[0.08em] text-ink-soft">
@@ -130,89 +86,65 @@ export default function AboutPage() {
             </div>
           </div>
 
-          {/* Framed Portrait Card with Frosted-Blur Caption Bar */}
-          <div className="mx-auto w-full max-w-[15.5rem] sm:mx-0">
-            <div className="border border-rule bg-white p-2 shadow-xs">
-              <div className="relative aspect-[4/4.6] w-full overflow-hidden bg-paper-deep">
-                <img
-                  src="/Profile.webp"
-                  alt="Ronie Pactol"
-                  className="h-full w-full object-cover object-top"
-                />
-                <div className="absolute inset-x-0 bottom-0 border-t border-white/20 bg-ink/75 px-3 py-2 text-paper backdrop-blur-md">
-                  <p className="text-xs font-medium text-paper">{PORTFOLIO_IDENTITY.name}</p>
-                  <p className="ledger-figures text-[10px] text-paper/80">
-                    Quezon City · BSIT 2025
-                  </p>
-                </div>
+          {/* Right: Academic & Organization Verification Card */}
+          <div className="border border-rule bg-white p-4 shadow-xs">
+            <div className="flex items-center justify-between border-b border-rule pb-2.5">
+              <span className="ledger-figures text-[10px] font-medium uppercase tracking-[0.12em] text-ledger">
+                Verified Background
+              </span>
+              <span className="ledger-figures text-[10px] text-ink-soft">
+                2021–2026
+              </span>
+            </div>
+
+            <dl className="mt-3 divide-y divide-rule/70 text-xs">
+              <div className="py-2">
+                <dt className="ledger-figures text-[10px] uppercase tracking-[0.08em] text-ink-soft">
+                  Degree
+                </dt>
+                <dd className="mt-0.5 font-medium text-ink">
+                  BS Information Technology (2025)
+                </dd>
               </div>
-              <div className="mt-2 flex items-center justify-between border-t border-rule pt-2 px-1">
-                <div className="flex items-center gap-2">
-                  <img src="/logos/wilcon.png" alt="Wilcon Depot" className="h-4 w-auto object-contain" />
-                  <img src="/logos/wordpress.png" alt="WordPress PH" className="h-4 w-auto object-contain" />
-                  <img src="/logos/jollibee.png" alt="Jollibee" className="h-4 w-auto object-contain" />
-                </div>
-                <span className="ledger-figures text-[10px] text-ink-soft">Verified</span>
+              <div className="py-2">
+                <dt className="ledger-figures text-[10px] uppercase tracking-[0.08em] text-ink-soft">
+                  Enterprise Dev
+                </dt>
+                <dd className="mt-0.5 font-medium text-ink">
+                  Wilcon Depot, Inc. (6 Mos)
+                </dd>
               </div>
+              <div className="py-2">
+                <dt className="ledger-figures text-[10px] uppercase tracking-[0.08em] text-ink-soft">
+                  National Certificate
+                </dt>
+                <dd className="mt-0.5 font-medium text-ink">
+                  TESDA NC II · Computer Systems
+                </dd>
+              </div>
+              <div className="py-2">
+                <dt className="ledger-figures text-[10px] uppercase tracking-[0.08em] text-ink-soft">
+                  Community Role
+                </dt>
+                <dd className="mt-0.5 font-medium text-ink">
+                  WordPress PH Volunteer (2025–2026)
+                </dd>
+              </div>
+            </dl>
+
+            <div className="mt-3 flex items-center justify-between border-t border-rule pt-3">
+              <div className="flex items-center gap-2.5">
+                <img src="/logos/wilcon.png" alt="Wilcon Depot" className="h-4 w-auto object-contain" />
+                <img src="/logos/wordpress.png" alt="WordPress PH" className="h-4 w-auto object-contain" />
+                <img src="/logos/jollibee.png" alt="Jollibee" className="h-4 w-auto object-contain" />
+              </div>
+              <span className="ledger-figures text-[10px] text-ink-soft">Verified</span>
             </div>
           </div>
         </header>
 
-        {/* 2. Visual Photo Strip: At Work & In the Community */}
-        <section aria-labelledby="about-photos-heading">
-          <div className="mb-4 flex items-baseline justify-between">
-            <div>
-              <p className="ledger-figures text-xs uppercase tracking-[0.08em] text-ink-soft">
-                In Practice
-              </p>
-              <h2
-                id="about-photos-heading"
-                className="mt-1 font-serif text-2xl font-medium text-ink"
-              >
-                At Work &amp; In the Community
-              </h2>
-            </div>
-            <span className="ledger-figures text-xs text-ink-soft">
-              Click any photo to enlarge ⤢
-            </span>
-          </div>
-
-          <div className="grid gap-4 sm:grid-cols-3">
-            {GALLERY_PHOTOS.map((photo, idx) => (
-              <button
-                key={photo.src}
-                type="button"
-                onClick={() => setZoomPhoto(photo)}
-                className="group relative block cursor-pointer overflow-hidden border border-rule bg-white p-1.5 text-left shadow-xs transition-all hover:border-ink"
-              >
-                <div className="mb-1 flex items-center justify-between border-b border-rule px-1 pb-1">
-                  <span className="ledger-figures truncate text-[10px] text-ink-soft">
-                    0{idx + 1} · {photo.tag}
-                  </span>
-                  <span className="ledger-figures text-[10px] text-ledger font-medium">
-                    ⤢
-                  </span>
-                </div>
-
-                <div className="relative aspect-[16/10] w-full overflow-hidden bg-paper-deep">
-                  <img
-                    src={photo.src}
-                    alt={photo.title}
-                    loading="lazy"
-                    decoding="async"
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                  />
-                  <div className="absolute inset-x-0 bottom-0 border-t border-white/15 bg-ink/75 px-2.5 py-1.5 text-paper backdrop-blur-md">
-                    <p className="truncate text-xs font-medium text-paper">{photo.title}</p>
-                  </div>
-                </div>
-              </button>
-            ))}
-          </div>
-        </section>
-
-        {/* 3. Candidate Profile Ledger Table */}
-        <section aria-labelledby="profile-facts-heading" className="border-t border-rule pt-8">
+        {/* 2. Candidate Profile Ledger Table */}
+        <section aria-labelledby="profile-facts-heading">
           <p className="ledger-figures text-xs uppercase tracking-[0.08em] text-ink-soft">
             Quick Candidate Reference
           </p>
@@ -258,7 +190,7 @@ export default function AboutPage() {
           </dl>
         </section>
 
-        {/* 4. Technical Stack & Tools */}
+        {/* 3. Technical Stack & Tools */}
         <section aria-labelledby="about-stack-heading" className="border-t border-rule pt-8">
           <p className="ledger-figures text-xs uppercase tracking-[0.08em] text-ink-soft">
             Technical Index
@@ -302,7 +234,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* 5. Visual "Systems I've Built" Grid */}
+        {/* 4. Software Systems Summary (Clean Ledger Cards — No duplicate photos from /projects or /work) */}
         <section aria-labelledby="about-built-heading" className="border-t border-rule pt-8">
           <div className="mb-4 flex items-center justify-between">
             <div>
@@ -313,45 +245,34 @@ export default function AboutPage() {
                 id="about-built-heading"
                 className="mt-1 font-serif text-2xl font-medium text-ink"
               >
-                Systems &amp; Community Work
+                Software Systems I&apos;ve Built ({softwareProjects.length})
               </h2>
             </div>
             <Link
               href="/projects"
               className="ledger-figures text-xs uppercase tracking-[0.06em] text-ink underline decoration-rule underline-offset-4 hover:decoration-ink"
             >
-              All projects →
+              View with screenshots →
             </Link>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
-            {PROJECT_INDEX.map((item, idx) => {
-              const cover = PROJECT_COVERS[item.slug]
+            {softwareProjects.map((item, idx) => {
               const title = PROJECT_TITLES[item.slug] || item.slug
               return (
                 <div
                   key={item.slug}
-                  className="flex flex-col justify-between border border-rule bg-white p-3 shadow-2xs"
+                  className="flex flex-col justify-between border border-rule bg-white p-4 shadow-2xs"
                 >
                   <div>
-                    {cover && (
-                      <div className="relative aspect-[16/9] w-full overflow-hidden border border-rule/60 bg-white">
-                        <img
-                          src={cover}
-                          alt={title}
-                          loading="lazy"
-                          className="h-full w-full object-cover"
-                        />
-                        <div className="absolute inset-x-0 bottom-0 flex items-center justify-between bg-ink/75 px-2.5 py-1 text-paper backdrop-blur-md">
-                          <span className="ledger-figures text-[10px] text-paper/90">
-                            0{idx + 1} · {item.groupLabel}
-                          </span>
-                          <span className="ledger-figures text-[10px] text-paper/85">
-                            {item.status}
-                          </span>
-                        </div>
-                      </div>
-                    )}
+                    <div className="flex items-center justify-between border-b border-rule pb-2">
+                      <span className="ledger-figures text-[11px] font-medium text-ledger">
+                        0{idx + 1} · {item.groupLabel}
+                      </span>
+                      <span className="ledger-figures text-[10px] text-ink-soft">
+                        {item.status}
+                      </span>
+                    </div>
 
                     <h3 className="mt-3 text-base font-medium text-ink">{title}</h3>
                     <p className="mt-1.5 text-xs leading-relaxed text-ink-soft">
@@ -359,7 +280,7 @@ export default function AboutPage() {
                     </p>
                   </div>
 
-                  <div className="mt-3 flex items-center justify-between border-t border-rule/60 pt-2.5">
+                  <div className="mt-4 flex items-center justify-between border-t border-rule/60 pt-2.5">
                     <span className="ledger-figures text-[11px] text-ink-soft">
                       {item.threeTags.join(' · ')}
                     </span>
@@ -376,45 +297,6 @@ export default function AboutPage() {
           </div>
         </section>
       </div>
-
-      {/* Photo Lightbox Modal */}
-      {zoomPhoto && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          onClick={() => setZoomPhoto(null)}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-ink/85 p-4 backdrop-blur-xs"
-        >
-          <div
-            onClick={(e) => e.stopPropagation()}
-            className="max-h-[92vh] w-full max-w-4xl overflow-hidden border border-rule bg-paper p-4 shadow-2xl"
-          >
-            <div className="mb-3 flex items-center justify-between border-b border-rule pb-2.5">
-              <div>
-                <p className="ledger-figures text-xs uppercase tracking-[0.06em] text-ink-soft">
-                  {zoomPhoto.tag}
-                </p>
-                <h3 className="text-base font-medium text-ink">{zoomPhoto.title}</h3>
-              </div>
-              <button
-                type="button"
-                onClick={() => setZoomPhoto(null)}
-                className="ledger-figures cursor-pointer border border-ink bg-ink px-3 py-1 text-xs text-paper"
-              >
-                Close ✕
-              </button>
-            </div>
-            <div className="flex items-center justify-center border border-rule bg-white p-2">
-              <img
-                src={zoomPhoto.src}
-                alt={zoomPhoto.title}
-                className="max-h-[72vh] w-auto object-contain"
-              />
-            </div>
-            <p className="mt-2.5 text-xs text-ink-soft">{zoomPhoto.caption}</p>
-          </div>
-        </div>
-      )}
     </div>
   )
 }

@@ -2,10 +2,10 @@ import Link from 'next/link'
 import { PORTFOLIO_IDENTITY } from '@/lib/portfolio-config'
 
 /**
- * Hero with planned editorial visual layout:
+ * Hero with planned editorial layout:
  * - Left: Role H1, stack badges, highlighted outcome callout, and quick action links
- * - Right: Framed portrait photo with a small frosted-blur caption overlay and
- *   verified organization strip (Wilcon Depot, WordPress PH)
+ * - Right: Candidate At-a-Glance Ledger Card (no duplicate portrait photo since
+ *   the portrait already lives permanently in the LeftSidebar)
  */
 export default function Masthead() {
   const { role, stackLine, outcome, notice } = PORTFOLIO_IDENTITY.orientation
@@ -24,8 +24,8 @@ export default function Masthead() {
         </div>
         <div className="rule-double mt-3" aria-hidden="true" />
 
-        {/* Main Hero Grid: Typography + Visual Portrait Card */}
-        <div className="mt-8 grid gap-8 sm:grid-cols-[1fr_14.5rem] sm:items-start md:grid-cols-[1fr_16rem]">
+        {/* Main Hero Grid: Typography + Candidate Snapshot Ledger Card */}
+        <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_17rem] lg:items-start">
           <div>
             <p className="ledger-figures text-xs uppercase tracking-[0.1em] text-ledger font-medium">
               Full-Stack Web Systems · Production Experience
@@ -82,42 +82,74 @@ export default function Masthead() {
             </div>
           </div>
 
-          {/* Right: Editorial Portrait Frame with Small Blurred-Back Overlay */}
-          <div className="mx-auto w-full max-w-[16rem] sm:mx-0">
-            <div className="border border-rule bg-white p-2 shadow-xs">
-              <div className="relative aspect-[4/4.6] w-full overflow-hidden bg-paper-deep">
-                <img
-                  src="/Profile.webp"
-                  alt="Ronie Pactol"
-                  className="h-full w-full object-cover object-top"
-                />
-                {/* Small Frosted-Blur Overlay Strip at Bottom of Photo */}
-                <div className="absolute inset-x-0 bottom-0 border-t border-white/20 bg-ink/75 px-3 py-2 text-paper backdrop-blur-md">
-                  <p className="text-xs font-medium text-paper">{PORTFOLIO_IDENTITY.name}</p>
-                  <p className="ledger-figures text-[10px] text-paper/80">
-                    BSIT 2025 · 6 mos @ Wilcon Depot
-                  </p>
-                </div>
-              </div>
+          {/* Right: Candidate Snapshot Ledger Card (No duplicate portrait photo) */}
+          <div className="border border-rule bg-white p-4 shadow-xs">
+            <div className="flex items-center justify-between border-b border-rule pb-2.5">
+              <span className="ledger-figures text-[10px] font-medium uppercase tracking-[0.12em] text-ledger">
+                Candidate Ledger
+              </span>
+              <span className="ledger-figures text-[10px] text-ink-soft">
+                QC · PH
+              </span>
+            </div>
 
-              {/* Organization Strip Under Portrait */}
-              <div className="mt-2 flex items-center justify-between border-t border-rule pt-2 px-1">
-                <div className="flex items-center gap-2">
-                  <img
-                    src="/logos/wilcon.png"
-                    alt="Wilcon Depot"
-                    className="h-4 w-auto object-contain"
-                  />
-                  <img
-                    src="/logos/wordpress.png"
-                    alt="WordPress PH"
-                    className="h-4 w-auto object-contain"
-                  />
-                </div>
-                <span className="ledger-figures text-[10px] text-ink-soft">
-                  Verified Work
-                </span>
+            <dl className="mt-3 divide-y divide-rule/70 text-xs">
+              <div className="py-2">
+                <dt className="ledger-figures text-[10px] uppercase tracking-[0.08em] text-ink-soft">
+                  Enterprise Experience
+                </dt>
+                <dd className="mt-0.5 font-medium text-ink">
+                  6 Months · Wilcon Depot, Inc.
+                </dd>
               </div>
+              <div className="py-2">
+                <dt className="ledger-figures text-[10px] uppercase tracking-[0.08em] text-ink-soft">
+                  Shipped Systems
+                </dt>
+                <dd className="mt-0.5 font-medium text-ink">
+                  4 Production Web Systems
+                </dd>
+              </div>
+              <div className="py-2">
+                <dt className="ledger-figures text-[10px] uppercase tracking-[0.08em] text-ink-soft">
+                  Education
+                </dt>
+                <dd className="mt-0.5 font-medium text-ink">
+                  BS Information Technology (2025)
+                </dd>
+              </div>
+              <div className="py-2">
+                <dt className="ledger-figures text-[10px] uppercase tracking-[0.08em] text-ink-soft">
+                  Start Readiness
+                </dt>
+                <dd className="mt-0.5 font-medium text-ledger">
+                  Immediate · SSS, PhilHealth &amp; Pag-IBIG
+                </dd>
+              </div>
+            </dl>
+
+            {/* Organization Logos Strip */}
+            <div className="mt-3 flex items-center justify-between border-t border-rule pt-3">
+              <div className="flex items-center gap-2.5">
+                <img
+                  src="/logos/wilcon.png"
+                  alt="Wilcon Depot"
+                  className="h-4 w-auto object-contain"
+                />
+                <img
+                  src="/logos/wordpress.png"
+                  alt="WordPress PH"
+                  className="h-4 w-auto object-contain"
+                />
+                <img
+                  src="/logos/jollibee.png"
+                  alt="Jollibee"
+                  className="h-4 w-auto object-contain"
+                />
+              </div>
+              <span className="ledger-figures text-[10px] text-ink-soft">
+                Verified
+              </span>
             </div>
           </div>
         </div>

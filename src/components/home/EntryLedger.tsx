@@ -10,25 +10,26 @@ interface EntryLedgerProps {
   projects: Project[]
 }
 
-/** Wilcon work first, because it is the most recent and the most recognisable employer. */
+/**
+ * Software projects only (Community volunteering lives in the Experience section
+ * so it is never duplicated across Projects and Experience).
+ */
 const HOME_ORDER = [
   'wilcon-month-end-closing',
   'wilcon-collection-deposit-report',
   'woh-attendance-system',
   'wilcon-enterprise-systems',
-  'wordpress-ph-community',
 ]
 
 const FILTERS: { id: 'all' | ProjectGroup; label: string }[] = [
-  { id: 'all', label: 'All' },
-  { id: 'work', label: 'Work' },
-  { id: 'personal', label: 'Personal' },
-  { id: 'community', label: 'Community' },
+  { id: 'all', label: 'All Systems' },
+  { id: 'work', label: 'Work · Wilcon Depot' },
+  { id: 'personal', label: 'Personal · Word of Hope' },
 ]
 
 /**
  * Projects as visual ledger rows:
- * - Filter chips at the top (All / Work / Personal / Community)
+ * - Filter chips at the top (All Systems / Work / Personal)
  * - Left: High-visibility real screenshots with small blurred-back caption bar,
  *   thumbnail switcher, and a Complete Picture & Details Modal on click
  * - Right: Title, highlighted 1-line plain-English Result, and 3 tag words
@@ -59,7 +60,9 @@ export default function EntryLedger({ projects }: EntryLedgerProps) {
       <div className="max-w-4xl">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="ledger-figures text-xs uppercase tracking-[0.08em] text-ink-soft">Entries</p>
+            <p className="ledger-figures text-xs uppercase tracking-[0.08em] text-ink-soft">
+              Production Systems
+            </p>
             <h2
               id="projects-title"
               className="mt-2 font-serif text-[1.75rem] font-medium leading-tight text-ink sm:text-3xl"
@@ -68,7 +71,7 @@ export default function EntryLedger({ projects }: EntryLedgerProps) {
             </h2>
           </div>
 
-          {/* Filter Chips: All / Work / Personal / Community */}
+          {/* Filter Chips: All Systems / Work / Personal */}
           <div
             role="group"
             aria-label="Filter projects by category"
@@ -242,7 +245,7 @@ export default function EntryLedger({ projects }: EntryLedgerProps) {
         </ol>
 
         <div className="rule-double ledger-figures flex justify-between pt-3 text-xs uppercase tracking-[0.08em] text-ink">
-          <span>Showing entries</span>
+          <span>Showing systems</span>
           <span>
             {filteredEntries.length} of {allEntries.length}
           </span>

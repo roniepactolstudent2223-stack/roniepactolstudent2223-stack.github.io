@@ -50,7 +50,7 @@ Resume (Live Google Doc): ${PORTFOLIO_IDENTITY.resumeDocUrl}`
 
   return (
     <div className="mx-auto max-w-6xl px-5 sm:px-8">
-      {/* ─── SPLIT HERO HEADER ─── */}
+      {/* ─── SPLIT HERO HEADER (No duplicate portrait photo) ─── */}
       <header className="border-b border-rule pt-10 pb-10 sm:pt-14 sm:pb-12">
         <div className="mb-6 flex flex-wrap items-center justify-between gap-2 border-b border-rule pb-3 font-mono text-[11px] uppercase tracking-[0.08em] text-ink-muted">
           <span>DIRECT_DISPATCH // HIRING &amp; COLLABORATION</span>
@@ -60,7 +60,7 @@ Resume (Live Google Doc): ${PORTFOLIO_IDENTITY.resumeDocUrl}`
           </span>
         </div>
 
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-center">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-start">
           {/* Left: Headline + Callout + Hiring Team Copy */}
           <div className="lg:col-span-8">
             <p className="font-mono text-xs uppercase tracking-[0.14em] text-ledger font-semibold">
@@ -109,62 +109,47 @@ Resume (Live Google Doc): ${PORTFOLIO_IDENTITY.resumeDocUrl}`
             </div>
           </div>
 
-          {/* Right: Framed Candidate Dispatch Card with Blurred-Back Overlay */}
+          {/* Right: Direct Dispatch Ledger Card (No duplicate portrait image) */}
           <div className="lg:col-span-4">
-            <div className="overflow-hidden border border-rule bg-white shadow-sm">
-              <div className="flex items-center justify-between border-b border-rule bg-paper-deep px-3 py-1.5">
-                <div className="flex items-center gap-1.5">
-                  <span className="h-2 w-2 rounded-full bg-rule" />
-                  <span className="h-2 w-2 rounded-full bg-rule" />
-                  <span className="h-2 w-2 rounded-full bg-ledger/60" />
-                  <span className="ml-1.5 font-mono text-[10px] font-medium uppercase tracking-[0.08em] text-ink-soft">
-                    Candidate Card
-                  </span>
-                </div>
+            <div className="border border-rule bg-white p-4 shadow-sm">
+              <div className="flex items-center justify-between border-b border-rule pb-2.5">
+                <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-ledger">
+                  Quick Dispatch Ledger
+                </span>
                 <span className="font-mono text-[9px] uppercase tracking-[0.1em] text-ledger font-semibold">
-                  ● Direct Line
+                  ● Active
                 </span>
               </div>
 
-              <div className="relative aspect-[16/10] w-full overflow-hidden bg-paper-deep">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/Profile.webp"
-                  alt="Ronie Pactol"
-                  className="h-full w-full object-cover object-top"
-                />
-                {/* Small planned blurred-back caption overlay */}
-                <div className=" inset-x-0 bottom-0 absolute border-t border-white/15 bg-ink/80 px-3.5 py-2 text-paper backdrop-blur-md">
-                  <div className="flex items-center justify-between gap-2">
-                    <div className="min-w-0">
-                      <p className="truncate text-xs font-semibold text-paper">
-                        {PORTFOLIO_IDENTITY.name}
-                      </p>
-                      <p className="truncate font-mono text-[10px] text-paper/80">
-                        Junior System Developer · QC, PH
-                      </p>
-                    </div>
-                    <span className="shrink-0 border border-white/25 bg-white/10 px-2 py-0.5 font-mono text-[9px] uppercase tracking-[0.08em] text-paper">
-                      0-Day Notice
-                    </span>
-                  </div>
+              <dl className="mt-2 divide-y divide-rule/70 font-mono text-[11px]">
+                <div className="flex items-center justify-between py-2">
+                  <dt className="text-ink-muted">CANDIDATE</dt>
+                  <dd className="font-semibold text-ink">{PORTFOLIO_IDENTITY.name}</dd>
                 </div>
-              </div>
-
-              <div className="divide-y divide-rule bg-white px-3.5 py-2 font-mono text-[11px]">
-                <div className="flex items-center justify-between py-1.5">
-                  <span className="text-ink-muted">MOBILE / VIBER</span>
-                  <a href={PORTFOLIO_IDENTITY.phoneTel} className="font-semibold text-ink hover:text-ledger">
-                    0993 126 3221
-                  </a>
+                <div className="flex items-center justify-between py-2">
+                  <dt className="text-ink-muted">MOBILE / VIBER</dt>
+                  <dd>
+                    <a href={PORTFOLIO_IDENTITY.phoneTel} className="font-semibold text-ink hover:text-ledger">
+                      0993 126 3221
+                    </a>
+                  </dd>
                 </div>
-                <div className="flex items-center justify-between py-1.5">
-                  <span className="text-ink-muted">EMAIL</span>
-                  <a href={`mailto:${PORTFOLIO_IDENTITY.email}`} className="font-semibold text-ink hover:text-ledger truncate max-w-[180px]">
-                    {PORTFOLIO_IDENTITY.email}
-                  </a>
+                <div className="flex items-center justify-between py-2">
+                  <dt className="text-ink-muted">EMAIL</dt>
+                  <dd>
+                    <a
+                      href={`mailto:${PORTFOLIO_IDENTITY.email}`}
+                      className="font-semibold text-ink hover:text-ledger truncate max-w-[180px] inline-block align-bottom"
+                    >
+                      {PORTFOLIO_IDENTITY.email}
+                    </a>
+                  </dd>
                 </div>
-              </div>
+                <div className="flex items-center justify-between py-2">
+                  <dt className="text-ink-muted">START DATE</dt>
+                  <dd className="font-semibold text-ledger">Immediate (0 Days)</dd>
+                </div>
+              </dl>
             </div>
           </div>
         </div>

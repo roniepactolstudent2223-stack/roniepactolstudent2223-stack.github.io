@@ -12,14 +12,6 @@ interface ProjectDetailProps {
   project: Project
 }
 
-const PROJECT_COVERS: Record<string, string> = {
-  'wilcon-month-end-closing': '/wilcon-closing-status.png',
-  'wilcon-collection-deposit-report': '/wilcon-cdr-branch.png',
-  'wilcon-enterprise-systems': '/wilcon-workstation.webp',
-  'woh-attendance-system': '/woh-pilot.webp',
-  'wordpress-ph-community': '/wp-community-1.webp',
-}
-
 const PROJECT_TITLES: Record<string, string> = {
   'wilcon-month-end-closing': 'Month-End Closing System',
   'wilcon-collection-deposit-report': 'Collection & Deposit Report Modification',
@@ -30,23 +22,18 @@ const PROJECT_TITLES: Record<string, string> = {
 
 export default function ProjectDetail({ project }: ProjectDetailProps) {
   const images = project.images.length > 0 ? project.images : [project.coverImage]
-  const [heroIdx, setHeroIdx] = useState(0)
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
   const [hideOverlayText, setHideOverlayText] = useState(false)
 
   const ats = PROJECT_DETAILS_DATA[project.slug]
   const indexMeta = PROJECT_INDEX.find((item) => item.slug === project.slug)
-  const otherProjects = PROJECT_INDEX.filter((item) => item.slug !== project.slug).slice(0, 3)
+  const otherProjects = PROJECT_INDEX.filter(
+    (item) => item.slug !== project.slug && item.kind === 'software'
+  ).slice(0, 3)
 
   const isUiScreenshot =
     project.slug === 'wilcon-month-end-closing' ||
     project.slug === 'wilcon-collection-deposit-report'
-
-  const heroSrc = images[heroIdx] || project.coverImage
-  const heroCaption = ats?.captions[heroIdx] || {
-    title: `${project.title} — Screen ${heroIdx + 1}`,
-    description: indexMeta?.result || '',
-  }
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -90,8 +77,8 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
         </Link>
       </nav>
 
-      {/* 1. HERO SPLIT STAGE: Overview Left + Interactive Screen Window Right */}
-      <header className="grid gap-8 border-b border-rule pb-10 lg:grid-cols-[1fr_21rem] lg:items-start">
+      {/* 1. CASE STUDY HEADER: Overview + System Specification Card (No duplicate images here) */}
+      <header className="grid gap-8 border-b border-rule pb-8 lg:grid-cols-[1fr_18rem] lg:items-start">
         <div>
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
             {indexMeta && (
@@ -108,23 +95,6 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
             {project.title}
           </h1>
 
-          {/* Role & Organization Strip */}
-          <p className="mt-2.5 text-sm text-ink-soft">
-            <span className="ledger-figures text-xs uppercase tracking-[0.06em] text-ink-soft">
-              Role:{' '}
-            </span>
-            <span className="font-medium text-ink">{project.role}</span>
-            {indexMeta?.usedBy && (
-              <>
-                <span className="mx-2 text-rule">|</span>
-                <span className="ledger-figures text-xs uppercase tracking-[0.06em] text-ink-soft">
-                  Used by:{' '}
-                </span>
-                <span className="text-ink">{indexMeta.usedBy}</span>
-              </>
-            )}
-          </p>
-
           {/* Highlighted 1-line Result Callout */}
           {indexMeta && (
             <div className="mt-4 border-l-2 border-ledger bg-paper-deep/70 py-3 pl-4 pr-3">
@@ -137,31 +107,14 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
             </div>
           )}
 
-          {/* Tools / Tags Strip */}
-          {indexMeta && (
-            <div className="mt-4 flex flex-wrap items-center gap-2">
-              <span className="ledger-figures text-xs uppercase tracking-[0.06em] text-ink-soft">
-                Tools:
-              </span>
-              {indexMeta.tools.split('·').map((tool) => (
-                <span
-                  key={tool.trim()}
-                  className="ledger-figures border border-rule bg-paper-deep/50 px-2.5 py-0.5 text-xs text-ink"
-                >
-                  {tool.trim()}
-                </span>
-              ))}
-            </div>
-          )}
-
           {/* Live Link CTAs */}
           <div className="mt-5 flex flex-wrap items-center gap-3">
             <button
               type="button"
-              onClick={() => setLightboxIndex(heroIdx)}
+              onClick={() => setLightboxIndex(0)}
               className="ledger-figures inline-flex cursor-pointer items-center gap-1.5 border border-ink bg-ink px-4 py-2 text-xs font-medium text-paper transition-colors hover:bg-ink/85"
             >
-              View Full-Screen Gallery ({images.length}) ⤢
+              Open Full-Screen Gallery ({images.length}) ⤢
             </button>
             {project.url && (
               <a
@@ -186,73 +139,43 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
           </div>
         </div>
 
-        {/* Right: Interactive Hero Screen Stage */}
-        <div className="border border-rule bg-white p-2 shadow-xs">
-          <div className="mb-1.5 flex items-center justify-between border-b border-rule px-1.5 pb-1.5">
-            <div className="flex items-center gap-1.5">
-              <span className="h-2 w-2 rounded-full bg-rule" />
-              <span className="h-2 w-2 rounded-full bg-rule" />
-              <span className="h-2 w-2 rounded-full bg-ledger/70" />
-              <span className="ledger-figures ml-1 text-[10px] text-ink-soft">
-                Screen 0{heroIdx + 1} / 0{images.length}
-              </span>
-            </div>
-            <button
-              type="button"
-              onClick={() => setLightboxIndex(heroIdx)}
-              className="ledger-figures cursor-pointer text-[10px] font-medium text-ledger hover:underline"
-            >
-              Full view ⤢
-            </button>
+        {/* Right: System Specification Ledger Card */}
+        <div className="border border-rule bg-white p-4 shadow-xs">
+          <div className="flex items-center justify-between border-b border-rule pb-2">
+            <span className="ledger-figures text-[10px] font-medium uppercase tracking-[0.12em] text-ledger">
+              System Spec
+            </span>
+            <span className="ledger-figures text-[10px] text-ink-soft">
+              {project.year}
+            </span>
           </div>
 
-          <button
-            type="button"
-            onClick={() => setLightboxIndex(heroIdx)}
-            className="group relative block aspect-[16/10] w-full cursor-pointer overflow-hidden bg-white text-left"
-          >
-            <img
-              src={heroSrc}
-              alt={heroCaption.title}
-              className={`h-full w-full transition-transform duration-500 group-hover:scale-[1.03] ${
-                isUiScreenshot ? 'object-contain pb-8' : 'object-cover'
-              }`}
-            />
-            <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-2 border-t border-white/15 bg-ink/80 px-2.5 py-1.5 text-paper backdrop-blur-md">
-              <span className="truncate text-[11px] font-medium text-paper">
-                {heroCaption.title}
-              </span>
-              <span className="ledger-figures shrink-0 text-[10px] text-paper/85">
-                Zoom ⤢
-              </span>
+          <dl className="mt-2.5 divide-y divide-rule/70 text-xs">
+            <div className="py-2">
+              <dt className="ledger-figures text-[10px] uppercase tracking-[0.06em] text-ink-soft">
+                Role
+              </dt>
+              <dd className="mt-0.5 font-medium text-ink">{project.role}</dd>
             </div>
-          </button>
-
-          {images.length > 1 && (
-            <div className="mt-2 grid grid-cols-3 gap-1.5">
-              {images.map((src, idx) => (
-                <button
-                  key={src}
-                  type="button"
-                  onClick={() => setHeroIdx(idx)}
-                  className={`cursor-pointer border bg-white p-1 text-left transition-all ${
-                    idx === heroIdx
-                      ? 'border-ink ring-1 ring-ink'
-                      : 'border-rule opacity-75 hover:border-ink hover:opacity-100'
-                  }`}
-                >
-                  <img
-                    src={src}
-                    alt=""
-                    className={`h-9 w-full ${isUiScreenshot ? 'object-contain' : 'object-cover'}`}
-                  />
-                  <p className="ledger-figures mt-1 truncate text-[9px] text-ink">
-                    0{idx + 1} · {(ats?.captions[idx]?.title || `Screen ${idx + 1}`).split(' ')[0]}
-                  </p>
-                </button>
-              ))}
-            </div>
-          )}
+            {indexMeta?.usedBy && (
+              <div className="py-2">
+                <dt className="ledger-figures text-[10px] uppercase tracking-[0.06em] text-ink-soft">
+                  Used By
+                </dt>
+                <dd className="mt-0.5 font-medium text-ink">{indexMeta.usedBy}</dd>
+              </div>
+            )}
+            {indexMeta?.tools && (
+              <div className="py-2">
+                <dt className="ledger-figures text-[10px] uppercase tracking-[0.06em] text-ink-soft">
+                  Tools &amp; Stack
+                </dt>
+                <dd className="ledger-figures mt-0.5 text-[11px] text-ink">
+                  {indexMeta.tools}
+                </dd>
+              </div>
+            )}
+          </dl>
         </div>
       </header>
 
@@ -307,7 +230,7 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
         </section>
       )}
 
-      {/* 3. SCREENSHOTS & VISUAL EVIDENCE — Window Chrome + Frosted Caption Bar */}
+      {/* 3. SCREENSHOTS & VISUAL EVIDENCE — Single Unified Gallery (Never duplicated) */}
       {images.length > 0 && (
         <section className="mt-10 border-t border-rule pt-8">
           <div className="mb-4 flex items-baseline justify-between">
@@ -445,7 +368,7 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
         </details>
       )}
 
-      {/* 6. EXPLORE OTHER CASE STUDIES — Visual Card Strip */}
+      {/* 6. EXPLORE OTHER CASE STUDIES — Clean Typographic Ledger Cards (No duplicate thumbnails) */}
       <section aria-label="Other projects" className="mt-12 border-t-2 border-ink pt-8">
         <div className="mb-4 flex items-center justify-between">
           <div>
@@ -460,37 +383,28 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
             href="/projects"
             className="ledger-figures text-xs uppercase tracking-[0.06em] text-ink underline decoration-rule underline-offset-4 hover:decoration-ink"
           >
-            View all 5 projects →
+            View all projects →
           </Link>
         </div>
 
         <div className="grid gap-4 sm:grid-cols-3">
-          {otherProjects.map((item) => {
-            const cover = PROJECT_COVERS[item.slug]
+          {otherProjects.map((item, idx) => {
             const title = PROJECT_TITLES[item.slug] || item.slug
             return (
               <div
                 key={item.slug}
-                className="flex flex-col justify-between border border-rule bg-white p-2.5 shadow-2xs"
+                className="flex flex-col justify-between border border-rule bg-white p-3.5 shadow-2xs"
               >
                 <div>
-                  {cover && (
-                    <div className="relative aspect-[16/9] w-full overflow-hidden border border-rule/60 bg-white">
-                      <img
-                        src={cover}
-                        alt={title}
-                        loading="lazy"
-                        className="h-full w-full object-cover"
-                      />
-                      <span className="ledger-figures absolute bottom-1 left-1 bg-ink/75 px-1.5 py-0.5 text-[9px] text-paper backdrop-blur-xs">
-                        {item.groupLabel}
-                      </span>
-                    </div>
-                  )}
+                  <div className="flex items-center justify-between border-b border-rule/70 pb-1.5">
+                    <span className="ledger-figures text-[10px] font-medium text-ledger">
+                      0{idx + 1} · {item.groupLabel}
+                    </span>
+                  </div>
                   <h3 className="mt-2.5 text-sm font-medium leading-snug text-ink">
                     {title}
                   </h3>
-                  <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-ink-soft">
+                  <p className="mt-1.5 line-clamp-2 text-xs leading-relaxed text-ink-soft">
                     {item.result}
                   </p>
                 </div>

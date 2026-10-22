@@ -17,25 +17,20 @@ const ORG_BADGES: Record<string, string> = {
 }
 
 interface RoleVisualConfig {
-  photos: { src: string; caption: string }[]
+  photos?: { src: string; caption: string }[]
   evidence?: readonly { readonly label: string; readonly detail: string }[]
   caseStudies?: { slug: string; label: string }[]
   badge?: string
 }
 
+/**
+ * Only show photos here that are NOT already shown in the Projects section above
+ * (e.g. WordPress PH community photos and Radiant Force OJT certificate),
+ * so no image is ever duplicated on the Home page.
+ */
 const ROLE_VISUALS: Record<string, RoleVisualConfig> = {
   'Wilcon Depot, Inc.': {
     badge: '6 Months · Enterprise Software',
-    photos: [
-      {
-        src: '/wilcon-workstation.webp',
-        caption: 'Developer Workstation at Wilcon Depot · Dual-Monitor Laravel & Vue.js Setup',
-      },
-      {
-        src: '/wilcon-building.webp',
-        caption: 'Wilcon Depot Corporate Headquarters · Quezon City',
-      },
-    ],
     evidence: PORTFOLIO_IDENTITY.workExperience[0]?.evidence,
     caseStudies: [
       { slug: 'wilcon-month-end-closing', label: 'Month-End Closing Case Study' },
@@ -56,9 +51,6 @@ const ROLE_VISUALS: Record<string, RoleVisualConfig> = {
       },
     ],
     evidence: PORTFOLIO_IDENTITY.workExperience[1]?.evidence,
-    caseStudies: [
-      { slug: 'wordpress-ph-community', label: 'Community & Volunteering Case Study' },
-    ],
   },
   'Radiant Force Human Resources': {
     badge: 'OJT → Absorbed as HR Assistant',
@@ -72,26 +64,12 @@ const ROLE_VISUALS: Record<string, RoleVisualConfig> = {
   },
   'Word of Hope Caloocan': {
     badge: 'Live Every Sunday Since Mar 2025',
-    photos: [
-      {
-        src: '/woh-pilot.webp',
-        caption: 'WOH QR Attendance Kiosk Deployed at the Church Entrance',
-      },
-      {
-        src: '/woh-admin.webp',
-        caption: 'Admin Dashboard & Absentee Care Follow-Up System',
-      },
-    ],
     caseStudies: [
       { slug: 'woh-attendance-system', label: 'WOH Attendance Case Study' },
     ],
   },
 }
 
-/**
- * Experience and education section with workplace/event photos, frosted-blur
- * caption bars, expandable role responsibilities, and case study links.
- */
 export default function AuditLog() {
   const [modalPhoto, setModalPhoto] = useState<{
     src: string
@@ -125,7 +103,7 @@ export default function AuditLog() {
               id="experience-title"
               className="mt-2 font-serif text-[1.75rem] font-medium leading-tight text-ink sm:text-3xl"
             >
-              Experience and education
+              Experience, Community &amp; Education
             </h2>
           </div>
 
@@ -164,7 +142,7 @@ export default function AuditLog() {
                     )}
                   </div>
 
-                  {/* Right: Role Info, Visual Photos, Responsibilities, and Case Study Links */}
+                  {/* Right: Role Info, Unique Photos, Responsibilities, and Case Study Links */}
                   <div className="min-w-0">
                     <div className="flex items-start justify-between gap-4">
                       <div>
@@ -192,7 +170,7 @@ export default function AuditLog() {
                       ) : null}
                     </div>
 
-                    {/* Visual Workplace / Event Photos with Small Blurred-Back Bar */}
+                    {/* Unique Event / Credential Photos (Never duplicated from Projects above) */}
                     {visual?.photos && visual.photos.length > 0 && (
                       <div
                         className={`mt-4 grid gap-3 ${
@@ -289,7 +267,7 @@ export default function AuditLog() {
         <div className="rule-single" aria-hidden="true" />
       </div>
 
-      {/* Workplace / Event Photo Zoom Modal */}
+      {/* Photo Zoom Modal */}
       {modalPhoto && (
         <div
           role="dialog"

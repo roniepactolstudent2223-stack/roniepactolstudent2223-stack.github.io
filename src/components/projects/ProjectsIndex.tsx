@@ -11,10 +11,9 @@ interface ProjectsIndexProps {
 }
 
 const FILTERS: { id: 'all' | ProjectGroup; label: string }[] = [
-  { id: 'all', label: 'All' },
-  { id: 'work', label: 'Work' },
-  { id: 'personal', label: 'Personal' },
-  { id: 'community', label: 'Community' },
+  { id: 'all', label: 'All Systems' },
+  { id: 'work', label: 'Work · Wilcon Depot' },
+  { id: 'personal', label: 'Personal · Word of Hope' },
 ]
 
 export default function ProjectsIndex({ projects }: ProjectsIndexProps) {
@@ -22,12 +21,14 @@ export default function ProjectsIndex({ projects }: ProjectsIndexProps) {
   const [openModalSlug, setOpenModalSlug] = useState<string | null>(null)
 
   const bySlug = new Map(projects.map((p) => [p.slug, p]))
-  const allEntries = PROJECT_INDEX.map((meta) => ({
-    project: bySlug.get(meta.slug),
-    meta,
-  })).filter((entry): entry is { project: Project; meta: (typeof PROJECT_INDEX)[number] } =>
-    Boolean(entry.project)
-  )
+  const allEntries = PROJECT_INDEX.filter((meta) => meta.kind === 'software')
+    .map((meta) => ({
+      project: bySlug.get(meta.slug),
+      meta,
+    }))
+    .filter((entry): entry is { project: Project; meta: (typeof PROJECT_INDEX)[number] } =>
+      Boolean(entry.project)
+    )
 
   const filteredEntries =
     activeFilter === 'all'
