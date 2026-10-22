@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import type { Project } from '@/lib/types'
 import { PROJECT_INDEX } from '@/lib/portfolio-config'
+import { PROJECT_DETAILS_DATA } from '@/lib/project-details-data'
 import ArchitectureDiagram from '@/components/projects/ArchitectureDiagram'
 import EngineeringDecisions from '@/components/projects/EngineeringDecisions'
 
@@ -11,232 +12,11 @@ interface ProjectDetailProps {
   project: Project
 }
 
-interface AtsBullet {
-  title: string
-  description: string
-}
-
-interface ImageCaption {
-  title: string
-  description: string
-}
-
-interface ProjectAtsData {
-  summary: string
-  stackSummary: string
-  bullets: AtsBullet[]
-  captions: ImageCaption[]
-}
-
-const ATS_DATA: Record<string, ProjectAtsData> = {
-  'woh-attendance-system': {
-    summary:
-      'QR church attendance and member care system built end to end with Laravel and Vue.js for Word of Hope Caloocan. Connects to the main church website via REST API to sync member records, speed up lobby check-ins, and flag members who miss two Sundays in a row.',
-    stackSummary: 'Laravel (PHP), Vue.js, MySQL, REST API, Tailwind CSS',
-    bullets: [
-      {
-        title: 'Website REST API Sync',
-        description:
-          'Built a token-authenticated REST API connected to wohcaloocan.org so member registrations sync automatically without re-typing names.',
-      },
-      {
-        title: 'Camera QR Check-In Kiosk',
-        description:
-          'Built browser camera QR scanning in Vue.js so ushers can check members in at the entrance in about a second.',
-      },
-      {
-        title: 'Zero Duplicate Scans',
-        description:
-          'Added database constraints on member, service session, and date so rapid scans never create duplicate attendance records.',
-      },
-      {
-        title: 'Automatic Absentee Follow-Up List',
-        description:
-          'Wrote queries that list members who missed two consecutive Sundays so pastors know who to check on.',
-      },
-      {
-        title: 'Separate Roles for Ushers, Pastors, and Admin',
-        description:
-          'Restricted each screen by role so ushers only scan attendance while pastors and admins manage member care records.',
-      },
-    ],
-    captions: [
-      {
-        title: 'Main Church Website (wohcaloocan.org)',
-        description: 'Source of member registrations synced via REST API.',
-      },
-      {
-        title: 'Admin Dashboard',
-        description: 'Sunday attendance counts and automatic absentee follow-up list.',
-      },
-      {
-        title: 'Lobby Check-In Kiosk',
-        description: 'Camera QR check-in screen used at the church entrance every Sunday.',
-      },
-    ],
-  },
-  'wilcon-enterprise-systems': {
-    summary:
-      'Six months of internal web application development as a Full Stack Junior System Developer at Wilcon Depot, Inc. Maintained internal finance web tools using Laravel, Vue.js, and MySQL, synced account and vendor data from the company ERP, and worked with System Analysts and QA on releases.',
-    stackSummary: 'Laravel, Vue.js, PHP, MySQL, REST APIs, Git',
-    bullets: [
-      {
-        title: 'Company ERP Data Sync',
-        description:
-          'Connected internal web apps to company ERP APIs to pull branch ledger accounts, vendor records, and item data.',
-      },
-      {
-        title: 'Financial Voucher Processing',
-        description:
-          'Wrote and maintained backend PHP and SQL logic for internal financial voucher workflows with exact decimal math and activity logs.',
-      },
-      {
-        title: 'System Analyst & QA Collaboration',
-        description:
-          'Worked daily with System Analysts and QA testers to reproduce issues, verify fixes, and ship internal feature updates.',
-      },
-    ],
-    captions: [
-      {
-        title: 'Developer Workstation at Wilcon Depot',
-        description: 'Dual-monitor setup used to build and test internal Laravel and Vue.js finance tools.',
-      },
-      {
-        title: 'Wilcon Depot Corporate Office',
-        description: 'Headquarters in Quezon City supporting nationwide store operations.',
-      },
-    ],
-  },
-  'wilcon-collection-deposit-report': {
-    summary:
-      'Reporting upgrade built for Wilcon Depot\'s Treasury Department. Turned static daily check totals into clickable check breakdowns, separated cash and check filters for unreconciled accounts, aligned accounting dates automatically, added a nationwide branch column, and built one-click PDF and Excel exports.',
-    stackSummary: 'Laravel, Vue.js, PHP, MySQL',
-    bullets: [
-      {
-        title: 'Clickable Check Breakdown',
-        description:
-          'Turned static check totals into clickable links that open a pop-up showing the customer name, bank, check number, date, and remittance details.',
-      },
-      {
-        title: 'Separate Cash and Check Filters',
-        description:
-          'Fixed overlap in unreconciled accounts by separating cash records from check records during reconciliation.',
-      },
-      {
-        title: 'Automatic Accounting Date Alignment',
-        description:
-          'Matched transaction dates with accounting periods so valid check records appear in the right report columns automatically.',
-      },
-      {
-        title: 'Nationwide Branch Column & Default View',
-        description:
-          'Added a Branch column and set the report to show all nationwide stores by default when no single branch is chosen.',
-      },
-      {
-        title: 'One-Click PDF and Excel Export',
-        description:
-          'Added download buttons so Treasury staff can export the filtered report to PDF or Excel for offline audits.',
-      },
-    ],
-    captions: [
-      {
-        title: 'Collection & Deposit Report Table',
-        description: 'Daily sales, cash, and check summaries with PDF and Excel export buttons.',
-      },
-      {
-        title: 'Nationwide Branch Column & Filter',
-        description: 'Added Branch column that displays all nationwide branches by default.',
-      },
-      {
-        title: 'Clickable Check Breakdown Modal',
-        description: 'Pop-up showing customer name, issuing bank, check number, date, and amount.',
-      },
-    ],
-  },
-  'wilcon-month-end-closing': {
-    summary:
-      'Monthly closing web system built for Wilcon Depot\'s Financial Reporting Department. Replaced manual spreadsheets and chat threads with a central workflow where departments submit journal entries, the system checks that Debit equals Credit, managers approve in two steps, and next-month reversals run automatically.',
-    stackSummary: 'Laravel, Vue.js, PHP, MySQL',
-    bullets: [
-      {
-        title: 'Direct Department Entry Instead of Spreadsheets',
-        description:
-          'Shifted entry submission and file uploads directly to each Business Unit supervisor so Finance no longer had to combine dozens of spreadsheet files by hand.',
-      },
-      {
-        title: 'Automatic Balance & Duplicate Checks',
-        description:
-          'Blocked entries from being submitted if Debit does not equal Credit, if required fields are blank, or if a duplicate entry already exists.',
-      },
-      {
-        title: 'Two-Step Manager Approval Chain',
-        description:
-          'Routed every submission from the Business Unit Supervisor to the Business Unit Manager for review, and then to the Financial Reporting Manager for final approval and batch posting.',
-      },
-      {
-        title: 'Automatic Next-Month Reversing Entries',
-        description:
-          'Scheduled automatic reversing entries (swapping Debit and Credit) for the first day of the next month so accruals do not have to be re-typed.',
-      },
-      {
-        title: 'Live General Ledger Balance Comparison',
-        description:
-          'Built a side-by-side table showing unadjusted balances, approved adjustments, and projected closing balances with a baseline lock during close.',
-      },
-    ],
-    captions: [
-      {
-        title: 'Closing Progress & Status Summary',
-        description: 'Tracks entries waiting for BU Head approval, Finance posting, and completed postings.',
-      },
-      {
-        title: 'Chart of Accounts Master File & Access Rules',
-        description: 'Configures department access groups and mandatory fields per GL account.',
-      },
-      {
-        title: 'General Ledger Balance Display',
-        description: 'Side-by-side comparison of unadjusted, posted adjustment, and projected closing balances.',
-      },
-    ],
-  },
-  'wordpress-ph-community': {
-    summary:
-      'Community involvement and volunteering with WordPress Philippines and the local open-source community. Started as a meetup attendee in 2025 and stepped up in 2026 as a volunteer photographer covering Software Freedom Day 2026 Manila and the July 2026 WordPress Manila Meetup.',
-    stackSummary: 'Community Operations, Event Photography, Open Source',
-    bullets: [
-      {
-        title: 'Software Freedom Day 2026 Manila',
-        description:
-          'Volunteered as event photographer celebrating "The Future Is Open" with developers, designers, students, and open-source advocates, supported by Huawei Cloud Developer Group PH and the Digital Freedom Foundation.',
-      },
-      {
-        title: 'WordPress Manila Meetup (July 2026)',
-        description:
-          'Documented talks, Q&A sessions, and community networking at Common Ground Work Philippines Don Antonio ahead of WordCamp Philippines 2026.',
-      },
-      {
-        title: '2025 Attendee → 2026 Volunteer',
-        description:
-          'Grew from attending local meetups in 2025 into helping the organizing team run and document events in 2026.',
-      },
-    ],
-    captions: [
-      {
-        title: 'Software Freedom Day 2026 Manila',
-        description: 'Open-source community gathering in Metro Manila.',
-      },
-      {
-        title: 'WordPress Manila Meetup (Common Ground Don Antonio)',
-        description: 'Monthly meetup of WordPress and web developers in Quezon City.',
-      },
-    ],
-  },
-}
-
 export default function ProjectDetail({ project }: ProjectDetailProps) {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
+  const [hideOverlayText, setHideOverlayText] = useState(false)
 
-  const ats = ATS_DATA[project.slug]
+  const ats = PROJECT_DETAILS_DATA[project.slug]
   const indexMeta = PROJECT_INDEX.find((item) => item.slug === project.slug)
   const isUiScreenshot =
     project.slug === 'wilcon-month-end-closing' ||
@@ -245,6 +25,20 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setLightboxIndex(null)
+      if (lightboxIndex !== null && project.images.length > 1) {
+        if (e.key === 'ArrowRight') {
+          setLightboxIndex((prev) =>
+            prev !== null ? (prev + 1) % project.images.length : 0
+          )
+        }
+        if (e.key === 'ArrowLeft') {
+          setLightboxIndex((prev) =>
+            prev !== null
+              ? (prev - 1 + project.images.length) % project.images.length
+              : 0
+          )
+        }
+      }
     }
     if (lightboxIndex !== null) {
       window.addEventListener('keydown', handleKeyDown)
@@ -254,7 +48,7 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
       window.removeEventListener('keydown', handleKeyDown)
       document.body.style.overflow = ''
     }
-  }, [lightboxIndex])
+  }, [lightboxIndex, project.images.length])
 
   return (
     <article className="min-h-screen max-w-4xl px-6 py-10 sm:py-14">
@@ -353,7 +147,7 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
         )}
       </header>
 
-      {/* Screenshots & Visual Evidence — Large, Clear, Clickable */}
+      {/* Screenshots & Visual Evidence — Large, Clear, Planned Frosted Overlay Bar */}
       {project.images.length > 0 && (
         <section className="mt-8">
           <div className="mb-4 flex items-baseline justify-between border-b border-rule pb-2">
@@ -361,7 +155,7 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
               Screenshots &amp; Visuals ({project.images.length})
             </h2>
             <span className="ledger-figures text-xs text-ink-soft">
-              Click any image to zoom ⤢
+              Click any image to view full screen ⤢
             </span>
           </div>
 
@@ -383,12 +177,12 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
                   key={src}
                   type="button"
                   onClick={() => setLightboxIndex(index)}
-                  className={`group cursor-pointer border border-rule bg-white p-2.5 text-left transition-all hover:border-ink ${
+                  className={`group relative cursor-pointer overflow-hidden border border-rule bg-white p-2 text-left transition-all hover:border-ink ${
                     project.images.length === 3 && index === 0 ? 'sm:col-span-2' : ''
                   }`}
                 >
                   <div
-                    className={`${
+                    className={`relative ${
                       project.images.length === 3 && index === 0
                         ? 'aspect-[16/8]'
                         : 'aspect-[16/10]'
@@ -399,23 +193,32 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
                       alt={caption.title}
                       decoding="async"
                       loading="lazy"
-                      className={`h-full w-full transition-transform duration-300 group-hover:scale-[1.02] ${
-                        isUiScreenshot ? 'object-contain' : 'object-cover'
+                      className={`h-full w-full transition-transform duration-500 group-hover:scale-[1.02] ${
+                        isUiScreenshot ? 'object-contain pb-9' : 'object-cover'
                       }`}
                     />
-                  </div>
-                  <div className="mt-2.5 border-t border-rule/60 pt-2">
-                    <div className="flex items-center justify-between gap-2">
-                      <h3 className="text-sm font-medium text-ink">{caption.title}</h3>
-                      <span className="ledger-figures text-[11px] text-ink-soft group-hover:text-ink">
-                        Zoom ⤢
+
+                    {/* Top-Left Screen Pill */}
+                    <span className="ledger-figures absolute left-2 top-2 border border-white/20 bg-ink/70 px-2 py-0.5 text-[10px] font-medium text-paper backdrop-blur-md">
+                      0{index + 1} / 0{project.images.length}
+                    </span>
+
+                    {/* Planned Bottom Blurred-Back Overlay Bar */}
+                    <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-3 border-t border-white/15 bg-ink/75 px-3 py-2 text-paper backdrop-blur-md transition-colors group-hover:bg-ink/85">
+                      <div className="min-w-0">
+                        <h3 className="truncate text-xs font-medium text-paper">
+                          {caption.title}
+                        </h3>
+                        {caption.description && (
+                          <p className="truncate text-[11px] text-paper/80">
+                            {caption.description}
+                          </p>
+                        )}
+                      </div>
+                      <span className="ledger-figures shrink-0 border border-paper/30 bg-paper/10 px-2 py-0.5 text-[10px] text-paper">
+                        Full view ⤢
                       </span>
                     </div>
-                    {caption.description && (
-                      <p className="mt-1 text-xs leading-relaxed text-ink-soft">
-                        {caption.description}
-                      </p>
-                    )}
                   </div>
                 </button>
               )
@@ -464,41 +267,63 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
         </details>
       )}
 
-      {/* Lightbox Modal for Enlargeable Screenshots */}
+      {/* Full-Screen Modal for Enlargeable Screenshots + Details */}
       {lightboxIndex !== null && project.images[lightboxIndex] && (
         <div
           role="dialog"
           aria-modal="true"
           onClick={() => setLightboxIndex(null)}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-ink/85 p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-ink/85 p-4 backdrop-blur-xs"
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="relative max-h-[92vh] w-full max-w-5xl overflow-hidden border border-rule bg-paper p-3 shadow-2xl"
+            className="relative max-h-[92vh] w-full max-w-5xl overflow-y-auto border border-rule bg-paper p-4 shadow-2xl"
           >
-            <div className="mb-2 flex items-center justify-between border-b border-rule pb-2">
-              <span className="ledger-figures text-xs text-ink">
-                {ats?.captions[lightboxIndex]?.title ||
-                  `${project.title} — Screen ${lightboxIndex + 1}`}
-              </span>
+            <div className="mb-3 flex items-center justify-between border-b border-rule pb-2.5">
+              <div>
+                <p className="ledger-figures text-[11px] uppercase tracking-[0.06em] text-ink-soft">
+                  {project.title} · Screen {lightboxIndex + 1} of {project.images.length}
+                </p>
+                <h3 className="text-base font-medium text-ink">
+                  {ats?.captions[lightboxIndex]?.title || `Screen ${lightboxIndex + 1}`}
+                </h3>
+              </div>
               <button
                 type="button"
                 onClick={() => setLightboxIndex(null)}
-                className="ledger-figures cursor-pointer border border-rule bg-paper px-2.5 py-1 text-xs text-ink hover:border-ink"
+                className="ledger-figures cursor-pointer border border-ink bg-ink px-3 py-1 text-xs font-medium text-paper hover:bg-ink/85"
                 aria-label="Close image preview"
               >
                 Close ✕
               </button>
             </div>
-            <div className="flex items-center justify-center bg-white p-2">
+
+            <div className="relative flex items-center justify-center border border-rule bg-white p-2">
               <img
                 src={project.images[lightboxIndex]}
                 alt="Enlarged view"
-                className="max-h-[78vh] w-auto object-contain"
+                className="max-h-[70vh] w-auto object-contain"
               />
+
+              <button
+                type="button"
+                onClick={() => setHideOverlayText((prev) => !prev)}
+                className="ledger-figures absolute right-2.5 top-2.5 cursor-pointer border border-white/25 bg-ink/70 px-2.5 py-1 text-[10px] text-paper backdrop-blur-md hover:bg-ink"
+              >
+                {hideOverlayText ? 'Show caption' : 'Hide caption'}
+              </button>
+
+              {!hideOverlayText && ats?.captions[lightboxIndex]?.description && (
+                <div className="absolute inset-x-3 bottom-2.5 mx-auto max-w-2xl border border-white/20 bg-ink/75 px-3.5 py-2 text-paper backdrop-blur-md">
+                  <p className="text-xs leading-snug text-paper/90">
+                    {ats.captions[lightboxIndex].description}
+                  </p>
+                </div>
+              )}
             </div>
+
             {project.images.length > 1 && (
-              <div className="mt-2.5 flex justify-center gap-2">
+              <div className="mt-3 flex flex-wrap justify-center gap-2">
                 {project.images.map((src, idx) => (
                   <button
                     key={src}
@@ -510,7 +335,7 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
                         : 'border-rule bg-paper text-ink hover:border-ink'
                     }`}
                   >
-                    Screen {idx + 1}
+                    0{idx + 1} · {ats?.captions[idx]?.title || `Screen ${idx + 1}`}
                   </button>
                 ))}
               </div>

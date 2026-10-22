@@ -19,6 +19,7 @@ const FILTERS: { id: 'all' | ProjectGroup; label: string }[] = [
 
 export default function ProjectsIndex({ projects }: ProjectsIndexProps) {
   const [activeFilter, setActiveFilter] = useState<'all' | ProjectGroup>('all')
+  const [openModalSlug, setOpenModalSlug] = useState<string | null>(null)
 
   const bySlug = new Map(projects.map((p) => [p.slug, p]))
   const allEntries = PROJECT_INDEX.map((meta) => ({
@@ -47,7 +48,7 @@ export default function ProjectsIndex({ projects }: ProjectsIndexProps) {
             Projects
           </h1>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-ink-soft">
-            Web systems built for Wilcon Depot&apos;s Finance and Treasury teams and Word of Hope Caloocan. Click any screenshot to zoom in, switch screens using the thumbnails below each photo, or tap <strong className="font-medium text-ink">What it does</strong> for the full breakdown.
+            Web systems built for Wilcon Depot&apos;s Finance and Treasury teams and Word of Hope Caloocan. Click any screenshot to open the <strong className="font-medium text-ink">Picture &amp; Complete Details modal</strong>, switch screens using the thumbnails below each photo, or tap <strong className="font-medium text-ink">What it does</strong> for a quick summary.
           </p>
 
           {/* Filter Chips */}
@@ -83,10 +84,15 @@ export default function ProjectsIndex({ projects }: ProjectsIndexProps) {
               key={project.slug}
               className="border-t border-rule py-8"
             >
-              <div className="grid gap-6 sm:grid-cols-[17.5rem_1fr] sm:items-start sm:gap-7">
-                {/* Left: Large visible project screenshots with thumbnail switcher & zoom */}
+              <div className="grid gap-6 sm:grid-cols-[18.5rem_1fr] sm:items-start sm:gap-7">
+                {/* Left: Large visible project screenshots with blurred-back bar & Complete Modal */}
                 <div className="w-full">
-                  <ProjectVisualPreview project={project} />
+                  <ProjectVisualPreview
+                    project={project}
+                    meta={meta}
+                    isOpenExternal={openModalSlug === project.slug}
+                    onCloseExternal={() => setOpenModalSlug(null)}
+                  />
                 </div>
 
                 {/* Right: Title, Highlighted Result, 3 Tag Words, Tap-to-Expand */}
@@ -139,7 +145,7 @@ export default function ProjectsIndex({ projects }: ProjectsIndexProps) {
                     ))}
                   </ul>
 
-                  {/* Tap-to-Expand "What it does" + Case Study Link */}
+                  {/* Tap-to-Expand "What it does" + Modal & Case Study Links */}
                   <div className="mt-3.5">
                     <details className="group">
                       <summary className="inline-flex min-h-[36px] cursor-pointer list-none items-center gap-2 text-sm text-ink-soft transition-colors hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ledger [&::-webkit-details-marker]:hidden">
@@ -183,13 +189,23 @@ export default function ProjectsIndex({ projects }: ProjectsIndexProps) {
                     </details>
 
                     <div className="mt-2 flex flex-wrap items-center gap-x-5 gap-y-2">
+                      <button
+                        type="button"
+                        onClick={() => setOpenModalSlug(project.slug)}
+                        className="inline-flex cursor-pointer items-center gap-1.5 text-sm font-medium text-ink underline decoration-rule underline-offset-4 transition-colors hover:decoration-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ledger"
+                      >
+                        Picture &amp; full details
+                        <span aria-hidden="true">⤢</span>
+                      </button>
+
                       <Link
                         href={`/projects/${project.slug}`}
-                        className="inline-flex items-center gap-1.5 text-sm font-medium text-ink underline decoration-rule underline-offset-4 transition-colors hover:decoration-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ledger"
+                        className="inline-flex items-center gap-1.5 text-sm text-ink-soft underline decoration-rule underline-offset-4 transition-colors hover:text-ink hover:decoration-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ledger"
                       >
-                        View case study
+                        Case study page
                         <span aria-hidden="true">→</span>
                       </Link>
+
                       {project.url && meta.kind === 'software' && (
                         <a
                           href={project.url}

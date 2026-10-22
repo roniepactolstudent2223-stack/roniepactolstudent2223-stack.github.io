@@ -29,12 +29,14 @@ const FILTERS: { id: 'all' | ProjectGroup; label: string }[] = [
 /**
  * Projects as visual ledger rows:
  * - Filter chips at the top (All / Work / Personal / Community)
- * - Left: High-visibility real screenshots with thumbnail switcher and click-to-zoom
+ * - Left: High-visibility real screenshots with small blurred-back caption bar,
+ *   thumbnail switcher, and a Complete Picture & Details Modal on click
  * - Right: Title, highlighted 1-line plain-English Result, and 3 tag words
  * - Tap-to-expand "What it does" revealing: Problem · What I built · Result · Tools
  */
 export default function EntryLedger({ projects }: EntryLedgerProps) {
   const [activeFilter, setActiveFilter] = useState<'all' | ProjectGroup>('all')
+  const [openModalSlug, setOpenModalSlug] = useState<string | null>(null)
 
   const bySlug = new Map(projects.map((project) => [project.slug, project]))
   const allEntries = HOME_ORDER.map((slug) => ({
@@ -99,10 +101,15 @@ export default function EntryLedger({ projects }: EntryLedgerProps) {
               key={project.slug}
               className="border-t border-rule py-8"
             >
-              <div className="grid gap-6 sm:grid-cols-[17.5rem_1fr] sm:items-start sm:gap-7">
-                {/* Left: Large visible project screenshots with thumbnail switcher & zoom */}
+              <div className="grid gap-6 sm:grid-cols-[18.5rem_1fr] sm:items-start sm:gap-7">
+                {/* Left: Large visible project screenshots with blurred-back bar & Complete Modal */}
                 <div className="w-full">
-                  <ProjectVisualPreview project={project} />
+                  <ProjectVisualPreview
+                    project={project}
+                    meta={meta}
+                    isOpenExternal={openModalSlug === project.slug}
+                    onCloseExternal={() => setOpenModalSlug(null)}
+                  />
                 </div>
 
                 {/* Right: Title, Highlighted 1-line Result, 3 Tag Words, and Tap-to-Expand */}
@@ -155,7 +162,7 @@ export default function EntryLedger({ projects }: EntryLedgerProps) {
                     ))}
                   </ul>
 
-                  {/* Interactive Tap-to-Expand "What it does" + Case Study Link */}
+                  {/* Interactive Tap-to-Expand "What it does" + Modal & Case Study Links */}
                   <div className="mt-3.5">
                     <details className="group">
                       <summary className="inline-flex min-h-[36px] cursor-pointer list-none items-center gap-2 text-sm text-ink-soft transition-colors hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ledger [&::-webkit-details-marker]:hidden">
@@ -199,13 +206,23 @@ export default function EntryLedger({ projects }: EntryLedgerProps) {
                     </details>
 
                     <div className="mt-2 flex flex-wrap items-center gap-x-5 gap-y-2">
+                      <button
+                        type="button"
+                        onClick={() => setOpenModalSlug(project.slug)}
+                        className="inline-flex cursor-pointer items-center gap-1.5 text-sm font-medium text-ink underline decoration-rule underline-offset-4 transition-colors hover:decoration-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ledger"
+                      >
+                        Picture &amp; full details
+                        <span aria-hidden="true">⤢</span>
+                      </button>
+
                       <Link
                         href={`/projects/${project.slug}`}
-                        className="inline-flex items-center gap-1.5 text-sm font-medium text-ink underline decoration-rule underline-offset-4 transition-colors hover:decoration-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ledger"
+                        className="inline-flex items-center gap-1.5 text-sm text-ink-soft underline decoration-rule underline-offset-4 transition-colors hover:text-ink hover:decoration-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ledger"
                       >
-                        View case study
+                        Case study page
                         <span aria-hidden="true">→</span>
                       </Link>
+
                       {project.url && meta.kind === 'software' && (
                         <a
                           href={project.url}
