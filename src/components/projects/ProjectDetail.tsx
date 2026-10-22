@@ -1,11 +1,12 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import gsap from 'gsap'
 import type { Project } from '@/lib/types'
+import { PROJECT_INDEX } from '@/lib/portfolio-config'
 import ArchitectureDiagram from '@/components/projects/ArchitectureDiagram'
 import EngineeringDecisions from '@/components/projects/EngineeringDecisions'
+import ProjectMockScreen from '@/components/projects/ProjectMockScreen'
 
 interface ProjectDetailProps {
   project: Project
@@ -14,11 +15,6 @@ interface ProjectDetailProps {
 interface AtsBullet {
   title: string
   description: string
-}
-
-interface AtsMetric {
-  value: string
-  label: string
 }
 
 interface ImageCaption {
@@ -30,250 +26,209 @@ interface ProjectAtsData {
   summary: string
   stackSummary: string
   bullets: AtsBullet[]
-  metrics: AtsMetric[]
   captions: ImageCaption[]
 }
 
 const ATS_DATA: Record<string, ProjectAtsData> = {
   'woh-attendance-system': {
     summary:
-      'Production QR church attendance and member care management system built with Laravel and Vue.js for Word of Hope Caloocan. Connects directly to the main church website via REST API to sync member records, speed up lobby check-ins, and automate pastoral care for absentees.',
+      'QR church attendance and member care system built end to end with Laravel and Vue.js for Word of Hope Caloocan. Connects to the main church website via REST API to sync member records, speed up lobby check-ins, and flag members who miss two Sundays in a row.',
     stackSummary: 'Laravel (PHP), Vue.js, MySQL, REST API, Tailwind CSS',
     bullets: [
       {
-        title: 'REST API Synchronization',
+        title: 'Website REST API Sync',
         description:
-          'Architected a secure token-authenticated REST API with the church website (wohcaloocan.org) to query and verify member registrations in real-time, eliminating manual duplicate data entry.',
+          'Built a token-authenticated REST API connected to wohcaloocan.org so member registrations sync automatically without re-typing names.',
       },
       {
-        title: 'High-Speed Kiosk Check-In',
+        title: 'Camera QR Check-In Kiosk',
         description:
-          'Built client-side video camera QR decoding directly in Vue.js, reducing check-in latency to under 1.2 seconds per person and eliminating Sunday entrance queues.',
+          'Built browser camera QR scanning in Vue.js so ushers can check members in at the entrance in about a second.',
       },
       {
-        title: 'Data Integrity & Deduplication',
+        title: 'Zero Duplicate Scans',
         description:
-          'Designed normalized MySQL schema with composite unique indexes on (member_id, service_session_id, scan_date), guaranteeing 100% duplicate-free headcounts during rapid scans.',
+          'Added database constraints on member, service session, and date so rapid scans never create duplicate attendance records.',
       },
       {
-        title: 'Automated Pastoral Care',
+        title: 'Automatic Absentee Follow-Up List',
         description:
-          'Programmed automated query logic to identify members missing 2+ consecutive services, generating targeted follow-up lists for ministry leaders to conduct pastoral care visits.',
+          'Wrote queries that list members who missed two consecutive Sundays so pastors know who to check on.',
       },
       {
-        title: 'Role-Based Access Control (RBAC)',
+        title: 'Separate Roles for Ushers, Pastors, and Admin',
         description:
-          'Implemented distinct authorization tiers for System Administrators, Ushers, and Pastors to protect member records and prevent unauthorized data modifications.',
+          'Restricted each screen by role so ushers only scan attendance while pastors and admins manage member care records.',
       },
-    ],
-    metrics: [
-      { value: '< 1.2s', label: 'Scan Latency' },
-      { value: '0', label: 'Duplicate Scans' },
-      { value: 'Mar 2025', label: 'Live in Production' },
-      { value: '100%', label: 'Decoupled REST API' },
     ],
     captions: [
       {
         title: 'Main Church Website (wohcaloocan.org)',
-        description: 'Primary source of truth for member registrations, integrated via secure REST API.',
+        description: 'Source of member registrations synced via REST API.',
       },
       {
-        title: 'Admin Management Dashboard',
-        description: 'Live attendance analytics, service breakdowns, and automated pastoral absentee care.',
+        title: 'Admin Dashboard',
+        description: 'Sunday attendance counts and automatic absentee follow-up list.',
       },
       {
-        title: 'On-Site Check-in Kiosk',
-        description: 'Touch kiosk deployed at the church entrance using Vue.js camera QR decoding for instant check-in.',
+        title: 'Lobby Check-In Kiosk',
+        description: 'Camera QR check-in screen used at the church entrance every Sunday.',
       },
     ],
   },
   'wilcon-enterprise-systems': {
     summary:
-      '6 months of internal enterprise software development as a Full Stack Junior System Developer at Wilcon Depot, Inc. Developing and maintaining internal web applications using Laravel, Vue.js, and MySQL, integrating with Wilcon\'s Infor M3 ERP APIs to extract ledger and account data, and handling retail financial voucher processing workflows.',
+      'Six months of internal web application development as a Full Stack Junior System Developer at Wilcon Depot, Inc. Maintained internal finance web tools using Laravel, Vue.js, and MySQL, synced account and vendor data from the company ERP, and worked with System Analysts and QA on releases.',
     stackSummary: 'Laravel, Vue.js, PHP, MySQL, REST APIs, Git',
     bullets: [
       {
-        title: 'Enterprise ERP Data Integration',
+        title: 'Company ERP Data Sync',
         description:
-          'Maintained and developed internal enterprise web applications interfacing with Infor M3 corporate ERP APIs for branch ledger accounts, vendor IDs, and retail catalog synchronization.',
+          'Connected internal web apps to company ERP APIs to pull branch ledger accounts, vendor records, and item data.',
       },
       {
         title: 'Financial Voucher Processing',
         description:
-          'Authored and maintained backend business logic for internal financial voucher workflows with high-precision decimal calculations (BCMath) and immutable audit trails.',
+          'Wrote and maintained backend PHP and SQL logic for internal financial voucher workflows with exact decimal math and activity logs.',
       },
       {
         title: 'System Analyst & QA Collaboration',
         description:
-          'Collaborated daily with System Analysts and Quality Assurance (QA) engineers to test, debug, and ship production enterprise feature releases and bug fixes.',
+          'Worked daily with System Analysts and QA testers to reproduce issues, verify fixes, and ship internal feature updates.',
       },
-      {
-        title: 'Deterministic Hand-Authored Code',
-        description:
-          'Authored manual SQL queries and clean business logic to handle complex retail edge cases with high precision, maintaining stability across daily enterprise operations.',
-      },
-    ],
-    metrics: [
-      { value: '6 mos', label: 'Enterprise Experience' },
-      { value: 'Infor M3', label: 'ERP APIs' },
-      { value: '100%', label: 'Hand-Crafted Logic' },
-      { value: 'ACID', label: 'Transaction Safety' },
     ],
     captions: [
       {
-        title: 'Developer Workstation Setup',
-        description: 'Dual-monitor development setup for backend Laravel services and internal tools at Wilcon Depot.',
+        title: 'Developer Workstation at Wilcon Depot',
+        description: 'Dual-monitor setup used to build and test internal Laravel and Vue.js finance tools.',
       },
       {
-        title: 'Wilcon Depot Corporate Headquarters',
-        description: 'Corporate office in Quezon City, supporting nationwide retail branch operations.',
+        title: 'Wilcon Depot Corporate Office',
+        description: 'Headquarters in Quezon City supporting nationwide store operations.',
       },
     ],
   },
   'wilcon-collection-deposit-report': {
     summary:
-      'Financial reporting enhancement for Wilcon Depot\'s Treasury Department. Upgraded the daily Collection and Deposit reporting workflow by transforming static financial figures into interactive transaction drill-downs, separating unreconciled cash from check records, adding nationwide multi-branch tracking, and enabling one-click PDF and Excel offline reporting.',
-    stackSummary: 'Laravel, Vue.js, PHP, MySQL, Financial Reporting',
+      'Reporting upgrade built for Wilcon Depot\'s Treasury Department. Turned static daily check totals into clickable check breakdowns, separated cash and check filters for unreconciled accounts, aligned accounting dates automatically, added a nationwide branch column, and built one-click PDF and Excel exports.',
+    stackSummary: 'Laravel, Vue.js, PHP, MySQL',
     bullets: [
       {
-        title: 'Interactive Check Drill-Down',
+        title: 'Clickable Check Breakdown',
         description:
-          'Transformed static financial totals into clickable elements. Treasury users can click any check amount on the dashboard to immediately inspect individual check details — including customer name, issuing bank, check number, date, and remittance breakdown.',
+          'Turned static check totals into clickable links that open a pop-up showing the customer name, bank, check number, date, and remittance details.',
       },
       {
-        title: 'Accurate Cash & Check Filtering',
+        title: 'Separate Cash and Check Filters',
         description:
-          'Resolved transaction overlap in unreconciled accounts by establishing clear separation between cash and check records, ensuring finance staff only view transaction data relevant to what they are reconciling.',
+          'Fixed overlap in unreconciled accounts by separating cash records from check records during reconciliation.',
       },
       {
-        title: 'Automated Accounting Date Alignment',
+        title: 'Automatic Accounting Date Alignment',
         description:
-          'Streamlined reconciliation by aligning transaction dates with accounting periods so valid check records automatically populate into the correct report columns without manual adjustments.',
+          'Matched transaction dates with accounting periods so valid check records appear in the right report columns automatically.',
       },
       {
-        title: 'Flexible Branch Tracking & Nationwide Default',
+        title: 'Nationwide Branch Column & Default View',
         description:
-          'Added a dedicated Branch column to track store performance and configured the report to display data across all nationwide branches automatically whenever a specific location is not selected.',
+          'Added a Branch column and set the report to show all nationwide stores by default when no single branch is chosen.',
       },
       {
-        title: 'One-Click PDF & Excel Exports',
+        title: 'One-Click PDF and Excel Export',
         description:
-          'Built flexible export options allowing finance and treasury officers to download complete reports in PDF or Excel spreadsheet formats for offline audits, reconciliation meetings, and record-keeping.',
+          'Added download buttons so Treasury staff can export the filtered report to PDF or Excel for offline audits.',
       },
-    ],
-    metrics: [
-      { value: 'Treasury', label: 'Primary Department' },
-      { value: 'Drill-Down', label: 'Instant Check Details' },
-      { value: 'PDF + XLSX', label: 'Export Options' },
-      { value: 'Nationwide', label: 'All-Branch Coverage' },
     ],
     captions: [
       {
-        title: 'Collection and Deposit Report Dashboard',
-        description: 'Modernized financial dashboard displaying sales, collections, cash, and check summaries by date and branch.',
+        title: 'Mock Flow 1 · Collection & Deposit Summary',
+        description: 'Drawn workflow view showing clickable check totals and export controls (generic data).',
       },
       {
-        title: 'Branch Column Addition & Overview',
-        description: 'Dedicated branch tracking that automatically displays nationwide store transactions by default.',
+        title: 'Mock Flow 2 · Nationwide Branch Filter',
+        description: 'Drawn workflow view showing the Branch column and separated cash vs. check filter.',
       },
       {
-        title: 'Clickable Check Detail View',
-        description: 'Drill-down modal displaying individual check information, bank details, and instant export options.',
+        title: 'Mock Flow 3 · Check Breakdown Pop-Up',
+        description: 'Drawn workflow view of the check detail modal with bank, check number, and date.',
       },
     ],
   },
   'wilcon-month-end-closing': {
     summary:
-      'Enterprise financial automation platform built for Wilcon Depot\'s Financial Reporting Department. Replaces fragmented spreadsheets, emails, and chat threads with a centralized, automated closing pipeline. Distributes journal entry adjustments directly to Business Unit owners, prevents math and duplicate errors through automated validation, streamlines multi-tier managerial approvals, and automates next-month reversing entries with real-time General Ledger balance tracking.',
-    stackSummary: 'Laravel, Vue.js, PHP, MySQL, Financial Workflow Automation',
+      'Monthly closing web system built for Wilcon Depot\'s Financial Reporting Department. Replaced manual spreadsheets and chat threads with a central workflow where departments submit journal entries, the system checks that Debit equals Credit, managers approve in two steps, and next-month reversals run automatically.',
+    stackSummary: 'Laravel, Vue.js, PHP, MySQL',
     bullets: [
       {
-        title: 'Distributed Entry & Decentralized Ownership',
+        title: 'Direct Department Entry Instead of Spreadsheets',
         description:
-          'Eliminated the bottleneck of the central finance team manually collating hundreds of spreadsheet working papers by shifting direct data entry and file imports to individual Business Unit supervisors.',
+          'Shifted entry submission and file uploads directly to each Business Unit supervisor so Finance no longer had to combine dozens of spreadsheet files by hand.',
       },
       {
-        title: 'Strict Automated Validation & Zero-Error Submission',
+        title: 'Automatic Balance & Duplicate Checks',
         description:
-          'Engineered automatic validation checks that block submission if debit and credit totals are unbalanced (Net Amount ≠ 0), mandatory accounting fields are incomplete, or duplicate entries exist across business units.',
+          'Blocked entries from being submitted if Debit does not equal Credit, if required fields are blank, or if a duplicate entry already exists.',
       },
       {
-        title: 'Role-Based Multi-Tier Approval Workflow',
+        title: 'Two-Step Manager Approval Chain',
         description:
-          'Implemented a structured approval chain: Business Unit Supervisors submit entries → Business Unit Managers review and verify → Financial Reporting Managers give final approval with batch posting capabilities.',
+          'Routed every submission from the Business Unit Supervisor to the Business Unit Manager for review, and then to the Financial Reporting Manager for final approval and batch posting.',
       },
       {
-        title: 'Automated Next-Month Reversing Entries',
+        title: 'Automatic Next-Month Reversing Entries',
         description:
-          'Eliminated manual re-entry for accruals and temporary adjustments by automatically generating reciprocal reversing entries (debit/credit swap) scheduled for the 1st day of the following month.',
+          'Scheduled automatic reversing entries (swapping Debit and Credit) for the first day of the next month so accruals do not have to be re-typed.',
       },
       {
-        title: 'Real-Time General Ledger Balance Comparison',
+        title: 'Live General Ledger Balance Comparison',
         description:
-          'Built a side-by-side reconciliation dashboard displaying unadjusted, posted adjustment, projected, and system balances, complete with an unadjusted balance lock feature during closing.',
+          'Built a side-by-side table showing unadjusted balances, approved adjustments, and projected closing balances with a baseline lock during close.',
       },
-      {
-        title: 'Audit Trail & Closing Status Dashboard',
-        description:
-          'Provides visual status tracking (Submitted, Pending Approval, Completed) across all business units, alongside an immutable activity history log recording all submissions, reviews, rejections, and approvals.',
-      },
-    ],
-    metrics: [
-      { value: 'Multi-Tier', label: 'Role-Based Approval' },
-      { value: '100% Validated', label: 'Balanced Net Entries' },
-      { value: 'Auto-Reverse', label: 'Next-Month Accruals' },
-      { value: 'Real-Time', label: 'GL Reconciliation' },
     ],
     captions: [
       {
-        title: 'Closing Progress & Status Dashboard',
-        description: 'Visual status breakdown tracking submissions, reviews, and completion rates across all business units.',
+        title: 'Mock Flow 1 · Three-Step Approval Chain',
+        description: 'Drawn workflow view of BU Supervisor submission, BU Manager review, and Finance posting.',
       },
       {
-        title: 'Account Master File & Access Configuration',
-        description: 'Centralized account directory defining team assignments, active statuses, and mandatory field rules.',
+        title: 'Mock Flow 2 · Balance Validation & Auto-Reverse',
+        description: 'Drawn workflow view showing the Debit = Credit check and Day-1 next-month reversal.',
       },
       {
-        title: 'Side-by-Side GL Balance Reconciliation',
-        description: 'Real-time ledger comparison showing unadjusted balances, posted adjustments, and projected closing balances.',
+        title: 'Mock Flow 3 · General Ledger Balance Comparison',
+        description: 'Drawn workflow view comparing locked baseline balances with approved adjustments.',
       },
     ],
   },
   'wordpress-ph-community': {
     summary:
-      'Active community involvement and volunteering with WordPress Philippines and the local open-source movement. Started as an attendee in 2025 eager to learn from web engineers, and stepped up in 2026 as an official volunteer photographer documenting major tech gatherings including Software Freedom Day 2026 Manila and the July 2026 WordPress Manila Meetup.',
-    stackSummary: 'Community Operations, Event Photography, Open-Source Support',
+      'Community involvement and volunteering with WordPress Philippines and the local open-source community. Started as a meetup attendee in 2025 and stepped up in 2026 as a volunteer photographer covering Software Freedom Day 2026 Manila and the July 2026 WordPress Manila Meetup.',
+    stackSummary: 'Community Operations, Event Photography, Open Source',
     bullets: [
       {
         title: 'Software Freedom Day 2026 Manila',
         description:
-          'Served as volunteer photographer celebrating "The Future Is Open" alongside developers, designers, students, and open-source advocates. Documented speaker sessions and community discussions supported by Huawei Cloud Developer Group PH and the Digital Freedom Foundation.',
+          'Volunteered as event photographer celebrating "The Future Is Open" with developers, designers, students, and open-source advocates, supported by Huawei Cloud Developer Group PH and the Digital Freedom Foundation.',
       },
       {
         title: 'WordPress Manila Meetup (July 2026)',
         description:
-          'Provided photo coverage for the community meetup hosted at Common Ground Work Philippines Don Antonio, capturing technical presentations, Q&As, and preparations leading into WordCamp Philippines 2026.',
+          'Documented talks, Q&A sessions, and community networking at Common Ground Work Philippines Don Antonio ahead of WordCamp Philippines 2026.',
       },
       {
-        title: 'Community Progression (2025 Attendee → 2026 Volunteer)',
+        title: '2025 Attendee → 2026 Volunteer',
         description:
-          'Evolved from an active meetup participant in 2025 into an essential volunteer team member, actively giving back to the Philippine web and open-source developer ecosystem.',
+          'Grew from attending local meetups in 2025 into helping the organizing team run and document events in 2026.',
       },
-    ],
-    metrics: [
-      { value: '2025–Pres', label: 'Community Active' },
-      { value: 'Volunteer', label: 'Event Photographer' },
-      { value: 'SFD 2026', label: 'Software Freedom Day' },
-      { value: 'WordCamp', label: 'Pathway to 2026' },
     ],
     captions: [
       {
         title: 'Software Freedom Day 2026 Manila',
-        description: 'Celebrating "The Future Is Open" with open-source creators and developers in Metro Manila.',
+        description: 'Open-source community gathering in Metro Manila.',
       },
       {
         title: 'WordPress Manila Meetup (Common Ground Don Antonio)',
-        description: 'Community gathering of local WordPress and PHP developers discussing open-source web technologies.',
+        description: 'Monthly meetup of WordPress and web developers in Quezon City.',
       },
     ],
   },
@@ -281,46 +236,10 @@ const ATS_DATA: Record<string, ProjectAtsData> = {
 
 export default function ProjectDetail({ project }: ProjectDetailProps) {
   const [lightboxImage, setLightboxImage] = useState<string | null>(null)
-  const containerRef = useRef<HTMLElement>(null)
 
   const ats = ATS_DATA[project.slug]
+  const indexMeta = PROJECT_INDEX.find((item) => item.slug === project.slug)
 
-  useEffect(() => {
-    const el = containerRef.current
-    if (!el) return
-
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
-
-      tl.fromTo(
-        el.querySelectorAll('[data-detail-reveal]'),
-        { y: 24, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.5, stagger: 0.08 }
-      )
-        .fromTo(
-          el.querySelectorAll('[data-screenshot-card]'),
-          { y: 28, opacity: 0, scale: 0.98 },
-          { y: 0, opacity: 1, scale: 1, duration: 0.55, stagger: 0.09 },
-          '-=0.3'
-        )
-        .fromTo(
-          el.querySelectorAll('[data-ats-bullet]'),
-          { x: -16, opacity: 0 },
-          { x: 0, opacity: 1, duration: 0.4, stagger: 0.06 },
-          '-=0.25'
-        )
-        .fromTo(
-          el.querySelectorAll('[data-metric-card]'),
-          { y: 20, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.45, stagger: 0.07 },
-          '-=0.2'
-        )
-    }, containerRef)
-
-    return () => ctx.revert()
-  }, [project.slug])
-
-  // Close lightbox on Escape key
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setLightboxImage(null)
@@ -336,105 +255,115 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
   }, [lightboxImage])
 
   return (
-    <article ref={containerRef} className="min-h-screen p-6 sm:p-10 max-w-4xl mx-auto">
-      {/* Back Button */}
-      <div className="mb-6" data-detail-reveal>
+    <article className="min-h-screen max-w-3xl px-6 py-10 sm:py-14">
+      {/* Back Link */}
+      <div className="mb-6">
         <Link
           href="/projects"
-          className="inline-flex items-center gap-1.5 text-sm font-medium text-neutral-500 hover:text-neutral-900 transition-colors"
+          className="ledger-figures inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.08em] text-ink-soft underline decoration-rule underline-offset-4 transition-colors hover:text-ink hover:decoration-ink"
         >
-          ← All projects
+          ← Back to projects
         </Link>
       </div>
 
       {/* Header */}
-      <header className="border-b border-neutral-200 pb-6" data-detail-reveal>
-        <div className="flex flex-wrap items-center gap-2 mb-3">
-          <span className="rounded-full bg-neutral-900 px-3 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white">
-            {project.category}
-          </span>
-          <span className="text-xs font-mono text-neutral-500">
-            {project.year}
-          </span>
-          {project.slug === 'woh-attendance-system' && (
-            <span className="rounded-full bg-neutral-100 px-2.5 py-0.5 font-mono text-[11px] font-medium text-neutral-700">
-              In production since March 2025
+      <header className="border-b border-rule pb-6">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+          {indexMeta && (
+            <span className="ledger-figures text-xs uppercase tracking-[0.06em] text-ink-soft">
+              {indexMeta.groupLabel}
             </span>
           )}
-          {project.slug === 'wordpress-ph-community' && (
-            <span className="rounded-full bg-blue-50 px-2.5 py-0.5 text-[11px] font-medium text-blue-700 border border-blue-200">
-              2025 Attendee → 2026 Volunteer
-            </span>
-          )}
+          <span className="ledger-figures text-xs text-ink-soft">·</span>
+          <span className="ledger-figures text-xs text-ledger">
+            {indexMeta?.status || project.year}
+          </span>
         </div>
 
-        <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-neutral-900">
+        <h1 className="mt-2 font-serif text-3xl font-medium leading-tight text-ink sm:text-4xl">
           {project.title}
         </h1>
 
-        {/* ATS Metadata Bar — Regular labels, regular values */}
-        <div className="mt-3 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-neutral-700">
-          <div>
-            <span className="font-mono text-xs uppercase text-neutral-400">Role: </span>
-            <span className="font-normal text-neutral-900">{project.role}</span>
+        {/* Highlighted 1-line Result right under title */}
+        {indexMeta && (
+          <div className="mt-4 border-l-2 border-ledger bg-paper-deep/60 py-2.5 pl-3.5 pr-3">
+            <p className="text-base leading-relaxed text-ink">
+              <span className="ledger-figures mr-2 text-xs uppercase tracking-[0.08em] text-ledger font-medium">
+                Result:
+              </span>
+              <strong className="font-medium text-ink">{indexMeta.result}</strong>
+            </p>
           </div>
-          {project.client && (
-            <div>
-              <span className="font-mono text-xs uppercase text-neutral-400">Organization: </span>
-              <span className="font-normal text-neutral-900">{project.client}</span>
-            </div>
-          )}
-          {ats?.stackSummary && (
-            <div>
-              <span className="font-mono text-xs uppercase text-neutral-400">Stack: </span>
-              <span className="font-mono text-xs font-normal text-neutral-800">{ats.stackSummary}</span>
-            </div>
-          )}
-        </div>
+        )}
 
-        <p className="mt-4 text-base font-normal leading-relaxed text-neutral-700">
-          {ats?.summary || project.description}
-        </p>
+        {/* Quick 4-Row Summary: Problem · What I built · Result · Tools */}
+        {indexMeta && (
+          <dl className="mt-6 space-y-3 border-t border-rule pt-4 text-[15px]">
+            <div className="grid gap-1 sm:grid-cols-[7.5rem_1fr] sm:gap-4">
+              <dt className="ledger-figures text-xs uppercase tracking-[0.06em] text-ink-soft sm:pt-1">
+                Problem
+              </dt>
+              <dd className="leading-relaxed text-ink">{indexMeta.problem}</dd>
+            </div>
+            <div className="grid gap-1 sm:grid-cols-[7.5rem_1fr] sm:gap-4">
+              <dt className="ledger-figures text-xs uppercase tracking-[0.06em] text-ink-soft sm:pt-1">
+                What I built
+              </dt>
+              <dd className="leading-relaxed text-ink">{indexMeta.whatIBuilt}</dd>
+            </div>
+            <div className="grid gap-1 sm:grid-cols-[7.5rem_1fr] sm:gap-4">
+              <dt className="ledger-figures text-xs uppercase tracking-[0.06em] text-ledger font-medium sm:pt-1">
+                Result
+              </dt>
+              <dd className="font-medium leading-relaxed text-ink">{indexMeta.resultDetail}</dd>
+            </div>
+            <div className="grid gap-1 sm:grid-cols-[7.5rem_1fr] sm:gap-4">
+              <dt className="ledger-figures text-xs uppercase tracking-[0.06em] text-ink-soft sm:pt-1">
+                Tools
+              </dt>
+              <dd className="ledger-figures text-xs text-ink sm:pt-1">{indexMeta.tools}</dd>
+            </div>
+          </dl>
+        )}
 
         {/* Live Link CTAs */}
-        <div className="mt-5 flex flex-wrap items-center gap-3">
-          {project.url && (
+        {project.url && (
+          <div className="mt-5 flex flex-wrap items-center gap-4">
             <a
               href={project.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-full bg-neutral-900 px-5 py-2.5 text-xs font-medium text-white hover:bg-neutral-800 transition-colors"
+              className="inline-flex items-center gap-1.5 border border-ink bg-ink px-4 py-2 text-xs font-medium text-paper transition-colors hover:bg-ink/90"
             >
-              {project.slug === 'woh-attendance-system' ? 'Open Live Kiosk ↗' : 'Visit Live Link ↗'}
+              {project.slug === 'woh-attendance-system' ? 'Open Live Kiosk ↗' : 'Visit Link ↗'}
             </a>
-          )}
-          {project.slug === 'woh-attendance-system' && (
-            <a
-              href="https://wohcaloocan.org/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-full border border-neutral-300 bg-white px-5 py-2.5 text-xs font-normal text-neutral-800 hover:bg-neutral-50 transition-colors"
-            >
-              Church Website (wohcaloocan.org) ↗
-            </a>
-          )}
-        </div>
+            {project.slug === 'woh-attendance-system' && (
+              <a
+                href="https://wohcaloocan.org/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 border border-rule bg-paper px-4 py-2 text-xs text-ink underline decoration-rule underline-offset-4 hover:border-ink"
+              >
+                Church Website (wohcaloocan.org) ↗
+              </a>
+            )}
+          </div>
+        )}
       </header>
 
-      {/* Visual Evidence Showcase — ALL AT ONCE (No clunky tab switcher) */}
+      {/* Workflow Diagrams / Visuals */}
       {project.images.length > 0 && (
-        <section className="mt-8" data-detail-reveal>
-          <div className="mb-4 flex items-baseline justify-between border-b border-neutral-200 pb-2">
-            <h2 className="font-mono text-xs font-normal uppercase tracking-[0.08em] text-neutral-500">
-              Production Screenshots &amp; Visual Evidence
+        <section className="mt-8">
+          <div className="mb-4 flex items-baseline justify-between border-b border-rule pb-2">
+            <h2 className="ledger-figures text-xs uppercase tracking-[0.08em] text-ink-soft">
+              {project.images[0]?.startsWith('mock:')
+                ? 'Workflow Screens (Simplified Mock Data)'
+                : 'Photos & Screens'}
             </h2>
-            <span className="font-mono text-xs font-normal text-neutral-400">
-              Click photo to enlarge
-            </span>
           </div>
 
           <div
-            className={`grid gap-5 ${
+            className={`grid gap-4 ${
               project.images.length === 3
                 ? 'grid-cols-1 md:grid-cols-3'
                 : 'grid-cols-1 sm:grid-cols-2'
@@ -442,32 +371,42 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
           >
             {project.images.map((src, index) => {
               const caption = ats?.captions[index] || {
-                title: `Screenshot ${index + 1}`,
+                title: `Screen ${index + 1}`,
                 description: '',
               }
+              const isMock = src.startsWith('mock:')
 
               return (
                 <div
-                  key={index}
-                  data-screenshot-card
-                  onClick={() => setLightboxImage(src)}
-                  className="group cursor-pointer rounded-xl border border-neutral-200 bg-white p-2.5 transition-all duration-300 hover:-translate-y-1 hover:border-neutral-900 hover:shadow-lg"
+                  key={src}
+                  onClick={() => {
+                    if (!isMock) setLightboxImage(src)
+                  }}
+                  className={`border border-rule bg-paper-deep/40 p-2.5 ${
+                    !isMock ? 'cursor-pointer transition-colors hover:border-ink' : ''
+                  }`}
                 >
-                  <div className={`aspect-[16/10] overflow-hidden rounded-lg flex items-center justify-center ${project.slug === 'wilcon-collection-deposit-report' || project.slug === 'wilcon-month-end-closing' ? 'bg-white' : 'bg-neutral-100'}`}>
-                    <img
-                      src={src}
-                      alt={caption.title}
-                      decoding="async"
-                      loading="lazy"
-                      className={`h-full w-full transition-transform duration-300 group-hover:scale-105 ${project.slug === 'wilcon-collection-deposit-report' || project.slug === 'wilcon-month-end-closing' ? 'object-contain' : 'object-cover'}`}
-                    />
+                  <div className="aspect-[16/11] overflow-hidden bg-paper">
+                    {isMock ? (
+                      <ProjectMockScreen
+                        slug={project.slug}
+                        variant="detail"
+                        screenIndex={index}
+                      />
+                    ) : (
+                      <img
+                        src={src}
+                        alt={caption.title}
+                        decoding="async"
+                        loading="lazy"
+                        className="h-full w-full object-cover"
+                      />
+                    )}
                   </div>
-                  <div className="mt-2.5 px-1 pb-1">
-                    <h3 className="text-xs font-medium text-neutral-900">
-                      {caption.title}
-                    </h3>
+                  <div className="mt-2.5 px-0.5 pb-0.5">
+                    <h3 className="text-xs font-medium text-ink">{caption.title}</h3>
                     {caption.description && (
-                      <p className="mt-1 text-xs font-normal leading-relaxed text-neutral-600">
+                      <p className="mt-1 text-xs leading-relaxed text-ink-soft">
                         {caption.description}
                       </p>
                     )}
@@ -479,114 +418,71 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
         </section>
       )}
 
-      {/* ATS Key Contributions & Measurable Results (STAR Format) */}
+      {/* How It Works — Plain-English Breakdown */}
       {ats?.bullets && (
-        <section className="mt-10 border-t border-neutral-200 pt-8" data-detail-reveal>
-          <h2 className="mb-5 font-mono text-xs font-normal uppercase tracking-[0.08em] text-neutral-500">
-            Key Contributions &amp; Results
+        <section className="mt-10 border-t border-rule pt-8">
+          <h2 className="ledger-figures mb-5 text-xs uppercase tracking-[0.08em] text-ink-soft">
+            How It Works
           </h2>
 
-          <ul className="space-y-4 text-sm">
-            {ats.bullets.map((bullet) => (
-              <li key={bullet.title} data-ats-bullet className="flex items-start gap-3">
-                <span className="mt-2 h-1.5 w-1.5 rounded-full bg-neutral-900 shrink-0" />
-                <div className="font-normal leading-relaxed text-neutral-700">
-                  <strong className="font-semibold text-neutral-900">{bullet.title}: </strong>
-                  {bullet.description}
+          <ol className="space-y-4">
+            {ats.bullets.map((bullet, idx) => (
+              <li
+                key={bullet.title}
+                className="grid gap-1 border-t border-rule/60 pt-3.5 first:border-t-0 first:pt-0 sm:grid-cols-[2rem_1fr]"
+              >
+                <span className="ledger-figures text-xs text-ink-soft">
+                  {String(idx + 1).padStart(2, '0')}
+                </span>
+                <div className="text-[15px] leading-relaxed text-ink">
+                  <strong className="font-medium text-ink">{bullet.title}: </strong>
+                  <span className="text-ink-soft">{bullet.description}</span>
                 </div>
               </li>
             ))}
-          </ul>
+          </ol>
         </section>
       )}
 
-      {/* ATS Key Metrics Strip */}
-      {ats?.metrics && (
-        <section className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-3">
-          {ats.metrics.map((m) => (
-            <div
-              key={m.label}
-              data-metric-card
-              className="rounded-xl border border-neutral-200 bg-white p-4 text-center sm:text-left transition-all duration-200 hover:-translate-y-0.5 hover:border-neutral-900 hover:shadow-sm"
-            >
-              <p className="font-mono text-xl sm:text-2xl font-bold text-neutral-900">
-                {m.value}
-              </p>
-              <p className="font-mono text-xs uppercase tracking-wider text-neutral-500 mt-1">
-                {m.label}
-              </p>
-            </div>
-          ))}
-        </section>
-      )}
-
-      {/* Technologies & Tools Pills */}
-      {project.tags.length > 0 && (
-        <section className="mt-8 border-t border-neutral-200 pt-6">
-          <h2 className="text-xs font-semibold uppercase tracking-wider text-neutral-400 mb-3 font-mono text-[10px]">
-            Technologies &amp; Environment
-          </h2>
-          <div className="flex flex-wrap gap-2">
-            {project.tags.map((tag) => (
-              <span
-                key={tag}
-                className="rounded-lg border border-neutral-200 bg-white px-3 py-1 font-mono text-xs text-neutral-700"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* Optional Collapsible Technical Architecture Deep-Dive (Kept out of the way for recruiters) */}
+      {/* Optional Technical Deep Dive */}
       {(project.slug === 'woh-attendance-system' || project.slug === 'wilcon-enterprise-systems') && (
-        <details className="mt-10 group rounded-xl border border-neutral-200 bg-white overflow-hidden transition-all">
-          <summary className="cursor-pointer select-none p-4 font-mono text-xs font-semibold text-neutral-600 hover:text-neutral-900 hover:bg-neutral-50 flex items-center justify-between">
-            <span className="flex items-center gap-2">
-              <span>Technical Deep Dive (Architecture Flow &amp; Decisions)</span>
-              <span className="rounded-full bg-neutral-100 px-2 py-0.5 text-[10px] text-neutral-500 font-normal">
-                Click to expand
-              </span>
-            </span>
-            <span className="text-neutral-400 font-normal text-xs group-open:rotate-180 transition-transform">
-              ▼
-            </span>
+        <details className="mt-10 group border border-rule bg-paper-deep/30">
+          <summary className="ledger-figures flex cursor-pointer list-none items-center justify-between p-4 text-xs uppercase tracking-[0.08em] text-ink-soft hover:text-ink [&::-webkit-details-marker]:hidden">
+            <span>Technical Architecture &amp; Database Notes</span>
+            <span className="transition-transform group-open:rotate-45">+</span>
           </summary>
-          <div className="p-6 border-t border-neutral-100 space-y-10 bg-neutral-50/40">
+          <div className="space-y-10 border-t border-rule p-6 bg-paper">
             <ArchitectureDiagram slug={project.slug} />
             <EngineeringDecisions slug={project.slug} />
           </div>
         </details>
       )}
 
-      {/* Lightbox Modal for Enlargeable Screenshots */}
+      {/* Lightbox Modal for Non-Mock Photos */}
       {lightboxImage && (
         <div
           role="dialog"
           aria-modal="true"
           onClick={() => setLightboxImage(null)}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-950/85 backdrop-blur-sm p-4 animate-in fade-in duration-200"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-ink/85 p-4"
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="relative max-w-4xl w-full max-h-[90vh] overflow-hidden rounded-2xl bg-neutral-950 shadow-2xl border border-neutral-800"
+            className="relative max-h-[90vh] w-full max-w-4xl overflow-hidden border border-rule bg-paper p-3"
           >
             <button
               type="button"
               onClick={() => setLightboxImage(null)}
-              className="absolute right-4 top-4 z-10 rounded-full bg-neutral-900/80 p-2 text-white hover:bg-neutral-800 transition-colors"
+              className="ledger-figures absolute right-4 top-4 z-10 border border-rule bg-paper px-2.5 py-1 text-xs text-ink hover:border-ink"
               aria-label="Close image preview"
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M18 6L6 18M6 6l12 12" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
+              Close ✕
             </button>
-            <div className="flex items-center justify-center p-3">
+            <div className="flex items-center justify-center">
               <img
                 src={lightboxImage}
-                alt="Enlarged screenshot"
-                className="max-h-[85vh] w-auto object-contain rounded-lg"
+                alt="Enlarged view"
+                className="max-h-[82vh] w-auto object-contain"
               />
             </div>
           </div>

@@ -275,11 +275,23 @@ export const SECTIONS = [
  *   status  → Is it live, shipped, or just a demo?
  * Keep every value short and factual. No adjectives.
  */
+export type ProjectGroup = 'work' | 'personal' | 'community'
+
 export interface ProjectIndexEntry {
   slug: string
   kind: 'software' | 'community'
+  group: ProjectGroup
+  groupLabel: string
   usedBy: string
+  /** 1-line plain-English outcome highlighted on the row */
+  result: string
+  /** Exactly 3 short tag words displayed on the row */
+  threeTags: [string, string, string]
+  /** Expanded labels: Problem · What I built · Result · Tools */
   problem: string
+  whatIBuilt: string
+  resultDetail: string
+  tools: string
   myPart: string
   stack: string
   status: string
@@ -288,21 +300,23 @@ export interface ProjectIndexEntry {
 
 export const PROJECT_INDEX: ProjectIndexEntry[] = [
   {
-    slug: 'woh-attendance-system',
-    kind: 'software',
-    usedBy: 'Word of Hope Caloocan: ushers, pastors, church admin',
-    problem: 'Attendance was tracked by hand, so leaders couldn\'t see who stopped coming.',
-    myPart: 'Built it end to end: database, Laravel API, Vue.js kiosk and admin dashboard.',
-    stack: 'Laravel · Vue.js · MySQL · REST API',
-    status: 'In use every Sunday since Mar 2025',
-    live: true,
-  },
-  {
     slug: 'wilcon-month-end-closing',
     kind: 'software',
-    usedBy: 'Wilcon Depot: Business Unit Supervisors, BU Managers, Financial Reporting Managers',
-    problem: 'Monthly closing was collated manually via spreadsheets and chat apps, causing closing delays, missing mandatory data, and duplicate entries across departments.',
-    myPart: 'Built centralized submission interface, automated net-balance validation (Debit = Credit), multi-tier BU-to-Finance approval chain, automated next-month reversing entries, and live GL balance comparison.',
+    group: 'work',
+    groupLabel: 'Work · Wilcon Depot',
+    usedBy: 'Wilcon Depot Finance & Business Unit Teams',
+    result:
+      'Replaced manual spreadsheets and chat threads with a validated, two-step approval workflow for monthly accounting close.',
+    threeTags: ['Laravel', 'Vue.js', 'MySQL'],
+    problem:
+      'Departments sent monthly accounting adjustments through spreadsheets and chat apps, causing delays, missing fields, and duplicate entries.',
+    whatIBuilt:
+      'Built a central web system where each department enters adjustments, the system checks that Debit equals Credit, managers approve in two steps, and next-month reversals run automatically.',
+    resultDetail:
+      'Blocked unbalanced and duplicate entries before they reached Finance and gave managers a live view of closing progress.',
+    tools: 'Laravel · Vue.js · PHP · MySQL',
+    myPart:
+      'Built centralized submission interface, automated net-balance validation (Debit = Credit), multi-tier BU-to-Finance approval chain, automated next-month reversing entries, and live GL balance comparison.',
     stack: 'Laravel · Vue.js · PHP · MySQL',
     status: 'Delivered to Finance, 2026',
     live: true,
@@ -310,18 +324,62 @@ export const PROJECT_INDEX: ProjectIndexEntry[] = [
   {
     slug: 'wilcon-collection-deposit-report',
     kind: 'software',
+    group: 'work',
+    groupLabel: 'Work · Wilcon Depot',
     usedBy: 'Wilcon Depot Treasury Department',
-    problem: 'Static financial reports prevented Treasury staff from verifying check breakdowns, caused data overlap in unreconciled accounts, and lacked nationwide branch filters.',
-    myPart: 'Built interactive check drill-down modal, separated cash vs. check reconciliation filters, automated accounting date alignment, added multi-branch tracking with nationwide defaults, and enabled PDF/Excel export.',
+    result:
+      'Turned static daily sales totals into clickable check breakdowns with nationwide branch filtering and one-click Excel/PDF export.',
+    threeTags: ['Laravel', 'Vue.js', 'MySQL'],
+    problem:
+      'Treasury staff only saw static check totals without knowing which individual checks were inside, and cash records overlapped with check records.',
+    whatIBuilt:
+      'Added a clickable check pop-up showing bank and check details, separated cash from check filters, added a nationwide branch column, and built PDF and Excel exports.',
+    resultDetail:
+      'Treasury staff can inspect individual checks in one click and export clean daily reports across all stores.',
+    tools: 'Laravel · Vue.js · PHP · MySQL',
+    myPart:
+      'Built interactive check drill-down modal, separated cash vs. check reconciliation filters, automated accounting date alignment, added multi-branch tracking with nationwide defaults, and enabled PDF/Excel export.',
     stack: 'Laravel · Vue.js · PHP · MySQL',
     status: 'Delivered to Treasury, 2026',
     live: true,
   },
   {
+    slug: 'woh-attendance-system',
+    kind: 'software',
+    group: 'personal',
+    groupLabel: 'Personal · Word of Hope',
+    usedBy: 'Word of Hope Caloocan: ushers, pastors, church admin',
+    result:
+      'Replaced paper sign-in sheets with a camera QR check-in kiosk and automatic follow-up lists for absent members.',
+    threeTags: ['Laravel', 'Vue.js', 'REST API'],
+    problem:
+      'Sunday attendance was written by hand, causing lobby lines and making it hard for leaders to notice who stopped attending.',
+    whatIBuilt:
+      'Built the full system end to end: a Vue.js camera QR check-in kiosk, a Laravel REST API connected to the church website, and an admin dashboard that flags members who miss two Sundays.',
+    resultDetail:
+      'In live use every Sunday since March 2025 with fast check-ins and zero duplicate records.',
+    tools: 'Laravel · Vue.js · MySQL · REST API',
+    myPart: 'Built it end to end: database, Laravel API, Vue.js kiosk and admin dashboard.',
+    stack: 'Laravel · Vue.js · MySQL · REST API',
+    status: 'Live every Sunday since Mar 2025',
+    live: true,
+  },
+  {
     slug: 'wilcon-enterprise-systems',
     kind: 'software',
-    usedBy: 'Wilcon Depot internal teams',
-    problem: 'Internal finance workflows needed upkeep and automated data ingestion from Wilcon\'s Infor M3 ERP.',
+    group: 'work',
+    groupLabel: 'Work · Wilcon Depot',
+    usedBy: 'Wilcon Depot internal finance teams',
+    result:
+      'Maintained internal finance web apps and connected company ERP records to daily voucher workflows over a 6-month developer role.',
+    threeTags: ['Laravel', 'Vue.js', 'PHP'],
+    problem:
+      'Internal finance tools needed ongoing updates, bug fixes, and reliable data sync from the company central ERP records.',
+    whatIBuilt:
+      'Wrote backend Laravel and SQL logic for financial voucher processing, synced branch and vendor data from company ERP APIs, and tested releases with System Analysts and QA.',
+    resultDetail:
+      'Kept daily finance and voucher web tools accurate and stable across retail branches.',
+    tools: 'Laravel · Vue.js · PHP · MySQL',
     myPart: 'Maintained backend features, wrote SQL, and worked with QA and analysts on releases.',
     stack: 'Laravel · Vue.js · PHP · MySQL',
     status: 'May – Oct 2026',
@@ -330,9 +388,21 @@ export const PROJECT_INDEX: ProjectIndexEntry[] = [
   {
     slug: 'wordpress-ph-community',
     kind: 'community',
+    group: 'community',
+    groupLabel: 'Community · WordPress PH',
     usedBy: 'WordPress Philippines & Open-Source Community',
-    problem: 'Tech communities need dedicated volunteers and high-quality photo documentation to record gatherings and keep open-source momentum alive.',
-    myPart: 'Volunteer photographer documenting Software Freedom Day 2026 Manila, the July 2026 WP Manila Meetup at Common Ground, and community workshops; attendee in 2025.',
+    result:
+      'Grew from a 2025 meetup attendee into an official 2026 volunteer photographer for Manila open-source events.',
+    threeTags: ['WordPress', 'Volunteering', 'Open Source'],
+    problem:
+      'Local tech meetups rely on volunteers to run events and document sessions for the wider developer community.',
+    whatIBuilt:
+      'Volunteered as event photographer for Software Freedom Day 2026 Manila and the July 2026 WordPress Manila Meetup at Common Ground.',
+    resultDetail:
+      'Documented speaker talks, workshops, and community sessions leading up to WordCamp Philippines 2026.',
+    tools: 'Event Photography · Community Operations · Open Source',
+    myPart:
+      'Volunteer photographer documenting Software Freedom Day 2026 Manila, the July 2026 WP Manila Meetup at Common Ground, and community workshops; attendee in 2025.',
     stack: 'WordPress · Community · Open Source',
     status: 'Volunteering since Jan 2026',
     live: false,

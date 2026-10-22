@@ -3,13 +3,13 @@
   "title": "Month-End Closing System",
   "year": 2026,
   "category": "product",
-  "description": "Enterprise financial closing automation platform for Wilcon Depot. Replaced manual spreadsheets and chat apps with a centralized system that distributes journal adjustments directly to Business Unit owners, enforces zero-error balance validations, automates multi-tier approvals, and manages auto-reversing entries with live General Ledger tracking.",
+  "description": "Enterprise financial closing workflow built for Wilcon Depot's Financial Reporting Department. Replaced manual spreadsheets and chat threads with a central web application where departments submit journal adjustments, the system checks that Debit equals Credit, managers approve in two steps, and next-month reversals run automatically.",
   "tags": ["laravel", "vue.js", "php", "mysql", "financial-automation", "closing-workflow"],
-  "coverImage": "/wilcon-closing-gl-balance.png",
+  "coverImage": "/wilcon-enterprise.svg",
   "images": [
-    "/wilcon-closing-status.png",
-    "/wilcon-closing-master-file.png",
-    "/wilcon-closing-gl-balance.png"
+    "mock:closing-0",
+    "mock:closing-1",
+    "mock:closing-2"
   ],
   "role": "Full Stack Junior System Developer",
   "client": "Wilcon Depot, Inc. · Financial Reporting Department"

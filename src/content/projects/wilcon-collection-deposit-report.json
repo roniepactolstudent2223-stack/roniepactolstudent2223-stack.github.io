@@ -3,13 +3,13 @@
   "title": "Collection and Deposit Report Modification",
   "year": 2026,
   "category": "product",
-  "description": "Financial reporting enhancement developed for Wilcon Depot's Treasury Department. Upgraded the daily Collection and Deposit reporting workflow with clickable check drill-downs, separated cash and check filters for unreconciled accounts, automated accounting date alignment, a multi-branch tracking column with nationwide defaults, and one-click PDF/Excel export.",
+  "description": "Financial reporting upgrade built for Wilcon Depot's Treasury Department. Turned static daily check totals into clickable check breakdowns, separated cash and check filters for unreconciled accounts, aligned accounting dates automatically, added a nationwide branch column, and built one-click PDF and Excel exports.",
   "tags": ["laravel", "vue.js", "php", "mysql", "financial-reporting", "treasury"],
-  "coverImage": "/wilcon-cdr-branch.png",
+  "coverImage": "/wilcon-enterprise.svg",
   "images": [
-    "/wilcon-cdr-report.png",
-    "/wilcon-cdr-branch.png",
-    "/wilcon-cdr-check-detail.png"
+    "mock:cdr-0",
+    "mock:cdr-1",
+    "mock:cdr-2"
   ],
   "role": "Full Stack Junior System Developer",
   "client": "Wilcon Depot, Inc. · Treasury Department"
