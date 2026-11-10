@@ -7,7 +7,6 @@
 	</figure>
 	<div class="experience-heading">
 		<div>
-			<p class="ministry-label">Church &amp; community</p>
 			<h2 id="church-experience-title">Developer ministry<br /> <em>&amp; church service.</em></h2>
 			<p class="experience-meta"><span>Word of Hope Caloocan Church</span><span>Ongoing</span></p>
 			<p class="experience-summary">I build and maintain software for the church’s ministry teams.</p>
@@ -146,7 +145,6 @@
 	.ministry-photo { overflow: hidden; background: #eeece5; }
 	.ministry-photo figcaption { position: relative; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.25rem 1rem; padding: 0.65rem 0.75rem; background: var(--color-paper); font-size: 0.7rem; line-height: 1.5; }
 	.ministry-photo figcaption span { color: var(--color-muted); }
-	.ministry-label { margin: 0 0 0.75rem; color: var(--color-olive); font-size: 0.75rem; }
 	.church-experience .experience-heading { padding: 0; }
 	.church-experience .experience-heading h2 { font-size: clamp(1.65rem, 3vw, 2.1rem); line-height: 1.12; }
 	.church-experience .experience-meta { flex-direction: column; gap: 0.35rem; font-size: 0.8rem; }
@@ -182,6 +180,7 @@
 	.sheet-intro h2 { margin: 0; font-size: clamp(1.5rem, 1.2rem + 1.5vw, 2rem); line-height: 1.15; overflow-wrap: anywhere; }
 	#experience-sheet-meta { margin: 0.6rem 0 0; color: var(--color-muted); font-size: 0.8rem; line-height: 1.6; }
 	.sheet-summary { margin: 0.75rem 0 0; font-size: var(--mobile-body, 0.95rem); line-height: 1.6; }
+	.sheet-content { display: grid; gap: 1.25rem; }
 	.experience-sheet .experience-body { grid-template-columns: minmax(0, 1fr); gap: 1.25rem; padding: 0; }
 	.experience-sheet .experience-list li { grid-template-columns: minmax(0, 1fr); gap: 0.3rem; padding-block: 0.75rem; font-size: var(--mobile-body, 0.95rem); }
 	.experience-sheet :is(a, button):focus-visible { outline: 2px solid var(--color-ink); outline-offset: 3px; }
@@ -207,8 +206,7 @@
 	}
 	@media (max-width: 760px) {
 		.ministry-intro { grid-template-columns: minmax(0, 1fr); gap: 1.25rem; margin-block: 0 0.5rem; }
-		.church-experience .experience-heading { border-left: 0; padding: 0; }
-		.ministry-label { margin-bottom: 0.5rem; }
+		.church-experience .ministry-intro .experience-heading { border-left: 0; padding: 0; }
 		.church-experience .experience-meta { gap: 0.35rem; }
 		.church-experience .experience-summary { max-width: 40ch; }
 		.church-experience .experience-open { padding-left: 0; }
@@ -248,12 +246,12 @@
 		const phoneLayout = window.matchMedia('(max-width: 760px)');
 		const controller = new AbortController();
 		const { signal } = controller;
-		let active: { section: HTMLElement; body: HTMLElement; home: HTMLDetailsElement; first: Element | null; photo?: HTMLElement; photoHome?: Node } | null = null;
+		let active: { section: HTMLElement; body: HTMLElement; home: HTMLDetailsElement; first: Element | null; photo?: HTMLElement; photoHome?: Node; photoNext?: ChildNode | null } | null = null;
 		let closeVersion = 0;
 
 		const restoreContent = () => {
 			if (!active) return;
-			if (active.photo && active.photoHome) active.photoHome.appendChild(active.photo);
+			if (active.photo && active.photoHome) active.photoHome.insertBefore(active.photo, active.photoNext ?? null);
 			if (active.first) active.body.prepend(active.first);
 			active.home.append(active.body);
 			active = null;
@@ -288,6 +286,7 @@
 				if (photo?.parentNode) {
 					active.photo = photo;
 					active.photoHome = photo.parentNode;
+					active.photoNext = photo.nextSibling;
 				}
 				const responsibilities = body.querySelector<HTMLElement>(':scope > .experience-details, :scope > .experience-list');
 				if (responsibilities) body.prepend(responsibilities);
@@ -295,8 +294,8 @@
 				sheet.querySelector<HTMLElement>('.sheet-organization')!.textContent = section.querySelector('.experience-meta span:first-child')!.textContent;
 				sheet.querySelector<HTMLElement>('#experience-sheet-meta')!.textContent = section.querySelector('.experience-meta span:last-child')!.textContent;
 				sheet.querySelector<HTMLElement>('.sheet-summary')!.textContent = section.querySelector('.experience-summary')!.textContent;
-				content.append(body);
 				if (photo) content.append(photo);
+				content.append(body);
 				sheet.showModal();
 				scroll.scrollTop = 0;
 			}, { signal });

@@ -1,40 +1,26 @@
+---
+interface Props { total: number; }
+const { total } = Astro.props;
+---
+
 <header class="projects-hero" aria-labelledby="projects-title">
-	<div class="projects-hero-copy">
+	<div>
+		<p class="projects-eyebrow">Selected work <span>{String(total).padStart(2, '0')} projects</span></p>
 		<h1 id="projects-title">Projects that make<br /> <em>daily work simpler.</em></h1>
-		<p>Business systems, church software, and practical tools. Explore the work behind them, alongside a Laravel learning project.</p>
-		<a class="explore-projects" href="#project-list">Explore projects <span aria-hidden="true">↓</span></a>
 	</div>
-	<div class="projects-hero-image">
-		<img src="/images/ProjectHeroSection.png" width="1200" height="1600" alt="A laptop displaying development code on an office desk." fetchpriority="high" decoding="async" />
-	</div>
+	<p class="projects-introduction">Church software, business workflows, and practical tools. Explore the systems I’ve worked on and the problems behind them.</p>
 </header>
 
 <style>
-	.projects-hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: clamp(1.5rem, 4vw, 4rem); padding-block: 0.5rem 2.5rem; border-bottom: 1px solid var(--color-ink); }
-	.projects-hero-copy { min-width: 0; }
-	h1 { max-width: 20ch; margin: 0; font-size: clamp(2.25rem, 4.6vw, 4.5rem); line-height: 1.08; }
-	h1 em { display: inline; padding: 0; border-radius: 0; background: none; color: var(--color-accent); }
-	.projects-hero-copy p { max-width: 43ch; margin: 1.5rem 0 1rem; color: var(--color-muted); font-size: 1rem; line-height: 1.7; }
-	.explore-projects { display: inline-flex; align-items: center; gap: 1.5rem; min-height: 44px; font-size: 0.9rem; text-decoration: underline; text-underline-offset: 0.3em; }
-	.projects-hero-image { min-width: 0; aspect-ratio: 4 / 3; overflow: hidden; }
-	.projects-hero-image img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 65%; }
-	@media (min-width: 901px) {
-		.projects-hero { gap: 1.5rem; padding-bottom: 1.5rem; }
-		h1 { font-size: 2.25rem; line-height: 1.12; }
-		.projects-hero-copy p { margin-top: 0.75rem; font-size: 0.875rem; }
-	}
-	@media (min-width: 641px) and (max-width: 900px) {
-		.projects-hero { grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: 1.5rem; padding-bottom: 2rem; }
-		h1 { font-size: clamp(2rem, 4vw, 2.75rem); }
-		h1 br { display: none; }
-		.projects-hero-copy p { margin-block: 1rem 0.5rem; font-size: 0.9rem; }
-		.projects-hero-image { aspect-ratio: 3 / 4; }
-	}
-	@media (max-width: 640px) {
-		.projects-hero { grid-template-columns: minmax(0, 1fr); gap: 1rem; padding-block: 0 1.5rem; }
-		h1 { max-width: 24ch; font-size: var(--mobile-title); line-height: 1.15; }
-		.projects-hero-copy p { max-width: 52ch; margin-block: 0.75rem 0.5rem; font-size: var(--mobile-body); line-height: 1.65; }
-		.explore-projects { font-size: 0.85rem; }
-		.projects-hero-image { aspect-ratio: 16 / 9; }
+	.projects-hero { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); align-items: end; gap: 1.5rem 3rem; padding-bottom: 1.5rem; }
+	.projects-eyebrow { display: flex; align-items: center; gap: 1rem; margin: 0 0 0.75rem; font-size: 0.75rem; color: var(--color-olive); }
+	.projects-eyebrow span { color: var(--color-muted); font-variant-numeric: tabular-nums; }
+	h1 { margin: 0; font-size: 2.25rem; line-height: 1.12; }
+	h1 em { display: inline; padding: 0; background: none; color: var(--color-accent); }
+	.projects-introduction { max-width: 42ch; margin: 0; color: var(--color-muted); font-size: 0.9rem; line-height: 1.65; }
+	@media (max-width: 760px) {
+		.projects-hero { grid-template-columns: minmax(0, 1fr); gap: 0.85rem; padding-bottom: 1.25rem; }
+		h1 { font-size: var(--mobile-title, 2rem); line-height: 1.15; }
+		.projects-introduction { max-width: 50ch; font-size: var(--mobile-body, 0.95rem); }
 	}
 </style>
