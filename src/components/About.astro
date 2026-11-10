@@ -46,16 +46,16 @@
 	.background-details summary span { font: 400 1.3rem system-ui; }
 	.background-details[open] summary span { transform: rotate(45deg); }
 	.background-details summary:focus-visible { outline: 2px solid var(--color-ink); outline-offset: 3px; }
-	.about-profile { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 4rem; padding: 3.5rem 2.5rem 3rem; }
-	.profile-heading h2 { margin: 0 0 1.25rem; font-size: clamp(2.5rem, 4vw, 4rem); line-height: 1.05; }
+	.about-profile { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2.5rem; padding: 1.75rem 1.5rem 2rem; }
+	.profile-heading h2 { margin: 0 0 0.85rem; font-size: clamp(2rem, 3vw, 3rem); line-height: 1.05; }
 	.profile-heading h2 span { color: var(--color-accent); }
-	.profile-role { margin: 0; font-size: 1.05rem; line-height: 1.5; }
+	.profile-role { margin: 0; font-size: 0.95rem; line-height: 1.5; }
 	.profile-stack { margin: 0.65rem 0 0; color: var(--color-muted); font-size: 0.9rem; line-height: 1.6; }
-	.profile-story p { margin: 0 0 1rem; font-size: 1rem; line-height: 1.7; }
-	.profile-story p:first-child { font-size: 1.15rem; }
+	.profile-story p { margin: 0 0 0.75rem; font-size: 0.95rem; line-height: 1.65; }
+	.profile-story p:first-child { font-size: 1rem; }
 	.profile-story p:not(:first-child) { color: var(--color-muted); }
 	.community-link { display: inline-flex; align-items: center; gap: 0.35rem; min-height: 44px; color: var(--color-ink); text-decoration: underline; text-underline-offset: 0.25em; }
-	.about-details { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 0.75fr); gap: 4rem; padding-inline: 2.5rem; }
+	.about-details { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 0.75fr); gap: 2.5rem; padding-inline: 1.5rem; }
 	.about-details h3 { margin: 0 0 1.5rem; font-size: 1.6rem; }
 	.background-list { margin: 0; }
 	.background-list > div { display: grid; grid-template-columns: 6.25rem minmax(0, 1fr); gap: 1rem; padding: 0.9rem 0; border-top: 1px solid var(--color-border); }
@@ -70,7 +70,7 @@
 	.skill-group h4 { margin: 0 0 0.8rem; color: var(--color-muted); font-size: 0.85rem; font-weight: 400; }
 	.skill-group ul { display: flex; flex-wrap: wrap; gap: 0.5rem 1.25rem; margin: 0; padding: 0; list-style: none; font-size: 0.95rem; line-height: 1.7; }
 	@media (max-width: 1100px) { .about-profile, .about-details { gap: 2rem; padding-inline: 0; } }
-	@media (max-width: 900px) { .about-profile { grid-template-columns: minmax(0, 1fr); padding-top: 2.5rem; gap: 1.75rem; } }
+	@media (max-width: 900px) { .about-profile { grid-template-columns: minmax(0, 1fr); padding-top: 1.5rem; gap: 1.25rem; } }
 	@media (max-width: 640px) {
 		.about-details { grid-template-columns: minmax(0, 1fr); gap: var(--mobile-space); }
 		.about-profile { padding-block: 0.5rem var(--mobile-space); gap: var(--mobile-space); }
