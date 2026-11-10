@@ -89,6 +89,7 @@ const isProjectsPage = Astro.url.pathname.startsWith('/projects');
 	};
 
 	document.addEventListener('astro:page-load', () => {
+		document.querySelectorAll<HTMLElement>('.is-loading').forEach((element) => { element.classList.remove('is-loading'); element.removeAttribute('aria-busy'); });
 		const path = window.location.pathname;
 		document.querySelectorAll<HTMLAnchorElement>('.site-header .nav-link, .mobile-menu-panel a').forEach((link) => {
 			const href = link.getAttribute('href');
@@ -102,6 +103,11 @@ const isProjectsPage = Astro.url.pathname.startsWith('/projects');
 	reducedMotion.addEventListener('change', () => updateIndicator());
 	const menu = document.querySelector<HTMLDetailsElement>('.mobile-menu');
 	menu?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => { menu.open = false; }));
+	document.querySelectorAll<HTMLAnchorElement>('.site-header a[href]').forEach((link) => link.addEventListener('click', () => {
+		if (link.target === '_blank' || link.getAttribute('href')?.startsWith('#')) return;
+		link.classList.add('is-loading');
+		link.setAttribute('aria-busy', 'true');
+	}));
 	document.addEventListener('astro:before-preparation', () => { if (menu) menu.open = false; });
 	window.matchMedia('(min-width: 901px)').addEventListener('change', (event) => { if (event.matches && menu) menu.open = false; });
 	document.addEventListener('keydown', (event) => {

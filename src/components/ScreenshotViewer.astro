@@ -42,6 +42,8 @@
 				if (event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
 				if (viewer.open) return;
 				event.preventDefault();
+				link.classList.add('is-loading');
+				link.setAttribute('aria-busy', 'true');
 				trigger = link;
 				title.textContent = link.dataset.title ?? 'Screenshot';
 				img.src = link.href;
@@ -51,6 +53,7 @@
 				original.href = link.href;
 				viewer.showModal();
 				setFit(link.hasAttribute('data-fit'));
+				window.setTimeout(() => { link.classList.remove('is-loading'); link.removeAttribute('aria-busy'); }, 220);
 			}, { signal });
 		});
 		toggle.addEventListener('click', () => setFit(!viewer.classList.contains('viewer-fit'), true), { signal });

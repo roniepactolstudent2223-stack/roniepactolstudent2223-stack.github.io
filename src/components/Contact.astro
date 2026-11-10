@@ -57,10 +57,13 @@ const { resumeUrl } = Astro.props;
 	document.querySelectorAll<HTMLButtonElement>('[data-open-contact]').forEach((trigger) => {
 		trigger.addEventListener('click', () => {
 			if (!dialog || dialog.open) return;
+			trigger.classList.add('is-loading');
+			trigger.setAttribute('aria-busy', 'true');
 			const menu = trigger.closest('details');
 			if (menu) menu.open = false;
 			returnFocus = menu?.querySelector('summary') ?? trigger;
 			dialog.showModal();
+			window.setTimeout(() => { trigger.classList.remove('is-loading'); trigger.removeAttribute('aria-busy'); }, 220);
 		});
 	});
 	dialog?.addEventListener('close', () => { if (returnFocus?.isConnected) returnFocus.focus({ preventScroll: true }); });

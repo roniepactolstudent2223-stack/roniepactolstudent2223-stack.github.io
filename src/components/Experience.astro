@@ -288,6 +288,8 @@
 			const trigger = section.querySelector<HTMLButtonElement>('.experience-open')!;
 			trigger.addEventListener('click', () => {
 				if (!phoneLayout.matches || sheet.open) return;
+				trigger.classList.add('is-loading');
+				trigger.setAttribute('aria-busy', 'true');
 				++closeVersion;
 				restoreContent();
 				const home = section.querySelector<HTMLDetailsElement>('.experience-disclosure')!;
@@ -308,6 +310,7 @@
 				content.append(body);
 				sheet.showModal();
 				scroll.scrollTop = 0;
+				window.setTimeout(() => { trigger.classList.remove('is-loading'); trigger.removeAttribute('aria-busy'); }, 260);
 			}, { signal });
 		});
 		closeButton.addEventListener('click', () => closeSheet(), { signal });

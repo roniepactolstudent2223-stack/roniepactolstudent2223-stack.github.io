@@ -239,9 +239,8 @@ h2 em {
 
 h1 em {
 	display: inline-block;
-	padding: 0.02em 0.14em 0.08em;
-	border-radius: 0.22rem;
-	background: #f4eadc;
+	padding: 0;
+	background: transparent;
 }
 
 .hero-description {
@@ -274,6 +273,10 @@ h1 em {
 	font-weight: 600;
 	transition: background-color var(--motion-fast) ease;
 }
+
+:is(a, button).is-loading { position: relative; pointer-events: none; color: transparent !important; }
+:is(a, button).is-loading::after { content: ""; position: absolute; width: 0.8rem; height: 0.8rem; border: 1.5px solid currentColor; border-top-color: transparent; border-radius: 50%; color: var(--color-accent); animation: control-spin 650ms linear infinite; }
+@keyframes control-spin { to { transform: rotate(360deg); } }
 
 .button-secondary:hover,
 .github-button:hover,
