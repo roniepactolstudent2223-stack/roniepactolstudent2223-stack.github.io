@@ -532,6 +532,8 @@ h1 em {
 }
 
 @media (min-width: 901px) {
+	html { font-size: 93.75%; }
+	.site-header, .page-shell, .site-footer { width: min(100% - 6rem, 850px); }
 	.site-nav { height: 3.5rem; }
 	.wordmark { font-size: 1.375rem; }
 	.nav-links { font-size: 0.8125rem; }
