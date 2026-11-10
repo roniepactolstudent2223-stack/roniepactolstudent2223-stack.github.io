@@ -1,11 +1,18 @@
 
 <section class="experience-section church-experience" id="word-of-hope" aria-labelledby="church-experience-title">
+	<div class="ministry-intro">
+	<figure class="ministry-photo">
+		<img src="/images/word-of-hope-1200.webp" srcset="/images/word-of-hope-600.webp 600w, /images/word-of-hope-1200.webp 1200w" sizes="(max-width: 760px) calc(100vw - 2rem), 480px" width="1200" height="675" alt="Word of Hope Caloocan church building beside EDSA" class="church-image" decoding="async" />
+		<figcaption>Word of Hope Caloocan <span>Caloocan City, Philippines</span></figcaption>
+	</figure>
 	<div class="experience-heading">
 		<div>
-			<h2 id="church-experience-title">Developer ministry &amp;<br /> <em>church worker.</em></h2>
+			<p class="ministry-label">Church &amp; community</p>
+			<h2 id="church-experience-title">Developer ministry<br /> <em>&amp; church service.</em></h2>
 			<p class="experience-meta"><span>Word of Hope Caloocan Church</span><span>Ongoing</span></p>
-			<p class="experience-summary">I maintain church software and build systems requested by ministry teams, alongside active church service.</p>
+			<p class="experience-summary">I build and maintain software for the church’s ministry teams.</p>
 		</div>
+	</div>
 	</div>
 	<button class="experience-open" type="button" aria-haspopup="dialog" aria-controls="experience-sheet" aria-label="View developer ministry experience at Word of Hope Caloocan Church" hidden>View experience <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m7 4 6 6-6 6" /></svg></button>
 	<details class="experience-disclosure">
@@ -13,19 +20,14 @@
 		<div class="experience-body">
 			<div class="experience-details">
 				<ul class="experience-list">
-					<li><strong>Software maintenance</strong><span>Maintain all church software and support its continued use across ministry activities.</span></li>
-					<li><strong>Requested system development</strong><span>Develop systems in response to requests from the church and its ministries, turning their needs into working software.</span></li>
-					<li><strong>Ministry collaboration</strong><span>Collaborate with other ministries and professionals to understand requests and coordinate software development and support.</span></li>
-					<li><strong>Events &amp; photography</strong><span>Help organize church events and volunteer as a photographer to document church activities and gatherings.</span></li>
-					<li><strong>Active church service</strong><span>Serve as an active church worker, contributing my time and technical skills alongside my church family.</span></li>
+					<li><strong>Church software</strong><span>Maintain existing software and build systems requested by ministry teams.</span></li>
+					<li><strong>Ministry collaboration</strong><span>Work with ministry teams and other professionals to plan and support their systems.</span></li>
+					<li><strong>Events &amp; service</strong><span>Help organize gatherings, volunteer as a photographer, and serve as a church worker.</span></li>
 				</ul>
 				<div class="experience-location">
-					<address class="experience-address">474 EDSA, Barangay 87,<br />Caloocan City, 1400,<br />Philippines</address>
+					<address class="experience-address">474 EDSA, Barangay 87, Caloocan City, Philippines</address>
 					<a class="organization-link" href="https://wohcaloocan.org/" target="_blank" rel="noopener noreferrer">Visit church website <span aria-hidden="true">↗</span></a>
 				</div>
-			</div>
-			<div class="experience-image-wrap">
-				<img src="/images/word-of-hope-1200.webp" srcset="/images/word-of-hope-600.webp 600w, /images/word-of-hope-1200.webp 1200w" sizes="(max-width: 760px) calc(100vw - 2rem), 400px" width="1200" height="675" alt="Word of Hope Caloocan church building beside EDSA" class="experience-image church-image" loading="lazy" decoding="async" />
 			</div>
 		</div>
 	</details>
@@ -137,7 +139,25 @@
 	.experience-list strong { font-weight: 600; }
 	.experience-list span { color: var(--color-muted); }
 	.church-experience .experience-heading h2 { font-size: clamp(2rem, 4vw, 3.5rem); line-height: 1.1; }
-	.church-image { aspect-ratio: 16 / 9; object-fit: contain; border: 0; }
+	.ministry-intro { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); align-items: center; gap: 2rem; margin-block: 1rem 1.5rem; }
+	.ministry-photo { min-width: 0; margin: 0; }
+	/* The cutout has wide transparent sides. A clipped frame brings the building forward. */
+	.ministry-photo .church-image { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; object-position: 48% 50%; transform: scale(1.3); }
+	.ministry-photo { overflow: hidden; background: #eeece5; }
+	.ministry-photo figcaption { position: relative; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.25rem 1rem; padding: 0.65rem 0.75rem; background: var(--color-paper); font-size: 0.7rem; line-height: 1.5; }
+	.ministry-photo figcaption span { color: var(--color-muted); }
+	.ministry-label { margin: 0 0 0.75rem; color: var(--color-olive); font-size: 0.75rem; }
+	.church-experience .experience-heading { padding: 0; }
+	.church-experience .experience-heading h2 { font-size: clamp(1.65rem, 3vw, 2.1rem); line-height: 1.12; }
+	.church-experience .experience-meta { flex-direction: column; gap: 0.35rem; font-size: 0.8rem; }
+	.church-experience .experience-meta span + span::before { content: ""; display: inline-block; width: 0.4rem; height: 0.4rem; margin-right: 0.4rem; border-radius: 50%; background: var(--color-olive); vertical-align: 0.1em; }
+	.church-experience .experience-summary { max-width: 30ch; font-size: 0.9rem; }
+	.church-experience .experience-body { display: block; padding: 0; }
+	.church-experience .experience-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
+	.church-experience .experience-list li { display: block; padding-block: 0.85rem 0; font-size: 0.85rem; }
+	.church-experience .experience-list strong { display: block; margin-bottom: 0.35rem; }
+	.church-experience .experience-location { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.25rem 1rem; margin-top: 1.25rem; }
+	.church-experience .experience-address { max-width: none; font-size: 0.75rem; }
 	.service-experience .experience-heading { align-items: baseline; padding-top: 1.5rem; }
 	.service-experience .experience-heading h2 { font-size: clamp(1.75rem, 3vw, 2.75rem); line-height: 1.15; }
 	.service-body { align-items: start; }
@@ -186,6 +206,13 @@
 		.experience-body { gap: 1.5rem; }
 	}
 	@media (max-width: 760px) {
+		.ministry-intro { grid-template-columns: minmax(0, 1fr); gap: 1.25rem; margin-block: 0 0.5rem; }
+		.church-experience .experience-heading { border-left: 0; padding: 0; }
+		.ministry-label { margin-bottom: 0.5rem; }
+		.church-experience .experience-meta { gap: 0.35rem; }
+		.church-experience .experience-summary { max-width: 40ch; }
+		.church-experience .experience-open { padding-left: 0; }
+		.church-experience .experience-list { grid-template-columns: minmax(0, 1fr); gap: 0; }
 		.experience-page-heading { display: block; padding-block: 1.25rem 0.5rem; }
 		.experience-page-heading h1 { font-size: 1.75rem; }
 		.experience-page-heading p { margin-top: 0.35rem; }
@@ -221,11 +248,12 @@
 		const phoneLayout = window.matchMedia('(max-width: 760px)');
 		const controller = new AbortController();
 		const { signal } = controller;
-		let active: { section: HTMLElement; body: HTMLElement; home: HTMLDetailsElement; first: Element | null } | null = null;
+		let active: { section: HTMLElement; body: HTMLElement; home: HTMLDetailsElement; first: Element | null; photo?: HTMLElement; photoHome?: Node } | null = null;
 		let closeVersion = 0;
 
 		const restoreContent = () => {
 			if (!active) return;
+			if (active.photo && active.photoHome) active.photoHome.appendChild(active.photo);
 			if (active.first) active.body.prepend(active.first);
 			active.home.append(active.body);
 			active = null;
@@ -256,6 +284,11 @@
 				const home = section.querySelector<HTMLDetailsElement>('.experience-disclosure')!;
 				const body = home.querySelector<HTMLElement>('.experience-body')!;
 				active = { section, body, home, first: body.firstElementChild };
+				const photo = section.querySelector<HTMLElement>('.ministry-photo');
+				if (photo?.parentNode) {
+					active.photo = photo;
+					active.photoHome = photo.parentNode;
+				}
 				const responsibilities = body.querySelector<HTMLElement>(':scope > .experience-details, :scope > .experience-list');
 				if (responsibilities) body.prepend(responsibilities);
 				sheet.querySelector<HTMLElement>('#experience-sheet-title')!.textContent = section.querySelector('h2')!.textContent;
@@ -263,6 +296,7 @@
 				sheet.querySelector<HTMLElement>('#experience-sheet-meta')!.textContent = section.querySelector('.experience-meta span:last-child')!.textContent;
 				sheet.querySelector<HTMLElement>('.sheet-summary')!.textContent = section.querySelector('.experience-summary')!.textContent;
 				content.append(body);
+				if (photo) content.append(photo);
 				sheet.showModal();
 				scroll.scrollTop = 0;
 			}, { signal });
