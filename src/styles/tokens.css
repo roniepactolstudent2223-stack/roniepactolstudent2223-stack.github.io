@@ -1,0 +1,10 @@
+:root {
+	--color-ink: #202223;
+	--color-muted: #606469;
+	--color-surface: #f8f7f4;
+	--color-paper: #fbfaf7;
+	--color-border: #c9c9c4;
+	--color-accent: #bd7629;
+	--color-olive: #6d7458;
+	--radius-card: 0.75rem;
+}

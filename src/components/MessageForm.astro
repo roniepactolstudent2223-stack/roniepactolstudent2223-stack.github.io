@@ -1,0 +1,84 @@
+<form class="message-form" action="https://formsubmit.co/roniepactol@gmail.com" method="POST" enctype="multipart/form-data" target="_blank" rel="noopener" data-astro-reload>
+	<input type="hidden" name="_subject" value="New portfolio message for Ronie Pactol" />
+	<input type="hidden" name="_template" value="table" />
+	<div class="sender-fields">
+		<label>Your name<input name="name" autocomplete="name" maxlength="120" required /></label>
+		<label>Your email<input type="email" name="email" autocomplete="email" maxlength="254" required /></label>
+	</div>
+	<label>Message<textarea name="message" rows="3" maxlength="10000" placeholder="Tell me about the role or project." required></textarea></label>
+	<details class="attachments">
+		<summary>Attach files <span class="attachment-count">(optional)</span></summary>
+		<p id="attachment-help">Images, PDFs, documents, and other files. Maximum 10 MB combined.</p>
+		<div class="attachment-list"><div class="attachment-field"><input id="message-attachment" type="file" name="attachment" aria-label="Attachment 1" aria-describedby="attachment-help" /></div></div>
+		<button class="add-attachment" type="button" hidden>+ Add another file</button>
+	</details>
+	<button class="send-message" type="submit">Send message <span aria-hidden="true">↗</span></button>
+	<p class="delivery-note">Opens FormSubmit in a new tab to finish verification. This page stays open.</p>
+</form>
+
+<script>
+	const form = document.querySelector<HTMLFormElement>('.message-form');
+	const list = form?.querySelector<HTMLElement>('.attachment-list');
+	const add = form?.querySelector<HTMLButtonElement>('.add-attachment');
+	const attachments = form?.querySelector<HTMLDetailsElement>('.attachments');
+	const count = form?.querySelector<HTMLElement>('.attachment-count');
+	let attachmentCount = 1;
+	const validateAttachments = () => {
+		const inputs = Array.from(form?.querySelectorAll<HTMLInputElement>('input[type="file"]') ?? []);
+		const total = inputs.reduce((sum, input) => sum + Array.from(input.files ?? []).reduce((size, file) => size + file.size, 0), 0);
+		inputs[0]?.setCustomValidity(total > 10_000_000 ? 'Attachments must total 10 MB or less. Remove a file or choose smaller files.' : '');
+		const selected = inputs.reduce((sum, input) => sum + (input.files?.length ?? 0), 0);
+		if (count) count.textContent = selected ? `(${selected} selected)` : '(optional)';
+	};
+	form?.addEventListener('invalid', (event) => {
+		if (event.target instanceof HTMLInputElement && event.target.type === 'file' && attachments) attachments.open = true;
+	}, true);
+	form?.addEventListener('change', () => { validateAttachments(); });
+	form?.addEventListener('submit', (event) => {
+		validateAttachments();
+		if (!form.reportValidity()) event.preventDefault();
+	});
+	if (add && list) {
+		add.hidden = false;
+		add.addEventListener('click', () => {
+			attachmentCount += 1;
+			const row = document.createElement('div');
+			row.className = 'attachment-field';
+			const input = document.createElement('input');
+			input.type = 'file';
+			input.name = `attachment${attachmentCount}`;
+			input.setAttribute('aria-label', `Attachment ${attachmentCount}`);
+			input.setAttribute('aria-describedby', 'attachment-help');
+			const remove = document.createElement('button');
+			remove.type = 'button';
+			remove.textContent = 'Remove';
+			remove.setAttribute('aria-label', `Remove attachment ${attachmentCount}`);
+			remove.addEventListener('click', () => { row.remove(); validateAttachments(); add.focus(); });
+			row.append(input, remove);
+			list.append(row);
+			input.focus();
+		});
+	}
+</script>
+
+<style>
+	.message-form { display: grid; gap: 0.75rem; min-width: 0; }
+	.sender-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
+	label { display: grid; gap: 0.4rem; font-size: 0.85rem; }
+	label span { color: var(--color-muted); }
+	input:not([type="hidden"]), textarea { box-sizing: border-box; width: 100%; min-width: 0; min-height: 44px; padding: 0.6rem; border: 1px solid var(--color-border); border-radius: 0.25rem; background: transparent; color: var(--color-ink); font: inherit; font-size: 1rem; }
+	textarea { resize: vertical; }
+	input:focus-visible, textarea:focus-visible, button:focus-visible { outline: 2px solid var(--color-ink); outline-offset: 3px; }
+	.attachments p, .delivery-note { margin: 0.35rem 0 0; color: var(--color-muted); font-size: 0.8rem; line-height: 1.5; overflow-wrap: anywhere; }
+	.attachments summary { min-height: 44px; padding-block: 0.65rem; font-size: 0.85rem; cursor: pointer; }
+	.attachment-count { color: var(--color-muted); }
+	.attachment-list { display: grid; gap: 0.5rem; margin-top: 0.6rem; }
+	/* Added file fields share these rules without requiring Astro scope attributes. */
+	.attachment-list :global(.attachment-field) { display: flex; align-items: center; gap: 0.5rem; min-width: 0; }
+	.attachment-list :global(input[type="file"]) { width: 100%; min-width: 0; min-height: 44px; padding: 0.5rem 0; border: 0; font: inherit; font-size: 0.85rem; }
+	.attachment-list :global(input::file-selector-button) { margin-right: 0.5rem; padding: 0.5rem; border: 1px solid var(--color-border); background: var(--color-paper); color: var(--color-ink); cursor: pointer; }
+	.add-attachment, .attachment-list :global(button) { min-height: 44px; padding: 0; border: 0; background: none; color: var(--color-ink); font: inherit; font-size: 0.8rem; text-decoration: underline; text-underline-offset: 0.25em; cursor: pointer; }
+	.add-attachment[hidden] { display: none; }
+	.send-message { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 44px; padding: 0.75rem 1rem; border: 0; border-radius: 0.25rem; background: var(--color-ink); color: white; font: inherit; font-size: 0.9rem; cursor: pointer; }
+	@media (max-width: 479px) { .sender-fields { grid-template-columns: minmax(0, 1fr); gap: 0.75rem; } }
+</style>

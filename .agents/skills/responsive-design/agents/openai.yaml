@@ -1,0 +1,4 @@
+interface:
+  display_name: "Responsive Design"
+  short_description: "Rethink mobile and tablet layouts before resizing"
+  default_prompt: "Use $responsive-design to adapt this desktop interface for mobile and tablet: plan the layout first, make it compact through structure, and evaluate disclosures, dialogs, and icon actions before implementing."

@@ -1,0 +1,15 @@
+---
+interface Props { title: string; description: string; href?: string; detail?: string; image?: string; featured?: boolean; number: string; }
+const { title, description, href = '#', detail, image, featured = false, number } = Astro.props;
+---
+
+<a href={href} class:list={['project-card', { 'project-card-featured': featured }]}>
+	<div class="project-copy">
+		<p class="project-number">{number}</p>
+		<h3>{title}</h3>
+		<p class="project-description">{description}</p>
+		{detail && <p class="project-detail">{detail}</p>}
+		<span class="project-link">{featured ? 'Explore case study' : 'View project'} <span aria-hidden="true">↗</span></span>
+	</div>
+	{image && <div class="project-image-wrap"><img src={image} alt={`${title} project preview`} class="project-image" /></div>}
+</a>

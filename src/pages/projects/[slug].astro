@@ -1,0 +1,15 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import WrittenProjectDetails from '../../components/WrittenProjectDetails.astro';
+import { writtenProjects, type WrittenProject } from '../../content/projects/written-projects';
+
+export function getStaticPaths() {
+	return writtenProjects.map(project => ({ params: { slug: project.slug }, props: { project } }));
+}
+interface Props { project: WrittenProject; }
+const { project } = Astro.props;
+---
+
+<BaseLayout title={`${project.title} — Ronie Pactol`} description={project.summary}>
+	<div class="page-shell"><WrittenProjectDetails project={project} /></div>
+</BaseLayout>

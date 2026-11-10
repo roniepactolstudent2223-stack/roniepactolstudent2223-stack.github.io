@@ -1,0 +1,4 @@
+interface:
+  display_name: "Frontend Motion Design"
+  short_description: "Research and design refined layout-driven animations"
+  default_prompt: "Use $frontend-motion-design to research relevant motion references and design purposeful layout-driven animations; implement them when requested."

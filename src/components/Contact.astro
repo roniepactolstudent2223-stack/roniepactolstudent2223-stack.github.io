@@ -1,0 +1,131 @@
+---
+import MessageForm from './MessageForm.astro';
+interface Props {
+	resumeUrl?: string;
+}
+const { resumeUrl } = Astro.props;
+---
+
+<dialog class="contact-modal" id="contact" aria-labelledby="contact-title" transition:persist="contact-dialog" transition:animate="none">
+	<form method="dialog" class="modal-toolbar"><h2 id="contact-title">Message<span aria-hidden="true">.</span></h2><button class="close-contact" autofocus>Close <span aria-hidden="true">×</span></button></form>
+	<div class="contact-grid">
+		<div class="contact-intro">
+			<p class="contact-availability">If you have any questions or concerns, please don't hesitate to reach out. I'd be more than happy to help!</p>
+		</div>
+		<div class="message-content">
+		<MessageForm />
+		<details class="other-contact-methods">
+			<summary>Other ways to reach me</summary>
+			<p class="contact-location">Quezon City, Metro Manila</p>
+			{resumeUrl ? (
+				<a class="resume-link" href={resumeUrl} target="_blank" rel="noopener noreferrer">Resume (Google Doc) <span aria-hidden="true">↗</span></a>
+			) : (
+				<p class="resume-pending">Resume (Google Doc)<span>Link coming soon</span></p>
+			)}
+		<div class="contact-directory">
+			<div class="contact-row">
+				<h3>Phone / SMS</h3>
+				<p class="contact-value">0993 126 3221</p>
+				<div class="contact-actions">
+					<a href="tel:+639931263221">Call <span aria-hidden="true">↗</span></a>
+					<button type="button" data-copy="0993 126 3221" aria-label="Copy phone number" hidden>Copy</button>
+				</div>
+			</div>
+			<div class="contact-row">
+				<h3>Viber</h3>
+				<p class="contact-value">+63 993 126 3221</p>
+				<div class="contact-actions"><a href="viber://chat?number=%2B639931263221">Open Viber <span aria-hidden="true">↗</span></a></div>
+			</div>
+			<div class="contact-row">
+				<h3>Email</h3>
+				<p class="contact-value contact-email">roniepactol@gmail.com</p>
+				<div class="contact-actions">
+					<a href="mailto:roniepactol@gmail.com">Email <span aria-hidden="true">↗</span></a>
+					<button type="button" data-copy="roniepactol@gmail.com" aria-label="Copy email address" hidden>Copy</button>
+				</div>
+			</div>
+			<p class="copy-status" role="status" aria-live="polite" aria-atomic="true"></p>
+		</div>
+		</details>
+		</div>
+	</div>
+</dialog>
+
+<script>
+	const dialog = document.querySelector<HTMLDialogElement>('#contact');
+	let returnFocus: HTMLElement | null = null;
+	document.querySelectorAll<HTMLButtonElement>('[data-open-contact]').forEach((trigger) => {
+		trigger.addEventListener('click', () => {
+			if (!dialog || dialog.open) return;
+			const menu = trigger.closest('details');
+			if (menu) menu.open = false;
+			returnFocus = menu?.querySelector('summary') ?? trigger;
+			dialog.showModal();
+		});
+	});
+	dialog?.addEventListener('close', () => { returnFocus?.focus({ preventScroll: true }); });
+	let backdropPressed = false;
+	dialog?.addEventListener('pointerdown', (event) => { backdropPressed = event.target === dialog; });
+	dialog?.addEventListener('click', (event) => {
+		if (backdropPressed && event.target === dialog) {
+			const bounds = dialog.getBoundingClientRect();
+			if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) dialog.close();
+		}
+		backdropPressed = false;
+	});
+	const status = document.querySelector<HTMLElement>('#contact .copy-status');
+	if (navigator.clipboard?.writeText) {
+		document.querySelectorAll<HTMLButtonElement>('#contact [data-copy]').forEach((button) => {
+			button.hidden = false;
+			button.addEventListener('click', async () => {
+				const value = button.dataset.copy;
+				if (!value) return;
+				button.disabled = true;
+				try {
+					await navigator.clipboard.writeText(value);
+					button.textContent = 'Copied';
+					if (status) status.textContent = `${value} copied to clipboard.`;
+				} catch {
+					if (status) status.textContent = 'Could not copy. Select the contact detail above and copy it manually.';
+				} finally {
+					button.disabled = false;
+					window.setTimeout(() => { button.textContent = 'Copy'; }, 2000);
+				}
+			});
+		});
+	}
+</script>
+
+<style>
+	.contact-modal { --dialog-space: clamp(0.875rem, 3vw, 1.5rem); box-sizing: border-box; width: min(36rem, calc(100% - 1.5rem)); max-width: none; max-height: calc(100dvh - 1.5rem); margin: auto; padding: 0; border: 1px solid var(--color-border); border-radius: var(--radius-card); background: var(--color-paper); color: var(--color-ink); overflow: hidden; box-shadow: 0 1.5rem 5rem #0003; }
+	.contact-modal[open] { display: grid; grid-template-rows: auto minmax(0, 1fr); }
+	.contact-modal::backdrop { background: rgb(20 22 23 / 55%); }
+	:global(html:has(.contact-modal[open])) { overflow: hidden; }
+	.modal-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; margin: 0; padding: 0.5rem var(--dialog-space); border-bottom: 1px solid var(--color-border); background: var(--color-paper); }
+	.modal-toolbar h2 { min-width: 0; margin: 0; font-size: clamp(1.5rem, 1.15rem + 2vw, 2rem); line-height: 1.2; overflow-wrap: anywhere; }
+	.modal-toolbar h2 span { color: var(--color-accent); }
+	.close-contact { display: inline-flex; align-items: center; gap: 0.75rem; min-height: 44px; padding: 0.5rem; border: 0; background: none; color: var(--color-ink); font: inherit; font-size: 0.85rem; cursor: pointer; }
+	.close-contact span { font-size: 1.5rem; line-height: 1; }
+	.contact-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.75rem; min-height: 0; padding: 0.75rem var(--dialog-space) max(var(--dialog-space), env(safe-area-inset-bottom)); overflow-y: auto; overscroll-behavior: contain; scroll-padding-block: 0.75rem; }
+	.contact-location { margin: 0 0 0.75rem; font-size: 0.95rem; color: var(--color-muted); }
+	.contact-availability { margin: 0; color: var(--color-muted); font-size: 0.85rem; line-height: 1.5; }
+	.resume-link { display: inline-flex; align-items: center; gap: 1.25rem; min-height: 44px; margin-bottom: 0.75rem; border-bottom: 1px solid var(--color-ink); font-size: 0.85rem; font-weight: 600; }
+	.resume-pending { margin: 2rem 0 0; color: var(--color-muted); font-size: 0.9rem; }
+	.resume-pending span { display: block; margin-top: 0.35rem; font-size: 0.8rem; }
+	.contact-directory { min-width: 0; }
+	.contact-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; column-gap: 0.75rem; padding: 0.5rem 0 0.75rem; border-top: 1px solid var(--color-border); }
+	.contact-row:first-child { border-top-color: var(--color-ink); }
+	.contact-row h3 { grid-column: 1; grid-row: 1; margin: 0; color: var(--color-muted); font: inherit; font-size: 0.85rem; letter-spacing: 0; }
+	.contact-value { grid-column: 1 / -1; grid-row: 2; margin: 0; font-size: clamp(1rem, 0.85rem + 0.6vw, 1.25rem); line-height: 1.4; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+	.contact-actions { grid-column: 2; grid-row: 1; display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; }
+	.contact-actions a, .contact-actions button { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; min-width: 44px; min-height: 44px; padding: 0.35rem 0; font: inherit; font-size: 0.8rem; font-weight: 600; border: 0; background: none; color: var(--color-ink); cursor: pointer; }
+	.contact-actions button[hidden] { display: none; }
+	.contact-actions button { color: var(--color-muted); }
+	.contact-actions :is(a, button):hover, .resume-link:hover { text-decoration: underline; text-underline-offset: 0.3em; }
+	.contact-modal :is(a, button, summary):focus-visible { outline: 2px solid var(--color-ink); outline-offset: 3px; }
+	.message-content { min-width: 0; }
+	.other-contact-methods { margin-top: 1rem; border-top: 1px solid var(--color-border); }
+	.other-contact-methods summary { min-height: 44px; padding-block: 0.75rem; font-size: 0.85rem; cursor: pointer; }
+	.copy-status { margin: 0; color: var(--color-muted); font-size: 0.8rem; line-height: 1.5; }
+	.copy-status:not(:empty) { padding-top: 0.5rem; }
+</style>

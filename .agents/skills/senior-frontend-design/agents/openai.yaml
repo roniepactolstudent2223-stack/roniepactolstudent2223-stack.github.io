@@ -1,0 +1,4 @@
+interface:
+  display_name: "Senior Frontend Design"
+  short_description: "Research, plan, and build distinctive frontend UI"
+  default_prompt: "Use $senior-frontend-design to research relevant references, choose a distinctive direction, and implement a responsive interface within this project's architecture."

@@ -1,0 +1,105 @@
+---
+const events = [
+	{
+		id: 'wordpress-manila', title: 'WordPress Manila Meetup', date: 'July 2026', datetime: '2026-07',
+		image: 'wordpress-manila', alt: 'WordPress Manila Meetup attendees gathered for a group photo at Common Ground Work Philippines Don Antonio.',
+		description: 'I volunteered as a photographer at the July 2026 WordPress Manila Meetup, documenting a gathering of the local WordPress community.',
+		context: 'An opportunity for attendees to learn, share, and connect, hosted at Common Ground Work Philippines Don Antonio.',
+		supportLabel: 'Venue sponsor', supporters: 'Common Ground Work Philippines Don Antonio',
+	},
+	{
+		id: 'software-freedom-day', title: 'Software Freedom Day Manila', date: '2026', datetime: '2026',
+		image: 'software-freedom-day', alt: 'Software Freedom Day Manila attendees posing together in front of a Huawei event screen.',
+		description: 'I volunteered as a photographer for Software Freedom Day 2026 Manila, capturing a celebration of free and open-source software under the theme “The Future Is Open.”',
+		context: 'The gathering brought together developers, designers, students, advocates, creators, and open-source enthusiasts.',
+		supportLabel: 'Sponsor & supporter', supporters: 'Sponsored by Huawei Cloud Developer Group Philippines, with support from the Digital Freedom Foundation.',
+	},
+	{
+		id: 'camanava-campus', title: 'WordPress Camanava Campus Meetup', date: 'August 2025', datetime: '2025-08',
+		image: 'camanava-campus', alt: 'WordPress Camanava Campus Meetup attendees gathered with WordPress Manila community signs.',
+		description: 'I volunteered as a photographer at the August 2025 WordPress Camanava Campus Meetup, documenting the people behind a day of learning, sharing, and connection.',
+		context: 'Attendees, speakers, organizers, and fellow volunteers came together to share knowledge and meet the community.',
+		supportLabel: 'Meetup partners', supporters: 'WCC Aeronautical & Technological College · LevelUp · DEVCON',
+	},
+];
+---
+
+<section class="community-intro" aria-labelledby="community-title">
+	<div>
+		<h1 id="community-title">Community &amp;<br /><em>volunteering.</em></h1>
+		<p class="community-role">Volunteer photographer · WordPress &amp; open source</p>
+	</div>
+	<p class="community-summary">Outside development, I volunteer as an event photographer, documenting the people who make our local tech communities possible.</p>
+</section>
+
+
+<div class="community-events">
+	{events.map((event, index) => (
+		<article class="community-event" id={event.id} aria-labelledby={`${event.id}-title`}>
+			<div class="event-copy">
+				<time datetime={event.datetime}>{event.date}</time>
+				<h2 id={`${event.id}-title`}>{event.title}</h2>
+				<p class="event-role">Volunteer photographer</p>
+				<p class="event-description">{event.description}</p>
+				<details class="event-context">
+					<summary>About the gathering</summary>
+					<p>{event.context}</p>
+					<dl><dt>{event.supportLabel}</dt><dd>{event.supporters}</dd></dl>
+				</details>
+			</div>
+			<figure>
+				<a href={`/images/${event.image}-1600.webp`} target="_blank" rel="noopener noreferrer" aria-label={`View the ${event.title} group photo in a new tab`}>
+					<img src={`/images/${event.image}-1600.webp`} srcset={`/images/${event.image}-800.webp 800w, /images/${event.image}-1600.webp 1600w`} sizes="(max-width: 900px) calc(100vw - 2rem), 60vw" width="1600" height="900" alt={event.alt} loading={index === 0 ? 'eager' : 'lazy'} decoding="async" />
+				</a>
+				<figcaption><span>{event.title} · {event.date}</span><a href={`/images/${event.image}-1600.webp`} target="_blank" rel="noopener noreferrer" aria-label={`Open ${event.title} photo in a new tab`}>View photo <span aria-hidden="true">↗</span></a></figcaption>
+			</figure>
+		</article>
+	))}
+</div>
+
+<style>
+	.community-intro { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr); align-items: end; gap: 3rem; padding: clamp(2rem, 5vw, 4rem) 0 2rem; }
+	.community-intro h1 { max-width: 18ch; font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 1.05; }
+	.community-intro em { display: inline; padding: 0; background: none; color: var(--color-accent); }
+	.community-role { margin: 1rem 0 0; color: var(--color-muted); font-size: 0.85rem; line-height: 1.6; }
+	.community-summary { max-width: 40ch; margin: 0; font-size: 1rem; line-height: 1.7; }
+	.event-index { display: flex; flex-wrap: wrap; gap: 0.25rem 1.75rem; padding-block: 0.5rem; border-block: 1px solid var(--color-border); }
+	.event-index a { display: inline-flex; align-items: center; gap: 0.75rem; min-height: 44px; font-size: 0.85rem; text-decoration: underline; text-underline-offset: 0.25em; }
+	.community-event { display: grid; grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr); align-items: start; gap: clamp(1.5rem, 4vw, 4rem); padding-block: clamp(2rem, 4vw, 3.5rem); border-bottom: 1px solid var(--color-border); }
+	.community-event:last-child { border-bottom-color: var(--color-ink); }
+	.event-copy { min-width: 0; }
+	time { color: var(--color-muted); font-size: 0.85rem; }
+	h2 { margin: 0.65rem 0; max-width: 24ch; font-size: clamp(1.5rem, 2.5vw, 2.3rem); line-height: 1.15; }
+	.event-role { margin: 0; font-size: 0.85rem; }
+	.event-description { margin: 1rem 0 0; font-size: 0.95rem; line-height: 1.7; }
+	.event-context { margin-top: 0.5rem; font-size: 0.85rem; line-height: 1.7; }
+	.event-context summary { min-height: 44px; padding-block: 0.6rem; cursor: pointer; text-decoration: underline; text-underline-offset: 0.25em; }
+	.event-context p { margin: 0 0 0.75rem; color: var(--color-muted); }
+	dl { margin: 0; }
+	dt { color: var(--color-muted); }
+	dd { margin: 0.25rem 0 0; }
+	figure { min-width: 0; margin: 0; }
+	figure > a { display: block; }
+	figure img { display: block; width: 100%; height: auto; }
+	figcaption { display: flex; justify-content: space-between; gap: 0.75rem; align-items: baseline; padding-top: 0.5rem; color: var(--color-muted); font-size: 0.75rem; line-height: 1.5; }
+	figcaption a { display: inline-flex; align-items: center; min-height: 44px; flex-shrink: 0; gap: 0.35rem; color: var(--color-ink); text-decoration: underline; text-underline-offset: 0.25em; }
+	@media (max-width: 900px) {
+		.community-intro { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
+		.community-summary { max-width: 60ch; }
+		.community-event { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
+		h2 { max-width: none; }
+		.event-description { max-width: 65ch; }
+	}
+	@media (max-width: 640px) {
+		.community-intro { padding-block: 1.5rem; }
+		.community-intro h1 { font-size: var(--mobile-title); line-height: 1.15; }
+		.community-role { margin-top: 0.6rem; font-size: 0.8rem; }
+		.community-summary, .event-description { font-size: var(--mobile-body); line-height: 1.65; }
+		.event-index { display: grid; gap: 0; }
+		.event-index a { justify-content: space-between; font-size: 0.8rem; }
+		.community-event { padding-block: 1.5rem; }
+		h2 { font-size: clamp(1.35rem, 1rem + 2vw, 1.75rem); }
+		.event-description { margin-top: 0.65rem; }
+		figcaption { flex-wrap: wrap; gap: 0 0.5rem; }
+	}
+</style>

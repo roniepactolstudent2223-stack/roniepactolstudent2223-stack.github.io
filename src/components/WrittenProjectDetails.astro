@@ -1,0 +1,59 @@
+---
+import type { WrittenProject } from '../content/projects/written-projects';
+interface Props { project: WrittenProject; }
+const { project } = Astro.props;
+---
+
+<article class="written-project">
+	<a class="back-link" href="/projects/">← All projects</a>
+	<header class="written-heading">
+		<p class="project-organization">{project.organization}</p>
+		<h1>{project.title}<span>.</span></h1>
+		<p class="project-kind">{project.kind}</p>
+		<p class="project-summary">{project.summary}</p>
+		{project.note && <p class="learning-note">{project.note}</p>}
+		{project.stack.length > 0 && <dl class="project-facts"><div><dt>Built with</dt><dd>{project.stack.join(' · ')}</dd></div></dl>}
+	</header>
+	<section class="project-overview" aria-labelledby="project-overview-title"><h2 id="project-overview-title">The work</h2><p>{project.overview}</p></section>
+	<section class="project-features" aria-labelledby="project-features-title">
+		<h2 id="project-features-title">{project.experienceUrl ? 'My contributions' : 'What I built'}</h2>
+		<div class="feature-list">{project.features.map(feature => <section class="feature-row"><h3>{feature.title}</h3><p>{feature.description}</p></section>)}</div>
+	</section>
+	<footer class="project-footer"><a href="/projects/">← Back to projects</a>{project.experienceUrl && <a href={project.experienceUrl}>My role at Wilcon Depot <span aria-hidden="true">↗</span></a>}</footer>
+</article>
+
+<style>
+	.written-project { max-width: 68rem; margin-inline: auto; padding-block: 1.5rem 2.5rem; }
+	.back-link, .project-footer a { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 44px; font-size: 0.85rem; text-decoration: underline; text-underline-offset: 0.25em; }
+	.written-heading { padding-block: 1.5rem 2rem; }
+	.project-organization { margin: 0 0 0.75rem; color: var(--color-muted); font-size: 0.9rem; }
+	h1 { max-width: 25ch; font-size: clamp(2rem, 4.2vw, 4rem); line-height: 1.1; overflow-wrap: anywhere; }
+	h1 span { color: var(--color-accent); }
+	.project-kind { margin: 1rem 0 0; color: var(--color-muted); font-size: 0.85rem; line-height: 1.6; }
+	.project-summary { max-width: 65ch; margin: 1.25rem 0 0; font-size: 1.1rem; line-height: 1.7; }
+	.learning-note { max-width: 65ch; margin: 1rem 0 0; padding-left: 0.75rem; border-left: 2px solid var(--color-accent); font-size: 0.9rem; line-height: 1.6; }
+	.project-facts { margin: 1.5rem 0 0; padding-top: 1rem; border-top: 1px solid var(--color-border); }
+	.project-facts > div { display: grid; grid-template-columns: 6rem minmax(0, 1fr); gap: 0.75rem; }
+	dt { color: var(--color-muted); font-size: 0.85rem; line-height: 1.7; }
+	dd { margin: 0; font-size: 0.9rem; line-height: 1.7; }
+	h2 { margin: 0; font-size: clamp(1.5rem, 2.5vw, 2rem); line-height: 1.2; }
+	.project-overview { display: grid; grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr); gap: 1rem 3rem; padding-block: 2rem; border-block: 1px solid var(--color-border); }
+	.project-overview p { max-width: 65ch; margin: 0; font-size: 1rem; line-height: 1.7; }
+	.project-features { padding-block: 2rem; }
+	.feature-list { margin-top: 1.5rem; }
+	.feature-row { display: grid; grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr); gap: 1rem 3rem; padding-block: 1.25rem; border-top: 1px solid var(--color-border); }
+	h3 { margin: 0; font-size: 1.25rem; line-height: 1.35; }
+	.feature-row p { max-width: 65ch; margin: 0; font-size: 0.95rem; line-height: 1.7; }
+	.project-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem 2rem; padding-top: 1rem; border-top: 1px solid var(--color-ink); }
+	@media (max-width: 900px) { .feature-row, .project-overview { gap: 1rem 1.5rem; } }
+	@media (max-width: 640px) {
+		.written-project { padding-block: 0.5rem 1.5rem; }
+		.written-heading { padding-block: 1rem 1.5rem; }
+		h1 { font-size: var(--mobile-title); line-height: 1.15; }
+		.project-summary, .project-overview p, .feature-row p { font-size: var(--mobile-body); line-height: 1.65; }
+		.project-overview, .feature-row { grid-template-columns: minmax(0, 1fr); gap: 0.6rem; }
+		.project-overview, .project-features { padding-block: 1.5rem; }
+		.feature-row { padding-block: 1rem; }
+		h3 { font-size: 1.15rem; }
+	}
+</style>

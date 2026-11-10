@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import About from '../components/About.astro';
+---
+
+<BaseLayout title="Niessen — Software Developer">
+	<div class="page-shell">
+		<section class="hero-section" id="home" aria-labelledby="intro-title">
+			<div class="hero-grid">
+				<div class="hero-copy">
+					<h1 id="intro-title">Software developer,<br />Available for <br /> <em>Freelancing</em></h1>
+					<p class="hero-description">I’m Ronie, a freelance full-stack developer working with Laravel and Vue.js. I’m currently seeking a Full-Stack or Web Developer role.</p>
+					<div class="hero-actions">
+						<a class="button button-primary experience-button" href="/experience/" aria-label="View work experience" title="View work experience"><svg class="experience-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="14" rx="2" /><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12a20 20 0 0 0 18 0M12 11v4" /></svg><span class="experience-label">View experience <span aria-hidden="true">↗</span></span></a>
+						<a class="github-button" href="https://github.com/NiessenWaffer" target="_blank" rel="noreferrer" aria-label="GitHub (opens in a new tab)" title="GitHub"><svg class="github-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-4 1.5-4-2-6-2m12 5v-4a3.5 3.5 0 0 0-1-3c3-.4 6-1.5 6-6a4.7 4.7 0 0 0-1.3-3.3 4.3 4.3 0 0 0-.1-3.2S17.5 2.1 15 3.8a11 11 0 0 0-6 0C6.5 2.1 5.4 2.5 5.4 2.5a4.3 4.3 0 0 0-.1 3.2A4.7 4.7 0 0 0 4 9c0 4.5 3 5.6 6 6a3.5 3.5 0 0 0-1 3v4" /></svg><span class="github-label">GitHub <span aria-hidden="true">↗</span></span></a>
+						<a class="github-button linkedin-button" href="https://www.linkedin.com/in/ronie-pactol-6888092a6" target="_blank" rel="noopener noreferrer" aria-label="Ronie Pactol on LinkedIn (opens in a new tab)" title="LinkedIn"><svg class="github-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" /><path d="M7 10v7M7 7h.01M11 17v-7m0 3a3 3 0 0 1 6 0v4" /></svg><span class="github-label">LinkedIn <span aria-hidden="true">↗</span></span></a>
+					</div>
+				</div>
+				<div class="hero-art" aria-hidden="true"><img src="/images/heroBG.png" alt="" /></div>
+			</div>
+		</section>
+
+		<About />
+	</div>
+</BaseLayout>
