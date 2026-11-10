@@ -589,6 +589,7 @@ h1 em {
 	}
 	main .page-shell > .hero-section :is(h1, h2, p, a) { color: inherit; }
 	main .page-shell > .hero-section h1 em { color: var(--color-accent); }
+	main .page-shell > .hero-section .experience-button { display: none; }
 }
 
 @media (max-width: 640px) {

@@ -1,6 +1,10 @@
 <header class="experience-page-heading" aria-labelledby="experience-page-title">
-	<h1 id="experience-page-title">Experience<span>.</span></h1>
-	<p>Systems development, church ministry, and earlier service work.</p>
+	<div class="experience-page-heading-copy">
+		<p class="experience-kicker">A working record <span aria-hidden="true">/</span> 2024—present</p>
+		<h1 id="experience-page-title">Experience<span>.</span></h1>
+		<p class="experience-page-summary">Systems development, church ministry, and earlier service work.</p>
+	</div>
+	<p class="experience-page-note"><strong>03 chapters</strong><span>Systems · ministry · service</span></p>
 </header>
 
 <section class="experience-section church-experience" id="word-of-hope" aria-labelledby="church-experience-title">
@@ -105,10 +109,15 @@
 </dialog>
 
 <style>
-	.experience-page-heading { display: block; margin-bottom: 1rem; padding-block: 1rem 1.25rem; border-bottom: 1px solid var(--color-ink); }
-	.experience-page-heading h1 { margin: 0; font-size: clamp(1.75rem, 3vw, 2.5rem); line-height: 1.2; }
+	.experience-page-heading { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 2rem; margin-bottom: 1rem; padding-block: 1.5rem 1.75rem; border-bottom: 1px solid var(--color-ink); }
+	.experience-page-heading-copy { min-width: 0; }
+	.experience-kicker { margin: 0 0 0.8rem; color: var(--color-olive); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; }
+	.experience-kicker span { margin-inline: 0.4rem; color: var(--color-border); }
+	.experience-page-heading h1 { margin: 0; font-size: clamp(2.5rem, 5vw, 4.25rem); letter-spacing: -0.045em; line-height: 0.98; }
 	.experience-page-heading h1 span { color: var(--color-accent); }
-	.experience-page-heading p { margin: 0; color: var(--color-muted); font-size: 0.85rem; line-height: 1.6; }
+	.experience-page-summary { max-width: 42ch; margin: 0.8rem 0 0; color: var(--color-muted); font-size: 0.9rem; line-height: 1.6; }
+	.experience-page-note { display: grid; gap: 0.2rem; margin: 0; padding-left: 1rem; border-left: 2px solid var(--color-accent); color: var(--color-muted); font-size: 0.72rem; line-height: 1.5; }
+	.experience-page-note strong { color: var(--color-ink); font-size: 0.78rem; font-weight: 600; }
 	.organization-link { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 44px; font-size: 0.85rem; text-decoration: underline; text-underline-offset: 0.25em; }
 	.experience-section { position: relative; padding: 2.2rem 0 3.5rem; border-bottom: 1px solid var(--color-ink); }
 	.experience-open { display: inline-flex; align-items: center; justify-content: space-between; gap: 1rem; width: 100%; min-height: 44px; margin-top: 0.65rem; padding: 0.5rem 0.25rem 0.5rem 0.875rem; border: 0; background: none; color: var(--color-ink); font: inherit; font-size: 0.85rem; text-align: left; cursor: pointer; }
@@ -211,9 +220,11 @@
 		.church-experience .experience-summary { max-width: 40ch; }
 		.church-experience .experience-open { padding-left: 0; }
 		.church-experience .experience-list { grid-template-columns: minmax(0, 1fr); gap: 0; }
-		.experience-page-heading { margin-bottom: 0.5rem; padding-block: 0.75rem 1rem; border-bottom: 1px solid var(--color-border); }
+		.experience-page-heading { grid-template-columns: minmax(0, 1fr); gap: 1rem; margin-bottom: 0.5rem; padding-block: 0.75rem 1rem; border-bottom: 1px solid var(--color-border); }
+		.experience-kicker { margin-bottom: 0.55rem; font-size: 0.65rem; }
 		.experience-page-heading h1 { font-size: var(--mobile-title); }
-		.experience-page-heading p { margin-top: 0.35rem; }
+		.experience-page-summary { margin-top: 0.45rem; font-size: var(--mobile-body, 0.95rem); }
+		.experience-page-note { grid-template-columns: auto 1fr; align-items: baseline; gap: 0.5rem; padding: 0.5rem 0 0 0.75rem; border-left-width: 1px; }
 		.experience-section { padding-block: 1.25rem; }
 		.experience-section .experience-heading { display: block; padding: 0 0 0 0.875rem; border-left: 2px solid var(--color-accent); }
 		.experience-section .experience-heading h2 { font-size: clamp(1.5rem, 1.2rem + 1.5vw, 2rem); line-height: 1.15; }
