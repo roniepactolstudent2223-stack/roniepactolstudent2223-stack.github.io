@@ -13,14 +13,10 @@ const groups = [
 <BaseLayout title="Projects — Ronie Pactol" description="Explore Ronie Pactol’s church software, business-system contributions, developer tools, and learning projects.">
 	<div class="page-shell projects-page">
 		<ProjectHero total={writtenProjects.length + 1} />
-		<nav class="project-index" aria-label="Browse projects">
-			<a href="#project-list">Featured case study <span>01</span></a>
-			{groups.map(group => <a href={`#${group.id}`}>{group.title} <span>{String(group.projects.length).padStart(2, '0')}</span></a>)}
-		</nav>
 
 		<article class="featured-project" id="project-list" aria-labelledby="attendance-project-title">
 			<header class="featured-heading">
-				<div><p class="featured-label">Featured case study</p><h2 id="attendance-project-title">{project.title}</h2></div>
+				<div><h2 id="attendance-project-title">{project.title}</h2></div>
 				<p class="featured-context"><span>{project.organization}</span><span>{project.role}</span></p>
 			</header>
 			<a class="featured-preview-link" href="/projects/church-attendance/#project-screens" aria-label="Inspect screenshots of the Church Attendance and Management System">
@@ -56,13 +52,8 @@ const groups = [
 
 <style>
 	.projects-page { padding-block: 1.75rem 2.5rem; }
-	.project-index { display: flex; flex-wrap: wrap; gap: 0 1.75rem; padding-block: 0.25rem; border-block: 1px solid var(--color-ink); }
-	.project-index a { display: inline-flex; align-items: center; gap: 0.65rem; min-height: 44px; font-size: 0.8rem; }
-	.project-index a:hover { text-decoration: underline; text-underline-offset: 0.3em; }
-	.project-index span { color: var(--color-muted); font-size: 0.7rem; font-variant-numeric: tabular-nums; }
 	.featured-project { padding-block: 1.75rem; border-bottom: 1px solid var(--color-ink); }
 	.featured-heading { display: flex; justify-content: space-between; align-items: end; gap: 1rem 2rem; margin-bottom: 1.25rem; }
-	.featured-label { margin: 0 0 0.6rem; color: var(--color-olive); font-size: 0.75rem; }
 	.featured-heading h2 { max-width: 25ch; margin: 0; font-size: 1.85rem; line-height: 1.15; }
 	.featured-context { flex: 0 0 13rem; margin: 0; color: var(--color-muted); font-size: 0.75rem; line-height: 1.7; text-align: right; }
 	.featured-context span { display: block; }
@@ -92,8 +83,6 @@ const groups = [
 	.row-arrow { width: 20px; height: 20px; margin-top: 0.1rem; }
 	@media (max-width: 760px) {
 		.projects-page { padding-block: 1.25rem 2rem; }
-		.project-index { gap: 0 1rem; }
-		.project-index a { font-size: 0.75rem; }
 		.featured-project { padding-block: 1.5rem; }
 		.featured-heading { display: block; margin-bottom: 1rem; }
 		.featured-heading h2 { font-size: 1.5rem; }

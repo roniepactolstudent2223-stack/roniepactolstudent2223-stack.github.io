@@ -557,6 +557,25 @@ h1 em {
 	.mobile-menu { display: block; }
 }
 
+@media (min-width: 761px) {
+	main .page-shell > .mobile-page-intro {
+		--color-ink: var(--color-intro-ink);
+		--color-muted: var(--color-intro-muted);
+		--color-accent: var(--color-intro-accent);
+		--color-olive: var(--color-intro-muted);
+		--color-border: rgb(251 250 247 / 32%);
+		margin-block: 1rem 2rem;
+		padding: clamp(1.75rem, 3.5vw, 3rem);
+		border: 1px solid rgb(251 250 247 / 12%);
+		background: var(--color-intro-surface);
+		color: var(--color-intro-ink);
+	}
+
+	main .page-shell > .mobile-page-intro :is(h1, h2, p, a) { color: inherit; }
+	main .page-shell > .mobile-page-intro :is(h1 em, h1 span) { color: var(--color-intro-accent); }
+	main .page-shell > .mobile-page-intro :focus-visible { outline-color: var(--color-intro-ink); }
+}
+
 @media (max-width: 640px) {
 	:root {
 		--mobile-gutter: clamp(0.875rem, 4vw, 1.5rem);
@@ -568,8 +587,13 @@ h1 em {
 	.site-header,
 	.page-shell,
 	.site-footer {
-		width: calc(100% - 2 * var(--mobile-gutter));
+		box-sizing: border-box;
+		width: 100%;
+		padding-inline: var(--mobile-gutter);
 	}
+
+	.site-header { padding-inline: 0; }
+	.site-header .site-nav { padding-inline: var(--mobile-gutter); }
 
 	.site-nav {
 		min-height: 3.5rem;
@@ -714,7 +738,9 @@ h1 em {
 		--mobile-title: clamp(1.85rem, 1.35rem + 2vw, 2.25rem);
 		min-width: 0;
 		margin-block: 1rem 1.5rem;
+		margin-inline: calc(var(--mobile-gutter) * -1);
 		padding: 1.5rem 1.15rem;
+		padding-inline: calc(var(--mobile-gutter) + 1.15rem);
 		border: 0;
 		background: var(--color-intro-surface);
 		color: var(--color-ink);
