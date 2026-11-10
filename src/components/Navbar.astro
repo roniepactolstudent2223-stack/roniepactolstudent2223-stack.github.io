@@ -35,7 +35,7 @@ const isProjectsPage = Astro.url.pathname.startsWith('/projects');
 </header>
 
 <style>
-	.nav-links { position: relative; gap: clamp(0.85rem, 2vw, 1.8rem); }
+	.nav-links { position: relative; gap: clamp(0.75rem, 1.5vw, 1.25rem); }
 	.nav-indicator { position: absolute; bottom: 0; left: 0; height: 2px; background: var(--color-accent); transform-origin: left; pointer-events: none; }
 	.nav-indicator[hidden] { display: none; }
 	.nav-links[data-indicator-ready] .nav-link.is-active::after { display: none; }

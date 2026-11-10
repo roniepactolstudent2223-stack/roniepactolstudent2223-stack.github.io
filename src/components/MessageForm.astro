@@ -76,9 +76,9 @@
 	/* Added file fields share these rules without requiring Astro scope attributes. */
 	.attachment-list :global(.attachment-field) { display: flex; align-items: center; gap: 0.5rem; min-width: 0; }
 	.attachment-list :global(input[type="file"]) { width: 100%; min-width: 0; min-height: 44px; padding: 0.5rem 0; border: 0; font: inherit; font-size: 0.85rem; }
-	.attachment-list :global(input::file-selector-button) { margin-right: 0.5rem; padding: 0.5rem; border: 1px solid var(--color-border); background: var(--color-paper); color: var(--color-ink); cursor: pointer; }
-	.add-attachment, .attachment-list :global(button) { min-height: 44px; padding: 0; border: 0; background: none; color: var(--color-ink); font: inherit; font-size: 0.8rem; text-decoration: underline; text-underline-offset: 0.25em; cursor: pointer; }
+	.attachment-list :global(input::file-selector-button) { margin-right: 0.5rem; padding: 0.35rem 0.5rem; border: 1px solid var(--color-border); background: var(--color-paper); color: var(--color-ink); cursor: pointer; }
+	.add-attachment, .attachment-list :global(button) { min-height: var(--control-height); padding: 0; border: 0; background: none; color: var(--color-ink); font: inherit; font-size: 0.8rem; text-decoration: underline; text-underline-offset: 0.25em; cursor: pointer; }
 	.add-attachment[hidden] { display: none; }
-	.send-message { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 44px; padding: 0.75rem 1rem; border: 0; border-radius: 0.25rem; background: var(--color-ink); color: white; font: inherit; font-size: 0.9rem; cursor: pointer; }
+	.send-message { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; min-height: var(--control-height); padding: 0.45rem 0.75rem; border: 0; border-radius: 0.25rem; background: var(--color-ink); color: white; font: inherit; font-size: 0.9rem; cursor: pointer; }
 	@media (max-width: 479px) { .sender-fields { grid-template-columns: minmax(0, 1fr); gap: 0.75rem; } }
 </style>
