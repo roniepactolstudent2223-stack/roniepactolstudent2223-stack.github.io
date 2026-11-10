@@ -53,7 +53,7 @@
 					<li><strong>Database &amp; data validation</strong><span>Wrote database queries and strict validation rules to process high-volume operational and accounting records accurately.</span></li>
 					<li><strong>Team collaboration &amp; testing</strong><span>Worked with business analysts, senior developers, and QA testers to turn requirements into working features, fix bugs, and support user testing before launch.</span></li>
 				</ul>
-				<div class="experience-location"><address class="experience-address">#90 E. Rodriguez Jr. Avenue, Barangay Ugong Norte, Libis, Quezon City, 1110 Metro Manila,<br />Philippines</address></div>
+				<div class="experience-location"><address class="experience-address">#90 E. Rodriguez Jr. Avenue, Barangay Ugong Norte, Libis, Quezon City, 1110 Metro Manila, Philippines</address></div>
 			</div>
 		</div>
 	</details>
@@ -263,8 +263,8 @@
 				sheet.querySelector<HTMLElement>('#experience-sheet-meta')!.textContent = section.querySelector('.experience-meta span:last-child')!.textContent;
 				sheet.querySelector<HTMLElement>('.sheet-summary')!.textContent = section.querySelector('.experience-summary')!.textContent;
 				content.append(body);
-				scroll.scrollTop = 0;
 				sheet.showModal();
+				scroll.scrollTop = 0;
 			}, { signal });
 		});
 		closeButton.addEventListener('click', () => closeSheet(), { signal });
