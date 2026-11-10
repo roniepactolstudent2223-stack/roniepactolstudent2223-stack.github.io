@@ -23,12 +23,12 @@ const groups = [
 				<div><p class="featured-label">Featured case study</p><h2 id="attendance-project-title">{project.title}</h2></div>
 				<p class="featured-context"><span>{project.organization}</span><span>{project.role}</span></p>
 			</header>
-			<figure class="featured-preview">
-				<a href="/projects/church-attendance/#project-screens" aria-label="Inspect screenshots of the Church Attendance and Management System">
+			<a class="featured-preview-link" href="/projects/church-attendance/#project-screens" aria-label="Inspect screenshots of the Church Attendance and Management System">
+				<figure class="featured-preview">
 					<img src={project.screenshots[0].src} width={project.screenshots[0].width} height={project.screenshots[0].height} alt={project.screenshots[0].alt} fetchpriority="high" decoding="async" />
-				</a>
-				<figcaption><span>Analytics dashboard</span><span>{project.stack.slice(0, 3).join(' · ')}</span></figcaption>
-			</figure>
+					<figcaption><span>{project.stack.slice(0, 3).join(' · ')}</span><span class="preview-action">Inspect screenshots <span aria-hidden="true">↗</span></span></figcaption>
+				</figure>
+			</a>
 			<div class="featured-footer">
 				<p class="featured-summary">{project.summary}</p>
 				<div class="project-actions">
@@ -67,9 +67,10 @@ const groups = [
 	.featured-context { flex: 0 0 13rem; margin: 0; color: var(--color-muted); font-size: 0.75rem; line-height: 1.7; text-align: right; }
 	.featured-context span { display: block; }
 	.featured-preview { min-width: 0; margin: 0; border: 1px solid var(--color-border); background: var(--color-paper); }
-	.featured-preview a { display: block; }
+	.featured-preview-link { display: block; }
 	.featured-preview img { display: block; width: 100%; height: auto; }
 	.featured-preview figcaption { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 0.25rem 1rem; padding: 0.6rem 0.75rem; border-top: 1px solid var(--color-border); color: var(--color-muted); font-size: 0.7rem; line-height: 1.5; }
+	.preview-action { color: var(--color-ink); text-decoration: underline; text-underline-offset: 0.25em; }
 	.featured-footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem 1.5rem; margin-top: 1rem; }
 	.featured-summary { flex: 1 1 24rem; max-width: 56ch; margin: 0; font-size: 0.9rem; line-height: 1.65; }
 	.project-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 0.75rem; }
