@@ -3,7 +3,6 @@
 	<div class="ministry-intro">
 	<figure class="ministry-photo">
 		<img src="/images/word-of-hope-1200.webp" srcset="/images/word-of-hope-600.webp 600w, /images/word-of-hope-1200.webp 1200w" sizes="(max-width: 760px) calc(100vw - 2rem), 480px" width="1200" height="675" alt="Word of Hope Caloocan church building beside EDSA" class="church-image" decoding="async" />
-		<figcaption>Word of Hope Caloocan <span>Caloocan City, Philippines</span></figcaption>
 	</figure>
 	<div class="experience-heading">
 		<div>
@@ -139,12 +138,9 @@
 	.experience-list span { color: var(--color-muted); }
 	.church-experience .experience-heading h2 { font-size: clamp(2rem, 4vw, 3.5rem); line-height: 1.1; }
 	.ministry-intro { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); align-items: center; gap: 2rem; margin-block: 1rem 1.5rem; }
-	.ministry-photo { min-width: 0; margin: 0; }
+	.ministry-photo { min-width: 0; margin: 0; overflow: hidden; background: #eeece5; }
 	/* The cutout has wide transparent sides. A clipped frame brings the building forward. */
 	.ministry-photo .church-image { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; object-position: 48% 50%; transform: scale(1.3); }
-	.ministry-photo { overflow: hidden; background: #eeece5; }
-	.ministry-photo figcaption { position: relative; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.25rem 1rem; padding: 0.65rem 0.75rem; background: var(--color-paper); font-size: 0.7rem; line-height: 1.5; }
-	.ministry-photo figcaption span { color: var(--color-muted); }
 	.church-experience .experience-heading { padding: 0; }
 	.church-experience .experience-heading h2 { font-size: clamp(1.65rem, 3vw, 2.1rem); line-height: 1.12; }
 	.church-experience .experience-meta { flex-direction: column; gap: 0.35rem; font-size: 0.8rem; }
@@ -246,12 +242,12 @@
 		const phoneLayout = window.matchMedia('(max-width: 760px)');
 		const controller = new AbortController();
 		const { signal } = controller;
-		let active: { section: HTMLElement; body: HTMLElement; home: HTMLDetailsElement; first: Element | null; photo?: HTMLElement; photoSlot?: HTMLElement } | null = null;
+		let active: { section: HTMLElement; body: HTMLElement; home: HTMLDetailsElement; first: Element | null; photo?: HTMLElement } | null = null;
 		let closeVersion = 0;
 
 		const restoreContent = () => {
 			if (!active) return;
-			if (active.photo && active.photoSlot) active.photoSlot.replaceWith(active.photo);
+			active.photo?.remove();
 			if (active.first) active.body.prepend(active.first);
 			active.home.append(active.body);
 			active = null;
@@ -282,14 +278,10 @@
 				const home = section.querySelector<HTMLDetailsElement>('.experience-disclosure')!;
 				const body = home.querySelector<HTMLElement>('.experience-body')!;
 				active = { section, body, home, first: body.firstElementChild };
-				const photo = section.querySelector<HTMLElement>('.ministry-photo');
+				// Keep the preview in place while its image is also shown in the reading panel.
+				const photo = section.querySelector('.ministry-photo')?.cloneNode(true) as HTMLElement | undefined;
 				if (photo) {
-					const slot = document.createElement('div');
-					slot.style.height = `${photo.getBoundingClientRect().height}px`;
-					slot.setAttribute('aria-hidden', 'true');
 					active.photo = photo;
-					active.photoSlot = slot;
-					photo.replaceWith(slot);
 				}
 				const responsibilities = body.querySelector<HTMLElement>(':scope > .experience-details, :scope > .experience-list');
 				if (responsibilities) body.prepend(responsibilities);
