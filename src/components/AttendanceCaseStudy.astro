@@ -6,10 +6,12 @@ import ScreenshotViewer from './ScreenshotViewer.astro';
 <article class="attendance-case">
 	<a class="back-link" href="/projects/"><span aria-hidden="true">←</span> All projects</a>
 	<header class="case-heading">
+		<div class="mobile-page-intro">
 		<p class="case-context">{project.organization}</p>
 		<h1>Church Attendance &amp;<br /> <em>Management System.</em></h1>
 		<p class="case-summary">{project.summary}</p>
 		<a class="live-link" href={project.liveUrl} target="_blank" rel="noopener noreferrer">Open live system <span aria-hidden="true">↗</span></a>
+		</div>
 		<dl class="case-facts">
 			<div><dt>My role</dt><dd>{project.role}</dd></div>
 			<div><dt>Built with</dt><dd>{project.stack.join(' · ')}</dd></div>

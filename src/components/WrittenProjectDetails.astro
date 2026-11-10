@@ -8,10 +8,12 @@ const nextProject = writtenProjects[(writtenProjects.findIndex(item => item.slug
 <article class="written-project">
 	<a class="back-link" href="/projects/">← All projects</a>
 	<header class="written-heading">
+		<div class="mobile-page-intro">
 		<p class="project-organization">{project.organization}</p>
 		<h1>{project.title}<span>.</span></h1>
 		<p class="project-kind">{project.kind}</p>
 		<p class="project-summary">{project.summary}</p>
+		</div>
 		{project.note && <p class="learning-note">{project.note}</p>}
 		{project.stack.length > 0 && <dl class="project-facts"><div><dt>Built with</dt><dd>{project.stack.join(' · ')}</dd></div></dl>}
 	</header>

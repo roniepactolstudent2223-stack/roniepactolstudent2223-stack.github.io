@@ -1,3 +1,7 @@
+<header class="experience-page-heading mobile-page-intro" aria-labelledby="experience-page-title">
+	<h1 id="experience-page-title">Experience<span>.</span></h1>
+	<p>Systems development, church ministry, and earlier service work.</p>
+</header>
 
 <section class="experience-section church-experience" id="word-of-hope" aria-labelledby="church-experience-title">
 	<div class="ministry-intro">
@@ -7,7 +11,7 @@
 	<div class="experience-heading">
 		<div>
 			<h2 id="church-experience-title">Developer ministry<br /> <em>&amp; church service.</em></h2>
-			<p class="experience-meta"><span>Word of Hope Caloocan Church</span><span>Ongoing</span></p>
+			<p class="experience-meta"><span>Word of Hope Caloocan Church</span></p>
 			<p class="experience-summary">I build and maintain software for the church’s ministry teams.</p>
 		</div>
 	</div>
@@ -101,7 +105,7 @@
 </dialog>
 
 <style>
-	.experience-page-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem 2rem; flex-wrap: wrap; padding-top: 2rem; }
+	.experience-page-heading { display: none; }
 	.experience-page-heading h1 { margin: 0; font-size: clamp(1.75rem, 3vw, 2.5rem); line-height: 1.2; }
 	.experience-page-heading h1 span { color: var(--color-accent); }
 	.experience-page-heading p { margin: 0; color: var(--color-muted); font-size: 0.85rem; line-height: 1.6; }
@@ -208,7 +212,7 @@
 		.church-experience .experience-open { padding-left: 0; }
 		.church-experience .experience-list { grid-template-columns: minmax(0, 1fr); gap: 0; }
 		.experience-page-heading { display: block; padding-block: 1.25rem 0.5rem; }
-		.experience-page-heading h1 { font-size: 1.75rem; }
+		.experience-page-heading h1 { font-size: var(--mobile-title); }
 		.experience-page-heading p { margin-top: 0.35rem; }
 		.experience-section { padding-block: 1.25rem; }
 		.experience-section .experience-heading { display: block; padding: 0 0 0 0.875rem; border-left: 2px solid var(--color-accent); }

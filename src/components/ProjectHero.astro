@@ -3,7 +3,7 @@ interface Props { total: number; }
 const { total } = Astro.props;
 ---
 
-<header class="projects-hero" aria-labelledby="projects-title">
+<header class="projects-hero mobile-page-intro" aria-labelledby="projects-title">
 	<div>
 		<p class="projects-eyebrow">Selected work <span>{String(total).padStart(2, '0')} projects</span></p>
 		<h1 id="projects-title">Projects that make<br /> <em>daily work simpler.</em></h1>
