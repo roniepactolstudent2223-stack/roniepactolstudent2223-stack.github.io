@@ -574,6 +574,21 @@ h1 em {
 	main .page-shell > .mobile-page-intro :is(h1, h2, p, a) { color: inherit; }
 	main .page-shell > .mobile-page-intro :is(h1 em, h1 span) { color: var(--color-intro-accent); }
 	main .page-shell > .mobile-page-intro :focus-visible { outline-color: var(--color-intro-ink); }
+
+	main .page-shell > .hero-section {
+		--color-ink: #202223;
+		--color-muted: #606469;
+		--color-accent: #bd7629;
+		--color-olive: #6d7458;
+		--color-border: #c9c9c4;
+		margin-block: 0 1.5rem;
+		padding: 1.25rem 0 1.5rem;
+		border: 0;
+		background: transparent;
+		color: var(--color-ink);
+	}
+	main .page-shell > .hero-section :is(h1, h2, p, a) { color: inherit; }
+	main .page-shell > .hero-section h1 em { color: var(--color-accent); }
 }
 
 @media (max-width: 640px) {
