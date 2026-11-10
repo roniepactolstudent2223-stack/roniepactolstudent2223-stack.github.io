@@ -7,6 +7,7 @@
 			<p class="experience-summary">I maintain church software and build systems requested by ministry teams, alongside active church service.</p>
 		</div>
 	</div>
+	<button class="experience-open" type="button" aria-haspopup="dialog" aria-controls="experience-sheet" aria-label="View developer ministry experience at Word of Hope Caloocan Church" hidden>View experience <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m7 4 6 6-6 6" /></svg></button>
 	<details class="experience-disclosure">
 		<summary aria-label="Responsibilities & photos at Word of Hope Caloocan Church"><span>Responsibilities &amp; photos</span><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 10h12" /><path class="disclosure-plus" d="M10 4v12" /></svg></summary>
 		<div class="experience-body">
@@ -38,6 +39,7 @@
 			<p class="experience-summary">Full-stack development for internal business systems using Laravel, Vue.js, PHP, and MySQL.</p>
 		</div>
 	</div>
+	<button class="experience-open" type="button" aria-haspopup="dialog" aria-controls="experience-sheet" aria-label="View junior system developer experience at Wilcon Depot" hidden>View experience <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m7 4 6 6-6 6" /></svg></button>
 	<details class="experience-disclosure">
 		<summary aria-label="Responsibilities & photos at Wilcon Depot"><span>Responsibilities &amp; photos</span><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 10h12" /><path class="disclosure-plus" d="M10 4v12" /></svg></summary>
 		<div class="experience-body">
@@ -51,7 +53,7 @@
 					<li><strong>Database &amp; data validation</strong><span>Wrote database queries and strict validation rules to process high-volume operational and accounting records accurately.</span></li>
 					<li><strong>Team collaboration &amp; testing</strong><span>Worked with business analysts, senior developers, and QA testers to turn requirements into working features, fix bugs, and support user testing before launch.</span></li>
 				</ul>
-				<div class="experience-location"><address class="experience-address">#90 E. Rodriguez Jr. Avenue,<br />Barangay Ugong Norte, Libis,<br />Quezon City, 1110 Metro Manila,<br />Philippines</address></div>
+				<div class="experience-location"><address class="experience-address">#90 E. Rodriguez Jr. Avenue, Barangay Ugong Norte, Libis, Quezon City, 1110 Metro Manila,<br />Philippines</address></div>
 			</div>
 		</div>
 	</details>
@@ -65,6 +67,7 @@
 			<p class="experience-summary">Worked part-time as a Jollibee service crew member while continuing my studies.</p>
 		</div>
 	</div>
+	<button class="experience-open" type="button" aria-haspopup="dialog" aria-controls="experience-sheet" aria-label="View service crew experience at Jollibee" hidden>View experience <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m7 4 6 6-6 6" /></svg></button>
 	<details class="experience-disclosure">
 		<summary aria-label="Responsibilities & photos at Jollibee"><span>Responsibilities &amp; photos</span><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 10h12" /><path class="disclosure-plus" d="M10 4v12" /></svg></summary>
 		<div class="experience-body service-body">
@@ -84,13 +87,33 @@
 	</details>
 </section>
 
+<dialog class="experience-sheet" id="experience-sheet" aria-labelledby="experience-sheet-title" aria-describedby="experience-sheet-meta">
+	<header class="sheet-toolbar"><p>Experience details</p><button class="sheet-close" type="button" autofocus>Close <span aria-hidden="true">×</span></button></header>
+	<div class="sheet-scroll">
+		<div class="sheet-intro">
+			<p class="sheet-organization"></p>
+			<h2 id="experience-sheet-title"></h2>
+			<p id="experience-sheet-meta"></p>
+			<p class="sheet-summary"></p>
+		</div>
+		<div class="sheet-content"></div>
+	</div>
+</dialog>
+
 <style>
 	.experience-page-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem 2rem; flex-wrap: wrap; padding-top: 2rem; }
 	.experience-page-heading h1 { margin: 0; font-size: clamp(1.75rem, 3vw, 2.5rem); line-height: 1.2; }
 	.experience-page-heading h1 span { color: var(--color-accent); }
 	.experience-page-heading p { margin: 0; color: var(--color-muted); font-size: 0.85rem; line-height: 1.6; }
 	.organization-link { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 44px; font-size: 0.85rem; text-decoration: underline; text-underline-offset: 0.25em; }
-	.experience-section { padding: 2.2rem 0 3.5rem; border-bottom: 1px solid var(--color-ink); }
+	.experience-section { position: relative; padding: 2.2rem 0 3.5rem; border-bottom: 1px solid var(--color-ink); }
+	.experience-open { display: inline-flex; align-items: center; justify-content: space-between; gap: 1rem; width: 100%; min-height: 44px; margin-top: 0.65rem; padding: 0.5rem 0.25rem 0.5rem 0.875rem; border: 0; background: none; color: var(--color-ink); font: inherit; font-size: 0.85rem; text-align: left; cursor: pointer; }
+	.experience-open[hidden] { display: none; }
+	.experience-open::after { content: ""; position: absolute; inset: 0; }
+	.experience-open svg { width: 18px; height: 18px; flex: none; }
+	.experience-open:focus-visible { outline: none; }
+	.experience-open:focus-visible::after { outline: 2px solid var(--color-ink); outline-offset: 3px; }
+	.experience-section[data-sheet-ready] .experience-disclosure { display: none; }
 	.experience-heading { display: flex; justify-content: space-between; gap: 2rem; padding: 3.5rem 2.5rem 2.5rem; }
 	.experience-heading > div { min-width: 0; }
 	.experience-heading h2 { margin: 0; font-size: clamp(2.7rem, 5vw, 5rem); line-height: 0.98; }
@@ -125,6 +148,23 @@
 	.service-photos img { display: block; width: 100%; height: auto; }
 	.service-photos figure:last-child img { max-width: 250px; }
 	.service-photos figcaption { padding-top: 0.5rem; color: var(--color-muted); font-size: 0.75rem; line-height: 1.5; }
+	.experience-sheet { box-sizing: border-box; position: fixed; inset: 0 0 0 auto; width: min(calc(100% - 0.75rem), 32rem); max-width: none; height: 100dvh; max-height: 100dvh; margin: 0 0 0 auto; padding: 0; border: 0; border-left: 1px solid var(--color-border); border-radius: 0.65rem 0 0 0.65rem; background: var(--color-paper); color: var(--color-ink); overflow: hidden; box-shadow: -1rem 0 3rem #0002; }
+	.experience-sheet[open] { display: grid; grid-template-rows: auto minmax(0, 1fr); }
+	.experience-sheet::backdrop { background: rgb(20 22 23 / 55%); }
+	:global(html:has(.experience-sheet[open])) { overflow: hidden; }
+	.sheet-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: max(0.375rem, env(safe-area-inset-top)) 1rem 0.375rem; border-bottom: 1px solid var(--color-border); }
+	.sheet-toolbar p { margin: 0; color: var(--color-muted); font-size: 0.8rem; }
+	.sheet-close { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 44px; padding: 0.25rem; border: 0; background: none; color: inherit; font: inherit; font-size: 0.85rem; cursor: pointer; }
+	.sheet-close span { font-size: 1.5rem; line-height: 1; }
+	.sheet-scroll { min-width: 0; min-height: 0; padding: 1.25rem 1rem max(1.25rem, env(safe-area-inset-bottom)); overflow-y: auto; overscroll-behavior: contain; scroll-padding-block: 1rem; }
+	.sheet-intro { padding-bottom: 1.25rem; }
+	.sheet-organization { margin: 0 0 0.6rem; color: var(--color-accent); font-size: 0.8rem; line-height: 1.6; }
+	.sheet-intro h2 { margin: 0; font-size: clamp(1.5rem, 1.2rem + 1.5vw, 2rem); line-height: 1.15; overflow-wrap: anywhere; }
+	#experience-sheet-meta { margin: 0.6rem 0 0; color: var(--color-muted); font-size: 0.8rem; line-height: 1.6; }
+	.sheet-summary { margin: 0.75rem 0 0; font-size: var(--mobile-body, 0.95rem); line-height: 1.6; }
+	.experience-sheet .experience-body { grid-template-columns: minmax(0, 1fr); gap: 1.25rem; padding: 0; }
+	.experience-sheet .experience-list li { grid-template-columns: minmax(0, 1fr); gap: 0.3rem; padding-block: 0.75rem; font-size: var(--mobile-body, 0.95rem); }
+	.experience-sheet :is(a, button):focus-visible { outline: 2px solid var(--color-ink); outline-offset: 3px; }
 	@media (min-width: 901px) {
 		.experience-section { padding-block: 0.75rem 1.75rem; }
 		.experience-heading { gap: 1.25rem; padding: 1.25rem 1rem 1rem; }
@@ -168,30 +208,88 @@
 </style>
 
 <script>
-	let removeLayoutListener: (() => void) | undefined;
+	let disposeExperience: (() => void) | undefined;
 
 	document.addEventListener('astro:page-load', () => {
-		removeLayoutListener?.();
-		const disclosures = document.querySelectorAll<HTMLDetailsElement>('.experience-disclosure');
-		if (!disclosures.length) return;
-
+		disposeExperience?.();
+		const sheet = document.querySelector<HTMLDialogElement>('#experience-sheet');
+		if (!sheet || typeof sheet.showModal !== 'function') return;
+		const sections = document.querySelectorAll<HTMLElement>('.experience-section');
+		const scroll = sheet.querySelector<HTMLElement>('.sheet-scroll')!;
+		const content = sheet.querySelector<HTMLElement>('.sheet-content')!;
+		const closeButton = sheet.querySelector<HTMLButtonElement>('.sheet-close')!;
 		const phoneLayout = window.matchMedia('(max-width: 760px)');
-		const phoneStates = new Map<HTMLDetailsElement, boolean>();
-		disclosures.forEach((details) => {
-			phoneStates.set(details, details.open);
-			details.querySelector('summary')?.addEventListener('click', () => {
-				if (phoneLayout.matches) phoneStates.set(details, !details.open);
+		const controller = new AbortController();
+		const { signal } = controller;
+		let active: { section: HTMLElement; body: HTMLElement; home: HTMLDetailsElement; first: Element | null } | null = null;
+		let closeVersion = 0;
+
+		const restoreContent = () => {
+			if (!active) return;
+			if (active.first) active.body.prepend(active.first);
+			active.home.append(active.body);
+			active = null;
+		};
+		const closeSheet = (immediate = false) => {
+			const section = active?.section;
+			const version = ++closeVersion;
+			if (sheet.open) sheet.close();
+			if (section?.isConnected) {
+				const focusTarget = phoneLayout.matches ? section.querySelector<HTMLElement>('.experience-open') : section.querySelector<HTMLElement>('h2');
+				if (focusTarget) {
+					if (!phoneLayout.matches) focusTarget.tabIndex = -1;
+					focusTarget.focus({ preventScroll: true });
+				}
+			}
+			if (immediate) { restoreContent(); return; }
+			// Preserve the real content through the exit; rapid reopening invalidates this cleanup.
+			Promise.allSettled(sheet.getAnimations().map(animation => animation.finished)).then(() => {
+				if (version === closeVersion && !sheet.open) restoreContent();
 			});
+		};
+		sections.forEach(section => {
+			const trigger = section.querySelector<HTMLButtonElement>('.experience-open')!;
+			trigger.addEventListener('click', () => {
+				if (!phoneLayout.matches || sheet.open) return;
+				++closeVersion;
+				restoreContent();
+				const home = section.querySelector<HTMLDetailsElement>('.experience-disclosure')!;
+				const body = home.querySelector<HTMLElement>('.experience-body')!;
+				active = { section, body, home, first: body.firstElementChild };
+				const responsibilities = body.querySelector<HTMLElement>(':scope > .experience-details, :scope > .experience-list');
+				if (responsibilities) body.prepend(responsibilities);
+				sheet.querySelector<HTMLElement>('#experience-sheet-title')!.textContent = section.querySelector('h2')!.textContent;
+				sheet.querySelector<HTMLElement>('.sheet-organization')!.textContent = section.querySelector('.experience-meta span:first-child')!.textContent;
+				sheet.querySelector<HTMLElement>('#experience-sheet-meta')!.textContent = section.querySelector('.experience-meta span:last-child')!.textContent;
+				sheet.querySelector<HTMLElement>('.sheet-summary')!.textContent = section.querySelector('.experience-summary')!.textContent;
+				content.append(body);
+				scroll.scrollTop = 0;
+				sheet.showModal();
+			}, { signal });
 		});
+		closeButton.addEventListener('click', () => closeSheet(), { signal });
+		sheet.addEventListener('cancel', event => { event.preventDefault(); closeSheet(); }, { signal });
+		let backdropPressed = false;
+		sheet.addEventListener('pointerdown', event => { backdropPressed = event.target === sheet; }, { signal });
+		sheet.addEventListener('click', event => {
+			const bounds = sheet.getBoundingClientRect();
+			if (backdropPressed && event.target === sheet && (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom)) closeSheet();
+			backdropPressed = false;
+		}, { signal });
 
 		const setLayout = () => {
-			disclosures.forEach((details) => {
-				details.open = phoneLayout.matches ? phoneStates.get(details) ?? false : true;
+			if (!phoneLayout.matches && active) closeSheet(true);
+			sections.forEach(section => {
+				const details = section.querySelector<HTMLDetailsElement>('.experience-disclosure')!;
+				details.open = !phoneLayout.matches;
 				details.toggleAttribute('data-expanded-layout', !phoneLayout.matches);
+				section.toggleAttribute('data-sheet-ready', phoneLayout.matches);
+				section.querySelector<HTMLButtonElement>('.experience-open')!.hidden = !phoneLayout.matches;
 			});
 		};
 		setLayout();
-		phoneLayout.addEventListener('change', setLayout);
-		removeLayoutListener = () => phoneLayout.removeEventListener('change', setLayout);
+		phoneLayout.addEventListener('change', setLayout, { signal });
+		document.addEventListener('astro:before-preparation', () => closeSheet(true), { signal });
+		disposeExperience = () => { closeSheet(true); controller.abort(); };
 	});
 </script>
