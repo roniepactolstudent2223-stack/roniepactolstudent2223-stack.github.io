@@ -3,60 +3,110 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProjectHero from '../../components/ProjectHero.astro';
 import { churchAttendance as project } from '../../content/projects/church-attendance';
 import { writtenProjects } from '../../content/projects/written-projects';
+
+const groups = [
+	{ id: 'work-projects', title: 'Work contributions', description: 'Business systems at Wilcon Depot.', projects: writtenProjects.filter(item => item.experienceUrl) },
+	{ id: 'tools-projects', title: 'Tools & systems', description: 'Automation, a CLI utility, and a Laravel learning project.', projects: writtenProjects.filter(item => !item.experienceUrl) },
+];
 ---
 
-<BaseLayout title="Projects — Ronie Pactol" description="Explore Ronie Pactol’s software projects, including the Church Attendance & Management System built with Laravel, Vue.js, and MySQL.">
+<BaseLayout title="Projects — Ronie Pactol" description="Explore Ronie Pactol’s church software, business-system contributions, developer tools, and learning projects.">
 	<div class="page-shell projects-page">
-		<ProjectHero />
-		<div id="project-list">
-		<article class="project-entry" aria-labelledby="attendance-project-title">
-			<div class="project-overview">
-				<p class="project-context">{project.organization} · {project.role}</p>
-				<h2 id="attendance-project-title"><a href="/projects/church-attendance/">{project.title}</a></h2>
-				<p class="project-summary">{project.summary}</p>
-				<p class="project-stack">{project.stack.join(' · ')}</p>
-				<div class="project-actions"><a class="case-link" href="/projects/church-attendance/">Read the case study <span aria-hidden="true">↗</span></a><a class="case-link" href={project.liveUrl} target="_blank" rel="noopener noreferrer">Open live system <span aria-hidden="true">↗</span></a></div>
+		<ProjectHero total={writtenProjects.length + 1} />
+		<nav class="project-index" aria-label="Browse projects">
+			<a href="#project-list">Featured case study <span>01</span></a>
+			{groups.map(group => <a href={`#${group.id}`}>{group.title} <span>{String(group.projects.length).padStart(2, '0')}</span></a>)}
+		</nav>
+
+		<article class="featured-project" id="project-list" aria-labelledby="attendance-project-title">
+			<header class="featured-heading">
+				<div><p class="featured-label">Featured case study</p><h2 id="attendance-project-title">{project.title}</h2></div>
+				<p class="featured-context"><span>{project.organization}</span><span>{project.role}</span></p>
+			</header>
+			<figure class="featured-preview">
+				<a href="/projects/church-attendance/#project-screens" aria-label="Inspect screenshots of the Church Attendance and Management System">
+					<img src={project.screenshots[0].src} width={project.screenshots[0].width} height={project.screenshots[0].height} alt={project.screenshots[0].alt} fetchpriority="high" decoding="async" />
+				</a>
+				<figcaption><span>Analytics dashboard</span><span>{project.stack.slice(0, 3).join(' · ')}</span></figcaption>
+			</figure>
+			<div class="featured-footer">
+				<p class="featured-summary">{project.summary}</p>
+				<div class="project-actions">
+					<a class="button button-primary case-study-button" href="/projects/church-attendance/">Read case study <span aria-hidden="true">↗</span></a>
+					<a class="live-project" href={project.liveUrl} target="_blank" rel="noopener noreferrer">Live system <span aria-hidden="true">↗</span></a>
+				</div>
 			</div>
-			<a class="project-preview" href="/projects/church-attendance/" aria-label="Explore the Church Attendance and Management System case study"><img src={project.screenshots[0].src} width={project.screenshots[0].width} height={project.screenshots[0].height} alt={project.screenshots[0].alt} decoding="async" /></a>
 		</article>
-		<div class="written-projects">
-			{writtenProjects.map(item => <article class="written-entry" aria-labelledby={`${item.slug}-title`}>
-				<div class="written-title"><p class="project-context">{item.organization}</p><h2 id={`${item.slug}-title`}><a href={`/projects/${item.slug}/`}>{item.title}</a></h2><p class="project-kind">{item.kind}</p></div>
-				<div class="written-summary"><p class="project-summary">{item.summary}</p>{item.stack.length > 0 && <p class="project-stack">{item.stack.join(' · ')}</p>}<a class="case-link" href={`/projects/${item.slug}/`}>Project details <span aria-hidden="true">↗</span></a></div>
-			</article>)}
-		</div>
-		</div>
+
+		{groups.map(group => <section class="project-group" id={group.id} aria-labelledby={`${group.id}-title`}>
+			<header class="group-heading"><h2 id={`${group.id}-title`}>{group.title}</h2><p>{group.description}</p></header>
+			<div class="project-rows">{group.projects.map(item => <a class="project-row" href={`/projects/${item.slug}/`} aria-labelledby={`${item.slug}-title`}>
+				<span class="row-number" aria-hidden="true">{String(writtenProjects.indexOf(item) + 2).padStart(2, '0')}</span>
+				<div class="row-copy">
+					<p class="row-context">{item.organization}</p>
+					<h3 id={`${item.slug}-title`}>{item.title}</h3>
+					<p class="row-summary">{item.summary}</p>
+					<div class="row-footer"><span>{item.stack.length ? item.stack.slice(0, 3).join(' · ') : item.kind}</span><span class="row-action">View project</span></div>
+				</div>
+				<svg class="row-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" /></svg>
+			</a>)}</div>
+		</section>)}
 	</div>
 </BaseLayout>
 
 <style>
-	.projects-page { padding-block: clamp(1.5rem, 4vw, 3.5rem); }
-	.project-entry { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: clamp(1.5rem, 4vw, 4rem); align-items: center; padding-block: 2.5rem; border-bottom: 1px solid var(--color-border); }
-	.project-context, .project-stack { margin: 0; color: var(--color-muted); font-size: 0.85rem; line-height: 1.7; }
-	h2 { margin: 0.75rem 0 1rem; font-size: clamp(1.5rem, 3vw, 2.7rem); line-height: 1.15; }
-	.project-summary { margin: 0 0 1rem; font-size: 1rem; line-height: 1.7; }
-	.case-link { display: inline-flex; align-items: center; gap: 1rem; min-height: 44px; margin-top: 1rem; text-decoration: underline; text-underline-offset: 0.3em; font-size: 0.9rem; }
-	.project-actions { display: flex; flex-wrap: wrap; gap: 0 1.5rem; }
-	.project-preview { display: block; min-width: 0; border: 1px solid var(--color-border); }
-	.project-preview img { display: block; width: 100%; height: auto; }
-	.written-entry { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: 1rem clamp(1.5rem, 4vw, 4rem); padding-block: 2rem; border-bottom: 1px solid var(--color-border); }
-	.written-entry h2 { margin-block: 0.5rem 0.75rem; max-width: 30ch; font-size: clamp(1.35rem, 2.3vw, 2rem); }
-	.project-kind { margin: 0; color: var(--color-muted); font-size: 0.8rem; line-height: 1.6; }
-	.written-entry .project-summary { margin-bottom: 0.5rem; }
-	.written-entry .case-link { margin-top: 0.5rem; }
-	@media (min-width: 901px) {
-		.projects-page { padding-block: 1.5rem; }
-		.project-entry { gap: 1.5rem; padding-block: 1.5rem; }
-		h2 { font-size: 1.75rem; }
-		.project-summary { font-size: 0.875rem; }
-		.written-entry { gap: 0.75rem 1.5rem; padding-block: 1.25rem; }
-		.written-entry h2 { font-size: 1.5rem; }
+	.projects-page { padding-block: 1.75rem 2.5rem; }
+	.project-index { display: flex; flex-wrap: wrap; gap: 0 1.75rem; padding-block: 0.25rem; border-block: 1px solid var(--color-ink); }
+	.project-index a { display: inline-flex; align-items: center; gap: 0.65rem; min-height: 44px; font-size: 0.8rem; }
+	.project-index a:hover { text-decoration: underline; text-underline-offset: 0.3em; }
+	.project-index span { color: var(--color-muted); font-size: 0.7rem; font-variant-numeric: tabular-nums; }
+	.featured-project { padding-block: 1.75rem; border-bottom: 1px solid var(--color-ink); }
+	.featured-heading { display: flex; justify-content: space-between; align-items: end; gap: 1rem 2rem; margin-bottom: 1.25rem; }
+	.featured-label { margin: 0 0 0.6rem; color: var(--color-olive); font-size: 0.75rem; }
+	.featured-heading h2 { max-width: 25ch; margin: 0; font-size: 1.85rem; line-height: 1.15; }
+	.featured-context { flex: 0 0 13rem; margin: 0; color: var(--color-muted); font-size: 0.75rem; line-height: 1.7; text-align: right; }
+	.featured-context span { display: block; }
+	.featured-preview { min-width: 0; margin: 0; border: 1px solid var(--color-border); background: var(--color-paper); }
+	.featured-preview a { display: block; }
+	.featured-preview img { display: block; width: 100%; height: auto; }
+	.featured-preview figcaption { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 0.25rem 1rem; padding: 0.6rem 0.75rem; border-top: 1px solid var(--color-border); color: var(--color-muted); font-size: 0.7rem; line-height: 1.5; }
+	.featured-footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem 1.5rem; margin-top: 1rem; }
+	.featured-summary { flex: 1 1 24rem; max-width: 56ch; margin: 0; font-size: 0.9rem; line-height: 1.65; }
+	.project-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 0.75rem; }
+	.case-study-button { width: auto; font-size: 0.8125rem; }
+	.live-project { display: inline-flex; align-items: center; gap: 0.4rem; min-height: var(--control-height); font-size: 0.8125rem; text-decoration: underline; text-underline-offset: 0.3em; }
+	.project-group { padding-top: 2rem; }
+	.group-heading { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem 1.5rem; padding-bottom: 1rem; }
+	.group-heading h2 { margin: 0; font-size: 1.5rem; line-height: 1.2; }
+	.group-heading p { margin: 0; color: var(--color-muted); font-size: 0.8rem; line-height: 1.6; }
+	.project-row { display: grid; grid-template-columns: 2rem minmax(0, 1fr) 1.5rem; align-items: start; gap: 1rem; padding-block: 1.25rem; border-top: 1px solid var(--color-border); transition: background-color var(--motion-fast); }
+	.project-row:last-child { border-bottom: 1px solid var(--color-border); }
+	.project-row:hover, .project-row:focus-visible { background: rgb(255 255 255 / 45%); }
+	.row-number { padding-top: 0.15rem; color: var(--color-olive); font: 0.75rem/1.6 Consolas, monospace; }
+	.row-context { margin: 0 0 0.4rem; color: var(--color-muted); font-size: 0.75rem; line-height: 1.5; }
+	h3 { margin: 0; font-size: 1.4rem; line-height: 1.2; }
+	.row-summary { max-width: 74ch; margin: 0.6rem 0 0; font-size: 0.875rem; line-height: 1.65; }
+	.row-footer { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 0.35rem 1.5rem; margin-top: 0.75rem; color: var(--color-muted); font-size: 0.75rem; line-height: 1.5; }
+	.row-action { color: var(--color-ink); text-decoration: underline; text-underline-offset: 0.3em; }
+	.row-arrow { width: 20px; height: 20px; margin-top: 0.1rem; }
+	@media (max-width: 760px) {
+		.projects-page { padding-block: 1.25rem 2rem; }
+		.project-index { gap: 0 1rem; }
+		.project-index a { font-size: 0.75rem; }
+		.featured-project { padding-block: 1.5rem; }
+		.featured-heading { display: block; margin-bottom: 1rem; }
+		.featured-heading h2 { font-size: 1.5rem; }
+		.featured-context { margin-top: 0.6rem; text-align: left; }
+		.featured-context span { display: inline; }
+		.featured-context span + span::before { content: " · "; }
+		.featured-summary, .row-summary { font-size: var(--mobile-body, 0.95rem); }
+		.group-heading { display: block; }
+		.group-heading h2 { font-size: 1.35rem; }
+		.group-heading p { margin-top: 0.4rem; }
+		.project-row { grid-template-columns: 1.25rem minmax(0, 1fr) 1rem; gap: 0.65rem; }
+		h3 { font-size: 1.3rem; }
+		.row-arrow { width: 16px; height: 16px; }
+		.row-footer { font-size: 0.7rem; }
 	}
-	@media (max-width: 900px) { .project-entry { grid-template-columns: minmax(0, 1fr); } }
-	@media (max-width: 640px) {
-		.project-summary { font-size: var(--mobile-body); line-height: 1.65; }
-		.project-entry { padding-block: 1.5rem; gap: 1rem; }
-		.written-entry { grid-template-columns: minmax(0, 1fr); gap: 0.75rem; padding-block: 1.5rem; }
-		h2 { margin-block: 0.5rem 0.75rem; }
-	}
+	@media (prefers-reduced-motion: reduce) { .project-row { transition: none; } }
 </style>
