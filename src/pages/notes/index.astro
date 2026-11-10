@@ -1,8 +1,26 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import SectionHeading from '../../components/ui/SectionHeading.astro';
 ---
 
 <BaseLayout title="Notes — Niessen">
-	<section class="mx-auto max-w-6xl px-6 py-24 lg:px-8"><SectionHeading eyebrow="Writing" title="Notes" description="Thoughts, learnings, and things worth remembering." /></section>
+	<section class="page-shell notes-page" aria-labelledby="notes-title">
+		<header><h1 id="notes-title">Notes<span>.</span></h1><p>Thoughts, learnings, and things worth remembering.</p></header>
+		<div class="notes-empty"><p>No notes published yet.</p><a class="case-link" href="/projects/">Explore my projects <span aria-hidden="true">↗</span></a></div>
+	</section>
 </BaseLayout>
+
+<style>
+	.notes-page { padding-block: 2rem 3rem; }
+	header { padding-bottom: 1.5rem; border-bottom: 1px solid var(--color-ink); }
+	h1 { font-size: 2.25rem; line-height: 1.12; }
+	h1 span { color: var(--color-accent); }
+	p { margin: 0.75rem 0 0; color: var(--color-muted); font-size: 0.9rem; line-height: 1.65; }
+	.notes-empty { padding-block: 1.5rem; }
+	.notes-empty p { margin: 0; }
+	.case-link { display: inline-flex; align-items: center; gap: 0.75rem; min-height: 44px; margin-top: 0.5rem; font-size: 0.85rem; text-decoration: underline; text-underline-offset: 0.25em; }
+	@media (max-width: 640px) {
+		.notes-page { padding-block: 1.5rem; }
+		h1 { font-size: var(--mobile-title); }
+		p { font-size: var(--mobile-body); }
+	}
+</style>

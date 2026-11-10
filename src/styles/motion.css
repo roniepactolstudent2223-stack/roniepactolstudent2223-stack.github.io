@@ -1,0 +1,139 @@
+/* Content stays visible without JavaScript or newer animation APIs. */
+.skip-link {
+	position: fixed;
+	top: 0.75rem;
+	left: 0.75rem;
+	z-index: 100;
+	padding: 0.75rem 1rem;
+	background: var(--color-ink);
+	color: var(--color-paper);
+	transform: translateY(calc(-100% - 1rem));
+}
+
+.skip-link:focus { transform: none; }
+
+/* Page lengths can differ. Fade snapshots at their own height, without stretching text. */
+::view-transition-group(page-content) { animation: none; }
+::view-transition-old(page-content),
+::view-transition-new(page-content) { height: auto; }
+
+@keyframes page-enter {
+	from { opacity: 0; transform: translateY(6px); }
+	to { opacity: 1; transform: none; }
+}
+
+@keyframes page-leave {
+	from { opacity: 1; }
+	to { opacity: 0; }
+}
+
+/* The native details state remains authoritative, including rapid reversals. */
+@supports (interpolate-size: allow-keywords) and selector(::details-content) {
+	:where(.background-details, .experience-disclosure, .event-context, .other-contact-methods, .attachments) {
+		interpolate-size: allow-keywords;
+	}
+
+	:where(.background-details, .experience-disclosure, .event-context, .other-contact-methods, .attachments)::details-content {
+		block-size: 0;
+		overflow: clip;
+		overflow-clip-margin: 6px;
+		transition: block-size var(--motion-panel) var(--motion-ease), content-visibility var(--motion-panel);
+		transition-behavior: allow-discrete;
+	}
+
+	:where(.background-details, .experience-disclosure, .event-context, .other-contact-methods, .attachments)[open]::details-content {
+		block-size: auto;
+	}
+
+	/* Desktop expansion is layout initialization, rather than an interaction. */
+	.experience-disclosure[data-expanded-layout]::details-content {
+		transition: none;
+	}
+}
+
+@supports selector(::details-content) {
+	.mobile-menu::details-content {
+		opacity: 0;
+		transform: translateY(-6px);
+		pointer-events: none;
+		transition: opacity var(--motion-fast), transform var(--motion-panel) var(--motion-ease), content-visibility var(--motion-panel);
+		transition-behavior: allow-discrete;
+	}
+
+	.mobile-menu[open]::details-content {
+		opacity: 1;
+		transform: none;
+		pointer-events: auto;
+	}
+}
+
+.background-details summary span,
+.experience-disclosure summary svg,
+.mobile-menu summary svg {
+	transition: transform var(--motion-fast) var(--motion-ease), color var(--motion-fast);
+}
+
+/* Keep native modal focus, Escape, and dismissal immediate. CSS owns the visuals. */
+:is(.contact-modal, .screenshot-viewer) {
+	opacity: 0;
+	transition: opacity var(--motion-fast), transform var(--motion-panel) var(--motion-ease), display var(--motion-panel), overlay var(--motion-panel);
+	transition-behavior: allow-discrete;
+}
+
+:is(.contact-modal, .screenshot-viewer)[open] { opacity: 1; }
+:is(.contact-modal, .screenshot-viewer):not([open]) { pointer-events: none; }
+
+:is(.contact-modal, .screenshot-viewer)::backdrop {
+	opacity: 0;
+	transition: opacity var(--motion-fast), display var(--motion-panel), overlay var(--motion-panel);
+	transition-behavior: allow-discrete;
+}
+
+:is(.contact-modal, .screenshot-viewer)[open]::backdrop { opacity: 1; }
+
+@starting-style {
+	:is(.contact-modal, .screenshot-viewer)[open],
+	:is(.contact-modal, .screenshot-viewer)[open]::backdrop { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	:is(.contact-modal, .screenshot-viewer) { transform: translateY(12px); }
+	:is(.contact-modal, .screenshot-viewer)[open] { transform: none; }
+
+	@starting-style {
+		:is(.contact-modal, .screenshot-viewer)[open] { transform: translateY(12px); }
+	}
+}
+
+:is(.case-link, .live-link, .organization-link, .project-link, .view-all, .nav-contact, .hero-actions a, .site-footer a, .explore-projects) [aria-hidden="true"]:not(svg) {
+	display: inline-block;
+	transition: transform var(--motion-fast) var(--motion-ease);
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+	:is(.case-link, .live-link, .organization-link, .project-link, .view-all, .nav-contact, .hero-actions a, .site-footer a):is(:hover, :focus-visible) [aria-hidden="true"]:not(svg) {
+		transform: translate(2px, -2px);
+	}
+
+	.explore-projects:is(:hover, :focus-visible) span { transform: translateY(3px); }
+}
+
+@media (max-width: 640px) {
+	@keyframes page-enter {
+		from { opacity: 0; transform: translateY(3px); }
+		to { opacity: 1; transform: none; }
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	:where(.background-details, .experience-disclosure, .event-context, .other-contact-methods, .attachments, .mobile-menu)::details-content,
+	:is(.contact-modal, .screenshot-viewer),
+	:is(.contact-modal, .screenshot-viewer)::backdrop,
+	.background-details summary span,
+	.experience-disclosure summary svg,
+	.mobile-menu summary svg {
+		transition: none;
+	}
+
+	.mobile-menu::details-content { transform: none; }
+}

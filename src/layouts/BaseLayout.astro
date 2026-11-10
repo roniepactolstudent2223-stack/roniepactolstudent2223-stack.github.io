@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import '../styles/motion.css';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import Contact from '../components/Contact.astro';
@@ -8,6 +9,11 @@ import { ClientRouter } from 'astro:transitions';
 interface Props { title?: string; description?: string; }
 const { title = 'Niessen — Software Developer', description = 'Niessen’s software development portfolio.' } = Astro.props;
 const resumeUrl = 'https://docs.google.com/document/d/19qGp36MD_fFns8vMhMO0XVhzwqmjYSL1/edit?pli=1';
+const pageAnimation = {
+	old: { name: 'page-leave', duration: '100ms', easing: 'ease-out', fillMode: 'both' },
+	new: { name: 'page-enter', duration: '200ms', easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fillMode: 'both' },
+};
+const pageTransition = { forwards: pageAnimation, backwards: pageAnimation };
 ---
 
 <!doctype html>
@@ -21,8 +27,9 @@ const resumeUrl = 'https://docs.google.com/document/d/19qGp36MD_fFns8vMhMO0XVhzw
 		<ClientRouter fallback="swap" />
 	</head>
 	<body class="min-h-screen">
+		<a class="skip-link" href="#main-content">Skip to content</a>
 		<Navbar resumeUrl={resumeUrl} />
-		<main transition:animate="none"><slot /></main>
+		<main id="main-content" tabindex="-1" transition:name="page-content" transition:animate={pageTransition}><slot /></main>
 		<Footer />
 		<Contact resumeUrl={resumeUrl} />
 	</body>

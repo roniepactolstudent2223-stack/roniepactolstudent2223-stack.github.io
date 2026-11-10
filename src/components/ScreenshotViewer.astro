@@ -1,6 +1,6 @@
 <dialog class="screenshot-viewer" aria-labelledby="screenshot-viewer-title">
 	<header class="viewer-header"><h2 id="screenshot-viewer-title">Screenshot</h2><form method="dialog"><button autofocus>Close <span aria-hidden="true">×</span></button></form></header>
-	<div class="viewer-canvas" tabindex="0" role="region" aria-label="Screenshot. Scroll horizontally and vertically to inspect at actual size."><img class="viewer-image" alt="" /></div>
+	<div class="viewer-canvas" tabindex="0" role="region" aria-label="Image viewer. Use Fit to view, or scroll horizontally and vertically to inspect at actual size."><img class="viewer-image" alt="" /></div>
 	<footer class="viewer-controls"><button type="button" class="viewer-toggle">Fit to view</button><a class="viewer-original" target="_blank" rel="noopener noreferrer">Open original ↗</a><p class="viewer-status" role="status">100% · Scroll to inspect</p></footer>
 </dialog>
 
@@ -19,15 +19,28 @@
 		const toggle = viewer.querySelector<HTMLButtonElement>('.viewer-toggle')!;
 		const status = viewer.querySelector<HTMLElement>('.viewer-status')!;
 		let trigger: HTMLAnchorElement | null = null;
-		const setFit = (fit: boolean) => {
+		let zoomMotion: Animation | undefined;
+		const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+		const setFit = (fit: boolean, animate = false) => {
+			const before = img.getBoundingClientRect();
+			zoomMotion?.cancel();
 			viewer.classList.toggle('viewer-fit', fit);
 			toggle.textContent = fit ? 'Actual size (100%)' : 'Fit to view';
 			status.textContent = fit ? 'Fit view · No upscaling' : '100% · Scroll to inspect';
 			canvas.scrollTo(0, 0);
+			if (animate && !reducedMotion.matches && typeof img.animate === 'function') {
+				const after = img.getBoundingClientRect();
+				if (!before.width || !after.width) return;
+				zoomMotion = img.animate([
+					{ transform: `translate(${before.left - after.left}px, ${before.top - after.top}px) scale(${before.width / after.width})` },
+					{ transform: 'none' },
+				], { duration: 220, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' });
+			}
 		};
 		document.querySelectorAll<HTMLAnchorElement>('a[data-screenshot]').forEach(link => {
 			link.addEventListener('click', event => {
 				if (event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+				if (viewer.open) return;
 				event.preventDefault();
 				trigger = link;
 				title.textContent = link.dataset.title ?? 'Screenshot';
@@ -37,11 +50,17 @@
 				img.height = Number(link.dataset.height);
 				original.href = link.href;
 				viewer.showModal();
-				setFit(false);
+				setFit(link.hasAttribute('data-fit'));
 			}, { signal });
 		});
-		toggle.addEventListener('click', () => setFit(!viewer.classList.contains('viewer-fit')), { signal });
-		viewer.addEventListener('close', () => trigger?.focus({ preventScroll: true }), { signal });
+		toggle.addEventListener('click', () => setFit(!viewer.classList.contains('viewer-fit'), true), { signal });
+		viewer.addEventListener('close', () => {
+			zoomMotion?.cancel();
+			if (trigger?.isConnected) trigger.focus({ preventScroll: true });
+		}, { signal });
+		window.addEventListener('resize', () => zoomMotion?.cancel(), { signal });
+		reducedMotion.addEventListener('change', () => zoomMotion?.cancel(), { signal });
+		document.addEventListener('astro:before-preparation', () => { if (viewer.open) viewer.close(); }, { signal });
 		let backdropPressed = false;
 		viewer.addEventListener('pointerdown', event => { backdropPressed = event.target === viewer; }, { signal });
 		viewer.addEventListener('click', event => {
@@ -49,7 +68,7 @@
 			if (backdropPressed && event.target === viewer && (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom)) viewer.close();
 			backdropPressed = false;
 		}, { signal });
-		disposeViewer = () => { if (viewer.open) viewer.close(); controller.abort(); };
+		disposeViewer = () => { zoomMotion?.cancel(); if (viewer.open) viewer.close(); controller.abort(); };
 	});
 </script>
 
@@ -64,7 +83,7 @@
 	button, a { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; min-height: 44px; padding: 0.25rem 0.5rem; font: inherit; font-size: 0.85rem; color: inherit; border: 0; background: none; cursor: pointer; }
 	button:focus-visible, a:focus-visible, .viewer-canvas:focus-visible { outline: 2px solid var(--color-ink); outline-offset: -3px; }
 	.viewer-canvas { min-width: 0; min-height: 0; overflow: auto; overscroll-behavior: contain; background: var(--color-surface); }
-	.viewer-image { display: block; max-width: none; height: auto; }
+	.viewer-image { display: block; max-width: none; height: auto; transform-origin: top left; }
 	.viewer-fit .viewer-image { width: auto; max-width: 100%; max-height: 100%; object-fit: contain; object-position: top left; }
 	.viewer-controls { display: flex; align-items: center; flex-wrap: wrap; gap: 0.25rem 1rem; padding: 0.25rem 0.5rem; border-top: 1px solid var(--color-border); }
 	.viewer-controls button, .viewer-controls a { text-decoration: underline; text-underline-offset: 0.25em; }

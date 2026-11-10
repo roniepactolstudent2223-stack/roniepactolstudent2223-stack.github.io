@@ -63,7 +63,8 @@ const { resumeUrl } = Astro.props;
 			dialog.showModal();
 		});
 	});
-	dialog?.addEventListener('close', () => { returnFocus?.focus({ preventScroll: true }); });
+	dialog?.addEventListener('close', () => { if (returnFocus?.isConnected) returnFocus.focus({ preventScroll: true }); });
+	document.addEventListener('astro:before-preparation', () => { if (dialog?.open) dialog.close(); });
 	let backdropPressed = false;
 	dialog?.addEventListener('pointerdown', (event) => { backdropPressed = event.target === dialog; });
 	dialog?.addEventListener('click', (event) => {
