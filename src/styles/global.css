@@ -564,7 +564,7 @@ h1 em {
 		--color-accent: var(--color-intro-accent);
 		--color-olive: var(--color-intro-muted);
 		--color-border: rgb(251 250 247 / 32%);
-		margin-block: 1rem 2rem;
+		margin-block: 0 2rem;
 		padding: clamp(1.75rem, 3.5vw, 3rem);
 		border: 1px solid rgb(251 250 247 / 12%);
 		background: var(--color-intro-surface);
@@ -737,7 +737,7 @@ h1 em {
 		--color-border: rgb(251 250 247 / 35%);
 		--mobile-title: clamp(1.85rem, 1.35rem + 2vw, 2.25rem);
 		min-width: 0;
-		margin-block: 1rem 1.5rem;
+		margin-block: 0 1.5rem;
 		margin-inline: calc(var(--mobile-gutter) * -1);
 		padding: 1.5rem 1.15rem;
 		padding-inline: calc(var(--mobile-gutter) + 1.15rem);

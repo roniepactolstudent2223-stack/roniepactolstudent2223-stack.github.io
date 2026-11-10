@@ -39,7 +39,7 @@ import ScreenshotViewer from './ScreenshotViewer.astro';
 <ScreenshotViewer />
 
 <style>
-	.attendance-case { padding-block: 1.5rem 2.5rem; }
+	.attendance-case { padding-block: 0 2.5rem; }
 	.back-link, .screen-description a, .case-end a { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 44px; font-size: 0.85rem; text-decoration: underline; text-underline-offset: 0.25em; }
 	.case-heading { padding-block: 1.5rem 2rem; }
 	.case-context { margin: 0 0 1rem; color: var(--color-muted); font-size: 0.9rem; }
@@ -89,7 +89,7 @@ import ScreenshotViewer from './ScreenshotViewer.astro';
 	}
 	@media (max-width: 900px) { .case-overview { grid-template-columns: minmax(0, 1fr); gap: 1rem; } .capability { gap: 1rem 1.5rem; } }
 	@media (max-width: 640px) {
-		.attendance-case { padding-block: 0.5rem 1.5rem; }
+		.attendance-case { padding-block: 0 1.5rem; }
 		.case-heading { padding-block: 1rem 1.5rem; }
 		h1 { font-size: var(--mobile-title); line-height: 1.15; }
 		h1 br { display: none; }
