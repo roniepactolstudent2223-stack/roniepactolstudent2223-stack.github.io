@@ -108,6 +108,17 @@
 	.service-photos img { display: block; width: 100%; height: auto; }
 	.service-photos figure:last-child img { max-width: 250px; }
 	.service-photos figcaption { padding-top: 0.5rem; color: var(--color-muted); font-size: 0.75rem; line-height: 1.5; }
+	@media (min-width: 901px) {
+		.experience-section { padding-block: 0.75rem 1.75rem; }
+		.experience-heading { gap: 1.25rem; padding: 1.25rem 1rem 1rem; }
+		.experience-heading h2 { font-size: 2.25rem; line-height: 1.12; }
+		.church-experience .experience-heading h2 { font-size: 2rem; }
+		.service-experience .experience-heading h2 { font-size: 1.75rem; }
+		.experience-meta { margin-top: 0.75rem; font-size: 0.8125rem; }
+		.experience-body { gap: 1.5rem; padding-inline: 1rem; }
+		.experience-summary, .service-experience .experience-summary { margin-bottom: 0.75rem; font-size: 0.875rem; }
+		.experience-list li { grid-template-columns: minmax(0, 1fr); gap: 0.25rem; padding-block: 0.625rem; font-size: 0.875rem; line-height: 1.55; }
+	}
 	@media (max-width: 1100px) { .experience-heading, .experience-body { padding-inline: 0; } .experience-body { gap: 2rem; } .experience-list li { grid-template-columns: minmax(0, 1fr); gap: 0.3rem; } }
 	@media (max-width: 760px) {
 		.experience-section { padding-block: 1.5rem 2.5rem; }

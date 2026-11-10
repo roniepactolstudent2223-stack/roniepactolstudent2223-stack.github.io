@@ -45,6 +45,18 @@ const { project } = Astro.props;
 	h3 { margin: 0; font-size: 1.25rem; line-height: 1.35; }
 	.feature-row p { max-width: 65ch; margin: 0; font-size: 0.95rem; line-height: 1.7; }
 	.project-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem 2rem; padding-top: 1rem; border-top: 1px solid var(--color-ink); }
+	@media (min-width: 901px) {
+		.written-heading { padding-block: 1rem 1.5rem; }
+		h1 { font-size: 2.25rem; line-height: 1.12; }
+		.project-summary { margin-top: 0.75rem; font-size: 0.9rem; }
+		h2 { font-size: 1.5rem; }
+		.project-overview, .feature-row { column-gap: 1.5rem; }
+		.project-overview { padding-block: 1.5rem; }
+		.project-overview p { font-size: 0.875rem; }
+		.feature-row { padding-block: 0.875rem; }
+		h3 { font-size: 1.1rem; }
+		.feature-row p { font-size: 0.875rem; }
+	}
 	@media (max-width: 900px) { .feature-row, .project-overview { gap: 1rem 1.5rem; } }
 	@media (max-width: 640px) {
 		.written-project { padding-block: 0.5rem 1.5rem; }

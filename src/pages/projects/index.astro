@@ -44,6 +44,14 @@ import { writtenProjects } from '../../content/projects/written-projects';
 	.project-kind { margin: 0; color: var(--color-muted); font-size: 0.8rem; line-height: 1.6; }
 	.written-entry .project-summary { margin-bottom: 0.5rem; }
 	.written-entry .case-link { margin-top: 0.5rem; }
+	@media (min-width: 901px) {
+		.projects-page { padding-block: 1.5rem; }
+		.project-entry { gap: 1.5rem; padding-block: 1.5rem; }
+		h2 { font-size: 1.75rem; }
+		.project-summary { font-size: 0.875rem; }
+		.written-entry { gap: 0.75rem 1.5rem; padding-block: 1.25rem; }
+		.written-entry h2 { font-size: 1.5rem; }
+	}
 	@media (max-width: 900px) { .project-entry { grid-template-columns: minmax(0, 1fr); } }
 	@media (max-width: 640px) {
 		.project-summary { font-size: var(--mobile-body); line-height: 1.65; }

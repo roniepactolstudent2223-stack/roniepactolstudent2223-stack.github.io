@@ -74,6 +74,17 @@ import ScreenshotViewer from './ScreenshotViewer.astro';
 	.launch-figure .screen-description { display: block; }
 	.launch-figure .screen-description p { margin-top: 0.75rem; max-width: 45ch; }
 	.case-end { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem 2rem; padding-top: 1rem; border-top: 1px solid var(--color-ink); }
+	@media (min-width: 901px) {
+		.case-heading { padding-block: 1rem 1.5rem; }
+		h1 { font-size: 2.25rem; line-height: 1.12; }
+		.case-summary { margin-block: 0.75rem; font-size: 0.9rem; }
+		h2 { font-size: 1.75rem; }
+		.case-overview { gap: 1rem 1.5rem; padding-block: 1.5rem; }
+		.case-overview p { font-size: 0.875rem; }
+		.capability { gap: 0.75rem 1.5rem; padding-block: 0.875rem; }
+		h3 { font-size: 1.1rem; }
+		.capability p { font-size: 0.875rem; }
+	}
 	@media (max-width: 900px) { .case-overview { grid-template-columns: minmax(0, 1fr); gap: 1rem; } .capability { gap: 1rem 1.5rem; } }
 	@media (max-width: 640px) {
 		.attendance-case { padding-block: 0.5rem 1.5rem; }
