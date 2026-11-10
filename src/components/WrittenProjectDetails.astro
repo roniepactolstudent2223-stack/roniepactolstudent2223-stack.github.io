@@ -1,7 +1,8 @@
 ---
-import type { WrittenProject } from '../content/projects/written-projects';
+import { writtenProjects, type WrittenProject } from '../content/projects/written-projects';
 interface Props { project: WrittenProject; }
 const { project } = Astro.props;
+const nextProject = writtenProjects[(writtenProjects.findIndex(item => item.slug === project.slug) + 1) % writtenProjects.length];
 ---
 
 <article class="written-project">
@@ -19,6 +20,7 @@ const { project } = Astro.props;
 		<h2 id="project-features-title">{project.experienceUrl ? 'My contributions' : 'What I built'}</h2>
 		<div class="feature-list">{project.features.map(feature => <section class="feature-row"><h3>{feature.title}</h3><p>{feature.description}</p></section>)}</div>
 	</section>
+	<nav class="next-project" aria-label="Continue exploring projects"><p>Next project</p><a href={`/projects/${nextProject.slug}/`}>{nextProject.title}<span aria-hidden="true">→</span></a></nav>
 	<footer class="project-footer"><a href="/projects/">← Back to projects</a>{project.experienceUrl && <a href={project.experienceUrl}>My role at Wilcon Depot <span aria-hidden="true">↗</span></a>}</footer>
 </article>
 
@@ -45,6 +47,11 @@ const { project } = Astro.props;
 	h3 { margin: 0; font-size: 1.25rem; line-height: 1.35; }
 	.feature-row p { max-width: 65ch; margin: 0; font-size: 0.95rem; line-height: 1.7; }
 	.project-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem 2rem; padding-top: 1rem; border-top: 1px solid var(--color-ink); }
+	.next-project { padding-block: 1.25rem; border-top: 1px solid var(--color-border); }
+	.next-project p { margin: 0 0 0.4rem; color: var(--color-muted); font-size: 0.75rem; }
+	.next-project a { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 44px; font-family: Georgia, serif; font-size: 1.35rem; line-height: 1.25; letter-spacing: -0.035em; }
+	.next-project a span { flex: none; }
+	.next-project a:hover { text-decoration: underline; text-underline-offset: 0.2em; }
 	@media (min-width: 901px) {
 		.written-heading { padding-block: 1rem 1.5rem; }
 		h1 { font-size: 2.25rem; line-height: 1.12; }

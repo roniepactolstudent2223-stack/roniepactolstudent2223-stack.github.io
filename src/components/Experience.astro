@@ -246,12 +246,12 @@
 		const phoneLayout = window.matchMedia('(max-width: 760px)');
 		const controller = new AbortController();
 		const { signal } = controller;
-		let active: { section: HTMLElement; body: HTMLElement; home: HTMLDetailsElement; first: Element | null; photo?: HTMLElement; photoHome?: Node; photoNext?: ChildNode | null } | null = null;
+		let active: { section: HTMLElement; body: HTMLElement; home: HTMLDetailsElement; first: Element | null; photo?: HTMLElement; photoSlot?: HTMLElement } | null = null;
 		let closeVersion = 0;
 
 		const restoreContent = () => {
 			if (!active) return;
-			if (active.photo && active.photoHome) active.photoHome.insertBefore(active.photo, active.photoNext ?? null);
+			if (active.photo && active.photoSlot) active.photoSlot.replaceWith(active.photo);
 			if (active.first) active.body.prepend(active.first);
 			active.home.append(active.body);
 			active = null;
@@ -283,10 +283,13 @@
 				const body = home.querySelector<HTMLElement>('.experience-body')!;
 				active = { section, body, home, first: body.firstElementChild };
 				const photo = section.querySelector<HTMLElement>('.ministry-photo');
-				if (photo?.parentNode) {
+				if (photo) {
+					const slot = document.createElement('div');
+					slot.style.height = `${photo.getBoundingClientRect().height}px`;
+					slot.setAttribute('aria-hidden', 'true');
 					active.photo = photo;
-					active.photoHome = photo.parentNode;
-					active.photoNext = photo.nextSibling;
+					active.photoSlot = slot;
+					photo.replaceWith(slot);
 				}
 				const responsibilities = body.querySelector<HTMLElement>(':scope > .experience-details, :scope > .experience-list');
 				if (responsibilities) body.prepend(responsibilities);
