@@ -1,9 +1,21 @@
 :root {
+	--font-display: "Newsreader", Georgia, "Times New Roman", serif;
+	--font-ui: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+	--font-label: "IBM Plex Mono", Consolas, "Liberation Mono", monospace;
+	--text-label: 0.7rem;
+	--text-meta: 0.8rem;
+	--text-body: 0.95rem;
+	--text-lead: 1.05rem;
+	--text-section: clamp(1.5rem, 2.5vw, 2rem);
+	--line-body: 1.7;
+	--tracking-label: 0.08em;
 	--color-ink: #202223;
 	--color-muted: #606469;
 	--color-surface: #f8f7f4;
 	--color-paper: #fbfaf7;
 	--color-border: #c9c9c4;
+	--color-tint: #eeede7;
+	--color-sage: #e7ebe3;
 	--color-accent: #965b24;
 	--color-olive: #6d7458;
 	--color-intro-surface: #252929;

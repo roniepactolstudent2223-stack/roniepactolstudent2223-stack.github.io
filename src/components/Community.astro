@@ -28,8 +28,9 @@ const events = [
 
 <section class="community-intro page-intro page-intro--dark" aria-labelledby="community-title">
 	<div>
+		<p class="community-kicker">Beyond the code / Photography</p>
 		<h1 id="community-title">Community &amp;<br /> <em>volunteering.</em></h1>
-		<p class="community-role">Volunteer photographer · WordPress &amp; open source</p>
+		<p class="community-role"><span>My contribution</span>Volunteer photographer</p>
 	</div>
 	<p class="community-summary">Outside development, I volunteer as an event photographer, documenting the people who make our local tech communities possible.</p>
 </section>
@@ -39,9 +40,8 @@ const events = [
 	{events.map((event, index) => (
 		<article class="community-event" id={event.id} aria-labelledby={`${event.id}-title`}>
 			<div class="event-copy">
-				<time datetime={event.datetime}>{event.date}</time>
+				<div class="event-dateline"><span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><time datetime={event.datetime}>{event.date}</time></div>
 				<h2 id={`${event.id}-title`}>{event.title}</h2>
-				<p class="event-role">Volunteer photographer</p>
 				<p class="event-description">{event.description}</p>
 				<details class="event-context">
 					<summary>About the gathering</summary>
@@ -53,7 +53,7 @@ const events = [
 				<a href={`/images/${event.image}-1600.webp`} data-screenshot data-fit data-title={event.title} data-alt={event.alt} data-width="1600" data-height="900" target="_blank" rel="noopener noreferrer" aria-label={`View the ${event.title} group photo`}>
 					<img src={`/images/${event.image}-1600.webp`} srcset={`/images/${event.image}-800.webp 800w, /images/${event.image}-1600.webp 1600w`} sizes="(max-width: 900px) calc(100vw - 2rem), 60vw" width="1600" height="900" alt={event.alt} loading={index === 0 ? 'eager' : 'lazy'} decoding="async" />
 				</a>
-				<figcaption><span>{event.title} · {event.date}</span><a href={`/images/${event.image}-1600.webp`} data-screenshot data-fit data-title={event.title} data-alt={event.alt} data-width="1600" data-height="900" target="_blank" rel="noopener noreferrer" aria-label={`View ${event.title} photo`}>View photo <span aria-hidden="true">↗</span></a></figcaption>
+				<figcaption><span><span class="caption-label">Group photograph</span>{event.title}</span><a href={`/images/${event.image}-1600.webp`} data-screenshot data-fit data-title={event.title} data-alt={event.alt} data-width="1600" data-height="900" target="_blank" rel="noopener noreferrer" aria-label={`View ${event.title} photo`}>View photo <span aria-hidden="true">↗</span></a></figcaption>
 			</figure>
 		</article>
 	))}
@@ -63,35 +63,32 @@ const events = [
 
 <style>
 	.community-intro { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); align-items: end; gap: 1.5rem; }
-	.community-intro h1 { max-width: 18ch; font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 1.05; }
+	.community-kicker { margin: 0 0 1.2rem; font-family: var(--font-label); font-size: var(--text-label); line-height: 1.6; letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--color-intro-muted); }
+	.community-intro h1 { max-width: 18ch; font-family: var(--font-display); font-size: clamp(2.5rem, 4vw, 3.25rem); font-weight: 500; line-height: 1.06; }
 	.community-intro em { display: inline; padding: 0; background: none; color: var(--color-accent); }
-	.community-role { margin: 1rem 0 0; color: var(--color-muted); font-size: 0.85rem; line-height: 1.6; }
-	.community-summary { max-width: 40ch; margin: 0; font-size: 1rem; line-height: 1.7; }
-	.community-event { display: grid; grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr); align-items: start; gap: clamp(1.5rem, 4vw, 4rem); padding-block: clamp(2rem, 4vw, 3.5rem); border-bottom: 1px solid var(--color-border); }
+	.community-role { margin: 1.5rem 0 0; color: var(--color-ink); font-size: var(--text-meta); line-height: 1.6; }
+	.community-role > span { display: block; margin-bottom: 0.35rem; color: var(--color-muted); font-family: var(--font-label); font-size: var(--text-label); letter-spacing: var(--tracking-label); text-transform: uppercase; }
+	.community-summary { max-width: 40ch; margin: 0; font-size: var(--text-body); line-height: var(--line-body); }
+	.community-event { display: grid; grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr); align-items: start; gap: 1.75rem; padding-block: 2.25rem; border-bottom: 1px solid var(--color-border); }
 	.community-event:last-child { border-bottom-color: var(--color-ink); }
 	.event-copy { min-width: 0; }
-	time { color: var(--color-muted); font-size: 0.85rem; }
-	h2 { margin: 0.65rem 0; max-width: 24ch; font-size: clamp(1.5rem, 2.5vw, 2.3rem); line-height: 1.15; }
-	.event-role { margin: 0; font-size: 0.85rem; }
-	.event-description { margin: 1rem 0 0; font-size: 0.95rem; line-height: 1.7; }
-	.event-context { margin-top: 0.5rem; font-size: 0.85rem; line-height: 1.7; }
+	.event-dateline { display: flex; align-items: baseline; gap: 0.65rem; font-family: var(--font-label); font-size: var(--text-label); letter-spacing: 0.04em; line-height: 1.6; text-transform: uppercase; }
+	.event-dateline > span { color: var(--color-accent); }
+	time { color: var(--color-muted); }
+	h2 { margin: 0.8rem 0 0; max-width: 24ch; font-family: var(--font-display); font-weight: 500; font-size: var(--text-section); line-height: 1.15; }
+	.event-description { margin: 0.85rem 0 0; font-size: var(--text-body); line-height: var(--line-body); }
+	.event-context { margin-top: 0.5rem; font-size: var(--text-meta); line-height: var(--line-body); }
 	.event-context summary { min-height: 44px; padding-block: 0.6rem; cursor: pointer; text-decoration: underline; text-underline-offset: 0.25em; }
 	.event-context p { margin: 0 0 0.75rem; color: var(--color-muted); }
 	dl { margin: 0; }
-	dt { color: var(--color-muted); }
+	dt { color: var(--color-muted); font-family: var(--font-label); font-size: var(--text-label); letter-spacing: var(--tracking-label); text-transform: uppercase; }
 	dd { margin: 0.25rem 0 0; }
 	figure { min-width: 0; margin: 0; }
-	figure > a { display: block; }
+	figure > a { display: block; padding: 0.35rem; background: var(--color-paper); border: 1px solid var(--color-border); }
 	figure img { display: block; width: 100%; height: auto; }
-	figcaption { display: flex; justify-content: space-between; gap: 0.75rem; align-items: baseline; padding-top: 0.5rem; color: var(--color-muted); font-size: 0.75rem; line-height: 1.5; }
+	figcaption { display: flex; justify-content: space-between; gap: 0.75rem; align-items: start; padding-top: 0.65rem; color: var(--color-muted); font-size: var(--text-meta); line-height: 1.5; }
+	.caption-label { display: block; margin-bottom: 0.25rem; color: var(--color-olive); font-family: var(--font-label); font-size: var(--text-label); letter-spacing: 0.04em; text-transform: uppercase; }
 	figcaption a { display: inline-flex; align-items: center; min-height: 44px; flex-shrink: 0; gap: 0.35rem; color: var(--color-ink); text-decoration: underline; text-underline-offset: 0.25em; }
-	@media (min-width: 901px) {
-		.community-intro h1 { font-size: 2.25rem; line-height: 1.12; }
-		.community-summary { font-size: 0.875rem; }
-		.community-event { gap: 1.5rem; padding-block: 1.5rem; }
-		h2 { font-size: 1.5rem; }
-		.event-description { margin-top: 0.75rem; font-size: 0.875rem; }
-	}
 	@media (max-width: 900px) {
 		.community-intro { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
 		.community-summary { max-width: 60ch; }
@@ -101,8 +98,9 @@ const events = [
 	}
 	@media (max-width: 640px) {
 		.community-intro h1 { font-size: var(--mobile-title); line-height: 1.15; }
-		.community-role { margin-top: 0.6rem; font-size: 0.8rem; }
-		.community-summary, .event-description { font-size: var(--mobile-body); line-height: 1.65; }
+		.community-kicker { margin-bottom: 0.85rem; }
+		.community-role { margin-top: 1rem; }
+		.community-summary, .event-description { font-size: var(--mobile-body); line-height: var(--line-body); }
 		.community-event { padding-block: 1.5rem; }
 		h2 { font-size: clamp(1.35rem, 1rem + 2vw, 1.75rem); }
 		.event-description { margin-top: 0.65rem; }

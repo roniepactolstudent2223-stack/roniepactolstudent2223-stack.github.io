@@ -1,4 +1,27 @@
 <footer class="site-footer" transition:persist="site-footer" transition:animate="none">
-	<span>© {new Date().getFullYear()} Ronie Pactol.</span>
-	<a href="mailto:roniepactol@gmail.com">Let’s work together <span aria-hidden="true">↗</span></a>
+	<div class="footer-invitation">
+		<div><p class="footer-label">Next conversation</p><h2>Have a role or<br /> project in mind?</h2></div>
+		<div class="footer-contact"><a class="footer-email" href="mailto:roniepactol@gmail.com">roniepactol@gmail.com <span aria-hidden="true">↗</span></a><p>Open to freelance work and full-stack roles.</p></div>
+	</div>
+	<div class="footer-bottom"><span>© {new Date().getFullYear()} Ronie Pactol</span><nav aria-label="Footer navigation"><a href="/projects/">Projects</a><a href="/experience/">Experience</a><a href="/certificates/">Certificates</a></nav><span>Quezon City, Metro Manila</span></div>
 </footer>
+
+<style>
+	.site-footer { display: block; padding-block: 2rem 1rem; border-top: 1px solid var(--color-ink); }
+	.footer-invitation { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: end; gap: 1.5rem; padding-bottom: 1.75rem; }
+	.footer-label { margin: 0 0 0.75rem; color: var(--color-olive); font-family: var(--font-label); font-size: var(--text-label); letter-spacing: var(--tracking-label); line-height: 1.6; text-transform: uppercase; }
+	h2 { margin: 0; font-family: var(--font-display); font-weight: 500; font-size: clamp(1.75rem, 3vw, 2.25rem); letter-spacing: -0.035em; line-height: 1.1; }
+	.site-footer .footer-email { min-width: 0; width: 100%; display: flex; justify-content: space-between; padding-block: 0.5rem; border-bottom: 1px solid var(--color-ink); color: var(--color-ink); font-size: clamp(0.95rem, 1.8vw, 1.2rem); font-weight: 500; text-decoration: none; overflow-wrap: anywhere; }
+	.footer-email:hover { color: var(--color-accent); }
+	.footer-email span { flex: none; }
+	.footer-contact p { margin: 0.65rem 0 0; color: var(--color-muted); font-size: var(--text-meta); line-height: 1.6; }
+	.footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem 1rem; padding-top: 0.75rem; border-top: 1px solid var(--color-border); color: var(--color-muted); font-size: var(--text-meta); line-height: 1.6; }
+	.footer-bottom nav { display: flex; gap: 1rem; }
+	.footer-bottom a { font-size: var(--text-meta); font-weight: 400; text-decoration: none; }
+	.footer-bottom a:hover { text-decoration: underline; }
+	@media (max-width: 640px) {
+		.footer-invitation { grid-template-columns: minmax(0, 1fr); align-items: start; gap: 1.25rem; padding-bottom: 1.25rem; }
+		h2 br { display: none; }
+		.footer-bottom { align-items: start; flex-direction: column; gap: 0.25rem; }
+	}
+</style>

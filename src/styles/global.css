@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "./tokens.css";
+@import "./fonts.css";
 
 :root {
 	font-synthesis: none;
@@ -11,23 +12,25 @@
 }
 
 html { scroll-padding-top: 5rem; }
-body { margin: 0; background: var(--color-surface); color: var(--color-ink); font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+body { margin: 0; background: var(--color-surface); color: var(--color-ink); font-family: var(--font-ui); font-size: var(--text-body); line-height: 1.6; }
 a { color: inherit; text-decoration: none; }
 button, a { -webkit-tap-highlight-color: transparent; }
 button { cursor: pointer; }
 :where(a, button, summary):focus-visible { outline: 2px solid var(--color-ink); outline-offset: 4px; }
-h1, h2, h3 { font-family: Georgia, "Times New Roman", serif; font-weight: 700; letter-spacing: -0.04em; }
+h1, h2 { font-family: var(--font-display); font-weight: 500; font-optical-sizing: auto; letter-spacing: -0.025em; }
+h3 { font-family: var(--font-ui); font-weight: 600; letter-spacing: -0.02em; }
 h1 { margin: 0; font-size: clamp(2rem, 4vw, 3.5rem); line-height: 1.1; overflow-wrap: anywhere; }
 h1 em, h2 em { font-style: italic; font-weight: 400; }
+strong, b { font-weight: 600; }
 
 .site-header, .page-shell, .site-footer { box-sizing: border-box; width: min(calc(100% - var(--page-gutter) * 2), 850px); margin-inline: auto; }
 .site-header { position: sticky; top: 0; z-index: 20; border-bottom: 1px solid var(--color-ink); background: var(--color-surface); }
 .site-nav { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 3rem; }
-.wordmark { display: inline-flex; align-items: center; min-height: 44px; flex: none; font: 700 1.375rem/1 Georgia, "Times New Roman", serif; white-space: nowrap; }
+.wordmark { display: inline-flex; align-items: center; min-height: 44px; flex: none; font: 500 1.6rem/1 var(--font-display); white-space: nowrap; }
 .wordmark-type { display: inline-flex; align-items: baseline; }
 .wordmark-name { font-style: italic; letter-spacing: -0.065em; }
 .wordmark-dot { margin-inline: 0.035em 0.09em; color: var(--color-accent); }
-.wordmark-dev { font-family: Consolas, "Liberation Mono", monospace; font-size: 0.68em; font-weight: 400; letter-spacing: -0.055em; }
+.wordmark-dev { font-family: var(--font-label); font-size: 0.55em; font-weight: 500; letter-spacing: -0.04em; }
 .nav-links { display: flex; align-items: center; font-size: 0.8125rem; }
 .nav-link { position: relative; padding-block: 0.65rem; }
 .nav-link.is-active::after { content: ""; position: absolute; inset: auto 0 0; height: 2px; background: var(--color-accent); }
@@ -39,13 +42,17 @@ h1 em, h2 em { font-style: italic; font-weight: 400; }
 .mobile-menu-panel a { display: flex; justify-content: space-between; gap: 1rem; align-items: center; min-height: 44px; padding: 0.45rem 0.6rem; font-size: 0.9rem; }
 .mobile-menu-panel a:is(:hover, :focus-visible), .mobile-menu-panel a[aria-current="page"] { background: #20222308; }
 
-.button { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; min-height: var(--control-height); padding: 0.4rem 0.8rem; border-radius: 0.35rem; font: 500 0.85rem/1.5 ui-sans-serif, system-ui, sans-serif; transition: background-color var(--motion-fast); }
+.button { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; min-height: var(--control-height); padding: 0.4rem 0.8rem; border-radius: 0.3rem; font: 500 0.85rem/1.5 var(--font-ui); transition: background-color var(--motion-fast); }
 .button-primary { background: var(--color-ink); color: var(--color-paper); }
 .button-primary:hover { background: #414747; }
 .button-secondary { border: 1px solid var(--color-border); }
 .text-link { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 44px; font-size: 0.8rem; text-decoration: underline; text-underline-offset: 0.25em; }
-.section-label { margin: 0 0 0.5rem; color: var(--color-olive); font-size: 0.75rem; }
-.section-kicker { margin: 0 0 0.75rem; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.06em; }
+.eyebrow, .field-label, .section-label, .section-kicker { font-family: var(--font-label); font-size: var(--text-label); font-weight: 500; line-height: 1.6; letter-spacing: var(--tracking-label); text-transform: uppercase; }
+.eyebrow, .section-label, .section-kicker { margin: 0 0 0.65rem; color: var(--color-olive); }
+.field-label { display: block; margin: 0 0 0.35rem; color: var(--color-muted); }
+.meta-text { font-family: var(--font-ui); font-size: var(--text-meta); font-weight: 400; line-height: 1.6; letter-spacing: 0; }
+.section-heading { display: flex; align-items: end; justify-content: space-between; gap: 1rem; margin-bottom: 1.5rem; }
+.section-heading h2 { margin: 0; font-size: var(--text-section); line-height: 1.15; }
 .badge { display: inline-flex; padding: 0.25rem 0.5rem; border: 1px solid var(--color-border); border-radius: 0.25rem; font-size: 0.75rem; }
 
 /* Shared structure; each page owns its composition and surface. */

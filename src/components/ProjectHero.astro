@@ -5,22 +5,26 @@ const { total } = Astro.props;
 
 <header class="projects-hero page-intro" aria-labelledby="projects-title">
 	<div>
-		<p class="projects-eyebrow">Selected work <span>{String(total).padStart(2, '0')} projects</span></p>
-		<h1 id="projects-title">Projects that make<br /> <em>daily work simpler.</em></h1>
+		<p class="projects-eyebrow eyebrow">Project archive</p>
+		<h1 id="projects-title">Systems, workflows,<br /> <em>practical tools.</em></h1>
 	</div>
-	<p class="projects-introduction">Church software, business workflows, and practical tools. Explore the systems I’ve worked on and the problems behind them.</p>
+	<div class="projects-scope"><p class="field-label">The work</p><p class="projects-introduction">Church software, business workflows, and practical tools. Explore the systems I’ve worked on and the problems behind them.</p><p class="archive-count">{String(total).padStart(2, '0')} projects <span aria-hidden="true">/</span> Case studies &amp; contributions</p></div>
 </header>
 
 <style>
-	.projects-hero { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); align-items: end; gap: 1.5rem 2rem; padding: 1.75rem 1.5rem; border-left: 3px solid var(--color-accent); background: #eeede7; }
-	.projects-eyebrow { display: flex; align-items: center; gap: 1rem; margin: 0 0 0.75rem; font-size: 0.75rem; color: var(--color-olive); }
-	.projects-eyebrow span { color: var(--color-muted); font-variant-numeric: tabular-nums; }
-	h1 { margin: 0; font-size: 2.25rem; line-height: 1.12; }
+	.projects-hero { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr); align-items: end; gap: 1.5rem 2rem; padding: 2rem 1.5rem 1.5rem; border: 0; border-bottom: 3px solid var(--color-accent); background: #eeede7; }
+	.projects-eyebrow { margin: 0 0 1rem; color: var(--color-olive); }
+	h1 { margin: 0; max-width: 23ch; font-size: clamp(2.1rem, 3.7vw, 2.75rem); font-weight: 500; line-height: 1.08; }
 	h1 em { display: inline; padding: 0; background: none; color: var(--color-accent); }
-	.projects-introduction { max-width: 42ch; margin: 0; color: var(--color-muted); font-size: 0.9rem; line-height: 1.65; }
+	.projects-scope { min-width: 0; }
+	.projects-introduction { max-width: 42ch; margin: 0.65rem 0 0; color: var(--color-muted); font-size: var(--text-body, 0.95rem); line-height: var(--line-body, 1.7); }
+	.archive-count { margin: 1rem 0 0; font-size: var(--text-meta, 0.8rem); color: var(--color-muted); }
+	.archive-count span { padding-inline: 0.3rem; color: var(--color-accent); }
 	@media (max-width: 760px) {
 		.projects-hero { grid-template-columns: minmax(0, 1fr); gap: 0.85rem; padding: 1.25rem 1rem; }
 		h1 { font-size: var(--mobile-title, 2rem); line-height: 1.15; }
-		.projects-introduction { max-width: 50ch; font-size: var(--mobile-body, 0.95rem); }
+		.projects-introduction { max-width: 50ch; }
+		.projects-scope > .field-label { display: none; }
+		.archive-count { margin-top: 0.65rem; }
 	}
 </style>

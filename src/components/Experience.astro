@@ -1,13 +1,23 @@
+---
+import { Image } from 'astro:assets';
+import wilconOffice from '../../public/images/wilconDepotOffice.png';
+---
+
 <header class="experience-page-heading" aria-labelledby="experience-page-title">
 	<div class="experience-page-heading-copy">
-		<p class="experience-kicker">A working record <span aria-hidden="true">/</span> 2024—present</p>
+		<p class="experience-kicker">Work &amp; service <span aria-hidden="true">/</span> 2024—present</p>
 		<h1 id="experience-page-title">Experience<span>.</span></h1>
 		<p class="experience-page-summary">Systems development, church ministry, and earlier service work.</p>
 	</div>
-	<p class="experience-page-note"><strong>03 chapters</strong><span>Systems · ministry · service</span></p>
+	<nav class="experience-contents" aria-label="Experience chapters">
+		<a href="#word-of-hope"><span>01</span> Ministry <span aria-hidden="true">↓</span></a>
+		<a href="#wilcon-depot"><span>02</span> Development <span aria-hidden="true">↓</span></a>
+		<a href="#jollibee"><span>03</span> Service <span aria-hidden="true">↓</span></a>
+	</nav>
 </header>
 
 <section class="experience-section church-experience" id="word-of-hope" aria-labelledby="church-experience-title">
+	<div class="experience-record" aria-hidden="true"><span class="record-number">01</span><span class="record-type">Ministry</span></div>
 	<div class="ministry-intro">
 	<figure class="ministry-photo">
 		<img src="/images/word-of-hope-1200.webp" srcset="/images/word-of-hope-600.webp 600w, /images/word-of-hope-1200.webp 1200w" sizes="(max-width: 760px) calc(100vw - 2rem), 480px" width="1200" height="675" alt="Word of Hope Caloocan church building beside EDSA" class="church-image" decoding="async" />
@@ -40,6 +50,7 @@
 </section>
 
 <section class="experience-section" id="wilcon-depot" aria-labelledby="experience-title">
+	<div class="experience-record" aria-hidden="true"><span class="record-number">02</span><span class="record-type">Development</span></div>
 	<div class="experience-heading">
 		<div>
 			<h2 id="experience-title">Junior system<br /> <em>developer.</em></h2>
@@ -52,7 +63,7 @@
 		<summary aria-label="Responsibilities & photos at Wilcon Depot"><span>Responsibilities &amp; photos</span><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 10h12" /><path class="disclosure-plus" d="M10 4v12" /></svg></summary>
 		<div class="experience-body">
 			<div class="experience-image-wrap">
-				<img src="/images/wilconDepotOffice.png" alt="Wilcon Depot office" class="experience-image" loading="lazy" decoding="async" />
+				<Image src={wilconOffice} widths={[480, 800, 1200]} sizes="(max-width: 760px) calc(100vw - 2rem), 420px" format="webp" alt="Wilcon Depot office" class="experience-image" loading="lazy" />
 			</div>
 			<div class="experience-details">
 				<ul class="experience-list">
@@ -68,6 +79,7 @@
 </section>
 
 <section class="experience-section service-experience" id="jollibee" aria-labelledby="jollibee-title">
+	<div class="experience-record" aria-hidden="true"><span class="record-number">03</span><span class="record-type">Service</span></div>
 	<div class="experience-heading">
 		<div>
 			<h2 id="jollibee-title">Service <em>crew.</em></h2>
@@ -109,137 +121,126 @@
 </dialog>
 
 <style>
-	.experience-page-heading { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 2rem; margin-bottom: 1rem; padding-block: 1.5rem 1.75rem; border-bottom: 1px solid var(--color-ink); }
+	.experience-page-heading { display: grid; grid-template-columns: minmax(0, 1fr) 11.5rem; align-items: end; gap: 2rem; padding: 1.75rem; border-bottom: 1px solid var(--color-ink); background: #edf0e9; }
 	.experience-page-heading-copy { min-width: 0; }
-	.experience-kicker { margin: 0 0 0.8rem; color: var(--color-olive); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; }
-	.experience-kicker span { margin-inline: 0.4rem; color: var(--color-border); }
-	.experience-page-heading h1 { margin: 0; font-size: clamp(2.25rem, 4vw, 3rem); letter-spacing: -0.045em; line-height: 1.1; }
+	.experience-kicker { margin: 0 0 0.9rem; color: var(--color-olive); font-family: var(--font-label); font-size: var(--text-label); font-weight: 500; letter-spacing: var(--tracking-label); line-height: 1.7; text-transform: uppercase; }
+	.experience-kicker span { margin-inline: 0.4rem; }
+	.experience-page-heading h1 { margin: 0; font-family: var(--font-display); font-size: clamp(2.4rem, 4.5vw, 3.35rem); font-weight: 500; letter-spacing: -0.035em; line-height: 1.05; }
 	.experience-page-heading h1 span { color: var(--color-accent); }
-	.experience-page-summary { max-width: 42ch; margin: 0.8rem 0 0; color: var(--color-muted); font-size: 0.9rem; line-height: 1.6; }
-	.experience-page-note { display: grid; gap: 0.2rem; margin: 0; padding-left: 1rem; border-left: 2px solid var(--color-accent); color: var(--color-muted); font-size: 0.72rem; line-height: 1.5; }
-	.experience-page-note strong { color: var(--color-ink); font-size: 0.78rem; font-weight: 600; }
-	.organization-link { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 44px; font-size: 0.85rem; text-decoration: underline; text-underline-offset: 0.25em; }
-	.experience-section { position: relative; padding: 2.2rem 0 3.5rem; border-bottom: 1px solid var(--color-ink); }
-	.experience-open { display: inline-flex; align-items: center; justify-content: space-between; gap: 1rem; width: 100%; min-height: 44px; margin-top: 0.65rem; padding: 0.5rem 0.25rem 0.5rem 0.875rem; border: 0; background: none; color: var(--color-ink); font: inherit; font-size: 0.85rem; text-align: left; cursor: pointer; }
+	.experience-page-summary { max-width: 41ch; margin: 0.8rem 0 0; color: var(--color-muted); font-size: var(--text-body); line-height: var(--line-body); }
+	.experience-contents { display: grid; }
+	.experience-contents a { display: grid; grid-template-columns: 1.25rem minmax(0, 1fr) auto; align-items: center; gap: 0.4rem; min-height: 44px; border-top: 1px solid #aab39f; font-size: var(--text-meta); }
+	.experience-contents a span:first-child { color: var(--color-olive); font-family: var(--font-label); font-size: var(--text-label); }
+	.experience-contents a:hover { text-decoration: underline; text-underline-offset: 0.25em; }
+	.experience-section { position: relative; display: grid; grid-template-columns: 5.75rem minmax(0, 1fr); column-gap: 1.5rem; padding-block: 1.75rem; border-bottom: 1px solid var(--color-border); }
+	.experience-section:last-of-type { border-bottom-color: var(--color-ink); }
+	.experience-record { grid-column: 1; grid-row: 1 / span 3; display: flex; flex-direction: column; align-items: start; gap: 0.6rem; padding-top: 0.2rem; }
+	.record-number { display: inline-flex; align-items: center; justify-content: center; width: 1.8rem; height: 1.8rem; border: 1px solid var(--color-border); border-radius: 50%; color: var(--color-accent); font-family: var(--font-label); font-size: var(--text-label); }
+	.record-type { color: var(--color-muted); font-family: var(--font-label); font-size: var(--text-label); letter-spacing: 0.035em; text-transform: uppercase; }
+	.experience-section > :is(.ministry-intro, .experience-heading, .experience-open, .experience-disclosure) { grid-column: 2; min-width: 0; }
+	.experience-heading { padding-bottom: 1.25rem; }
+	.experience-heading > div { min-width: 0; }
+	.experience-heading h2 { max-width: 28ch; margin: 0; font-family: var(--font-display); font-size: clamp(1.85rem, 3vw, 2.35rem); font-weight: 500; line-height: 1.1; letter-spacing: -0.025em; }
+	.experience-heading h2 em { color: var(--color-accent); }
+	.experience-meta { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.35rem 1rem; margin: 0.8rem 0 0; font-size: var(--text-meta); line-height: 1.6; }
+	.experience-meta span:first-child { color: var(--color-ink); font-weight: 600; }
+	.experience-meta span + span { color: var(--color-muted); font-family: var(--font-label); font-size: 0.7rem; }
+	.experience-summary { max-width: 56ch; margin: 0.7rem 0 0; color: var(--color-muted); font-size: var(--text-body); line-height: var(--line-body); }
+	.experience-open { display: inline-flex; align-items: center; justify-content: space-between; gap: 1rem; width: 100%; min-height: 44px; margin-top: 0.65rem; padding: 0.4rem 0; border: 0; background: none; color: var(--color-ink); font: inherit; font-size: var(--text-meta); text-align: left; text-decoration: underline; text-underline-offset: 0.25em; cursor: pointer; }
 	.experience-open[hidden] { display: none; }
 	.experience-open::after { content: ""; position: absolute; inset: 0; }
 	.experience-open svg { width: 18px; height: 18px; flex: none; }
 	.experience-open:focus-visible { outline: none; }
 	.experience-open:focus-visible::after { outline: 2px solid var(--color-ink); outline-offset: 3px; }
 	.experience-section[data-sheet-ready] .experience-disclosure { display: none; }
-	.experience-heading { display: flex; justify-content: space-between; gap: 2rem; padding: 3.5rem 2.5rem 2.5rem; }
-	.experience-heading > div { min-width: 0; }
-	.experience-heading h2 { margin: 0; font-size: clamp(2.7rem, 5vw, 5rem); line-height: 0.98; }
-	.experience-heading h2 em { color: var(--color-accent); }
-	.experience-meta { display: flex; flex-wrap: wrap; gap: 0.25rem 0.5rem; margin: 1.5rem 0 0; color: var(--color-muted); font-size: 0.95rem; line-height: 1.6; }
-	.experience-meta span + span::before { content: "·"; margin-right: 0.5rem; }
-	.experience-location { margin-top: 1rem; }
-	.experience-address { max-width: 22rem; color: var(--color-muted); font-size: 0.8rem; font-style: normal; line-height: 1.65; }
 	.experience-disclosure { min-width: 0; }
-	.experience-disclosure > summary { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 44px; padding-block: 0.5rem; font-size: 0.85rem; cursor: pointer; list-style: none; }
+	.experience-disclosure > summary { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 44px; padding-block: 0.5rem; font-size: var(--text-meta); cursor: pointer; list-style: none; }
 	.experience-disclosure > summary::-webkit-details-marker { display: none; }
 	.experience-disclosure > summary svg { width: 20px; height: 20px; flex: none; }
 	.experience-disclosure[open] .disclosure-plus { display: none; }
 	.experience-disclosure[data-expanded-layout] > summary { display: none; }
-	.experience-body { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 3rem; padding-inline: 2.5rem; }
+	.experience-body { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); align-items: start; gap: 1.5rem; }
 	.experience-image-wrap { min-width: 0; }
-	.experience-image { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border: 1px solid var(--color-border); }
-	.experience-summary { max-width: 52ch; margin: 1rem 0 0; font-size: 1.15rem; line-height: 1.6; }
+	.experience-image { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border: 1px solid var(--color-border); }
 	.experience-list { margin: 0; padding: 0; list-style: none; }
-	.experience-list li { display: grid; grid-template-columns: minmax(10rem, 0.65fr) minmax(0, 1fr); gap: 1.25rem; padding: 1rem 0; border-top: 1px solid var(--color-border); font-size: 0.9rem; line-height: 1.6; }
-	.experience-list strong { font-weight: 600; }
+	.experience-list li { display: grid; gap: 0.35rem; padding-block: 0.8rem; border-top: 1px solid var(--color-border); font-size: 0.875rem; line-height: 1.65; }
+	.experience-list strong { font-family: var(--font-ui); font-size: 0.875rem; font-weight: 600; line-height: 1.45; }
 	.experience-list span { color: var(--color-muted); }
-	.church-experience .experience-heading h2 { font-size: clamp(2rem, 4vw, 3.5rem); line-height: 1.1; }
-	.ministry-intro { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); align-items: center; gap: 2rem; margin-block: 1rem 1.5rem; }
+	.experience-list li:first-child { padding-top: 0; border-top: 0; }
+	.ministry-intro { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); align-items: center; gap: 1.5rem; margin-bottom: 1.25rem; }
 	.ministry-photo { min-width: 0; margin: 0; overflow: hidden; background: #eeece5; }
-	/* The cutout has wide transparent sides. A clipped frame brings the building forward. */
+	/* The source cutout has transparent sides; the frame brings the building forward. */
 	.ministry-photo .church-image { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; object-position: 48% 50%; transform: scale(1.3); }
 	.church-experience .experience-heading { padding: 0; }
-	.church-experience .experience-heading h2 { font-size: clamp(1.65rem, 3vw, 2.1rem); line-height: 1.12; }
-	.church-experience .experience-meta { flex-direction: column; gap: 0.35rem; font-size: 0.8rem; }
-	.church-experience .experience-meta span + span::before { content: ""; display: inline-block; width: 0.4rem; height: 0.4rem; margin-right: 0.4rem; border-radius: 50%; background: var(--color-olive); vertical-align: 0.1em; }
+	.church-experience .experience-heading h2 { font-size: clamp(1.75rem, 2.75vw, 2.15rem); }
+	.church-experience .experience-meta { margin-top: 0.7rem; }
 	.church-experience .experience-summary { max-width: 30ch; font-size: 0.9rem; }
-	.church-experience .experience-body { display: block; padding: 0; }
-	.church-experience .experience-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
-	.church-experience .experience-list li { display: block; padding-block: 0.85rem 0; font-size: 0.85rem; }
-	.church-experience .experience-list strong { display: block; margin-bottom: 0.35rem; }
-	.church-experience .experience-location { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.25rem 1rem; margin-top: 1.25rem; }
-	.church-experience .experience-address { max-width: none; font-size: 0.75rem; }
-	.service-experience .experience-heading { align-items: baseline; padding-top: 1.5rem; }
-	.service-experience .experience-heading h2 { font-size: clamp(1.75rem, 3vw, 2.75rem); line-height: 1.15; }
-	.service-body { align-items: start; }
-	.service-experience .experience-summary { font-size: 1rem; }
-	.service-photos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: end; gap: 1rem; max-width: 32rem; margin-top: 1rem; }
+	.church-experience .experience-body { display: block; }
+	.church-experience .experience-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; padding-top: 0.85rem; border-top: 1px solid var(--color-border); }
+	.church-experience .experience-list li { padding: 0; border: 0; }
+	.experience-location { margin-top: 1rem; }
+	.experience-address { max-width: 42ch; color: var(--color-muted); font-size: var(--text-meta); font-style: normal; line-height: 1.7; }
+	.church-experience .experience-location { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem 1rem; padding-top: 0.75rem; border-top: 1px solid var(--color-border); }
+	.organization-link { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 44px; font-size: var(--text-meta); text-decoration: underline; text-underline-offset: 0.25em; }
+	.service-photos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: end; gap: 0.75rem; max-width: 30rem; margin-top: 0.75rem; }
 	.service-photos figure { min-width: 0; margin: 0; }
 	.service-photos a { display: block; }
 	.service-photos img { display: block; width: 100%; height: auto; }
 	.service-photos figure:last-child img { max-width: 250px; }
-	.service-photos figcaption { padding-top: 0.5rem; color: var(--color-muted); font-size: 0.75rem; line-height: 1.5; }
+	.service-photos figcaption { padding-top: 0.5rem; color: var(--color-muted); font-family: var(--font-label); font-size: var(--text-label); line-height: 1.6; }
+
 	.experience-sheet { box-sizing: border-box; position: fixed; inset: 0 0 0 auto; width: min(calc(100% - 0.75rem), 32rem); max-width: none; height: 100dvh; max-height: 100dvh; margin: 0 0 0 auto; padding: 0; border: 0; border-left: 1px solid var(--color-border); border-radius: 0.65rem 0 0 0.65rem; background: var(--color-paper); color: var(--color-ink); overflow: hidden; box-shadow: -1rem 0 3rem #0002; }
 	.experience-sheet[open] { display: grid; grid-template-rows: auto minmax(0, 1fr); }
 	.experience-sheet::backdrop { background: rgb(20 22 23 / 55%); }
 	:global(html:has(.experience-sheet[open])) { overflow: hidden; }
 	.sheet-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: max(0.375rem, env(safe-area-inset-top)) 1rem 0.375rem; border-bottom: 1px solid var(--color-border); }
-	.sheet-toolbar p { margin: 0; color: var(--color-muted); font-size: 0.8rem; }
-	.sheet-close { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 44px; padding: 0.25rem; border: 0; background: none; color: inherit; font: inherit; font-size: 0.85rem; cursor: pointer; }
+	.sheet-toolbar p { margin: 0; color: var(--color-muted); font-family: var(--font-label); font-size: var(--text-label); letter-spacing: var(--tracking-label); text-transform: uppercase; }
+	.sheet-close { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 44px; padding: 0.25rem; border: 0; background: none; color: inherit; font: inherit; font-size: var(--text-meta); cursor: pointer; }
 	.sheet-close span { font-size: 1.5rem; line-height: 1; }
 	.sheet-scroll { min-width: 0; min-height: 0; padding: 1.25rem 1rem max(1.25rem, env(safe-area-inset-bottom)); overflow-y: auto; overscroll-behavior: contain; scroll-padding-block: 1rem; }
 	.sheet-intro { padding-bottom: 1.25rem; }
-	.sheet-organization { margin: 0 0 0.6rem; color: var(--color-accent); font-size: 0.8rem; line-height: 1.6; }
-	.sheet-intro h2 { margin: 0; font-size: clamp(1.5rem, 1.2rem + 1.5vw, 2rem); line-height: 1.15; overflow-wrap: anywhere; }
-	#experience-sheet-meta { margin: 0.6rem 0 0; color: var(--color-muted); font-size: 0.8rem; line-height: 1.6; }
-	.sheet-summary { margin: 0.75rem 0 0; font-size: var(--mobile-body, 0.95rem); line-height: 1.6; }
+	.sheet-organization { margin: 0 0 0.7rem; color: var(--color-accent); font-family: var(--font-label); font-size: var(--text-label); font-weight: 500; line-height: 1.7; letter-spacing: 0.04em; text-transform: uppercase; }
+	.sheet-intro h2 { margin: 0; font-family: var(--font-display); font-size: 2rem; font-weight: 500; line-height: 1.1; letter-spacing: -0.025em; overflow-wrap: anywhere; }
+	#experience-sheet-meta { margin: 0.7rem 0 0; color: var(--color-muted); font-family: var(--font-label); font-size: var(--text-label); line-height: 1.7; }
+	.sheet-summary { margin: 0.75rem 0 0; font-size: var(--text-body); line-height: var(--line-body); }
 	.sheet-content { display: grid; gap: 1.25rem; }
-	.experience-sheet .experience-body { grid-template-columns: minmax(0, 1fr); gap: 1.25rem; padding: 0; }
-	.experience-sheet .experience-list li { grid-template-columns: minmax(0, 1fr); gap: 0.3rem; padding-block: 0.75rem; font-size: var(--mobile-body, 0.95rem); }
+	.experience-sheet .experience-body { grid-template-columns: minmax(0, 1fr); gap: 1.25rem; }
+	.experience-sheet .experience-list { grid-template-columns: minmax(0, 1fr); }
+	.experience-sheet .experience-list li { grid-template-columns: minmax(0, 1fr); gap: 0.35rem; padding-block: 0.8rem; border-top: 1px solid var(--color-border); font-size: var(--text-body); }
+	.experience-sheet .experience-list li:first-child { border-top: 0; padding-top: 0; }
+	.experience-sheet .experience-list strong { font-size: var(--text-body); }
 	.experience-sheet :is(a, button):focus-visible { outline: 2px solid var(--color-ink); outline-offset: 3px; }
-	@media (min-width: 901px) {
-		.experience-section { padding-block: 0.75rem 1.75rem; }
-		.experience-heading { gap: 1.25rem; padding: 1.25rem 1rem 1rem; }
-		.experience-heading h2 { font-size: 2.25rem; line-height: 1.12; }
-		.church-experience .experience-heading h2 { font-size: 2rem; }
-		.service-experience .experience-heading h2 { font-size: 1.75rem; }
-		.experience-meta { margin-top: 0.75rem; font-size: 0.8125rem; }
-		.experience-body { gap: 1.5rem; padding-inline: 1rem; }
-		.experience-summary, .service-experience .experience-summary { margin-top: 0.75rem; font-size: 0.875rem; }
-		.experience-list li { grid-template-columns: minmax(0, 1fr); gap: 0.25rem; padding-block: 0.625rem; font-size: 0.875rem; line-height: 1.55; }
-	}
-	@media (max-width: 1100px) { .experience-heading, .experience-body { padding-inline: 0; } .experience-body { gap: 2rem; } .experience-list li { grid-template-columns: minmax(0, 1fr); gap: 0.3rem; } }
-	@media (min-width: 761px) and (max-width: 900px) {
-		.experience-section { padding-block: 1rem 2rem; }
-		.experience-heading { padding-block: 1.5rem; }
-		.experience-section .experience-heading h2 { font-size: 2.25rem; line-height: 1.12; }
-		.experience-meta { margin-top: 0.75rem; font-size: 0.85rem; }
-		.experience-summary { font-size: 1rem; }
-		.experience-body { gap: 1.5rem; }
-	}
+
 	@media (max-width: 760px) {
-		.ministry-intro { grid-template-columns: minmax(0, 1fr); gap: 1.25rem; margin-block: 0 0.5rem; }
-		.church-experience .ministry-intro .experience-heading { border-left: 0; padding: 0; }
-		.church-experience .experience-meta { gap: 0.35rem; }
-		.church-experience .experience-summary { max-width: 40ch; }
-		.church-experience .experience-open { padding-left: 0; }
-		.church-experience .experience-list { grid-template-columns: minmax(0, 1fr); gap: 0; }
-		.experience-page-heading { grid-template-columns: minmax(0, 1fr); gap: 1rem; margin-bottom: 0.5rem; padding-block: 0.75rem 1rem; border-bottom: 1px solid var(--color-border); }
-		.experience-kicker { margin-bottom: 0.55rem; font-size: 0.65rem; }
+		.experience-page-heading { grid-template-columns: minmax(0, 1fr); gap: 1rem; padding: 1.25rem 1rem; }
 		.experience-page-heading h1 { font-size: var(--mobile-title); }
-		.experience-page-summary { margin-top: 0.45rem; font-size: var(--mobile-body, 0.95rem); }
-		.experience-page-note { grid-template-columns: auto 1fr; align-items: baseline; gap: 0.5rem; padding: 0.5rem 0 0 0.75rem; border-left-width: 1px; }
-		.experience-section { padding-block: 1.25rem; }
-		.experience-section .experience-heading { display: block; padding: 0 0 0 0.875rem; border-left: 2px solid var(--color-accent); }
-		.experience-section .experience-heading h2 { font-size: clamp(1.5rem, 1.2rem + 1.5vw, 2rem); line-height: 1.15; }
+		.experience-page-summary { font-size: var(--mobile-body); }
+		.experience-kicker { margin-bottom: 0.65rem; }
+		.experience-contents { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 0.75rem; }
+		.experience-contents a { grid-template-columns: minmax(0, 1fr) auto; column-gap: 0.25rem; font-size: 0.72rem; }
+		.experience-contents a span:first-child { display: none; }
+		.experience-section { display: block; padding-block: 1.5rem; }
+		.experience-record { display: flex; flex-direction: row; align-items: center; gap: 0.5rem; margin-bottom: 0.85rem; padding: 0; }
+		.record-number { width: auto; height: auto; border: 0; }
+		.record-type { font-size: var(--text-label); letter-spacing: var(--tracking-label); }
+		.ministry-intro { grid-template-columns: minmax(0, 1fr); gap: 1rem; margin-bottom: 0; }
+		.experience-heading { padding-bottom: 0; }
+		.experience-heading h2 { font-size: 1.85rem; }
 		.experience-heading h2 br { display: none; }
-		.experience-meta { flex-direction: column; gap: 0.15rem; margin-top: 0.6rem; font-size: 0.8rem; }
-		.experience-meta span:first-child { color: var(--color-ink); }
-		.experience-meta span + span::before { content: none; }
-		.experience-section .experience-summary { margin-top: 0.65rem; font-size: var(--mobile-body, 0.95rem); line-height: 1.6; }
-		.experience-disclosure { margin-top: 0.65rem; }
-		.experience-disclosure > summary { padding-inline: 0.875rem 0.25rem; text-decoration: underline; text-underline-offset: 0.25em; }
+		.church-experience .experience-heading h2 { font-size: 1.85rem; }
+		.experience-meta { display: grid; gap: 0.25rem; margin-top: 0.65rem; }
+		.experience-summary, .church-experience .experience-summary { max-width: 52ch; font-size: var(--mobile-body); }
+		.experience-disclosure { margin-top: 0.75rem; }
 		.experience-disclosure[open] > summary { margin-bottom: 0.75rem; }
-		.experience-body { grid-template-columns: minmax(0, 1fr); gap: 1.25rem; padding-inline: 0; }
+		.experience-body { grid-template-columns: minmax(0, 1fr); gap: 1.25rem; }
+		.church-experience .experience-list { grid-template-columns: minmax(0, 1fr); gap: 0; }
+		.church-experience .experience-list li { padding-block: 0.75rem; border-bottom: 1px solid var(--color-border); }
 		.experience-image { aspect-ratio: 16 / 9; }
-		.experience-list li { grid-template-columns: minmax(0, 1fr); gap: 0.3rem; padding-block: 0.75rem; font-size: var(--mobile-body, 0.95rem); }
-		.service-photos { max-width: 25rem; }
+	}
+	@media (max-width: 360px) {
+		.experience-contents { grid-template-columns: minmax(0, 1fr); gap: 0; }
+		.experience-contents a { grid-template-columns: 1.25rem minmax(0, 1fr) auto; font-size: var(--text-meta); }
+		.experience-contents a span:first-child { display: inline; }
 	}
 </style>
 

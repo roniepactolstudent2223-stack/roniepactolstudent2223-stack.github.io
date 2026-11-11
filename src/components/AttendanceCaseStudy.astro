@@ -7,7 +7,8 @@ import ScreenshotViewer from './ScreenshotViewer.astro';
 	<a class="back-link" href="/projects/"><span aria-hidden="true">←</span> All projects</a>
 	<header class="case-heading">
 		<div class="page-intro case-intro">
-		<p class="case-context">{project.organization}</p>
+		<p class="case-context"><span class="field-label">Organization</span>{project.organization}</p>
+		<p class="eyebrow case-type">Full-stack system</p>
 		<h1>Church Attendance &amp;<br /> <em>Management System.</em></h1>
 		<p class="case-summary">{project.summary}</p>
 		<a class="live-link" href={project.liveUrl} target="_blank" rel="noopener noreferrer">Open live system <span aria-hidden="true">↗</span></a>
@@ -19,17 +20,18 @@ import ScreenshotViewer from './ScreenshotViewer.astro';
 	</header>
 	<nav class="case-navigation" aria-label="Case study sections"><a href="#project-overview">Overview <span aria-hidden="true">↓</span></a><a href="#project-capabilities">What I built <span aria-hidden="true">↓</span></a><a href="#project-screens">Screens <span aria-hidden="true">↓</span></a></nav>
 	<section class="case-overview" id="project-overview" aria-labelledby="overview-title">
-		<h2 id="overview-title">From manual logs<br />to connected workflows.</h2>
+		<div><p class="field-label">The context</p><h2 id="overview-title">From manual logs<br /> to connected workflows.</h2></div>
 		<div><p>I built this system as the solo full-stack developer for Word of Hope Caloocan, connecting check-in at the entrance with the records and tools used by church staff.</p><p>The work spans the Vue.js scanning interface, Laravel tracking logic, MySQL records, REST API integration, and a Buefy administration dashboard.</p></div>
 	</section>
+	<div class="workflow-band"><p class="field-label">System workflow</p><ol class="system-flow"><li><span aria-hidden="true">01</span><strong>QR check-in</strong><p>Vue.js scanning interface</p></li><li><span aria-hidden="true">02</span><strong>Attendance records</strong><p>Laravel · MySQL · REST API</p></li><li><span aria-hidden="true">03</span><strong>Pastoral follow-up</strong><p>Members flagged for follow-up</p></li></ol></div>
 	<section class="capabilities-section" id="project-capabilities" aria-labelledby="capabilities-title">
-		<h2 id="capabilities-title">What I built</h2>
-		<div class="capabilities">{project.features.map(feature => <section class="capability"><h3>{feature.title}</h3><div><p>{feature.description}</p><p class="implementation-detail">{feature.implementation}</p></div></section>)}</div>
+		<p class="field-label">Scope of delivery</p><h2 id="capabilities-title">What I built</h2>
+		<ol class="capabilities">{project.features.map((feature, index) => <li class="capability"><span class="capability-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><h3>{feature.title}</h3><div><p>{feature.description}</p><p class="implementation-detail"><span class="field-label">Implementation</span>{feature.implementation}</p></div></li>)}</ol>
 	</section>
 	<section class="screens-section" id="project-screens" aria-labelledby="screens-title">
-		<div class="screens-heading"><h2 id="screens-title">Inside the system</h2><p>Four original images. Select a screenshot to inspect it at 100% size.</p></div>
-		{project.screenshots.map(screen => <figure class:list={['screen-figure', { 'launch-figure': screen.id === 'launch' }]}>
-			<div class="screen-description"><h3>{screen.title}</h3><p>{screen.caption}</p><a href={screen.src} data-screenshot data-title={screen.title} data-alt={screen.alt} data-width={screen.width} data-height={screen.height} target="_blank" rel="noopener noreferrer" aria-label={`View ${screen.title} at actual size`}>View at 100% <span aria-hidden="true">↗</span></a></div>
+		<div class="screens-heading"><div><p class="field-label">Product views</p><h2 id="screens-title">Inside the system</h2></div><p>Four original images. Select a screenshot to inspect it at 100% size.</p></div>
+		{project.screenshots.map((screen, index) => <figure class:list={['screen-figure', { 'launch-figure': screen.id === 'launch' }]}>
+			<div class="screen-description"><div><p class="field-label">Screen {String(index + 1).padStart(2, '0')}</p><h3>{screen.title}</h3></div><p>{screen.caption}</p><a href={screen.src} data-screenshot data-title={screen.title} data-alt={screen.alt} data-width={screen.width} data-height={screen.height} target="_blank" rel="noopener noreferrer" aria-label={`View ${screen.title} at actual size`}>View at 100% <span aria-hidden="true">↗</span></a></div>
 			<a class="screen-image-link" href={screen.src} data-screenshot data-title={screen.title} data-alt={screen.alt} data-width={screen.width} data-height={screen.height} target="_blank" rel="noopener noreferrer" aria-label={`Inspect ${screen.title} at actual size`}><img src={screen.src} width={screen.width} height={screen.height} alt={screen.alt} loading="lazy" decoding="async" /></a>
 		</figure>)}
 	</section>
@@ -41,52 +43,60 @@ import ScreenshotViewer from './ScreenshotViewer.astro';
 <style>
 	.attendance-case { padding-block: 0 2.5rem; }
 	.back-link, .screen-description a, .case-end a { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 44px; font-size: 0.85rem; text-decoration: underline; text-underline-offset: 0.25em; }
-	.case-heading { padding-block: 1.5rem 2rem; }
-	.case-intro { padding: 1.5rem; border-bottom: 0; background: #eeede7; }
-	.case-context { margin: 0 0 1rem; color: var(--color-muted); font-size: 0.9rem; }
-	h1 { max-width: 24ch; font-size: clamp(2.2rem, 4.5vw, 4.5rem); line-height: 1.08; }
+	.case-heading { padding-block: 0.75rem 1.5rem; }
+	.case-intro { position: relative; padding: 1.5rem; border: 1px solid var(--color-border); border-top: 3px solid var(--color-accent); background: #eeede7; }
+	.case-context { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.4rem 0.75rem; margin: 0 0 1.5rem; color: var(--color-muted); font-size: var(--text-meta, 0.8rem); }
+	.case-type { margin: 0 0 0.65rem; }
+	h1 { max-width: 26ch; font-size: clamp(2.2rem, 4vw, 3rem); font-weight: 500; line-height: 1.08; }
 	h1 em { display: inline; padding: 0; background: none; color: var(--color-accent); }
-	.case-summary { max-width: 64ch; margin: 1.5rem 0; font-size: 1.1rem; line-height: 1.7; }
+	.case-summary { max-width: 60ch; margin: 1rem 0; font-size: var(--text-lead, 1.05rem); line-height: var(--line-body, 1.7); }
 	.live-link { display: inline-flex; align-items: center; gap: 0.75rem; min-height: 44px; margin-bottom: 1rem; font-size: 0.9rem; text-decoration: underline; text-underline-offset: 0.25em; }
 	.case-facts { display: grid; grid-template-columns: minmax(0, 0.6fr) minmax(0, 1.4fr); gap: 1rem 2rem; margin: 1rem 0 0; padding-top: 1rem; border-top: 1px solid var(--color-border); }
-	dt { margin-bottom: 0.35rem; color: var(--color-muted); font-size: 0.8rem; }
-	dd { margin: 0; font-size: 0.9rem; line-height: 1.7; }
+	dt { margin-bottom: 0.35rem; color: var(--color-muted); font: 500 var(--text-label, 0.7rem)/1.5 var(--font-label, monospace); letter-spacing: var(--tracking-label, 0.08em); text-transform: uppercase; }
+	dd { margin: 0; font-size: var(--text-meta, 0.8rem); line-height: 1.7; }
 	.case-navigation { display: flex; flex-wrap: wrap; gap: 0.25rem 2rem; padding-block: 0.5rem; border-block: 1px solid var(--color-ink); }
 	.case-navigation a { display: inline-flex; align-items: center; gap: 0.75rem; min-height: 44px; font-size: 0.85rem; }
 	.case-navigation a:hover { text-decoration: underline; text-underline-offset: 0.25em; }
-	h2 { margin: 0; font-size: clamp(1.5rem, 2.7vw, 2.5rem); line-height: 1.15; }
+	h2 { margin: 0; font-size: var(--text-section, 1.85rem); font-weight: 500; line-height: 1.15; }
+	.case-overview .field-label, .capabilities-section > .field-label, .screens-heading .field-label { margin-bottom: 0.5rem; }
 	.case-overview { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: 2rem 4rem; padding-block: 2.5rem; }
-	.case-overview p { margin: 0 0 1rem; font-size: 1rem; line-height: 1.7; }
-	.case-overview p:last-child { margin-bottom: 0; color: var(--color-muted); }
+	.case-overview > div:last-child p { margin: 0 0 1rem; font-size: var(--text-body, 0.95rem); line-height: var(--line-body, 1.7); }
+	.case-overview > div:last-child p:last-child { margin-bottom: 0; color: var(--color-muted); }
+	.workflow-band { padding: 1rem 1.25rem; background: #eeede7; }
+	.workflow-band > .field-label { margin-bottom: 1rem; }
+	.system-flow { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; list-style: none; margin: 0; padding: 0; }
+	.system-flow li { min-width: 0; border-top: 1px solid var(--color-border); padding-top: 0.65rem; }
+	.system-flow li > span { display: block; margin-bottom: 0.5rem; color: var(--color-accent); font: var(--text-label, 0.7rem)/1.5 var(--font-label, monospace); }
+	.system-flow strong { font-family: var(--font-ui, system-ui); font-size: 0.9rem; font-weight: 600; }
+	.system-flow p { margin: 0.4rem 0 0; color: var(--color-muted); font-size: var(--text-meta, 0.8rem); line-height: 1.6; }
 	.capabilities-section { padding-block: 2rem; border-top: 1px solid var(--color-border); }
-	.capabilities { margin-top: 1.5rem; }
-	.capability { display: grid; grid-template-columns: minmax(0, 0.65fr) minmax(0, 1.35fr); gap: 1rem 3rem; padding-block: 1.25rem; border-top: 1px solid var(--color-border); }
-	h3 { margin: 0; font-size: 1.3rem; line-height: 1.3; }
+	.capabilities { margin: 1.5rem 0 0; padding: 0; list-style: none; }
+	.capability { display: grid; grid-template-columns: 1.5rem minmax(0, 0.65fr) minmax(0, 1.35fr); gap: 1rem 1.5rem; padding-block: 1.25rem; border-top: 1px solid var(--color-border); }
+	.capability-number { color: var(--color-olive); font: var(--text-meta, 0.8rem)/1.6 var(--font-label, monospace); }
+	h3 { margin: 0; font-family: var(--font-ui, system-ui); font-weight: 600; letter-spacing: -0.02em; font-size: 1.05rem; line-height: 1.4; }
 	.capability p { max-width: 70ch; margin: 0; font-size: 0.95rem; line-height: 1.7; }
-	.capability .implementation-detail { margin-top: 0.5rem; color: var(--color-muted); font-size: 0.8rem; }
+	.capability .implementation-detail { display: grid; gap: 0.25rem; margin-top: 0.75rem; color: var(--color-muted); font-size: var(--text-meta, 0.8rem); }
 	.screens-section { padding-block: 1.5rem 0; }
 	.screens-heading { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem 2rem; }
-	.screens-heading p { max-width: 48ch; margin: 0; color: var(--color-muted); font-size: 0.85rem; line-height: 1.6; }
+	.screens-heading > p { max-width: 48ch; margin: 0; color: var(--color-muted); font-size: var(--text-meta, 0.8rem); line-height: 1.6; }
 	.screen-figure { display: grid; gap: 1rem; margin: 2rem 0; }
 	.screen-description { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem 1.5rem; }
-	.screen-description h3 { font-size: 1.2rem; }
-	.screen-description p { flex: 1 1 25rem; margin: 0; color: var(--color-muted); font-size: 0.85rem; line-height: 1.6; }
+	.screen-description h3 { margin-top: 0.35rem; font-size: 1.05rem; }
+	.screen-description > p { flex: 1 1 25rem; margin: 0; color: var(--color-muted); font-size: var(--text-meta, 0.8rem); line-height: 1.6; }
 	.screen-image-link { display: block; min-width: 0; border: 1px solid var(--color-border); }
 	.screen-image-link img { display: block; width: 100%; height: auto; }
 	.launch-figure { grid-template-columns: minmax(0, 1fr) minmax(0, 400px); gap: 1.5rem 3rem; align-items: center; padding-block: 2rem; border-top: 1px solid var(--color-border); }
 	.launch-figure .screen-description { display: block; }
-	.launch-figure .screen-description p { margin-top: 0.75rem; max-width: 45ch; }
+	.launch-figure .screen-description > p { margin-top: 0.75rem; max-width: 45ch; }
 	.case-end { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem 2rem; padding-top: 1rem; border-top: 1px solid var(--color-ink); }
 	@media (min-width: 901px) {
 		.case-heading { padding-block: 1rem 1.5rem; }
 		h1 { font-size: 2.25rem; line-height: 1.12; }
-		.case-summary { margin-block: 0.75rem; font-size: 0.9rem; }
+		.case-summary { margin-block: 0.75rem; }
 		h2 { font-size: 1.75rem; }
 		.case-overview { gap: 1rem 1.5rem; padding-block: 1.5rem; }
-		.case-overview p { font-size: 0.875rem; }
 		.capability { gap: 0.75rem 1.5rem; padding-block: 0.875rem; }
 		h3 { font-size: 1.1rem; }
-		.capability p { font-size: 0.875rem; }
 	}
 	@media (max-width: 900px) { .case-overview { grid-template-columns: minmax(0, 1fr); gap: 1rem; } .capability { gap: 1rem 1.5rem; } }
 	@media (max-width: 640px) {
@@ -104,11 +114,17 @@ import ScreenshotViewer from './ScreenshotViewer.astro';
 		.case-navigation a { font-size: 0.8rem; }
 		.case-overview, .capabilities-section { padding-block: 1.5rem; }
 		h2 { font-size: 1.5rem; }
-		.case-overview p, .capability p { font-size: var(--mobile-body); line-height: 1.65; }
-		.capability { grid-template-columns: minmax(0, 1fr); gap: 0.5rem; padding-block: 1rem; }
+		.case-overview > div:last-child p, .capability > div > p:first-child { font-size: var(--mobile-body); line-height: 1.65; }
+		.capability { grid-template-columns: 1.25rem minmax(0, 1fr); gap: 0.5rem 0.65rem; padding-block: 1rem; }
+		.capability-number { grid-row: span 2; }
+		.capability > div { grid-column: 2; }
+		.system-flow { grid-template-columns: minmax(0, 1fr); gap: 0.75rem; }
+		.system-flow li { display: grid; grid-template-columns: 1.25rem minmax(0, 1fr); gap: 0.3rem 0.6rem; }
+		.system-flow li > span { grid-row: span 2; margin: 0; }
+		.system-flow p { grid-column: 2; margin: 0; }
 		h3 { font-size: 1.15rem; }
 		.screen-description { display: block; }
-		.screen-description p { margin-top: 0.5rem; }
+		.screen-description > p { margin-top: 0.5rem; }
 		.launch-figure { grid-template-columns: minmax(0, 1fr); padding-block: 1.5rem; }
 		.launch-figure .screen-image-link { width: min(100%, 400px); }
 	}

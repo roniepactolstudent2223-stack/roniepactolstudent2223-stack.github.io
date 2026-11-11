@@ -4,23 +4,28 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 <BaseLayout title="Notes — Ronie Pactol">
 	<section class="page-shell notes-page" aria-labelledby="notes-title">
-		<header class="page-intro"><h1 id="notes-title">Notes<span>.</span></h1><p>Thoughts, learnings, and things worth remembering.</p></header>
-		<div class="notes-empty"><p>No notes published yet.</p><a class="case-link" href="/projects/">Explore my projects <span aria-hidden="true">↗</span></a></div>
+		<header class="page-intro"><p class="notes-kicker">Developer notebook</p><h1 id="notes-title">Notes<span>.</span></h1><p>Thoughts, learnings, and things worth remembering.</p></header>
+		<div class="notes-empty"><span class="notes-status">Nothing published yet</span><div><h2>A little quiet here.</h2><p>There are no notes to read yet. The projects are a good place to see what I’ve been working on.</p><a class="case-link" href="/projects/">Explore my projects <span aria-hidden="true">↗</span></a></div></div>
 	</section>
 </BaseLayout>
 
 <style>
 	.notes-page { padding-block: 0 3rem; }
 	header { padding-block: 1.75rem; border-bottom: 1px solid var(--color-ink); }
-	h1 { font-size: 2.25rem; line-height: 1.12; }
+	h1 { font-family: var(--font-display); font-weight: 500; font-size: 2.5rem; line-height: 1.12; }
 	h1 span { color: var(--color-accent); }
-	p { margin: 0.75rem 0 0; color: var(--color-muted); font-size: 0.9rem; line-height: 1.65; }
-	.notes-empty { padding-block: 1.5rem; }
-	.notes-empty p { margin: 0; }
-	.case-link { display: inline-flex; align-items: center; gap: 0.75rem; min-height: 44px; margin-top: 0.5rem; font-size: 0.85rem; text-decoration: underline; text-underline-offset: 0.25em; }
+	p { margin: 0.75rem 0 0; color: var(--color-muted); font-size: var(--text-body); line-height: var(--line-body); }
+	.notes-kicker, .notes-status { color: var(--color-olive); font-family: var(--font-label); font-size: var(--text-label); line-height: 1.6; letter-spacing: var(--tracking-label); text-transform: uppercase; }
+	.notes-kicker { margin: 0 0 1rem; }
+	.notes-empty { display: grid; grid-template-columns: 12rem minmax(0, 1fr); gap: 1.5rem; padding-block: 2rem; }
+	.notes-status { padding-top: 0.2rem; }
+	h2 { margin: 0 0 0.65rem; font-family: var(--font-display); font-size: var(--text-section); font-weight: 500; line-height: 1.15; }
+	.notes-empty p { max-width: 42ch; margin: 0; }
+	.case-link { display: inline-flex; align-items: center; gap: 0.75rem; min-height: 44px; margin-top: 0.75rem; font-size: var(--text-meta); text-decoration: underline; text-underline-offset: 0.25em; }
 	@media (max-width: 640px) {
 		.notes-page { padding-block: 0 1.5rem; }
 		h1 { font-size: var(--mobile-title); }
 		p { font-size: var(--mobile-body); }
+		.notes-empty { grid-template-columns: minmax(0, 1fr); gap: 0.85rem; padding-block: 1.5rem; }
 	}
 </style>

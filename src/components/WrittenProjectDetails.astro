@@ -9,20 +9,20 @@ const nextProject = writtenProjects[(writtenProjects.findIndex(item => item.slug
 	<a class="back-link" href="/projects/">← All projects</a>
 	<header class="written-heading">
 		<div class="page-intro written-intro">
-		<p class="project-organization">{project.organization}</p>
+		<div class="project-record"><p class="eyebrow">Project record</p><p class="record-number">{String(writtenProjects.findIndex(item => item.slug === project.slug) + 2).padStart(2, '0')}</p></div>
+		<div class="written-intro-copy"><p class="project-organization"><span class="field-label">Context</span>{project.organization}</p>
 		<h1>{project.title}<span>.</span></h1>
-		<p class="project-kind">{project.kind}</p>
-		<p class="project-summary">{project.summary}</p>
+		<p class="project-summary">{project.summary}</p></div>
 		</div>
 		{project.note && <p class="learning-note">{project.note}</p>}
-		{project.stack.length > 0 && <dl class="project-facts"><div><dt>Built with</dt><dd>{project.stack.join(' · ')}</dd></div></dl>}
+		<dl class="project-facts"><div><dt>Scope</dt><dd>{project.kind}</dd></div>{project.stack.length > 0 && <div><dt>Built with</dt><dd>{project.stack.join(' · ')}</dd></div>}</dl>
 	</header>
-	<section class="project-overview" aria-labelledby="project-overview-title"><h2 id="project-overview-title">The work</h2><p>{project.overview}</p></section>
+	<section class="project-overview" aria-labelledby="project-overview-title"><div><p class="field-label">Overview</p><h2 id="project-overview-title">The work</h2></div><p>{project.overview}</p></section>
 	<section class="project-features" aria-labelledby="project-features-title">
-		<h2 id="project-features-title">{project.experienceUrl ? 'My contributions' : 'What I built'}</h2>
-		<div class="feature-list">{project.features.map(feature => <section class="feature-row"><h3>{feature.title}</h3><p>{feature.description}</p></section>)}</div>
+		<p class="field-label">{project.experienceUrl ? 'Contribution detail' : 'Implementation detail'}</p><h2 id="project-features-title">{project.experienceUrl ? 'My contributions' : 'What I built'}</h2>
+		<ol class="feature-list">{project.features.map((feature, index) => <li class="feature-row"><span class="feature-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><h3>{feature.title}</h3><p>{feature.description}</p></li>)}</ol>
 	</section>
-	<nav class="next-project" aria-label="Continue exploring projects"><p>Next project</p><a href={`/projects/${nextProject.slug}/`}>{nextProject.title}<span aria-hidden="true">→</span></a></nav>
+	<nav class="next-project" aria-label="Continue exploring projects"><p class="field-label">Continue exploring</p><a href={`/projects/${nextProject.slug}/`}><span><small>Next project</small>{nextProject.title}</span><span aria-hidden="true">→</span></a></nav>
 	<footer class="project-footer"><a href="/projects/">← Back to projects</a>{project.experienceUrl && <a href={project.experienceUrl}>My role at Wilcon Depot <span aria-hidden="true">↗</span></a>}</footer>
 </article>
 
@@ -30,50 +30,63 @@ const nextProject = writtenProjects[(writtenProjects.findIndex(item => item.slug
 	.written-project { max-width: 68rem; margin-inline: auto; padding-block: 0 2.5rem; }
 	.back-link, .project-footer a { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 44px; font-size: 0.85rem; text-decoration: underline; text-underline-offset: 0.25em; }
 	.written-heading { padding-block: 1.5rem 2rem; }
-	.written-intro { padding: 0 0 0 1.25rem; border-bottom: 0; border-left: 3px solid var(--color-accent); }
-	.project-organization { margin: 0 0 0.75rem; color: var(--color-muted); font-size: 0.9rem; }
-	h1 { max-width: 25ch; font-size: clamp(2rem, 4.2vw, 4rem); line-height: 1.1; overflow-wrap: anywhere; }
+	.written-intro { display: grid; grid-template-columns: 7rem minmax(0, 1fr); gap: 1.5rem; padding: 1.5rem; border-bottom: 0; background: #eeede7; }
+	.project-record { display: flex; flex-direction: column; justify-content: space-between; align-items: start; gap: 1rem; padding-right: 1rem; border-right: 1px solid var(--color-border); }
+	.project-record .eyebrow { margin: 0; }
+	.record-number { margin: 0; color: var(--color-accent); font: 500 2.5rem/1 var(--font-display, Georgia); }
+	.written-intro-copy { min-width: 0; }
+	.project-organization { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.35rem 0.65rem; margin: 0 0 1rem; color: var(--color-muted); font-size: var(--text-meta, 0.8rem); }
+	h1 { max-width: 28ch; font-size: clamp(2rem, 3.5vw, 2.75rem); font-weight: 500; line-height: 1.1; overflow-wrap: anywhere; }
 	h1 span { color: var(--color-accent); }
-	.project-kind { margin: 1rem 0 0; color: var(--color-muted); font-size: 0.85rem; line-height: 1.6; }
-	.project-summary { max-width: 65ch; margin: 1.25rem 0 0; font-size: 1.1rem; line-height: 1.7; }
+	.project-summary { max-width: 65ch; margin: 1rem 0 0; color: var(--color-muted); font-size: var(--text-lead, 1.05rem); line-height: var(--line-body, 1.7); }
 	.learning-note { max-width: 65ch; margin: 1rem 0 0; padding-left: 0.75rem; border-left: 2px solid var(--color-accent); font-size: 0.9rem; line-height: 1.6; }
-	.project-facts { margin: 1.5rem 0 0; padding-top: 1rem; border-top: 1px solid var(--color-border); }
-	.project-facts > div { display: grid; grid-template-columns: 6rem minmax(0, 1fr); gap: 0.75rem; }
-	dt { color: var(--color-muted); font-size: 0.85rem; line-height: 1.7; }
-	dd { margin: 0; font-size: 0.9rem; line-height: 1.7; }
-	h2 { margin: 0; font-size: clamp(1.5rem, 2.5vw, 2rem); line-height: 1.2; }
+	.project-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; margin: 1rem 0 0; padding-top: 1rem; border-top: 1px solid var(--color-border); }
+	.project-facts > div { min-width: 0; }
+	.project-facts:has(> div:only-child) { grid-template-columns: minmax(0, 1fr); }
+	dt { margin-bottom: 0.35rem; color: var(--color-muted); font: 500 var(--text-label, 0.7rem)/1.5 var(--font-label, monospace); letter-spacing: var(--tracking-label, 0.08em); text-transform: uppercase; }
+	dd { margin: 0; font-size: var(--text-meta, 0.8rem); line-height: 1.7; }
+	h2 { margin: 0; font-size: var(--text-section, 1.85rem); font-weight: 500; line-height: 1.2; }
+	.project-overview .field-label, .project-features > .field-label { margin-bottom: 0.5rem; }
 	.project-overview { display: grid; grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr); gap: 1rem 3rem; padding-block: 2rem; border-block: 1px solid var(--color-border); }
-	.project-overview p { max-width: 65ch; margin: 0; font-size: 1rem; line-height: 1.7; }
+	.project-overview > p { max-width: 65ch; margin: 0; font-size: var(--text-body, 0.95rem); line-height: var(--line-body, 1.7); }
 	.project-features { padding-block: 2rem; }
-	.feature-list { margin-top: 1.5rem; }
-	.feature-row { display: grid; grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr); gap: 1rem 3rem; padding-block: 1.25rem; border-top: 1px solid var(--color-border); }
-	h3 { margin: 0; font-size: 1.25rem; line-height: 1.35; }
-	.feature-row p { max-width: 65ch; margin: 0; font-size: 0.95rem; line-height: 1.7; }
+	.feature-list { margin: 1.5rem 0 0; padding: 0; list-style: none; }
+	.feature-row { display: grid; grid-template-columns: 1.5rem minmax(0, 0.7fr) minmax(0, 1.3fr); gap: 1rem 1.5rem; padding-block: 1.25rem; border-top: 1px solid var(--color-border); }
+	.feature-number { color: var(--color-olive); font: var(--text-meta, 0.8rem)/1.6 var(--font-label, monospace); }
+	h3 { margin: 0; font-family: var(--font-ui, system-ui); font-weight: 600; letter-spacing: -0.02em; font-size: 1.05rem; line-height: 1.4; }
+	.feature-row p { max-width: 65ch; margin: 0; font-size: var(--text-body, 0.95rem); line-height: var(--line-body, 1.7); }
 	.project-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem 2rem; padding-top: 1rem; border-top: 1px solid var(--color-ink); }
-	.next-project { padding-block: 1.25rem; border-top: 1px solid var(--color-border); }
+	.next-project { margin-bottom: 1.25rem; padding: 1.25rem; background: #eeede7; }
 	.next-project p { margin: 0 0 0.4rem; color: var(--color-muted); font-size: 0.75rem; }
-	.next-project a { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 44px; font-family: Georgia, serif; font-size: 1.35rem; line-height: 1.25; letter-spacing: -0.035em; }
-	.next-project a span { flex: none; }
+	.next-project a { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 44px; font-family: var(--font-display, Georgia); font-size: 1.5rem; line-height: 1.25; letter-spacing: -0.025em; }
+	.next-project a > span:first-child { min-width: 0; }
+	.next-project a > span:last-child { flex: none; }
+	.next-project small { display: block; margin-block: 0.4rem; color: var(--color-muted); font: 400 var(--text-meta, 0.8rem)/1.5 var(--font-ui, system-ui); letter-spacing: normal; }
 	.next-project a:hover { text-decoration: underline; text-underline-offset: 0.2em; }
 	@media (min-width: 901px) {
 		.written-heading { padding-block: 1rem 1.5rem; }
 		h1 { font-size: 2.25rem; line-height: 1.12; }
-		.project-summary { margin-top: 0.75rem; font-size: 0.9rem; }
+		.project-summary { margin-top: 0.75rem; }
 		h2 { font-size: 1.5rem; }
 		.project-overview, .feature-row { column-gap: 1.5rem; }
 		.project-overview { padding-block: 1.5rem; }
-		.project-overview p { font-size: 0.875rem; }
 		.feature-row { padding-block: 0.875rem; }
 		h3 { font-size: 1.1rem; }
-		.feature-row p { font-size: 0.875rem; }
 	}
 	@media (max-width: 900px) { .feature-row, .project-overview { gap: 1rem 1.5rem; } }
 	@media (max-width: 640px) {
 		.written-project { padding-block: 0 1.5rem; }
 		.written-heading { padding-block: 1rem 1.5rem; }
+		.written-intro { grid-template-columns: minmax(0, 1fr); gap: 1rem; padding: 1rem; }
+		.project-record { flex-direction: row; align-items: center; padding: 0 0 0.65rem; border-right: 0; border-bottom: 1px solid var(--color-border); }
+		.record-number { font-size: 1.5rem; }
 		h1 { font-size: var(--mobile-title); line-height: 1.15; }
-		.project-summary, .project-overview p, .feature-row p { font-size: var(--mobile-body); line-height: 1.65; }
-		.project-overview, .feature-row { grid-template-columns: minmax(0, 1fr); gap: 0.6rem; }
+		.project-summary, .project-overview > p, .feature-row p { font-size: var(--mobile-body); line-height: 1.65; }
+		.project-overview { grid-template-columns: minmax(0, 1fr); gap: 0.6rem; }
+		.feature-row { grid-template-columns: 1.25rem minmax(0, 1fr); gap: 0.4rem 0.65rem; }
+		.feature-number { grid-row: span 2; }
+		.feature-row p { grid-column: 2; }
+		.project-facts { grid-template-columns: minmax(0, 1fr); gap: 0.75rem; }
 		.project-overview, .project-features { padding-block: 1.5rem; }
 		.feature-row { padding-block: 1rem; }
 		h3 { font-size: 1.15rem; }
