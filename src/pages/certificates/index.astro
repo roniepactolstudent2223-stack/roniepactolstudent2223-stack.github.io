@@ -3,6 +3,15 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const certificates = [
 	{
+		title: 'Learn Vue',
+		kind: 'Scrimba course certificate',
+		fileType: 'PDF',
+		id: '1wonwybKHHVxVuigyX6Dlzreh3dbWpqds',
+		fileName: 'Learn Vue.pdf',
+		issuer: 'Scrimba · Per Harald Borgen',
+		date: '7 July 2026',
+	},
+	{
 		title: 'English for IT 1',
 		kind: 'Course certificate',
 		fileType: 'PDF',
@@ -40,14 +49,14 @@ const certificates = [
 ];
 
 const driveUrl = (id: string) => `https://drive.google.com/file/d/${id}/view?usp=sharing`;
-const previewUrl = (id: string) => `https://drive.google.com/file/d/${id}/preview`;
+const thumbnailUrl = (id: string) => `https://drive.google.com/thumbnail?id=${id}&sz=w1600`;
 ---
 
 <BaseLayout title="Certificates — Ronie Pactol" description="Certificates and completed learning milestones from Ronie Pactol.">
 	<div class="page-shell certificates-page">
 		<header class="certificates-hero" aria-labelledby="certificates-title">
 			<div>
-				<p class="certificates-kicker">Learning record <span aria-hidden="true">/</span> 05 documents</p>
+				<p class="certificates-kicker">Learning record <span aria-hidden="true">/</span> {String(certificates.length).padStart(2, '0')} documents</p>
 				<h1 id="certificates-title">Certificates<span>.</span></h1>
 			</div>
 			<p class="certificates-intro">A small archive of formal learning milestones that support my work across software, systems, and service.</p>
@@ -66,13 +75,14 @@ const previewUrl = (id: string) => `https://drive.google.com/file/d/${id}/previe
 				{certificates.map((certificate, index) => (
 					<article class:list={['certificate-card', { 'certificate-card-featured': index === 0 }]}>
 						<div class="certificate-preview">
-							<iframe src={previewUrl(certificate.id)} title={`Preview of ${certificate.title} certificate`} loading={index === 0 ? 'eager' : 'lazy'}></iframe>
+							<img src={thumbnailUrl(certificate.id)} alt={`Preview of ${certificate.title} certificate`} loading={index === 0 ? 'eager' : 'lazy'} decoding="async" />
 							<div class="preview-overlay" aria-hidden="true"><span>{certificate.fileType}</span><span>Open original ↗</span></div>
 						</div>
 						<div class="certificate-copy">
 							<p class="certificate-number">{String(index + 1).padStart(2, '0')}</p>
 							<h3>{certificate.title}</h3>
 							<p class="certificate-kind">{certificate.kind}</p>
+							{certificate.issuer && <p class="certificate-meta">{certificate.issuer}<br />Completed {certificate.date}</p>}
 							<a class="certificate-link" href={driveUrl(certificate.id)} target="_blank" rel="noopener noreferrer">Open certificate <span aria-hidden="true">↗</span></a>
 						</div>
 					</article>
@@ -82,7 +92,7 @@ const previewUrl = (id: string) => `https://drive.google.com/file/d/${id}/previe
 
 		<aside class="certificate-note">
 			<strong>Original files</strong>
-			<p>Each preview opens the original document in Google Drive. If a preview does not load, use the “Open certificate” link on the card.</p>
+			<p>The cards show a clean first-page preview. Use “Open certificate” when you need the original document’s zoom, print, or download controls.</p>
 		</aside>
 	</div>
 </BaseLayout>
@@ -105,13 +115,14 @@ const previewUrl = (id: string) => `https://drive.google.com/file/d/${id}/previe
 	.certificate-card-featured { grid-column: span 2; display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(14rem, 0.55fr); }
 	.certificate-preview { position: relative; aspect-ratio: 4 / 3; overflow: hidden; border-bottom: 1px solid var(--color-border); background: #ecebe6; }
 	.certificate-card-featured .certificate-preview { aspect-ratio: 16 / 8; border-bottom: 0; border-right: 1px solid var(--color-border); }
-	.certificate-preview iframe { display: block; width: 100%; height: 100%; border: 0; background: var(--color-paper); }
+	.certificate-preview img { display: block; width: 100%; height: 100%; object-fit: contain; background: var(--color-paper); }
 	.preview-overlay { position: absolute; inset: auto 0 0; display: flex; justify-content: space-between; gap: 0.75rem; padding: 0.5rem 0.65rem; background: linear-gradient(transparent, rgb(20 22 23 / 72%)); color: white; font-size: 0.65rem; pointer-events: none; }
 	.preview-overlay span:first-child { letter-spacing: 0.08em; }
 	.certificate-copy { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 0.75rem; align-content: start; padding: 1rem; }
 	.certificate-number { grid-row: span 3; margin: 0; color: var(--color-accent); font: 0.7rem/1.6 Consolas, monospace; }
 	h3 { margin: 0; font-size: 1.25rem; line-height: 1.15; }
 	.certificate-kind { margin: 0.35rem 0 0; color: var(--color-muted); font-size: 0.75rem; line-height: 1.5; }
+	.certificate-meta { margin: 0.55rem 0 0; color: var(--color-muted); font-size: 0.7rem; line-height: 1.5; }
 	.certificate-link { display: inline-flex; align-items: center; gap: 0.4rem; min-height: 44px; margin-top: 0.65rem; font-size: 0.75rem; text-decoration: underline; text-underline-offset: 0.25em; }
 	.certificate-note { display: flex; gap: 1rem; margin-top: 2rem; padding-top: 0.75rem; border-top: 1px solid var(--color-border); font-size: 0.75rem; line-height: 1.6; }
 	.certificate-note strong { flex: none; }
