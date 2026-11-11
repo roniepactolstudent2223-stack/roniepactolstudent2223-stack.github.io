@@ -2,7 +2,7 @@
 	--font-display: "Newsreader", Georgia, "Times New Roman", serif;
 	--font-ui: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 	--font-label: "IBM Plex Mono", Consolas, "Liberation Mono", monospace;
-	--text-label: 0.7rem;
+	--text-label: 0.75rem;
 	--text-meta: 0.8rem;
 	--text-body: 0.95rem;
 	--text-lead: 1.05rem;
@@ -14,10 +14,11 @@
 	--color-surface: #f8f7f4;
 	--color-paper: #fbfaf7;
 	--color-border: #c9c9c4;
+	--color-control-border: #858b85;
 	--color-tint: #eeede7;
 	--color-sage: #e7ebe3;
 	--color-accent: #965b24;
-	--color-olive: #6d7458;
+	--color-olive: #62694e;
 	--color-intro-surface: #252929;
 	--color-intro-ink: #fbfaf7;
 	--color-intro-muted: #dedbd2;

@@ -11,7 +11,7 @@ import wilconOffice from '../../public/images/wilconDepotOffice.png';
 	</div>
 	<nav class="experience-contents" aria-label="Experience chapters">
 		<a href="#word-of-hope"><span>01</span> Ministry <span aria-hidden="true">↓</span></a>
-		<a href="#wilcon-depot"><span>02</span> Development <span aria-hidden="true">↓</span></a>
+		<a href="#wilcon-depot"><span>02</span> Systems <span aria-hidden="true">↓</span></a>
 		<a href="#jollibee"><span>03</span> Service <span aria-hidden="true">↓</span></a>
 	</nav>
 </header>
@@ -144,7 +144,7 @@ import wilconOffice from '../../public/images/wilconDepotOffice.png';
 	.experience-heading h2 em { color: var(--color-accent); }
 	.experience-meta { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.35rem 1rem; margin: 0.8rem 0 0; font-size: var(--text-meta); line-height: 1.6; }
 	.experience-meta span:first-child { color: var(--color-ink); font-weight: 600; }
-	.experience-meta span + span { color: var(--color-muted); font-family: var(--font-label); font-size: 0.7rem; }
+	.experience-meta span + span { color: var(--color-muted); font-family: var(--font-label); font-size: var(--text-label); }
 	.experience-summary { max-width: 56ch; margin: 0.7rem 0 0; color: var(--color-muted); font-size: var(--text-body); line-height: var(--line-body); }
 	.experience-open { display: inline-flex; align-items: center; justify-content: space-between; gap: 1rem; width: 100%; min-height: 44px; margin-top: 0.65rem; padding: 0.4rem 0; border: 0; background: none; color: var(--color-ink); font: inherit; font-size: var(--text-meta); text-align: left; text-decoration: underline; text-underline-offset: 0.25em; cursor: pointer; }
 	.experience-open[hidden] { display: none; }
@@ -217,7 +217,7 @@ import wilconOffice from '../../public/images/wilconDepotOffice.png';
 		.experience-page-summary { font-size: var(--mobile-body); }
 		.experience-kicker { margin-bottom: 0.65rem; }
 		.experience-contents { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 0.75rem; }
-		.experience-contents a { grid-template-columns: minmax(0, 1fr) auto; column-gap: 0.25rem; font-size: 0.72rem; }
+		.experience-contents a { grid-template-columns: minmax(0, 1fr) auto; column-gap: 0.25rem; font-size: var(--text-meta); }
 		.experience-contents a span:first-child { display: none; }
 		.experience-section { display: block; padding-block: 1.5rem; }
 		.experience-record { display: flex; flex-direction: row; align-items: center; gap: 0.5rem; margin-bottom: 0.85rem; padding: 0; }
@@ -236,11 +236,6 @@ import wilconOffice from '../../public/images/wilconDepotOffice.png';
 		.church-experience .experience-list { grid-template-columns: minmax(0, 1fr); gap: 0; }
 		.church-experience .experience-list li { padding-block: 0.75rem; border-bottom: 1px solid var(--color-border); }
 		.experience-image { aspect-ratio: 16 / 9; }
-	}
-	@media (max-width: 360px) {
-		.experience-contents { grid-template-columns: minmax(0, 1fr); gap: 0; }
-		.experience-contents a { grid-template-columns: 1.25rem minmax(0, 1fr) auto; font-size: var(--text-meta); }
-		.experience-contents a span:first-child { display: inline; }
 	}
 </style>
 

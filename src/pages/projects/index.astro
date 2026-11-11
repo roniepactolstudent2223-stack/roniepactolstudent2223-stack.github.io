@@ -37,7 +37,7 @@ const groups = [
 		</article>
 
 		{groups.map(group => <section class="project-group" id={group.id} aria-labelledby={`${group.id}-title`}>
-			<header class="group-heading"><div><p class="field-label">{group.id === 'work-projects' ? 'Business systems' : 'Independent development'}</p><h2 id={`${group.id}-title`}>{group.title}</h2></div><p>{group.description}</p></header>
+			<header class="group-heading"><div><p class="field-label">{group.id === 'work-projects' ? 'Business systems' : 'Tools & learning'}</p><h2 id={`${group.id}-title`}>{group.title}</h2></div><p>{group.description}</p></header>
 			<div class="project-rows">{group.projects.map(item => <a class="project-row" href={`/projects/${item.slug}/`} aria-labelledby={`${item.slug}-title`}>
 				<span class="row-number" aria-hidden="true">{String(writtenProjects.indexOf(item) + 2).padStart(2, '0')}</span>
 				<div class="row-copy">
