@@ -1,0 +1,138 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const certificates = [
+	{
+		title: 'English for IT 1',
+		kind: 'Course certificate',
+		fileType: 'PDF',
+		id: '1txEvQ3kgye36pLv6A58inO6o5unFtcZu',
+		fileName: 'English_for_IT_1_certificate.pdf',
+	},
+	{
+		title: 'JavaScript Essentials 1',
+		kind: 'Course certificate',
+		fileType: 'PDF',
+		id: '16fp94t9iPf2Gm1tvIFKdSxiLXXjhlg5K',
+		fileName: 'JavaScript_Essentials_1_certificate.pdf',
+	},
+	{
+		title: 'NC II',
+		kind: 'National certificate',
+		fileType: 'PDF',
+		id: '1YevexiLOCXzNXxMxlOcuZHr0-TJk6OU6',
+		fileName: 'NC2.pdf',
+	},
+	{
+		title: 'On-the-job training',
+		kind: 'Certificate of completion',
+		fileType: 'PNG',
+		id: '1YUwoyu9U40CPYeCVRfiQ77TVZiZRcgKM',
+		fileName: 'OJT coc.png',
+	},
+	{
+		title: 'Python Essentials 1',
+		kind: 'Course certificate',
+		fileType: 'PDF',
+		id: '1nAj-2Ez9A_goIH__mZkUyGWJ_QPjXRos',
+		fileName: 'Python_Essentials_1_certificate.pdf',
+	},
+];
+
+const driveUrl = (id: string) => `https://drive.google.com/file/d/${id}/view?usp=sharing`;
+const previewUrl = (id: string) => `https://drive.google.com/file/d/${id}/preview`;
+---
+
+<BaseLayout title="Certificates — Ronie Pactol" description="Certificates and completed learning milestones from Ronie Pactol.">
+	<div class="page-shell certificates-page">
+		<header class="certificates-hero" aria-labelledby="certificates-title">
+			<div>
+				<p class="certificates-kicker">Learning record <span aria-hidden="true">/</span> 05 documents</p>
+				<h1 id="certificates-title">Certificates<span>.</span></h1>
+			</div>
+			<p class="certificates-intro">A small archive of formal learning milestones that support my work across software, systems, and service.</p>
+		</header>
+
+		<section class="certificate-shelf" aria-labelledby="certificate-shelf-title">
+			<div class="shelf-heading">
+				<div>
+					<p class="section-kicker">Verified documents</p>
+					<h2 id="certificate-shelf-title">Learning, kept visible.</h2>
+				</div>
+				<p>{certificates.length} certificates · Google Drive originals</p>
+			</div>
+
+			<div class="certificate-grid">
+				{certificates.map((certificate, index) => (
+					<article class:list={['certificate-card', { 'certificate-card-featured': index === 0 }]}>
+						<div class="certificate-preview">
+							<iframe src={previewUrl(certificate.id)} title={`Preview of ${certificate.title} certificate`} loading={index === 0 ? 'eager' : 'lazy'}></iframe>
+							<div class="preview-overlay" aria-hidden="true"><span>{certificate.fileType}</span><span>Open original ↗</span></div>
+						</div>
+						<div class="certificate-copy">
+							<p class="certificate-number">{String(index + 1).padStart(2, '0')}</p>
+							<h3>{certificate.title}</h3>
+							<p class="certificate-kind">{certificate.kind}</p>
+							<a class="certificate-link" href={driveUrl(certificate.id)} target="_blank" rel="noopener noreferrer">Open certificate <span aria-hidden="true">↗</span></a>
+						</div>
+					</article>
+				))}
+			</div>
+		</section>
+
+		<aside class="certificate-note">
+			<strong>Original files</strong>
+			<p>Each preview opens the original document in Google Drive. If a preview does not load, use the “Open certificate” link on the card.</p>
+		</aside>
+	</div>
+</BaseLayout>
+
+<style>
+	.certificates-page { padding-block: 0 3rem; }
+	.certificates-hero { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); align-items: end; gap: 2rem 4rem; padding-block: 2.25rem 2.5rem; border-bottom: 1px solid var(--color-ink); }
+	.certificates-kicker, .section-kicker { margin: 0 0 0.8rem; color: var(--color-olive); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; }
+	.certificates-kicker span { margin-inline: 0.35rem; color: var(--color-border); }
+	h1 { margin: 0; font-size: clamp(3rem, 6vw, 5rem); letter-spacing: -0.06em; line-height: 0.95; }
+	h1 span { color: var(--color-accent); }
+	.certificates-intro { max-width: 34ch; margin: 0; color: var(--color-muted); font-size: 1rem; line-height: 1.7; }
+	.certificate-shelf { padding-top: 2rem; }
+	.shelf-heading { display: flex; align-items: end; justify-content: space-between; gap: 1.5rem; margin-bottom: 1.25rem; }
+	.shelf-heading .section-kicker { margin-bottom: 0.45rem; }
+	h2 { margin: 0; font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.1; }
+	.shelf-heading > p { margin: 0; color: var(--color-muted); font-size: 0.75rem; }
+	.certificate-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; }
+	.certificate-card { min-width: 0; border-top: 1px solid var(--color-ink); background: var(--color-paper); }
+	.certificate-card-featured { grid-column: span 2; display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(14rem, 0.55fr); }
+	.certificate-preview { position: relative; aspect-ratio: 4 / 3; overflow: hidden; border-bottom: 1px solid var(--color-border); background: #ecebe6; }
+	.certificate-card-featured .certificate-preview { aspect-ratio: 16 / 8; border-bottom: 0; border-right: 1px solid var(--color-border); }
+	.certificate-preview iframe { display: block; width: 100%; height: 100%; border: 0; background: var(--color-paper); }
+	.preview-overlay { position: absolute; inset: auto 0 0; display: flex; justify-content: space-between; gap: 0.75rem; padding: 0.5rem 0.65rem; background: linear-gradient(transparent, rgb(20 22 23 / 72%)); color: white; font-size: 0.65rem; pointer-events: none; }
+	.preview-overlay span:first-child { letter-spacing: 0.08em; }
+	.certificate-copy { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 0.75rem; align-content: start; padding: 1rem; }
+	.certificate-number { grid-row: span 3; margin: 0; color: var(--color-accent); font: 0.7rem/1.6 Consolas, monospace; }
+	h3 { margin: 0; font-size: 1.25rem; line-height: 1.15; }
+	.certificate-kind { margin: 0.35rem 0 0; color: var(--color-muted); font-size: 0.75rem; line-height: 1.5; }
+	.certificate-link { display: inline-flex; align-items: center; gap: 0.4rem; min-height: 44px; margin-top: 0.65rem; font-size: 0.75rem; text-decoration: underline; text-underline-offset: 0.25em; }
+	.certificate-note { display: flex; gap: 1rem; margin-top: 2rem; padding-top: 0.75rem; border-top: 1px solid var(--color-border); font-size: 0.75rem; line-height: 1.6; }
+	.certificate-note strong { flex: none; }
+	.certificate-note p { max-width: 48ch; margin: 0; color: var(--color-muted); }
+	@media (max-width: 900px) {
+		.certificates-hero { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
+		.certificate-card-featured { grid-template-columns: minmax(0, 1fr); }
+		.certificate-card-featured .certificate-preview { aspect-ratio: 4 / 3; border-right: 0; border-bottom: 1px solid var(--color-border); }
+	}
+	@media (max-width: 640px) {
+		.certificates-page { padding-bottom: 2rem; }
+		.certificates-hero { gap: 0.85rem; padding-block: 1.25rem 1.5rem; }
+		h1 { font-size: var(--mobile-title); }
+		.certificates-intro { font-size: var(--mobile-body); line-height: 1.65; }
+		.certificate-shelf { padding-top: 1.5rem; }
+		.shelf-heading { display: block; margin-bottom: 1rem; }
+		.shelf-heading > p { margin-top: 0.5rem; }
+		.certificate-grid { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
+		.certificate-card-featured { grid-column: auto; }
+		.certificate-copy { padding: 0.85rem; }
+		.certificate-note { display: block; }
+		.certificate-note p { margin-top: 0.35rem; }
+	}
+</style>

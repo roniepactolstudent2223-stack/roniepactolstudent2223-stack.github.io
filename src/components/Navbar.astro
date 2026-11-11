@@ -4,6 +4,7 @@ const { resumeUrl } = Astro.props;
 const isExperiencePage = Astro.url.pathname.startsWith('/experience');
 const isCommunityPage = Astro.url.pathname.startsWith('/community');
 const isProjectsPage = Astro.url.pathname.startsWith('/projects');
+const isCertificatesPage = Astro.url.pathname.startsWith('/certificates');
 ---
 
 <header class="site-header" transition:persist="site-header" transition:animate="none">
@@ -14,6 +15,7 @@ const isProjectsPage = Astro.url.pathname.startsWith('/projects');
 			<a class:list={['nav-link', { 'is-active': isProjectsPage }]} href="/projects/">Projects</a>
 			<a class:list={['nav-link', { 'is-active': isExperiencePage }]} href="/experience/">Experience</a>
 			<a class:list={['nav-link', { 'is-active': isCommunityPage }]} href="/community/">Community</a>
+			<a class:list={['nav-link', { 'is-active': isCertificatesPage }]} href="/certificates/">Certificates</a>
 			<a class="nav-link" href={resumeUrl} target="_blank" rel="noopener noreferrer">Resume <span aria-hidden="true">↗</span></a>
 			<button type="button" class="nav-contact" data-open-contact aria-haspopup="dialog" aria-controls="contact">Message <span aria-hidden="true">↗</span></button>
 			<span class="nav-indicator" aria-hidden="true" hidden></span>
@@ -27,6 +29,7 @@ const isProjectsPage = Astro.url.pathname.startsWith('/projects');
 				<a href="/projects/">Projects <span aria-hidden="true">↗</span></a>
 				<a href="/experience/">Experience <span aria-hidden="true">↗</span></a>
 				<a href="/community/">Community <span aria-hidden="true">↗</span></a>
+				<a href="/certificates/">Certificates <span aria-hidden="true">↗</span></a>
 				<a href={resumeUrl} target="_blank" rel="noopener noreferrer">Resume <span aria-hidden="true">↗</span></a>
 			</div>
 		</details>
@@ -93,7 +96,7 @@ const isProjectsPage = Astro.url.pathname.startsWith('/projects');
 		const path = window.location.pathname;
 		document.querySelectorAll<HTMLAnchorElement>('.site-header .nav-link, .mobile-menu-panel a').forEach((link) => {
 			const href = link.getAttribute('href');
-			const active = href === '/#home' ? path === '/' : (href === '/experience/' || href === '/community/' || href === '/projects/') && path.startsWith(href);
+			const active = href === '/#home' ? path === '/' : (href === '/experience/' || href === '/community/' || href === '/projects/' || href === '/certificates/') && path.startsWith(href);
 			link.classList.toggle('is-active', active);
 			if (active) link.setAttribute('aria-current', 'page'); else link.removeAttribute('aria-current');
 		});
