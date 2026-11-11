@@ -8,7 +8,7 @@ const nextProject = writtenProjects[(writtenProjects.findIndex(item => item.slug
 <article class="written-project">
 	<a class="back-link" href="/projects/">← All projects</a>
 	<header class="written-heading">
-		<div class="mobile-page-intro">
+		<div class="page-intro written-intro">
 		<p class="project-organization">{project.organization}</p>
 		<h1>{project.title}<span>.</span></h1>
 		<p class="project-kind">{project.kind}</p>
@@ -30,6 +30,7 @@ const nextProject = writtenProjects[(writtenProjects.findIndex(item => item.slug
 	.written-project { max-width: 68rem; margin-inline: auto; padding-block: 0 2.5rem; }
 	.back-link, .project-footer a { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 44px; font-size: 0.85rem; text-decoration: underline; text-underline-offset: 0.25em; }
 	.written-heading { padding-block: 1.5rem 2rem; }
+	.written-intro { padding: 0 0 0 1.25rem; border-bottom: 0; border-left: 3px solid var(--color-accent); }
 	.project-organization { margin: 0 0 0.75rem; color: var(--color-muted); font-size: 0.9rem; }
 	h1 { max-width: 25ch; font-size: clamp(2rem, 4.2vw, 4rem); line-height: 1.1; overflow-wrap: anywhere; }
 	h1 span { color: var(--color-accent); }

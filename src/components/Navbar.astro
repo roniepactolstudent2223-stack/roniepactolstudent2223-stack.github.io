@@ -11,11 +11,11 @@ const isCertificatesPage = Astro.url.pathname.startsWith('/certificates');
 	<nav class="site-nav" aria-label="Primary navigation">
 		<a class="wordmark" href="/" aria-label="Ronie Pactol home"><span class="wordmark-type"><span class="wordmark-name">ronie</span><span class="wordmark-dot">.</span><span class="wordmark-dev">dev</span></span></a>
 		<div class="nav-links">
-			<a class:list={['nav-link', { 'is-active': Astro.url.pathname === '/' }]} href="/#home">Home</a>
-			<a class:list={['nav-link', { 'is-active': isProjectsPage }]} href="/projects/">Projects</a>
-			<a class:list={['nav-link', { 'is-active': isExperiencePage }]} href="/experience/">Experience</a>
-			<a class:list={['nav-link', { 'is-active': isCommunityPage }]} href="/community/">Community</a>
-			<a class:list={['nav-link', { 'is-active': isCertificatesPage }]} href="/certificates/">Certificates</a>
+			<a class:list={['nav-link', { 'is-active': Astro.url.pathname === '/' }]} href="/#home" aria-current={Astro.url.pathname === '/' ? 'page' : undefined}>Home</a>
+			<a class:list={['nav-link', { 'is-active': isProjectsPage }]} href="/projects/" aria-current={isProjectsPage ? 'page' : undefined}>Projects</a>
+			<a class:list={['nav-link', { 'is-active': isExperiencePage }]} href="/experience/" aria-current={isExperiencePage ? 'page' : undefined}>Experience</a>
+			<a class:list={['nav-link', { 'is-active': isCommunityPage }]} href="/community/" aria-current={isCommunityPage ? 'page' : undefined}>Community</a>
+			<a class:list={['nav-link', { 'is-active': isCertificatesPage }]} href="/certificates/" aria-current={isCertificatesPage ? 'page' : undefined}>Certificates</a>
 			<a class="nav-link" href={resumeUrl} target="_blank" rel="noopener noreferrer">Resume <span aria-hidden="true">↗</span></a>
 			<button type="button" class="nav-contact" data-open-contact aria-haspopup="dialog" aria-controls="contact">Message <span aria-hidden="true">↗</span></button>
 			<span class="nav-indicator" aria-hidden="true" hidden></span>
@@ -92,7 +92,6 @@ const isCertificatesPage = Astro.url.pathname.startsWith('/certificates');
 	};
 
 	document.addEventListener('astro:page-load', () => {
-		document.querySelectorAll<HTMLElement>('.is-loading').forEach((element) => { element.classList.remove('is-loading'); element.removeAttribute('aria-busy'); });
 		const path = window.location.pathname;
 		document.querySelectorAll<HTMLAnchorElement>('.site-header .nav-link, .mobile-menu-panel a').forEach((link) => {
 			const href = link.getAttribute('href');
@@ -106,11 +105,6 @@ const isCertificatesPage = Astro.url.pathname.startsWith('/certificates');
 	reducedMotion.addEventListener('change', () => updateIndicator());
 	const menu = document.querySelector<HTMLDetailsElement>('.mobile-menu');
 	menu?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => { menu.open = false; }));
-	document.querySelectorAll<HTMLAnchorElement>('.site-header a[href]').forEach((link) => link.addEventListener('click', () => {
-		if (link.target === '_blank' || link.getAttribute('href')?.startsWith('#')) return;
-		link.classList.add('is-loading');
-		link.setAttribute('aria-busy', 'true');
-	}));
 	document.addEventListener('astro:before-preparation', () => { if (menu) menu.open = false; });
 	window.matchMedia('(min-width: 901px)').addEventListener('change', (event) => { if (event.matches && menu) menu.open = false; });
 	document.addEventListener('keydown', (event) => {

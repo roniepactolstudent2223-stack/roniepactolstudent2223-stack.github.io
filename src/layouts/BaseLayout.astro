@@ -7,7 +7,8 @@ import Contact from '../components/Contact.astro';
 import { ClientRouter } from 'astro:transitions';
 
 interface Props { title?: string; description?: string; }
-const { title = 'Niessen — Software Developer', description = 'Niessen’s software development portfolio.' } = Astro.props;
+const { title = 'Ronie Pactol — Full-Stack Developer', description = 'Ronie Pactol’s portfolio of Laravel and Vue.js systems, practical tools, and community work.' } = Astro.props;
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url);
 const resumeUrl = 'https://docs.google.com/document/d/19qGp36MD_fFns8vMhMO0XVhzwqmjYSL1/edit?pli=1';
 const pageAnimation = {
 	old: { name: 'page-leave', duration: '100ms', easing: 'ease-out', fillMode: 'both' },
@@ -22,32 +23,60 @@ const pageTransition = { forwards: pageAnimation, backwards: pageAnimation };
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="description" content={description} />
+		<link rel="canonical" href={canonicalUrl.href} />
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="Ronie Pactol" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonicalUrl.href} />
+		<meta name="twitter:card" content="summary" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<title>{title}</title>
 		<ClientRouter fallback="swap" />
 	</head>
 	<body class="min-h-screen">
 		<a class="skip-link" href="#main-content">Skip to content</a>
+		<div class="navigation-progress" aria-hidden="true" transition:persist="navigation-progress"></div>
 		<Navbar resumeUrl={resumeUrl} />
 		<main id="main-content" tabindex="-1" transition:name="page-content" transition:animate={pageTransition}><slot /></main>
 		<Footer />
 		<Contact resumeUrl={resumeUrl} />
 		<script>
-			const markPageLinkLoading = (event: MouseEvent) => {
-				if (event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
-				const target = event.target;
-				if (!(target instanceof Element)) return;
-				const link = target.closest<HTMLAnchorElement>('a[href]');
-				if (!link || link.target === '_blank' || link.hasAttribute('download') || link.hasAttribute('data-screenshot')) return;
-				const url = new URL(link.href, window.location.href);
-				if (url.origin !== window.location.origin || url.pathname === window.location.pathname && url.hash) return;
-				link.classList.add('is-loading');
-				link.setAttribute('aria-busy', 'true');
-			};
-			document.addEventListener('click', markPageLinkLoading);
-			document.addEventListener('astro:page-load', () => {
-				document.querySelectorAll<HTMLElement>('.is-loading').forEach((element) => { element.classList.remove('is-loading'); element.removeAttribute('aria-busy'); });
+			import type { TransitionBeforePreparationEvent } from 'astro:transitions/client';
+
+			let finishNavigationLoading: (() => void) | undefined;
+			document.addEventListener('astro:before-preparation', (navigationEvent) => {
+				const event = navigationEvent as TransitionBeforePreparationEvent;
+				const load = event.loader;
+				event.loader = async () => {
+					finishNavigationLoading?.();
+					const source = event.sourceElement?.closest<HTMLAnchorElement>('a[href]');
+					const previousBusy = source?.getAttribute('aria-busy');
+					let finished = false;
+					const finish = () => {
+						if (finished) return;
+						finished = true;
+						source?.classList.remove('is-loading');
+						if (previousBusy !== null && previousBusy !== undefined) source?.setAttribute('aria-busy', previousBusy);
+						else source?.removeAttribute('aria-busy');
+						document.documentElement.removeAttribute('data-page-loading');
+						if (finishNavigationLoading === finish) finishNavigationLoading = undefined;
+					};
+					finishNavigationLoading = finish;
+					source?.classList.add('is-loading');
+					source?.setAttribute('aria-busy', 'true');
+					document.documentElement.setAttribute('data-page-loading', '');
+					event.signal.addEventListener('abort', finish, { once: true });
+					try {
+						await load();
+					} finally {
+						event.signal.removeEventListener('abort', finish);
+						finish();
+					}
+				};
 			});
+			document.addEventListener('astro:after-swap', () => finishNavigationLoading?.());
+			window.addEventListener('pageshow', () => finishNavigationLoading?.());
 		</script>
 	</body>
 </html>

@@ -6,7 +6,7 @@ import ScreenshotViewer from './ScreenshotViewer.astro';
 <article class="attendance-case">
 	<a class="back-link" href="/projects/"><span aria-hidden="true">←</span> All projects</a>
 	<header class="case-heading">
-		<div class="mobile-page-intro">
+		<div class="page-intro case-intro">
 		<p class="case-context">{project.organization}</p>
 		<h1>Church Attendance &amp;<br /> <em>Management System.</em></h1>
 		<p class="case-summary">{project.summary}</p>
@@ -42,12 +42,13 @@ import ScreenshotViewer from './ScreenshotViewer.astro';
 	.attendance-case { padding-block: 0 2.5rem; }
 	.back-link, .screen-description a, .case-end a { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 44px; font-size: 0.85rem; text-decoration: underline; text-underline-offset: 0.25em; }
 	.case-heading { padding-block: 1.5rem 2rem; }
+	.case-intro { padding: 1.5rem; border-bottom: 0; background: #eeede7; }
 	.case-context { margin: 0 0 1rem; color: var(--color-muted); font-size: 0.9rem; }
 	h1 { max-width: 24ch; font-size: clamp(2.2rem, 4.5vw, 4.5rem); line-height: 1.08; }
 	h1 em { display: inline; padding: 0; background: none; color: var(--color-accent); }
 	.case-summary { max-width: 64ch; margin: 1.5rem 0; font-size: 1.1rem; line-height: 1.7; }
 	.live-link { display: inline-flex; align-items: center; gap: 0.75rem; min-height: 44px; margin-bottom: 1rem; font-size: 0.9rem; text-decoration: underline; text-underline-offset: 0.25em; }
-	.case-facts { display: grid; grid-template-columns: minmax(0, 0.6fr) minmax(0, 1.4fr); gap: 1rem 2rem; margin: 0; padding-top: 1rem; border-top: 1px solid var(--color-border); }
+	.case-facts { display: grid; grid-template-columns: minmax(0, 0.6fr) minmax(0, 1.4fr); gap: 1rem 2rem; margin: 1rem 0 0; padding-top: 1rem; border-top: 1px solid var(--color-border); }
 	dt { margin-bottom: 0.35rem; color: var(--color-muted); font-size: 0.8rem; }
 	dd { margin: 0; font-size: 0.9rem; line-height: 1.7; }
 	.case-navigation { display: flex; flex-wrap: wrap; gap: 0.25rem 2rem; padding-block: 0.5rem; border-block: 1px solid var(--color-ink); }

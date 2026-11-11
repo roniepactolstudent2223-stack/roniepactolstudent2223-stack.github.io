@@ -26,7 +26,7 @@ const events = [
 ];
 ---
 
-<section class="community-intro mobile-page-intro" aria-labelledby="community-title">
+<section class="community-intro page-intro page-intro--dark" aria-labelledby="community-title">
 	<div>
 		<h1 id="community-title">Community &amp;<br /> <em>volunteering.</em></h1>
 		<p class="community-role">Volunteer photographer · WordPress &amp; open source</p>
@@ -62,13 +62,11 @@ const events = [
 <ScreenshotViewer />
 
 <style>
-	.community-intro { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr); align-items: end; gap: 3rem; padding: clamp(2rem, 5vw, 4rem) 0 2rem; }
+	.community-intro { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); align-items: end; gap: 1.5rem; }
 	.community-intro h1 { max-width: 18ch; font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 1.05; }
 	.community-intro em { display: inline; padding: 0; background: none; color: var(--color-accent); }
 	.community-role { margin: 1rem 0 0; color: var(--color-muted); font-size: 0.85rem; line-height: 1.6; }
 	.community-summary { max-width: 40ch; margin: 0; font-size: 1rem; line-height: 1.7; }
-	.event-index { display: flex; flex-wrap: wrap; gap: 0.25rem 1.75rem; padding-block: 0.5rem; border-block: 1px solid var(--color-border); }
-	.event-index a { display: inline-flex; align-items: center; gap: 0.75rem; min-height: 44px; font-size: 0.85rem; text-decoration: underline; text-underline-offset: 0.25em; }
 	.community-event { display: grid; grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr); align-items: start; gap: clamp(1.5rem, 4vw, 4rem); padding-block: clamp(2rem, 4vw, 3.5rem); border-bottom: 1px solid var(--color-border); }
 	.community-event:last-child { border-bottom-color: var(--color-ink); }
 	.event-copy { min-width: 0; }
@@ -88,7 +86,6 @@ const events = [
 	figcaption { display: flex; justify-content: space-between; gap: 0.75rem; align-items: baseline; padding-top: 0.5rem; color: var(--color-muted); font-size: 0.75rem; line-height: 1.5; }
 	figcaption a { display: inline-flex; align-items: center; min-height: 44px; flex-shrink: 0; gap: 0.35rem; color: var(--color-ink); text-decoration: underline; text-underline-offset: 0.25em; }
 	@media (min-width: 901px) {
-		.community-intro { gap: 1.5rem; padding-block: 1.75rem 1.25rem; }
 		.community-intro h1 { font-size: 2.25rem; line-height: 1.12; }
 		.community-summary { font-size: 0.875rem; }
 		.community-event { gap: 1.5rem; padding-block: 1.5rem; }
@@ -103,12 +100,9 @@ const events = [
 		.event-description { max-width: 65ch; }
 	}
 	@media (max-width: 640px) {
-		.community-intro { padding-block: 1.5rem; }
 		.community-intro h1 { font-size: var(--mobile-title); line-height: 1.15; }
 		.community-role { margin-top: 0.6rem; font-size: 0.8rem; }
 		.community-summary, .event-description { font-size: var(--mobile-body); line-height: 1.65; }
-		.event-index { display: grid; gap: 0; }
-		.event-index a { justify-content: space-between; font-size: 0.8rem; }
 		.community-event { padding-block: 1.5rem; }
 		h2 { font-size: clamp(1.35rem, 1rem + 2vw, 1.75rem); }
 		.event-description { margin-top: 0.65rem; }

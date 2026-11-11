@@ -1,51 +1,51 @@
-# Astro Starter Kit: Minimal
+# Ronie Pactol's portfolio
+
+A static Astro portfolio with Tailwind CSS, native dialogs, and small TypeScript interactions. The production domain in `astro.config.mjs` matches `CNAME`: `https://roniepactol.me`.
+
+## Development
+
+Install with `npm install`. On Windows, use `npm.cmd` if PowerShell blocks npm's script wrapper.
+
+| Command | Purpose |
+| --- | --- |
+| `npm run astro -- dev --background` | Start the background development server |
+| `npm run astro -- dev status` | Check the server |
+| `npm run astro -- dev logs` | Inspect server logs |
+| `npm run astro -- dev stop` | Stop the server |
+| `npm run build` | Generate the static site in `dist/` |
+| `npm run preview` | Preview the production build |
+
+## Structure
+
+- `src/pages/`: home, projects, experience, community, certificates, and notes routes.
+- `src/content/projects/`: shared factual project records, contribution scope, and screenshot metadata.
+- `src/components/`: page sections, contact form, navigation, and image viewer.
+- `src/styles/tokens.css`: shared palette, control sizes, and motion timing.
+- `src/styles/global.css`: shared layout, typography, navigation, and controls. Page compositions live in scoped component styles.
+- `src/styles/motion.css`: page, dialog, and disclosure transitions with reduced-motion support.
+
+The home page reuses project records in `SelectedWork.astro`. Dashboard previews use Astro image optimization; the image viewer retains links to the original files. No framework hydration is needed for the static content.
+
+## Interaction behavior
+
+Page-loading feedback follows Astro's actual navigation loader and clears on completion, error, or cancellation. Contact and experience dialogs open immediately. The screenshot viewer reports real image loading or failure and preserves an original-file link. Native links and disclosures remain usable when enhancement is unavailable.
 
 ## Message form delivery
 
-The Message dialog posts to FormSubmit for `roniepactol@gmail.com` using a native multipart form. It works with static hosting and keeps FormSubmit's default spam verification enabled. FormSubmit opens in a separate tab to finish sending and show its confirmation or error page, while the portfolio remains open. Opening the verification tab alone does not confirm email delivery.
+The Message dialog posts to FormSubmit for `roniepactol@gmail.com` using a native multipart form. FormSubmit opens in a separate tab for verification and confirmation while the portfolio remains open. Messages and attachments pass through FormSubmit; no email credentials are stored in the repository.
 
-Before launch, submit the form yourself and confirm the activation email in that inbox (check spam). Then submit another message with a small attachment to verify actual delivery. Inbox activation and live delivery have not been verified by automated browser checks.
+Before launch, submit the form yourself and confirm the activation email in that inbox (check spam). Then send another message with a small attachment to verify delivery. Opening the verification tab does not confirm inbox delivery. Live delivery has not been verified by automated checks.
 
-Attachments use separate file fields; visitors can add or remove extra fields. The combined limit is 10 MB. Client validation helps visitors, and FormSubmit enforces its upload limits. No email credentials are stored in this repository. Messages and files pass through FormSubmit: https://formsubmit.co/documentation.
+Visitors can add or remove file fields, with a combined limit of 10 MB. See [FormSubmit documentation](https://formsubmit.co/documentation).
 
-```sh
-npm create astro@latest -- --template minimal
-```
+## Certificate access
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Certificate previews and originals are served by Google Drive. Public visitors require the files to be shared for viewing; the site does not change Drive permissions. Failed thumbnails show a fallback that preserves the original link. Do not describe a certificate as independently verified unless its issuer or verification record has actually been checked.
 
-## 🚀 Project Structure
+## Design and review
 
-Inside of your Astro project, you'll see the following folders and files:
+The portfolio keeps the compact desktop proportions and existing serif/system-font identity. Home emphasizes actual work, Projects organizes contributions, Community uses a separate dark introduction, and Experience and Certificates retain their own structures. On phones the page shell is fluid, content stacks in reading order, and secondary experience details open in a side panel.
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+The content-first ordering was informed by [Josh W. Comeau's developer site](https://www.joshwcomeau.com/), whose main page directly exposes the work it offers. This is an information-hierarchy reference, not a copied visual design. Implementation references: [Astro components](https://docs.astro.build/en/basics/astro-components/), [scoped styling](https://docs.astro.build/en/guides/styling/), and [navigation lifecycle](https://docs.astro.build/en/guides/view-transitions/).
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Build and source-level checks do not establish visual quality. Before deployment, inspect 320px and 390px phones, 768px tablet, and 1280px desktop, plus the 760px and 900px breakpoint edges. Exercise navigation/back, contact close/Escape/focus return, image fit/actual/error, experience sheet, certificate fallbacks, and reduced motion. Browser capture was unavailable during this revision; rendered responsive and keyboard checks remain outstanding.

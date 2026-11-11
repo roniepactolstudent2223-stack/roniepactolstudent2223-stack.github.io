@@ -9,7 +9,7 @@
 	document.addEventListener('astro:page-load', () => {
 		disposeViewer?.();
 		const viewer = document.querySelector<HTMLDialogElement>('.screenshot-viewer');
-		if (!viewer) return;
+		if (!viewer || typeof viewer.showModal !== 'function') return;
 		const controller = new AbortController();
 		const { signal } = controller;
 		const img = viewer.querySelector<HTMLImageElement>('.viewer-image')!;
@@ -20,13 +20,27 @@
 		const status = viewer.querySelector<HTMLElement>('.viewer-status')!;
 		let trigger: HTMLAnchorElement | null = null;
 		let zoomMotion: Animation | undefined;
+		let imageState: 'loading' | 'ready' | 'error' = 'loading';
 		const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+		const updateStatus = () => {
+			status.textContent = imageState === 'loading' ? 'Loading image…' : imageState === 'error' ? 'Image could not load. Use Open original to try again.' : viewer.classList.contains('viewer-fit') ? 'Fit view · No upscaling' : '100% · Scroll to inspect';
+		};
+		const finishImage = (loaded: boolean) => {
+			if (!viewer.open) return;
+			imageState = loaded ? 'ready' : 'error';
+			canvas.removeAttribute('aria-busy');
+			img.style.visibility = loaded ? '' : 'hidden';
+			toggle.disabled = !loaded;
+			updateStatus();
+		};
+		img.addEventListener('load', () => finishImage(img.naturalWidth > 0), { signal });
+		img.addEventListener('error', () => finishImage(false), { signal });
 		const setFit = (fit: boolean, animate = false) => {
 			const before = img.getBoundingClientRect();
 			zoomMotion?.cancel();
 			viewer.classList.toggle('viewer-fit', fit);
 			toggle.textContent = fit ? 'Actual size (100%)' : 'Fit to view';
-			status.textContent = fit ? 'Fit view · No upscaling' : '100% · Scroll to inspect';
+			updateStatus();
 			canvas.scrollTo(0, 0);
 			if (animate && !reducedMotion.matches && typeof img.animate === 'function') {
 				const after = img.getBoundingClientRect();
@@ -42,29 +56,34 @@
 				if (event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
 				if (viewer.open) return;
 				event.preventDefault();
-				link.classList.add('is-loading');
-				link.setAttribute('aria-busy', 'true');
 				trigger = link;
 				title.textContent = link.dataset.title ?? 'Screenshot';
-				img.src = link.href;
+				imageState = 'loading';
+				canvas.setAttribute('aria-busy', 'true');
+				img.style.visibility = 'hidden';
+				toggle.disabled = true;
 				img.alt = link.dataset.alt ?? title.textContent;
 				img.width = Number(link.dataset.width);
 				img.height = Number(link.dataset.height);
 				original.href = link.href;
 				viewer.showModal();
 				setFit(link.hasAttribute('data-fit'));
-				window.setTimeout(() => { link.classList.remove('is-loading'); link.removeAttribute('aria-busy'); }, 220);
+				img.src = link.href;
+				if (img.complete) finishImage(img.naturalWidth > 0);
 			}, { signal });
 		});
 		toggle.addEventListener('click', () => setFit(!viewer.classList.contains('viewer-fit'), true), { signal });
 		viewer.addEventListener('close', () => {
 			zoomMotion?.cancel();
+			canvas.removeAttribute('aria-busy');
 			if (trigger?.isConnected) trigger.focus({ preventScroll: true });
 		}, { signal });
 		window.addEventListener('resize', () => zoomMotion?.cancel(), { signal });
 		reducedMotion.addEventListener('change', () => zoomMotion?.cancel(), { signal });
 		document.addEventListener('astro:before-preparation', () => { if (viewer.open) viewer.close(); }, { signal });
 		let backdropPressed = false;
+		viewer.addEventListener('close', () => { backdropPressed = false; }, { signal });
+		viewer.addEventListener('pointercancel', () => { backdropPressed = false; }, { signal });
 		viewer.addEventListener('pointerdown', event => { backdropPressed = event.target === viewer; }, { signal });
 		viewer.addEventListener('click', event => {
 			const bounds = viewer.getBoundingClientRect();

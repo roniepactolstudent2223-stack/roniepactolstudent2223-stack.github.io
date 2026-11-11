@@ -113,7 +113,7 @@
 	.experience-page-heading-copy { min-width: 0; }
 	.experience-kicker { margin: 0 0 0.8rem; color: var(--color-olive); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; }
 	.experience-kicker span { margin-inline: 0.4rem; color: var(--color-border); }
-	.experience-page-heading h1 { margin: 0; font-size: clamp(2.5rem, 5vw, 4.25rem); letter-spacing: -0.045em; line-height: 0.98; }
+	.experience-page-heading h1 { margin: 0; font-size: clamp(2.25rem, 4vw, 3rem); letter-spacing: -0.045em; line-height: 1.1; }
 	.experience-page-heading h1 span { color: var(--color-accent); }
 	.experience-page-summary { max-width: 42ch; margin: 0.8rem 0 0; color: var(--color-muted); font-size: 0.9rem; line-height: 1.6; }
 	.experience-page-note { display: grid; gap: 0.2rem; margin: 0; padding-left: 1rem; border-left: 2px solid var(--color-accent); color: var(--color-muted); font-size: 0.72rem; line-height: 1.5; }
@@ -288,8 +288,6 @@
 			const trigger = section.querySelector<HTMLButtonElement>('.experience-open')!;
 			trigger.addEventListener('click', () => {
 				if (!phoneLayout.matches || sheet.open) return;
-				trigger.classList.add('is-loading');
-				trigger.setAttribute('aria-busy', 'true');
 				++closeVersion;
 				restoreContent();
 				const home = section.querySelector<HTMLDetailsElement>('.experience-disclosure')!;
@@ -304,18 +302,22 @@
 				if (responsibilities) body.prepend(responsibilities);
 				sheet.querySelector<HTMLElement>('#experience-sheet-title')!.textContent = section.querySelector('h2')!.textContent;
 				sheet.querySelector<HTMLElement>('.sheet-organization')!.textContent = section.querySelector('.experience-meta span:first-child')!.textContent;
-				sheet.querySelector<HTMLElement>('#experience-sheet-meta')!.textContent = section.querySelector('.experience-meta span:last-child')!.textContent;
+				const dates = section.querySelector('.experience-meta span + span')?.textContent ?? '';
+				const sheetMeta = sheet.querySelector<HTMLElement>('#experience-sheet-meta')!;
+				sheetMeta.textContent = dates;
+				sheetMeta.hidden = !dates;
 				sheet.querySelector<HTMLElement>('.sheet-summary')!.textContent = section.querySelector('.experience-summary')!.textContent;
 				if (photo) content.append(photo);
 				content.append(body);
 				sheet.showModal();
 				scroll.scrollTop = 0;
-				window.setTimeout(() => { trigger.classList.remove('is-loading'); trigger.removeAttribute('aria-busy'); }, 260);
 			}, { signal });
 		});
 		closeButton.addEventListener('click', () => closeSheet(), { signal });
 		sheet.addEventListener('cancel', event => { event.preventDefault(); closeSheet(); }, { signal });
 		let backdropPressed = false;
+		sheet.addEventListener('close', () => { backdropPressed = false; }, { signal });
+		sheet.addEventListener('pointercancel', () => { backdropPressed = false; }, { signal });
 		sheet.addEventListener('pointerdown', event => { backdropPressed = event.target === sheet; }, { signal });
 		sheet.addEventListener('click', event => {
 			const bounds = sheet.getBoundingClientRect();

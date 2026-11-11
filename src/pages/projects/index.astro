@@ -3,6 +3,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProjectHero from '../../components/ProjectHero.astro';
 import { churchAttendance as project } from '../../content/projects/church-attendance';
 import { writtenProjects } from '../../content/projects/written-projects';
+import { Image } from 'astro:assets';
+import dashboard from '../../../public/images/ProjectAttendanceDashbaord.png';
 
 const groups = [
 	{ id: 'work-projects', title: 'Work contributions', description: 'Business systems at Wilcon Depot.', projects: writtenProjects.filter(item => item.experienceUrl) },
@@ -21,7 +23,7 @@ const groups = [
 			</header>
 			<a class="featured-preview-link" href="/projects/church-attendance/#project-screens" aria-label="Inspect screenshots of the Church Attendance and Management System">
 				<figure class="featured-preview">
-					<img src={project.screenshots[0].src} width={project.screenshots[0].width} height={project.screenshots[0].height} alt={project.screenshots[0].alt} fetchpriority="high" decoding="async" />
+					<Image src={dashboard} widths={[480, 800, 1200]} sizes="(max-width: 760px) calc(100vw - 2rem), 850px" format="webp" alt={project.screenshots[0].alt} fetchpriority="high" loading="eager" />
 					<figcaption><span>{project.stack.slice(0, 3).join(' · ')}</span><span class="preview-action">Inspect screenshots <span aria-hidden="true">↗</span></span></figcaption>
 				</figure>
 			</a>
