@@ -7,7 +7,7 @@ const { resumeUrl } = Astro.props;
 ---
 
 <dialog class="contact-modal" id="contact" aria-labelledby="contact-title" transition:persist="contact-dialog" transition:animate="none">
-	<form method="dialog" class="modal-toolbar"><h2 id="contact-title">Message<span aria-hidden="true">.</span></h2><button class="close-contact" autofocus>Close <span aria-hidden="true">×</span></button></form>
+	<form method="dialog" class="modal-toolbar"><h2 id="contact-title">Message<span aria-hidden="true">.</span></h2><button class="close-contact" type="submit" aria-label="Close message" autofocus><span aria-hidden="true">×</span></button></form>
 	<div class="contact-grid">
 		<div class="contact-intro">
 			<p class="contact-availability">If you have any questions or concerns, please don't hesitate to reach out. I'd be more than happy to help!</p>
@@ -107,8 +107,9 @@ const { resumeUrl } = Astro.props;
 	.modal-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; margin: 0; padding: 0.75rem var(--dialog-space); border-bottom: 1px solid var(--color-border); background: var(--color-intro-surface); color: var(--color-intro-ink); }
 	.modal-toolbar h2 { min-width: 0; margin: 0; font-family: var(--font-display); font-size: clamp(1.75rem, 1.15rem + 2vw, 2.25rem); font-weight: 500; letter-spacing: -0.025em; line-height: 1.2; overflow-wrap: anywhere; }
 	.modal-toolbar h2 span { color: var(--color-intro-accent); }
-	.close-contact { display: inline-flex; align-items: center; gap: 0.5rem; min-height: var(--control-height); padding: 0.25rem 0.375rem; border: 0; background: none; color: inherit; font: inherit; font-size: var(--text-meta); cursor: pointer; }
-	.close-contact span { font-size: 1.5rem; line-height: 1; }
+	.close-contact { display: inline-grid; place-items: center; width: 2.5rem; height: 2.5rem; min-height: 44px; padding: 0; border: 0; border-radius: 50%; background: transparent; color: inherit; font: inherit; cursor: pointer; transition: background-color var(--motion-fast), color var(--motion-fast); }
+	.close-contact:hover { background: rgb(255 255 255 / 12%); color: var(--color-intro-accent); }
+	.close-contact span { font-size: 1.7rem; font-weight: 300; line-height: 1; }
 	.contact-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1rem; min-height: 0; padding: 1rem var(--dialog-space) max(var(--dialog-space), env(safe-area-inset-bottom)); overflow-y: auto; overscroll-behavior: contain; scroll-padding-block: 0.75rem; }
 	.contact-location { margin: 0 0 0.75rem; font-size: var(--text-meta); color: var(--color-muted); }
 	.contact-availability { margin: 0; color: var(--color-muted); font-size: var(--text-body); line-height: 1.6; }

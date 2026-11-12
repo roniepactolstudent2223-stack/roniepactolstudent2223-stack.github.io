@@ -21,15 +21,15 @@ const isCertificatesPage = Astro.url.pathname.startsWith('/certificates');
 			<span class="nav-indicator" aria-hidden="true" hidden></span>
 		</div>
 		<div class="mobile-nav-actions">
-		<a class="mobile-icon-button" href="/#home" aria-label="Home" title="Home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V10Z" /><path d="M9 21v-7h6v7" /></svg></a>
+		<a class:list={['mobile-icon-button', { 'is-active': Astro.url.pathname === '/' }]} href="/#home" aria-label="Home" title="Home" aria-current={Astro.url.pathname === '/' ? 'page' : undefined}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V10Z" /><path d="M9 21v-7h6v7" /></svg></a>
 		<button type="button" class="mobile-icon-button mobile-contact-button" data-open-contact aria-haspopup="dialog" aria-controls="contact">Message</button>
 		<details class="mobile-menu">
 			<summary aria-label="Menu" title="Menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg><span class="visually-hidden">Menu</span></summary>
 			<div class="mobile-menu-panel">
-				<a href="/projects/">Projects <span aria-hidden="true">↗</span></a>
-				<a href="/experience/">Experience <span aria-hidden="true">↗</span></a>
-				<a href="/community/">Community <span aria-hidden="true">↗</span></a>
-				<a href="/certificates/">Certificates <span aria-hidden="true">↗</span></a>
+			<a class:list={{ 'is-active': isProjectsPage }} href="/projects/" aria-current={isProjectsPage ? 'page' : undefined}>Projects <span aria-hidden="true">↗</span></a>
+			<a class:list={{ 'is-active': isExperiencePage }} href="/experience/" aria-current={isExperiencePage ? 'page' : undefined}>Experience <span aria-hidden="true">↗</span></a>
+			<a class:list={{ 'is-active': isCommunityPage }} href="/community/" aria-current={isCommunityPage ? 'page' : undefined}>Community <span aria-hidden="true">↗</span></a>
+			<a class:list={{ 'is-active': isCertificatesPage }} href="/certificates/" aria-current={isCertificatesPage ? 'page' : undefined}>Certificates <span aria-hidden="true">↗</span></a>
 				<a href={resumeUrl} target="_blank" rel="noopener noreferrer">Resume <span aria-hidden="true">↗</span></a>
 			</div>
 		</details>
@@ -39,6 +39,7 @@ const isCertificatesPage = Astro.url.pathname.startsWith('/certificates');
 
 <style>
 	.nav-links { position: relative; gap: clamp(0.75rem, 1.5vw, 1.25rem); }
+	.nav-link.is-active { color: var(--color-accent); font-weight: 600; }
 	.nav-indicator { position: absolute; bottom: 0; left: 0; height: 2px; background: var(--color-accent); transform-origin: left; pointer-events: none; }
 	.nav-indicator[hidden] { display: none; }
 	.nav-links[data-indicator-ready] .nav-link.is-active::after { display: none; }
@@ -53,7 +54,11 @@ const isCertificatesPage = Astro.url.pathname.startsWith('/certificates');
 		.mobile-menu summary { cursor: pointer; font-size: 0; list-style: none; }
 		.mobile-menu summary::-webkit-details-marker { display: none; }
 		.mobile-menu summary::after { display: none; }
+		.mobile-icon-button.is-active { color: var(--color-accent); }
 		.mobile-menu[open] summary, .mobile-icon-button:hover, .mobile-menu summary:hover { color: var(--color-accent); }
+		.mobile-menu-panel a { position: relative; }
+		.mobile-menu-panel a.is-active { background: var(--color-sage); color: var(--color-ink); font-weight: 600; }
+		.mobile-menu-panel a.is-active::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 3px; background: var(--color-accent); }
 		.visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 	}
 	button[data-open-contact] { font: inherit; cursor: pointer; border: 0; }
