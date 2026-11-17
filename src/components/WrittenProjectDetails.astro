@@ -15,7 +15,7 @@ const nextProject = writtenProjects[(writtenProjects.findIndex(item => item.slug
 		<p class="project-summary">{project.summary}</p></div>
 		</div>
 		{project.note && <p class="learning-note">{project.note}</p>}
-		<dl class="project-facts"><div><dt>Scope</dt><dd>{project.kind}</dd></div>{project.stack.length > 0 && <div><dt>Built with</dt><dd>{project.stack.join(' · ')}</dd></div>}</dl>
+		<dl class="project-facts"><div><dt>Scope</dt><dd>{project.kind}</dd></div>{project.stack.length > 0 && <div><dt>Built with</dt><dd>{project.stack.join(' · ')}</dd></div>}<div><dt>Outcome</dt><dd>{project.outcome}</dd></div></dl>
 	</header>
 	<section class="project-overview" aria-labelledby="project-overview-title"><div><p class="field-label">Overview</p><h2 id="project-overview-title">The work</h2></div><p>{project.overview}</p></section>
 	<section class="project-features" aria-labelledby="project-features-title">
@@ -40,7 +40,7 @@ const nextProject = writtenProjects[(writtenProjects.findIndex(item => item.slug
 	h1 span { color: var(--color-accent); }
 	.project-summary { max-width: 65ch; margin: 1rem 0 0; color: var(--color-muted); font-size: var(--text-lead, 1.05rem); line-height: var(--line-body, 1.7); }
 	.learning-note { max-width: 65ch; margin: 1rem 0 0; padding-left: 0.75rem; border-left: 2px solid var(--color-accent); font-size: 0.9rem; line-height: 1.6; }
-	.project-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; margin: 1rem 0 0; padding-top: 1rem; border-top: 1px solid var(--color-border); }
+	.project-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: 1.25rem; margin: 1rem 0 0; padding-top: 1rem; border-top: 1px solid var(--color-border); }
 	.project-facts > div { min-width: 0; }
 	.project-facts:has(> div:only-child) { grid-template-columns: minmax(0, 1fr); }
 	dt { margin-bottom: 0.35rem; color: var(--color-muted); font: 500 var(--text-label, 0.7rem)/1.5 var(--font-label, monospace); letter-spacing: var(--tracking-label, 0.08em); text-transform: uppercase; }

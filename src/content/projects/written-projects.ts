@@ -5,6 +5,7 @@ export interface WrittenProject {
 	kind: string;
 	stack: string[];
 	summary: string;
+	outcome: string;
 	overview: string;
 	note?: string;
 	experienceUrl?: string;
@@ -19,6 +20,7 @@ export const writtenProjects: WrittenProject[] = [
 		kind: 'Work contribution',
 		stack: [],
 		summary: 'Enhanced Treasury reports with transaction drill-downs, multi-branch filtering, and PDF and Excel exports.',
+		outcome: 'Made payment details and report exports easier to inspect across branches.',
 		overview: 'I enhanced Wilcon Depot’s existing Collection and Deposit Report to make payment details easier to inspect, align branch reporting, and simplify report downloads.',
 		experienceUrl: '/experience/#wilcon-depot',
 		features: [
@@ -34,6 +36,7 @@ export const writtenProjects: WrittenProject[] = [
 		kind: 'Work contribution · Accounting & dashboard modules',
 		stack: [],
 		summary: 'Automated account synchronization, validated accounting entries, and connected approvals with posting and a live closing dashboard.',
+		outcome: 'Connected synchronization, validation, approval, and posting in one closing workflow.',
 		overview: 'I worked on accounting and dashboard modules for the closing process, connecting account synchronization, validated entry, manager approval, and posting to the main accounting system.',
 		experienceUrl: '/experience/#wilcon-depot',
 		features: [
@@ -49,6 +52,7 @@ export const writtenProjects: WrittenProject[] = [
 		kind: 'Utility',
 		stack: ['Python', 'CLI'],
 		summary: 'A terminal utility for password-protecting and unlocking PDFs, with direct file paths, drag-and-drop input, and validation.',
+		outcome: 'Made PDF protection and unlocking repeatable from the terminal.',
 		overview: 'I built a Python command-line tool to encrypt and decrypt PDF files with password protection through an interactive terminal interface.',
 		features: [
 			{ title: 'File encryption', description: 'Implemented password-based encryption and decryption for PDF files.' },
@@ -63,6 +67,7 @@ export const writtenProjects: WrittenProject[] = [
 		kind: 'Learning project',
 		stack: ['Laravel 13', 'Laravel policies'],
 		summary: 'A full-stack Laravel learning project following the patient journey from appointment booking and triage through consultation and billing.',
+		outcome: 'Practiced a complete role-based workflow from booking through billing.',
 		overview: 'I built this system to learn Laravel 13 through a complete patient-flow management workflow and role-based authorization.',
 		note: 'Built for learning Laravel 13, not as a production hospital system.',
 		features: [
@@ -77,6 +82,7 @@ export const writtenProjects: WrittenProject[] = [
 		kind: 'Messaging & registration',
 		stack: ['Python', 'FastAPI', 'REST API', 'SQLite', 'Twilio', 'HTML', 'JavaScript'],
 		summary: 'Scheduled service reminders and member registration connected through a FastAPI backend, SQLite, and the Twilio API.',
+		outcome: 'Connected member registration records with scheduled service reminders.',
 		overview: 'I built a church SMS automation system that connects member registration and management with scheduled weekly service reminders.',
 		features: [
 			{ title: 'Automated SMS reminders', description: 'Scheduled weekly service reminders using Python and the Twilio API.' },

@@ -16,6 +16,7 @@ import ScreenshotViewer from './ScreenshotViewer.astro';
 		<dl class="case-facts">
 			<div><dt>My role</dt><dd>{project.role}</dd></div>
 			<div><dt>Built with</dt><dd>{project.stack.join(' · ')}</dd></div>
+			<div><dt>Outcome</dt><dd>{project.outcome}</dd></div>
 		</dl>
 	</header>
 	<nav class="case-navigation" aria-label="Case study sections"><a href="#project-overview">Overview <span aria-hidden="true">↓</span></a><a href="#project-capabilities">What I built <span aria-hidden="true">↓</span></a><a href="#project-screens">Screens <span aria-hidden="true">↓</span></a></nav>
@@ -51,7 +52,7 @@ import ScreenshotViewer from './ScreenshotViewer.astro';
 	h1 em { display: inline; padding: 0; background: none; color: var(--color-accent); }
 	.case-summary { max-width: 60ch; margin: 1rem 0; font-size: var(--text-lead, 1.05rem); line-height: var(--line-body, 1.7); }
 	.live-link { display: inline-flex; align-items: center; gap: 0.75rem; min-height: 44px; margin-bottom: 1rem; font-size: 0.9rem; text-decoration: underline; text-underline-offset: 0.25em; }
-	.case-facts { display: grid; grid-template-columns: minmax(0, 0.6fr) minmax(0, 1.4fr); gap: 1rem 2rem; margin: 1rem 0 0; padding-top: 1rem; border-top: 1px solid var(--color-border); }
+	.case-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: 1rem 1.5rem; margin: 1rem 0 0; padding-top: 1rem; border-top: 1px solid var(--color-border); }
 	dt { margin-bottom: 0.35rem; color: var(--color-muted); font: 500 var(--text-label, 0.7rem)/1.5 var(--font-label, monospace); letter-spacing: var(--tracking-label, 0.08em); text-transform: uppercase; }
 	dd { margin: 0; font-size: var(--text-meta, 0.8rem); line-height: 1.7; }
 	.case-navigation { display: flex; flex-wrap: wrap; gap: 0.25rem 2rem; padding-block: 0.5rem; border-block: 1px solid var(--color-ink); }

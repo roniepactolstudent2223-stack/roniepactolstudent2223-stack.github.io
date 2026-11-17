@@ -5,6 +5,7 @@ export const churchAttendance = {
 	liveUrl: 'https://attendance.wohcaloocan.org/attendance/',
 	stack: ['Laravel (PHP)', 'Vue.js', 'MySQL', 'REST API', 'Buefy'],
 	summary: 'A church management system that connects QR check-in, attendance tracking, pastoral follow-up, and member administration.',
+	outcome: 'Replaced manual attendance logs with a connected check-in, records, and follow-up workflow.',
 	features: [
 		{ title: 'QR code check-in', description: 'Built a real-time scanning interface with Vue.js and REST APIs for instant check-ins, replacing manual logs and helping reduce entrance queues.', implementation: 'Vue.js scanning interface · REST API integration' },
 		{ title: 'Automated follow-up', description: 'Engineered a Laravel backend that analyzes weekly MySQL attendance records and flags members with consecutive absences for pastoral follow-up.', implementation: 'Laravel tracking logic · Weekly MySQL attendance records' },
