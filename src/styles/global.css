@@ -35,7 +35,6 @@ strong, b { font-weight: 600; }
 .nav-links { display: flex; align-items: center; font-size: 0.8125rem; }
 .nav-link { position: relative; padding-block: 0.65rem; }
 .nav-link.is-active::after { content: ""; position: absolute; inset: auto 0 0; height: 2px; background: var(--color-accent); }
-.nav-contact { min-height: var(--control-height); padding: 0.4rem 0.75rem; border-radius: 0.4rem; background: var(--color-ink); color: white; }
 .mobile-menu { display: none; position: relative; }
 .mobile-menu summary { cursor: pointer; list-style: none; }
 .mobile-menu summary::-webkit-details-marker { display: none; }

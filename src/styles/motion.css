@@ -107,13 +107,13 @@
 	}
 }
 
-:is(.case-link, .live-link, .organization-link, .project-link, .view-all, .nav-contact, .hero-actions a, .site-footer a, .explore-projects) [aria-hidden="true"]:not(svg) {
+:is(.case-link, .live-link, .organization-link, .project-link, .view-all, .hero-actions a, .site-footer a, .explore-projects) [aria-hidden="true"]:not(svg) {
 	display: inline-block;
 	transition: transform var(--motion-fast) var(--motion-ease);
 }
 
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-	:is(.case-link, .live-link, .organization-link, .project-link, .view-all, .nav-contact, .hero-actions a, .site-footer a):is(:hover, :focus-visible) [aria-hidden="true"]:not(svg) {
+	:is(.case-link, .live-link, .organization-link, .project-link, .view-all, .hero-actions a, .site-footer a):is(:hover, :focus-visible) [aria-hidden="true"]:not(svg) {
 		transform: translate(2px, -2px);
 	}
 

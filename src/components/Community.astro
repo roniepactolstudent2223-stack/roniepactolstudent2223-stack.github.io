@@ -28,7 +28,7 @@ const events = [
 
 <section class="community-intro page-intro page-intro--dark" aria-labelledby="community-title">
 	<div>
-		<h1 id="community-title">Community &amp;<br /> <em>volunteering.</em></h1>
+		<h1 id="community-title">Community &amp; <em>volunteering.</em></h1>
 	</div>
 	<p class="community-summary">I volunteer as an event photographer for local WordPress and open-source communities.</p>
 </section>
@@ -36,9 +36,15 @@ const events = [
 
 <div class="community-events">
 	{events.map((event, index) => (
-		<article class="community-event" id={event.id} aria-labelledby={`${event.id}-title`}>
+		<article class:list={['community-event', { 'lead-event': index === 0 }]} id={event.id} aria-labelledby={`${event.id}-title`}>
+			<figure>
+				<a href={`/images/${event.image}-1600.webp`} data-screenshot data-fit data-title={event.title} data-alt={event.alt} data-width="1600" data-height="900" target="_blank" rel="noopener noreferrer" aria-label={`View the ${event.title} group photo`}>
+					<img src={`/images/${event.image}-1600.webp`} srcset={`/images/${event.image}-800.webp 800w, /images/${event.image}-1600.webp 1600w`} sizes={index === 0 ? '(max-width: 760px) 92vw, (max-width: 1100px) 66vw, 720px' : '(max-width: 640px) 92vw, (max-width: 1100px) 46vw, 510px'} width="1600" height="900" alt={event.alt} loading={index === 0 ? 'eager' : 'lazy'} decoding="async" />
+					<span class="photo-action">View photo <span aria-hidden="true">↗</span></span>
+				</a>
+			</figure>
 			<div class="event-copy">
-				<div class="event-dateline"><span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><time datetime={event.datetime}>{event.date}</time></div>
+				<time class="field-label" datetime={event.datetime}>{event.date}</time>
 				<h2 id={`${event.id}-title`}>{event.title}</h2>
 				<p class="event-description">{event.description}</p>
 				<details class="event-context">
@@ -47,12 +53,6 @@ const events = [
 					<dl><dt>{event.supportLabel}</dt><dd>{event.supporters}</dd></dl>
 				</details>
 			</div>
-			<figure>
-				<a href={`/images/${event.image}-1600.webp`} data-screenshot data-fit data-title={event.title} data-alt={event.alt} data-width="1600" data-height="900" target="_blank" rel="noopener noreferrer" aria-label={`View the ${event.title} group photo`}>
-					<img src={`/images/${event.image}-1600.webp`} srcset={`/images/${event.image}-800.webp 800w, /images/${event.image}-1600.webp 1600w`} sizes="(max-width: 900px) calc(100vw - 2rem), 60vw" width="1600" height="900" alt={event.alt} loading={index === 0 ? 'eager' : 'lazy'} decoding="async" />
-				</a>
-				<figcaption><span><span class="caption-label">Group photograph</span>{event.title}</span><a href={`/images/${event.image}-1600.webp`} data-screenshot data-fit data-title={event.title} data-alt={event.alt} data-width="1600" data-height="900" target="_blank" rel="noopener noreferrer" aria-label={`View ${event.title} photo`}>View photo <span aria-hidden="true">↗</span></a></figcaption>
-			</figure>
 		</article>
 	))}
 </div>
@@ -64,14 +64,14 @@ const events = [
 	.community-intro h1 { max-width: 18ch; line-height: 1.06; }
 	.community-intro em { display: inline; padding: 0; background: none; color: var(--color-accent); }
 	.community-summary { max-width: 40ch; margin: 0; font-size: var(--text-body); line-height: var(--line-body); }
-	.community-event { display: grid; grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr); align-items: start; gap: 1.75rem; padding-block: 2.25rem; border-bottom: 1px solid var(--color-border); }
-	.community-event:last-child { border-bottom: 0; }
+	.community-events { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.5rem, 4vw, 2.5rem); padding-block: 1.5rem 2.5rem; }
+	.community-event { min-width: 0; }
+	.lead-event { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr); align-items: center; gap: 1.25rem; padding: clamp(0.75rem, 2vw, 1.25rem); background: var(--color-tint); }
 	.event-copy { min-width: 0; }
-	.event-dateline { display: flex; align-items: baseline; gap: 0.65rem; font-family: var(--font-label); font-size: var(--text-label); letter-spacing: 0.04em; line-height: 1.6; text-transform: uppercase; }
-	.event-dateline > span { color: var(--color-accent); }
-	time { color: var(--color-muted); }
-	h2 { margin: 0.8rem 0 0; max-width: 24ch; font-family: var(--font-display); font-weight: 500; font-size: var(--text-section); line-height: 1.15; }
-	.event-description { margin: 0.85rem 0 0; font-size: var(--text-body); line-height: var(--line-body); }
+	.community-event:not(.lead-event) .event-copy { margin-top: 0.85rem; }
+	time { color: var(--color-accent); }
+	h2 { margin: 0; max-width: 26ch; font-size: var(--text-section); line-height: 1.15; }
+	.event-description { max-width: 58ch; margin: 0.65rem 0 0; color: var(--color-muted); font-size: 0.95rem; line-height: var(--line-body); }
 	.event-context { margin-top: 0.5rem; font-size: var(--text-meta); line-height: var(--line-body); }
 	.event-context summary { min-height: 44px; padding-block: 0.6rem; cursor: pointer; text-decoration: underline; text-underline-offset: 0.25em; }
 	.event-context p { margin: 0 0 0.75rem; color: var(--color-muted); }
@@ -79,24 +79,20 @@ const events = [
 	dt { color: var(--color-muted); font-family: var(--font-label); font-size: var(--text-label); letter-spacing: var(--tracking-label); text-transform: uppercase; }
 	dd { margin: 0.25rem 0 0; }
 	figure { min-width: 0; margin: 0; }
-	figure > a { display: block; padding: 0.35rem; background: var(--color-paper); border: 1px solid var(--color-border); }
+	figure > a { display: block; position: relative; background: var(--color-paper); }
 	figure img { display: block; width: 100%; height: auto; }
-	figcaption { display: flex; justify-content: space-between; gap: 0.75rem; align-items: start; padding-top: 0.65rem; color: var(--color-muted); font-size: var(--text-meta); line-height: 1.5; }
-	.caption-label { display: block; margin-bottom: 0.25rem; color: var(--color-olive); font-family: var(--font-label); font-size: var(--text-label); letter-spacing: 0.04em; text-transform: uppercase; }
-	figcaption a { display: inline-flex; align-items: center; min-height: 44px; flex-shrink: 0; gap: 0.35rem; color: var(--color-ink); text-decoration: underline; text-underline-offset: 0.25em; }
+	.photo-action { position: absolute; inset: auto 0.5rem 0.5rem auto; display: inline-flex; gap: 0.4rem; align-items: center; padding: 0.35rem 0.6rem; background: var(--color-paper); color: var(--color-ink); font-size: var(--text-meta); font-weight: 500; }
+	figure > a:is(:hover, :focus-visible) .photo-action { background: var(--color-ink); color: var(--color-paper); }
+	@media (prefers-reduced-motion: no-preference) {
+		.photo-action { transition: background-color var(--motion-fast), color var(--motion-fast); }
+	}
 	@media (max-width: 900px) {
 		.community-intro { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
 		.community-summary { max-width: 60ch; }
-		.community-event { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
-		h2 { max-width: none; }
-		.event-description { max-width: 65ch; }
 	}
+	@media (max-width: 760px) { .lead-event { grid-template-columns: minmax(0, 1fr); } }
 	@media (max-width: 640px) {
 		.community-intro h1 { font-size: var(--mobile-title); line-height: 1.15; }
-		.community-kicker { margin-bottom: 0.85rem; }
-		.community-summary, .event-description { font-size: var(--mobile-body); line-height: var(--line-body); }
-		.community-event { padding-block: 1.5rem; }
-		.event-description { margin-top: 0.65rem; }
-		figcaption { flex-wrap: wrap; gap: 0 0.5rem; }
+		.community-events { grid-template-columns: minmax(0, 1fr); }
 	}
 </style>

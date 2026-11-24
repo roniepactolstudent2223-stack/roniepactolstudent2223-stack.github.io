@@ -78,6 +78,8 @@
 	.attachment-list :global(input::file-selector-button) { margin-right: 0.5rem; padding: 0.35rem 0.5rem; border: 1px solid var(--color-control-border); background: var(--color-paper); color: var(--color-ink); cursor: pointer; }
 	.add-attachment, .attachment-list :global(button) { min-height: var(--control-height); padding: 0; border: 0; background: none; color: var(--color-ink); font: inherit; font-size: 0.8rem; text-decoration: underline; text-underline-offset: 0.25em; cursor: pointer; }
 	.add-attachment[hidden] { display: none; }
-	.send-message { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; min-height: var(--control-height); padding: 0.45rem 0.7rem; border: 0; border-radius: 0.25rem; background: var(--color-ink); color: white; font-family: var(--font-ui); font-size: 0.9rem; font-weight: 500; line-height: 1.45; cursor: pointer; }
+	.send-message { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; min-height: var(--control-height); padding: 0.45rem 0.7rem; border: 0; border-radius: 0.25rem; background: var(--color-olive); color: var(--color-paper); font-family: var(--font-ui); font-size: 0.9rem; font-weight: 500; line-height: 1.45; cursor: pointer; }
+	.send-message:hover { background: #4f5944; }
+	@media (min-width: 480px) { .send-message { justify-self: start; } }
 	@media (max-width: 479px) { .sender-fields { grid-template-columns: minmax(0, 1fr); gap: 0.75rem; } }
 </style>

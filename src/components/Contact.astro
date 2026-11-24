@@ -1,27 +1,15 @@
 ---
 import MessageForm from './MessageForm.astro';
-interface Props {
-	resumeUrl?: string;
-}
-const { resumeUrl } = Astro.props;
 ---
 
 <dialog class="contact-modal" id="contact" aria-labelledby="contact-title" transition:persist="contact-dialog" transition:animate="none">
 	<form method="dialog" class="modal-toolbar"><h2 id="contact-title">Message<span aria-hidden="true">.</span></h2><button class="close-contact" type="submit" aria-label="Close message" autofocus><span aria-hidden="true">×</span></button></form>
 	<div class="contact-grid">
-		<div class="contact-intro">
-			<p class="contact-availability">If you have any questions or concerns, please don't hesitate to reach out. I'd be more than happy to help!</p>
-		</div>
 		<div class="message-content">
 		<MessageForm />
 		<details class="other-contact-methods">
 			<summary>Other ways to reach me</summary>
 			<p class="contact-location">Quezon City, Metro Manila</p>
-			{resumeUrl ? (
-				<a class="resume-link" href={resumeUrl} target="_blank" rel="noopener noreferrer">Resume (Google Doc) <span aria-hidden="true">↗</span></a>
-			) : (
-				<p class="resume-pending">Resume (Google Doc)<span>Link coming soon</span></p>
-			)}
 		<div class="contact-directory">
 			<div class="contact-row">
 				<h3>Phone / SMS</h3>
@@ -100,22 +88,18 @@ const { resumeUrl } = Astro.props;
 </script>
 
 <style>
-	.contact-modal { --dialog-space: clamp(0.875rem, 3vw, 1.5rem); box-sizing: border-box; width: min(36rem, calc(100% - 1.5rem)); max-width: none; max-height: calc(100dvh - 1.5rem); margin: auto; padding: 0; border: 1px solid var(--color-border); border-radius: 0.5rem; background: var(--color-paper); color: var(--color-ink); overflow: hidden; box-shadow: 0 1.5rem 5rem #0003; }
+	.contact-modal { --dialog-space: clamp(0.875rem, 2.5vw, 1.125rem); box-sizing: border-box; width: min(30rem, calc(100% - 1.5rem)); max-width: none; max-height: calc(100dvh - 1.5rem); margin: auto; padding: 0; border: 1px solid var(--color-border); border-radius: 0.5rem; background: var(--color-paper); color: var(--color-ink); overflow: hidden; box-shadow: 0 1rem 3rem #20222326; }
 	.contact-modal[open] { display: grid; grid-template-rows: auto minmax(0, 1fr); }
-	.contact-modal::backdrop { background: rgb(20 22 23 / 55%); }
+	.contact-modal::backdrop { background: rgb(32 34 35 / 38%); }
 	:global(html:has(.contact-modal[open])) { overflow: hidden; }
-	.modal-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; margin: 0; padding: 0.75rem var(--dialog-space); border-bottom: 1px solid var(--color-border); background: var(--color-intro-surface); color: var(--color-intro-ink); }
-	.modal-toolbar h2 { min-width: 0; margin: 0; font-family: var(--font-display); font-size: clamp(1.75rem, 1.15rem + 2vw, 2.25rem); font-weight: 500; letter-spacing: -0.025em; line-height: 1.2; overflow-wrap: anywhere; }
-	.modal-toolbar h2 span { color: var(--color-intro-accent); }
-	.close-contact { display: inline-grid; place-items: center; width: 2.5rem; height: 2.5rem; min-height: 44px; padding: 0; border: 0; border-radius: 50%; background: transparent; color: inherit; font: inherit; cursor: pointer; transition: background-color var(--motion-fast), color var(--motion-fast); }
-	.close-contact:hover { background: rgb(255 255 255 / 12%); color: var(--color-intro-accent); }
-	.close-contact span { font-size: 1.7rem; font-weight: 400; line-height: 1; }
+	.modal-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; margin: 0; padding: 0.25rem var(--dialog-space); background: var(--color-sage); }
+	.modal-toolbar h2 { min-width: 0; margin: 0; font-size: 1.65rem; line-height: 1.2; }
+	.modal-toolbar h2 span { color: var(--color-accent); }
+	.close-contact { display: inline-grid; place-items: center; flex: none; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 50%; background: transparent; color: inherit; cursor: pointer; }
+	.close-contact:hover { background: rgb(32 34 35 / 8%); }
+	.close-contact span { font-size: 1.45rem; font-weight: 400; line-height: 1; }
 	.contact-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.75rem; min-height: 0; padding: 0.75rem var(--dialog-space) max(var(--dialog-space), env(safe-area-inset-bottom)); overflow-y: auto; overscroll-behavior: contain; scroll-padding-block: 0.75rem; }
 	.contact-location { margin: 0 0 0.5rem; font-size: var(--text-meta); color: var(--color-muted); }
-	.contact-availability { margin: 0; color: var(--color-muted); font-size: 0.9rem; line-height: 1.5; }
-	.resume-link { display: inline-flex; align-items: center; gap: 1.25rem; min-height: 44px; margin-bottom: 0.75rem; border-bottom: 1px solid var(--color-ink); font-size: 0.85rem; font-weight: 600; }
-	.resume-pending { margin: 2rem 0 0; color: var(--color-muted); font-size: 0.9rem; }
-	.resume-pending span { display: block; margin-top: 0.35rem; font-size: 0.8rem; }
 	.contact-directory { min-width: 0; }
 	.contact-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; column-gap: 0.75rem; padding: 0.5rem 0 0.75rem; border-top: 1px solid var(--color-border); }
 	.contact-row:first-child { border-top-color: var(--color-ink); }
@@ -125,17 +109,12 @@ const { resumeUrl } = Astro.props;
 	.contact-actions a, .contact-actions button { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; min-width: var(--control-height); min-height: var(--control-height); padding: 0.2rem 0; font: inherit; font-size: 0.8rem; font-weight: 600; border: 0; background: none; color: var(--color-ink); cursor: pointer; }
 	.contact-actions button[hidden] { display: none; }
 	.contact-actions button { color: var(--color-muted); }
-	.contact-actions :is(a, button):hover, .resume-link:hover { text-decoration: underline; text-underline-offset: 0.3em; }
+	.contact-actions :is(a, button):hover { text-decoration: underline; text-underline-offset: 0.3em; }
 	.contact-modal :is(a, button, summary):focus-visible { outline: 2px solid var(--color-ink); outline-offset: 3px; }
-	.modal-toolbar button:focus-visible { outline-color: var(--color-intro-ink); }
+	.modal-toolbar button:focus-visible { outline-offset: -3px; }
 	.message-content { min-width: 0; }
-	.other-contact-methods { margin-top: 1rem; border-top: 1px solid var(--color-border); }
+	.other-contact-methods { margin-top: 0.75rem; border-top: 1px solid var(--color-border); }
 	.other-contact-methods summary { min-height: 44px; padding-block: 0.75rem; font-size: var(--text-meta); font-weight: 500; cursor: pointer; }
 	.copy-status { margin: 0; color: var(--color-muted); font-size: 0.8rem; line-height: 1.5; }
 	.copy-status:not(:empty) { padding-top: 0.5rem; }
-	@media (max-width: 479px) {
-		.modal-toolbar { padding: 0.55rem 0.875rem; }
-		.contact-grid { padding-inline: 0.875rem; }
-		.modal-toolbar h2 { font-size: 1.75rem; }
-	}
 </style>
