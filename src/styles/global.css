@@ -5,6 +5,7 @@
 :root {
 	font-synthesis: none;
 	--page-gutter: clamp(1rem, 4vw, 3rem);
+	--page-width: clamp(850px, calc(25vw + 600px), 1040px);
 	--mobile-gutter: var(--page-gutter);
 	--mobile-body: 0.95rem;
 	--mobile-title: clamp(1.85rem, 1.3rem + 2.5vw, 2.25rem);
@@ -23,7 +24,7 @@ h1 { margin: 0; font-size: clamp(2rem, 4vw, 3.5rem); line-height: 1.1; overflow-
 h1 em, h2 em { font-style: italic; font-weight: 400; }
 strong, b { font-weight: 600; }
 
-.site-header, .page-shell, .site-footer { box-sizing: border-box; width: min(calc(100% - var(--page-gutter) * 2), 850px); margin-inline: auto; }
+.site-header, .page-shell, .site-footer { box-sizing: border-box; width: min(calc(100% - var(--page-gutter) * 2), var(--page-width)); margin-inline: auto; }
 .site-header { position: sticky; top: 0; z-index: 20; border-bottom: 1px solid var(--color-ink); background: var(--color-surface); }
 .site-nav { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 3rem; }
 .wordmark { display: inline-flex; align-items: center; min-height: 44px; flex: none; font: 500 1.6rem/1 var(--font-display); white-space: nowrap; }
@@ -70,7 +71,7 @@ html[data-page-loading] .navigation-progress { opacity: 1; animation: navigation
 a.is-loading { cursor: progress; }
 @keyframes navigation-pulse { from { opacity: 0.35; } to { opacity: 1; } }
 
-@media (min-width: 901px) { html { font-size: 93.75%; } }
+@media (min-width: 901px) { html { font-size: clamp(93.75%, calc(87.5% + 0.09vw), 100%); } }
 @media (max-width: 900px) { .site-nav { min-height: 3.5rem; } }
 @media (max-width: 760px) {
 	.site-header, .page-shell, .site-footer { width: 100%; padding-inline: var(--page-gutter); }

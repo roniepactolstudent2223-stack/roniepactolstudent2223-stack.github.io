@@ -23,7 +23,7 @@ const groups = [
 			</header>
 			<a class="featured-preview-link" href="/projects/church-attendance/#project-screens" aria-label="Inspect screenshots of the Church Attendance and Management System">
 				<figure class="featured-preview">
-					<Image src={dashboard} widths={[480, 800, 1200]} sizes="(max-width: 760px) calc(100vw - 2rem), 850px" format="webp" alt={project.screenshots[0].alt} fetchpriority="high" loading="eager" />
+					<Image src={dashboard} widths={[480, 800, 1200]} sizes="(max-width: 1000px) 92vw, clamp(850px, calc(25vw + 600px), 1040px)" format="webp" alt={project.screenshots[0].alt} fetchpriority="high" loading="eager" />
 					<figcaption><span>{project.stack.slice(0, 3).join(' · ')}</span><span class="preview-action">Inspect screenshots <span aria-hidden="true">↗</span></span></figcaption>
 				</figure>
 			</a>
