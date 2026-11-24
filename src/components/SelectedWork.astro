@@ -36,7 +36,7 @@ const contributions = writtenProjects.filter(item => item.experienceUrl);
 <style>
 	.selected-work { padding-block: 2rem; border-bottom: 1px solid var(--color-ink); }
 	.work-heading { display: flex; justify-content: space-between; align-items: end; gap: 1rem; margin-bottom: 1.5rem; }
-	h2 { margin: 0; font-size: 1.85rem; line-height: 1.15; }
+	h2 { margin: 0; font-size: var(--text-section); line-height: 1.15; }
 	.work-feature { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); align-items: center; gap: clamp(1.25rem, 3vw, 2.5rem); }
 	.work-plate { min-width: 0; margin: 0; padding: clamp(0.5rem, 1.25vw, 1rem); border: 1px solid var(--color-border); background: var(--color-tint); }
 	.work-preview { display: block; width: 100%; height: auto; border: 1px solid var(--color-border); background: var(--color-paper); box-shadow: 0 4px 12px #20222314; }
@@ -66,7 +66,6 @@ const contributions = writtenProjects.filter(item => item.experienceUrl);
 	}
 	@media (max-width: 760px) {
 		.selected-work { padding-block: 1.5rem; }
-		h2 { font-size: 1.6rem; }
 		.work-feature { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
 		.work-contributions { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
 		.work-copy > p:not(.eyebrow), .contribution > p:last-child { font-size: var(--mobile-body); }

@@ -64,7 +64,7 @@ const events = [
 <style>
 	.community-intro { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); align-items: end; gap: 1.5rem; }
 	.community-kicker { margin: 0 0 1.2rem; font-family: var(--font-label); font-size: var(--text-label); line-height: 1.6; letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--color-intro-muted); }
-	.community-intro h1 { max-width: 18ch; font-family: var(--font-display); font-size: clamp(2.5rem, 4vw, 3.25rem); font-weight: 500; line-height: 1.06; }
+	.community-intro h1 { max-width: 18ch; line-height: 1.06; }
 	.community-intro em { display: inline; padding: 0; background: none; color: var(--color-accent); }
 	.community-role { margin: 1.5rem 0 0; color: var(--color-ink); font-size: var(--text-meta); line-height: 1.6; }
 	.community-role > span { display: block; margin-bottom: 0.35rem; color: var(--color-muted); font-family: var(--font-label); font-size: var(--text-label); letter-spacing: var(--tracking-label); text-transform: uppercase; }
@@ -102,7 +102,6 @@ const events = [
 		.community-role { margin-top: 1rem; }
 		.community-summary, .event-description { font-size: var(--mobile-body); line-height: var(--line-body); }
 		.community-event { padding-block: 1.5rem; }
-		h2 { font-size: clamp(1.35rem, 1rem + 2vw, 1.75rem); }
 		.event-description { margin-top: 0.65rem; }
 		figcaption { flex-wrap: wrap; gap: 0 0.5rem; }
 	}

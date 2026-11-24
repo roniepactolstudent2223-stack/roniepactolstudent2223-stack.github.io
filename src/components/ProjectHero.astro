@@ -14,7 +14,7 @@ const { total } = Astro.props;
 <style>
 	.projects-hero { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr); align-items: end; gap: 1.5rem 2rem; padding: 2rem 1.5rem 1.5rem; border: 0; border-bottom: 3px solid var(--color-accent); background: #eeede7; }
 	.projects-eyebrow { margin: 0 0 1rem; color: var(--color-olive); }
-	h1 { margin: 0; max-width: 23ch; font-size: clamp(2.1rem, 3.7vw, 2.75rem); font-weight: 500; line-height: 1.08; }
+	h1 { max-width: 23ch; line-height: 1.08; }
 	h1 em { display: inline; padding: 0; background: none; color: var(--color-accent); }
 	.projects-scope { min-width: 0; }
 	.projects-introduction { max-width: 42ch; margin: 0.65rem 0 0; color: var(--color-muted); font-size: var(--text-body, 0.95rem); line-height: var(--line-body, 1.7); }

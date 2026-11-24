@@ -64,14 +64,13 @@
 <style>
 	.message-form { display: grid; gap: 0.75rem; min-width: 0; }
 	.sender-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.6rem; }
-	label { display: grid; gap: 0.3rem; color: var(--color-muted); font-family: var(--font-label); font-size: 0.7rem; font-weight: 500; line-height: 1.5; letter-spacing: 0.08em; text-transform: uppercase; }
-	label span { color: var(--color-muted); }
+	label { display: grid; gap: 0.3rem; color: var(--color-ink); font-family: var(--font-ui); font-size: var(--text-meta); font-weight: 600; line-height: 1.45; }
 	input:not([type="hidden"]), textarea { box-sizing: border-box; width: 100%; min-width: 0; min-height: 42px; padding: 0.5rem 0.65rem; border: 1px solid var(--color-control-border); border-radius: 0.25rem; background: var(--color-surface); color: var(--color-ink); font-family: var(--font-ui); font-size: 1rem; font-weight: 400; line-height: 1.4; letter-spacing: normal; text-transform: none; }
 	textarea { resize: vertical; }
 	input:focus-visible, textarea:focus-visible, button:focus-visible { outline: 2px solid var(--color-ink); outline-offset: 3px; }
 	.attachments p, .delivery-note { margin: 0.35rem 0 0; color: var(--color-muted); font-size: var(--text-meta); line-height: 1.6; overflow-wrap: anywhere; }
-	.attachments summary { min-height: 44px; padding-block: 0.65rem; font-family: var(--font-label); font-size: var(--text-label); letter-spacing: 0.04em; text-transform: uppercase; cursor: pointer; }
-	.attachment-count { color: var(--color-muted); }
+	.attachments summary { min-height: 44px; padding-block: 0.65rem; font-size: var(--text-meta); font-weight: 500; cursor: pointer; }
+	.attachment-count { color: var(--color-muted); font-weight: 400; }
 	.attachment-list { display: grid; gap: 0.5rem; margin-top: 0.6rem; }
 	/* Added file fields share these rules without requiring Astro scope attributes. */
 	.attachment-list :global(.attachment-field) { display: flex; align-items: center; gap: 0.5rem; min-width: 0; }

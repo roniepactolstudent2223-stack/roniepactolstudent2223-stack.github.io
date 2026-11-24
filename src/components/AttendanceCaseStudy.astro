@@ -16,7 +16,7 @@ import ScreenshotViewer from './ScreenshotViewer.astro';
 		<dl class="case-facts">
 			<div><dt>My role</dt><dd>{project.role}</dd></div>
 			<div><dt>Built with</dt><dd>{project.stack.join(' · ')}</dd></div>
-			<div><dt>Outcome</dt><dd>{project.outcome}</dd></div>
+			<div class="case-outcome"><dt>Outcome</dt><dd>{project.outcome}</dd></div>
 		</dl>
 	</header>
 	<nav class="case-navigation" aria-label="Case study sections"><a href="#project-overview">Technical decision <span aria-hidden="true">↓</span></a><a href="#project-capabilities">What I built <span aria-hidden="true">↓</span></a><a href="#project-screens">Screens <span aria-hidden="true">↓</span></a></nav>
@@ -48,13 +48,15 @@ import ScreenshotViewer from './ScreenshotViewer.astro';
 	.case-intro { position: relative; padding: 1.5rem; border: 1px solid var(--color-border); border-top: 3px solid var(--color-accent); background: #eeede7; }
 	.case-context { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.4rem 0.75rem; margin: 0 0 1.5rem; color: var(--color-muted); font-size: var(--text-meta, 0.8rem); }
 	.case-type { margin: 0 0 0.65rem; }
-	h1 { max-width: 26ch; font-size: clamp(2.2rem, 4vw, 3rem); font-weight: 500; line-height: 1.08; }
+	h1 { max-width: 26ch; line-height: 1.08; }
 	h1 em { display: inline; padding: 0; background: none; color: var(--color-accent); }
 	.case-summary { max-width: 60ch; margin: 1rem 0; font-size: var(--text-lead, 1.05rem); line-height: var(--line-body, 1.7); }
 	.live-link { display: inline-flex; align-items: center; gap: 0.75rem; min-height: 44px; margin-bottom: 1rem; font-size: 0.9rem; text-decoration: underline; text-underline-offset: 0.25em; }
 	.case-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: 1rem 1.5rem; margin: 1rem 0 0; padding-top: 1rem; border-top: 1px solid var(--color-border); }
 	dt { margin-bottom: 0.35rem; color: var(--color-muted); font: 500 var(--text-label, 0.7rem)/1.5 var(--font-label, monospace); letter-spacing: var(--tracking-label, 0.08em); text-transform: uppercase; }
 	dd { margin: 0; font-size: var(--text-meta, 0.8rem); line-height: 1.7; }
+	.case-outcome dt { color: var(--color-accent); }
+	.case-outcome dd { font-weight: 600; }
 	.case-navigation { display: flex; flex-wrap: wrap; gap: 0.25rem 2rem; padding-block: 0.5rem; border-block: 1px solid var(--color-ink); }
 	.case-navigation a { display: inline-flex; align-items: center; gap: 0.75rem; min-height: 44px; font-size: 0.85rem; }
 	.case-navigation a:hover { text-decoration: underline; text-underline-offset: 0.25em; }
@@ -91,9 +93,7 @@ import ScreenshotViewer from './ScreenshotViewer.astro';
 	.case-end { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem 2rem; padding-top: 1rem; border-top: 1px solid var(--color-ink); }
 	@media (min-width: 901px) {
 		.case-heading { padding-block: 1rem 1.5rem; }
-		h1 { font-size: 2.25rem; line-height: 1.12; }
 		.case-summary { margin-block: 0.75rem; }
-		h2 { font-size: 1.75rem; }
 		.case-overview { gap: 1rem 1.5rem; padding-block: 1.5rem; }
 		.capability { gap: 0.75rem 1.5rem; padding-block: 0.875rem; }
 		h3 { font-size: 1.1rem; }
@@ -109,11 +109,9 @@ import ScreenshotViewer from './ScreenshotViewer.astro';
 		.case-facts { grid-template-columns: minmax(0, 1fr); gap: 0.75rem; }
 		.case-facts > div { display: grid; grid-template-columns: 4.25rem minmax(0, 1fr); gap: 0.75rem; }
 		dt { margin: 0; line-height: 1.7; }
-		dd { font-size: 0.8rem; }
 		.case-navigation { gap: 0.25rem 1.25rem; }
 		.case-navigation a { font-size: 0.8rem; }
 		.case-overview, .capabilities-section { padding-block: 1.5rem; }
-		h2 { font-size: 1.5rem; }
 		.case-overview > div:last-child p, .capability > div > p:first-child { font-size: var(--mobile-body); line-height: 1.65; }
 		.capability { grid-template-columns: 1.25rem minmax(0, 1fr); gap: 0.5rem 0.65rem; padding-block: 1rem; }
 		.capability-number { grid-row: span 2; }

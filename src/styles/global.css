@@ -7,8 +7,8 @@
 	--page-gutter: clamp(1rem, 4vw, 3rem);
 	--page-width: clamp(850px, calc(25vw + 600px), 1040px);
 	--mobile-gutter: var(--page-gutter);
-	--mobile-body: 0.95rem;
-	--mobile-title: clamp(1.85rem, 1.3rem + 2.5vw, 2.25rem);
+	--mobile-body: var(--text-body);
+	--mobile-title: var(--text-page);
 	--mobile-space: 1.5rem;
 }
 
@@ -18,9 +18,9 @@ a { color: inherit; text-decoration: none; }
 button, a { -webkit-tap-highlight-color: transparent; }
 button { cursor: pointer; }
 :where(a, button, summary):focus-visible { outline: 2px solid var(--color-ink); outline-offset: 4px; }
-h1, h2 { font-family: var(--font-display); font-weight: 500; font-optical-sizing: auto; letter-spacing: -0.025em; }
+h1, h2 { font-family: var(--font-display); font-weight: 500; letter-spacing: -0.025em; text-wrap: balance; overflow-wrap: anywhere; }
 h3 { font-family: var(--font-ui); font-weight: 600; letter-spacing: -0.02em; }
-h1 { margin: 0; font-size: clamp(2rem, 4vw, 3.5rem); line-height: 1.1; overflow-wrap: anywhere; }
+h1 { margin: 0; font-size: var(--text-page); line-height: 1.1; }
 h1 em, h2 em { font-style: italic; font-weight: 400; }
 strong, b { font-weight: 600; }
 
@@ -58,7 +58,6 @@ strong, b { font-weight: 600; }
 
 /* Shared structure; each page owns its composition and surface. */
 .page-intro { min-width: 0; margin: 0; padding-block: 1.75rem; border-bottom: 1px solid var(--color-ink); }
-.page-intro h1 { text-wrap: balance; }
 .page-intro--dark { --color-ink: var(--color-intro-ink); --color-muted: var(--color-intro-muted); --color-accent: var(--color-intro-accent); --color-olive: var(--color-intro-muted); --color-border: #fbfaf759; padding: 2rem; border: 0; background: var(--color-intro-surface); color: var(--color-ink); }
 .page-intro--dark :focus-visible { outline-color: var(--color-intro-ink); }
 .about-section { padding-block: 1rem 2rem; }
