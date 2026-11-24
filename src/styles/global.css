@@ -60,8 +60,6 @@ strong, b { font-weight: 600; }
 .page-intro--dark { --color-ink: var(--color-intro-ink); --color-muted: var(--color-intro-muted); --color-accent: var(--color-intro-accent); --color-olive: var(--color-intro-muted); --color-border: #fbfaf759; padding: 2rem; border: 0; background: var(--color-intro-surface); color: var(--color-ink); }
 .page-intro--dark :focus-visible { outline-color: var(--color-intro-ink); }
 .about-section { padding-block: 1rem 2rem; }
-.site-footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem 1.5rem; padding-block: 1.25rem; border-top: 1px solid var(--color-border); color: var(--color-muted); font-size: 0.8rem; }
-.site-footer a { display: inline-flex; align-items: center; gap: 0.4rem; min-height: var(--control-height); color: var(--color-ink); text-decoration: underline; text-underline-offset: 0.25em; }
 
 /* Feedback follows actual page preparation and never obscures the clicked label. */
 .navigation-progress { position: fixed; inset: 0 0 auto; height: 2px; z-index: 100; background: var(--color-accent); opacity: 0; pointer-events: none; }
@@ -79,7 +77,6 @@ a.is-loading { cursor: progress; }
 	.page-intro h1 { font-size: var(--mobile-title); line-height: 1.15; }
 	.page-intro h1 br { display: none; }
 	.page-intro--dark { margin-inline: calc(var(--page-gutter) * -1); padding: 1.5rem var(--page-gutter); }
-	.site-footer { align-items: start; flex-direction: column; }
 }
 @media (prefers-reduced-motion: reduce) {
 	html[data-page-loading] .navigation-progress { animation: none; }
