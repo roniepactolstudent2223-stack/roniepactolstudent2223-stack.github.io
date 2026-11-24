@@ -1,31 +1,18 @@
 <section class="about-section" id="about" aria-labelledby="about-title">
 	<div class="about-profile">
-		<div class="profile-heading">
-			<p class="profile-label">The developer</p>
-			<h2 id="about-title">About me<span>.</span></h2>
-			<p class="profile-role">Freelance Full-Stack Developer</p>
-			<p class="profile-stack">Laravel · Vue.js · PHP · MySQL</p>
-		</div>
+		<h2 id="about-title">About me<span>.</span></h2>
 		<div class="profile-story">
-			<p>I build web systems that replace manual spreadsheets and paper sign-ins with validated workflows.</p>
-			<p>At Wilcon Depot, I worked on accounting and dashboard modules for the month-end closing process and enhanced the Treasury team’s Collection and Deposit Report.</p>
-			<p>I actively serve in the developer ministry at Word of Hope Caloocan, maintaining the church’s software and developing systems requested by its ministries. I also help organize church events and volunteer as a photographer, including for WordPress Philippines. <a class="community-link" href="/community/">See my community volunteering <span aria-hidden="true">↗</span></a></p>
+			<p>I’m a full-stack developer based in Quezon City. I work across interfaces, APIs, and databases, with a focus on the day-to-day tasks people need to complete.</p>
+			<p>At Word of Hope Caloocan, I maintain church software and build tools requested by ministry teams. One example is the attendance system, which connects QR check-in records with pastoral follow-up.</p>
+			<p>At Wilcon Depot, I contributed to accounting and dashboard modules for month-end closing and added transaction drill-downs to Treasury reports. Outside development, I help organize church events and volunteer as an event photographer.</p>
+			<a class="community-link" href="/community/">See my community volunteering <span aria-hidden="true">↗</span></a>
 		</div>
+		<dl class="background-list">
+			<div><dt class="field-label">Education</dt><dd>BS Information Technology<br /><span>Access Computer College · 2021–2025</span></dd></div>
+			<div><dt class="field-label">References</dt><dd>Available on request</dd></div>
+		</dl>
 	</div>
-	<div class="about-details">
-		<details class="background-details" open>
-			<summary>Background <span aria-hidden="true">+</span></summary>
-			<dl class="background-list">
-				<div><dt>Role</dt><dd>Freelance Full-Stack Developer</dd></div>
-				<div><dt>Ministry</dt><dd>Developer ministry at Word of Hope Caloocan — currently church software maintenance</dd></div>
-				<div><dt>Core stack</dt><dd>Laravel · Vue.js · PHP · MySQL · REST APIs</dd></div>
-				<div><dt>Experience</dt><dd>Wilcon Depot, Inc. (6 mos) · Word of Hope Caloocan</dd></div>
-				<div><dt>Education</dt><dd>BS Information Technology<br /><span>Access Computer College (2021–2025)</span></dd></div>
-				<div><dt>Location</dt><dd>Quezon City, Metro Manila</dd></div>
-				<div><dt>References</dt><dd>Available on request.</dd></div>
-			</dl>
-		</details>
-		<div class="skills-list">
+	<div class="skills-list">
 			<h3>Technical toolkit</h3>
 			<div class="skill-group"><h4>Backend</h4><ul><li>Laravel 7</li><li>PHP</li><li>Eloquent ORM</li><li>REST APIs</li></ul></div>
 			<div class="skill-group"><h4>Frontend</h4><ul><li>Vue.js 2</li><li>HTML</li><li>CSS</li><li>JavaScript</li></ul></div>
@@ -34,73 +21,30 @@
 			<div class="skill-group"><h4>Tools</h4><ul><li>Git</li><li>GitHub</li><li>System design</li><li>Obsidian (documentation &amp; planning)</li></ul></div>
 			<div class="skill-group"><h4>Soft skills</h4><ul><li>Strategic problem solving</li><li>Independent &amp; self-driven</li></ul></div>
 			<div class="skill-group"><h4>AI tooling</h4><ul><li>AI harness engineering using CLI</li><li>Prompt engineering</li></ul></div>
-		</div>
 	</div>
 </section>
 
 <style>
-	.about-section { padding-block: 2rem; }
-	.about-profile { display: grid; grid-template-columns: minmax(0, 0.65fr) minmax(0, 1.35fr); gap: 2rem; padding-bottom: 1.75rem; }
-	.profile-label { margin: 0 0 0.65rem; color: var(--color-olive); font-family: var(--font-label); font-size: var(--text-label); font-weight: 500; letter-spacing: var(--tracking-label); line-height: 1.7; text-transform: uppercase; }
-	.profile-heading h2 { margin: 0 0 0.85rem; font-family: var(--font-display); font-size: var(--text-section); font-weight: 500; letter-spacing: -0.025em; line-height: 1.1; }
-	.profile-heading h2 span { color: var(--color-accent); }
-	.profile-role { margin: 0; font-family: var(--font-ui); font-size: var(--text-meta); font-weight: 600; line-height: 1.65; }
-	.profile-stack { max-width: 23ch; margin: 0.5rem 0 0; color: var(--color-muted); font-size: var(--text-meta); line-height: 1.7; }
-	.profile-story p { max-width: 62ch; margin: 0 0 0.85rem; color: var(--color-muted); font-size: var(--text-body); line-height: var(--line-body); }
-	.profile-story p:first-child { color: var(--color-ink); font-size: var(--text-lead); line-height: 1.65; }
-	.profile-story p:last-child { margin-bottom: 0; }
+	.about-section { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr); align-items: start; gap: clamp(1.5rem, 4vw, 3rem); padding-block: 2rem 2.5rem; }
+	.about-profile h2 { margin: 0 0 1rem; font-size: var(--text-section); line-height: 1.1; }
+	.about-profile h2 span { color: var(--color-accent); }
+	.profile-story p { max-width: 58ch; margin: 0 0 0.7rem; color: var(--color-muted); font-size: 0.95rem; line-height: var(--line-body); }
+	.profile-story p:first-child { color: var(--color-ink); }
 	.community-link { display: inline-flex; align-items: center; gap: 0.35rem; min-height: 44px; color: var(--color-ink); font-size: var(--text-meta); text-decoration: underline; text-underline-offset: 0.25em; }
-	.about-details { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2rem; padding-top: 1.25rem; border-top: 1px solid var(--color-ink); }
-	.background-details { min-width: 0; }
-	.background-details summary, .about-details h3 { display: flex; align-items: center; justify-content: space-between; min-height: 44px; margin: 0 0 0.75rem; font-family: var(--font-ui); font-size: 1rem; font-weight: 600; letter-spacing: -0.015em; line-height: 1.5; }
-	.background-details summary { cursor: pointer; list-style: none; }
-	.background-details summary::-webkit-details-marker { display: none; }
-	.background-details summary span { color: var(--color-muted); font: 400 1.2rem var(--font-ui); }
-	.background-details[open] summary span { transform: rotate(45deg); }
-	.background-details summary:focus-visible { outline: 2px solid var(--color-ink); outline-offset: 3px; }
-	.background-list { margin: 0; }
-	.background-list > div { display: grid; grid-template-columns: 5.7rem minmax(0, 1fr); gap: 0.75rem; padding-block: 0.8rem; border-top: 1px solid var(--color-border); }
-	dt { padding-top: 0.1rem; color: var(--color-olive); font-family: var(--font-label); font-size: var(--text-label); font-weight: 500; line-height: 1.75; letter-spacing: 0.035em; text-transform: uppercase; }
-	dd { margin: 0; font-size: 0.875rem; line-height: 1.7; overflow-wrap: anywhere; }
+	.background-list { display: flex; flex-wrap: wrap; gap: 0.75rem 1.5rem; margin: 0.75rem 0 0; }
+	dd { margin: 0; font-size: var(--text-meta); line-height: 1.55; }
 	dd span { color: var(--color-muted); }
-	dd a { display: inline-flex; align-items: center; min-height: 44px; text-decoration: underline; text-underline-offset: 0.25em; }
-	dd a:focus-visible { outline: 2px solid var(--color-ink); outline-offset: 3px; }
-	.skills-list { min-width: 0; }
-	.skill-group { display: grid; grid-template-columns: 5.7rem minmax(0, 1fr); gap: 0.75rem; padding-block: 0.8rem; border-top: 1px solid var(--color-border); }
+	.skills-list { min-width: 0; padding: clamp(1rem, 2.3vw, 1.5rem); background: var(--color-sage); }
+	.skills-list h3 { margin: 0 0 0.75rem; font-family: var(--font-display); font-size: 1.5rem; font-weight: 500; line-height: 1.2; }
+	.skill-group { display: grid; grid-template-columns: 5.25rem minmax(0, 1fr); gap: 0.65rem; padding-block: 0.35rem; }
 	.skill-group h4 { margin: 0; padding-top: 0.1rem; color: var(--color-olive); font-family: var(--font-label); font-size: var(--text-label); font-weight: 500; letter-spacing: 0.035em; line-height: 1.75; text-transform: uppercase; }
 	.skill-group ul { display: flex; flex-wrap: wrap; align-content: start; gap: 0.2rem 0.65rem; margin: 0; padding: 0; list-style: none; font-size: 0.875rem; line-height: 1.7; overflow-wrap: anywhere; }
-	.skill-group li { display: inline; }
-	.skill-group li:not(:last-child)::after { content: " /"; margin-left: 0.35rem; color: var(--color-border); }
 
 	@media (max-width: 760px) {
-		.about-section { padding-block: 1.5rem; }
-		.about-profile { grid-template-columns: minmax(0, 1fr); gap: 1rem; padding-bottom: 1.5rem; }
-		.profile-heading h2 { font-size: var(--text-section); margin-bottom: 0.65rem; }
-		.profile-stack { max-width: none; margin-top: 0.2rem; }
-		.profile-story p, .profile-story p:first-child { font-size: var(--mobile-body); }
-		.about-details { grid-template-columns: minmax(0, 1fr); gap: 1.25rem; padding-top: 1rem; }
-		.background-details summary, .about-details h3 { font-size: 1rem; margin-bottom: 0.5rem; }
-		.background-details:not([open]) summary { margin-bottom: 0; }
-		.background-list > div, .skill-group { grid-template-columns: 5.7rem minmax(0, 1fr); gap: 0.75rem; }
-		dd, .skill-group ul { font-size: var(--mobile-body); }
+		.about-section { grid-template-columns: minmax(0, 1fr); padding-block: 1.5rem 2rem; }
+		.profile-story p { font-size: var(--mobile-body); }
 	}
 	@media (max-width: 360px) {
-		.background-list > div, .skill-group { grid-template-columns: minmax(0, 1fr); gap: 0.3rem; }
-		dt, .skill-group h4 { padding-top: 0; }
+		.skill-group { grid-template-columns: minmax(0, 1fr); gap: 0.2rem; }
 	}
 </style>
-
-<script>
-	let removeLayoutListener: (() => void) | undefined;
-	document.addEventListener('astro:page-load', () => {
-	removeLayoutListener?.();
-	const background = document.querySelector<HTMLDetailsElement>('.background-details');
-	const phoneLayout = window.matchMedia('(max-width: 640px)');
-	let userToggledBackground = false;
-	background?.querySelector('summary')?.addEventListener('click', () => { userToggledBackground = true; });
-	const setBackgroundLayout = () => { if (background && !userToggledBackground) background.open = !phoneLayout.matches; };
-	setBackgroundLayout();
-	phoneLayout.addEventListener('change', setBackgroundLayout);
-	removeLayoutListener = () => phoneLayout.removeEventListener('change', setBackgroundLayout);
-	});
-</script>

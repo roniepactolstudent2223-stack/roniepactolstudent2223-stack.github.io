@@ -34,7 +34,7 @@ const contributions = writtenProjects.filter(item => item.experienceUrl);
 </section>
 
 <style>
-	.selected-work { padding-block: 2rem; border-bottom: 1px solid var(--color-ink); }
+	.selected-work { padding-block: 1.75rem 2.25rem; border-block-start: 1px solid var(--color-border); }
 	.work-heading { display: flex; justify-content: space-between; align-items: end; gap: 1rem; margin-bottom: 1.5rem; }
 	h2 { margin: 0; font-size: var(--text-section); line-height: 1.15; }
 	.work-feature { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); align-items: center; gap: clamp(1.25rem, 3vw, 2.5rem); }
@@ -45,7 +45,7 @@ const contributions = writtenProjects.filter(item => item.experienceUrl);
 	.work-copy h3 { margin: 0.5rem 0 0.65rem; font-family: var(--font-display); font-weight: 500; font-size: 1.65rem; letter-spacing: -0.025em; line-height: 1.15; }
 	.work-copy > p:not(.eyebrow) { margin: 0 0 0.75rem; font-size: var(--text-body); line-height: var(--line-body); }
 	.work-copy > p.eyebrow { margin: 0 0 0.5rem; font-size: var(--text-label); line-height: 1.6; }
-	.work-facts { display: grid; gap: 0.55rem; margin: 1rem 0 0.5rem; padding-top: 0.75rem; border-top: 1px solid var(--color-border); }
+	.work-facts { display: grid; gap: 0.55rem; margin: 1rem 0 0.5rem; }
 	.work-facts > div { display: grid; grid-template-columns: 5.25rem minmax(0, 1fr); gap: 0.5rem; }
 	.work-facts dt { color: var(--color-muted); font: 500 var(--text-label)/1.7 var(--font-label); letter-spacing: var(--tracking-label); text-transform: uppercase; }
 	.work-facts dd { margin: 0; font-size: var(--text-meta); line-height: 1.6; }

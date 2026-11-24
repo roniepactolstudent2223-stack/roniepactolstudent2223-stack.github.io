@@ -5,7 +5,7 @@
 	--text-label: 0.75rem;
 	--text-meta: 0.875rem;
 	--text-body: 1rem;
-	--text-lead: clamp(1.05rem, calc(1rem + 0.16vw), 1.16rem);
+	--text-lead: clamp(1rem, calc(0.94rem + 0.09vw), 1.06rem);
 	--text-page: clamp(2.05rem, calc(1.5rem + 1.55vw), 3.3rem);
 	--text-section: clamp(1.55rem, calc(1.3rem + 0.7vw), 2.15rem);
 	--line-body: 1.7;

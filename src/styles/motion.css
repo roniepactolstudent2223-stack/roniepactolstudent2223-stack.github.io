@@ -29,11 +29,11 @@
 
 /* The native details state remains authoritative, including rapid reversals. */
 @supports (interpolate-size: allow-keywords) and selector(::details-content) {
-	:where(.background-details, .experience-disclosure, .event-context, .other-contact-methods, .attachments) {
+	:where(.experience-disclosure, .event-context, .other-contact-methods, .attachments) {
 		interpolate-size: allow-keywords;
 	}
 
-	:where(.background-details, .experience-disclosure, .event-context, .other-contact-methods, .attachments)::details-content {
+	:where(.experience-disclosure, .event-context, .other-contact-methods, .attachments)::details-content {
 		block-size: 0;
 		overflow: clip;
 		overflow-clip-margin: 6px;
@@ -41,7 +41,7 @@
 		transition-behavior: allow-discrete;
 	}
 
-	:where(.background-details, .experience-disclosure, .event-context, .other-contact-methods, .attachments)[open]::details-content {
+	:where(.experience-disclosure, .event-context, .other-contact-methods, .attachments)[open]::details-content {
 		block-size: auto;
 	}
 
@@ -67,7 +67,6 @@
 	}
 }
 
-.background-details summary span,
 .experience-disclosure summary svg,
 .mobile-menu summary svg {
 	transition: transform var(--motion-fast) var(--motion-ease), color var(--motion-fast);
@@ -129,10 +128,9 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-	:where(.background-details, .experience-disclosure, .event-context, .other-contact-methods, .attachments, .mobile-menu)::details-content,
+	:where(.experience-disclosure, .event-context, .other-contact-methods, .attachments, .mobile-menu)::details-content,
 	:is(.contact-modal, .screenshot-viewer, .experience-sheet),
 	:is(.contact-modal, .screenshot-viewer, .experience-sheet)::backdrop,
-	.background-details summary span,
 	.experience-disclosure summary svg,
 	.mobile-menu summary svg {
 		transition: none;
