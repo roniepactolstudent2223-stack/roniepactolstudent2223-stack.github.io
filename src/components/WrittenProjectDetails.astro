@@ -17,12 +17,20 @@ const nextProject = writtenProjects[(writtenProjects.findIndex(item => item.slug
 		{project.note && <p class="learning-note">{project.note}</p>}
 		<dl class="project-facts"><div><dt>Scope</dt><dd>{project.kind}</dd></div>{project.stack.length > 0 && <div><dt>Built with</dt><dd>{project.stack.join(' · ')}</dd></div>}<div><dt>Outcome</dt><dd>{project.outcome}</dd></div></dl>
 	</header>
-	<section class="project-overview" aria-labelledby="project-overview-title"><div><p class="field-label">Overview</p><h2 id="project-overview-title">The work</h2></div><p>{project.overview}</p></section>
+	{project.decision && (
+		<section class="project-overview" aria-labelledby="project-decision-title">
+			<div>
+				<p class="field-label">Technical decision</p>
+				<h2 id="project-decision-title">{project.decision.title}</h2>
+			</div>
+			<p>{project.decision.description}</p>
+		</section>
+	)}
 	<section class="project-features" aria-labelledby="project-features-title">
-		<p class="field-label">{project.experienceUrl ? 'Contribution detail' : 'Implementation detail'}</p><h2 id="project-features-title">{project.experienceUrl ? 'My contributions' : 'What I built'}</h2>
+		<h2 id="project-features-title">{project.experienceUrl ? 'My contributions' : 'What I built'}</h2>
 		<ol class="feature-list">{project.features.map((feature, index) => <li class="feature-row"><span class="feature-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><h3>{feature.title}</h3><p>{feature.description}</p></li>)}</ol>
 	</section>
-	<nav class="next-project" aria-label="Continue exploring projects"><p class="field-label">Continue exploring</p><a href={`/projects/${nextProject.slug}/`}><span><small>Next project</small>{nextProject.title}</span><span aria-hidden="true">→</span></a></nav>
+	<nav class="next-project" aria-label="Continue exploring projects"><p class="field-label">Next project</p><a href={`/projects/${nextProject.slug}/`}><span>{nextProject.title}</span><span aria-hidden="true">→</span></a></nav>
 	<footer class="project-footer"><a href="/projects/">← Back to projects</a>{project.experienceUrl && <a href={project.experienceUrl}>My role at Wilcon Depot <span aria-hidden="true">↗</span></a>}</footer>
 </article>
 
@@ -46,7 +54,7 @@ const nextProject = writtenProjects[(writtenProjects.findIndex(item => item.slug
 	dt { margin-bottom: 0.35rem; color: var(--color-muted); font: 500 var(--text-label, 0.7rem)/1.5 var(--font-label, monospace); letter-spacing: var(--tracking-label, 0.08em); text-transform: uppercase; }
 	dd { margin: 0; font-size: var(--text-meta, 0.8rem); line-height: 1.7; }
 	h2 { margin: 0; font-size: var(--text-section, 1.85rem); font-weight: 500; line-height: 1.2; }
-	.project-overview .field-label, .project-features > .field-label { margin-bottom: 0.5rem; }
+	.project-overview .field-label { margin-bottom: 0.5rem; }
 	.project-overview { display: grid; grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr); gap: 1rem 3rem; padding-block: 2rem; border-block: 1px solid var(--color-border); }
 	.project-overview > p { max-width: 65ch; margin: 0; font-size: var(--text-body, 0.95rem); line-height: var(--line-body, 1.7); }
 	.project-features { padding-block: 2rem; }
@@ -61,7 +69,6 @@ const nextProject = writtenProjects[(writtenProjects.findIndex(item => item.slug
 	.next-project a { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 44px; font-family: var(--font-display, Georgia); font-size: 1.5rem; line-height: 1.25; letter-spacing: -0.025em; }
 	.next-project a > span:first-child { min-width: 0; }
 	.next-project a > span:last-child { flex: none; }
-	.next-project small { display: block; margin-block: 0.4rem; color: var(--color-muted); font: 400 var(--text-meta, 0.8rem)/1.5 var(--font-ui, system-ui); letter-spacing: normal; }
 	.next-project a:hover { text-decoration: underline; text-underline-offset: 0.2em; }
 	@media (min-width: 901px) {
 		.written-heading { padding-block: 1rem 1.5rem; }

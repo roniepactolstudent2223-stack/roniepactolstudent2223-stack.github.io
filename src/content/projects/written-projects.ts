@@ -6,7 +6,7 @@ export interface WrittenProject {
 	stack: string[];
 	summary: string;
 	outcome: string;
-	overview: string;
+	decision?: { title: string; description: string };
 	note?: string;
 	experienceUrl?: string;
 	features: { title: string; description: string }[];
@@ -21,7 +21,10 @@ export const writtenProjects: WrittenProject[] = [
 		stack: [],
 		summary: 'Enhanced Treasury reports with transaction drill-downs, multi-branch filtering, and PDF and Excel exports.',
 		outcome: 'Made payment details and report exports easier to inspect across branches.',
-		overview: 'I enhanced Wilcon Depot’s existing Collection and Deposit Report to make payment details easier to inspect, align branch reporting, and simplify report downloads.',
+		decision: {
+			title: 'Keep the report summary and add drill-downs',
+			description: 'I made the amounts in the existing report clickable so Treasury staff could start with branch totals and inspect individual payments when needed. In the detail view, unpaid checks and cash transactions are distinguished so the two can be reviewed separately.',
+		},
 		experienceUrl: '/experience/#wilcon-depot',
 		features: [
 			{ title: 'Interactive transaction breakdown', description: 'Made report amounts clickable so users can inspect detailed check payments and clearly distinguish unpaid checks from cash transactions.' },
@@ -37,7 +40,10 @@ export const writtenProjects: WrittenProject[] = [
 		stack: [],
 		summary: 'Automated account synchronization, validated accounting entries, and connected approvals with posting and a live closing dashboard.',
 		outcome: 'Connected synchronization, validation, approval, and posting in one closing workflow.',
-		overview: 'I worked on accounting and dashboard modules for the closing process, connecting account synchronization, validated entry, manager approval, and posting to the main accounting system.',
+		decision: {
+			title: 'Validate entries before manager approval',
+			description: 'The workflow accepts both uploads and manual entries. I added required-field and duplicate checks at entry, then built the manager approval step with an activity log and posting to the main accounting system. This separates checks the software can perform from the approval a manager needs to make.',
+		},
 		experienceUrl: '/experience/#wilcon-depot',
 		features: [
 			{ title: 'Automated account sync', description: 'Set up scheduled background updates and a manual sync button to pull the latest account records from the main database while blocking inactive accounts.' },
@@ -53,7 +59,6 @@ export const writtenProjects: WrittenProject[] = [
 		stack: ['Python', 'CLI'],
 		summary: 'A terminal utility for password-protecting and unlocking PDFs, with direct file paths, drag-and-drop input, and validation.',
 		outcome: 'Made PDF protection and unlocking repeatable from the terminal.',
-		overview: 'I built a Python command-line tool to encrypt and decrypt PDF files with password protection through an interactive terminal interface.',
 		features: [
 			{ title: 'File encryption', description: 'Implemented password-based encryption and decryption for PDF files.' },
 			{ title: 'CLI automation', description: 'Created an interactive terminal interface that supports direct file paths and drag-and-drop execution.' },
@@ -68,7 +73,6 @@ export const writtenProjects: WrittenProject[] = [
 		stack: ['Laravel 13', 'Laravel policies'],
 		summary: 'A full-stack Laravel learning project following the patient journey from appointment booking and triage through consultation and billing.',
 		outcome: 'Practiced a complete role-based workflow from booking through billing.',
-		overview: 'I built this system to learn Laravel 13 through a complete patient-flow management workflow and role-based authorization.',
 		note: 'Built for learning Laravel 13, not as a production hospital system.',
 		features: [
 			{ title: 'End-to-end patient workflow', description: 'Built a management system covering appointment booking, nurse triage, doctor consultation, and final billing.' },
@@ -83,7 +87,6 @@ export const writtenProjects: WrittenProject[] = [
 		stack: ['Python', 'FastAPI', 'REST API', 'SQLite', 'Twilio', 'HTML', 'JavaScript'],
 		summary: 'Scheduled service reminders and member registration connected through a FastAPI backend, SQLite, and the Twilio API.',
 		outcome: 'Connected member registration records with scheduled service reminders.',
-		overview: 'I built a church SMS automation system that connects member registration and management with scheduled weekly service reminders.',
 		features: [
 			{ title: 'Automated SMS reminders', description: 'Scheduled weekly service reminders using Python and the Twilio API.' },
 			{ title: 'Backend API', description: 'Built a FastAPI backend with SQLite for creating, reading, updating, and deleting member records.' },

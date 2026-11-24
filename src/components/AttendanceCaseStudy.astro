@@ -19,14 +19,14 @@ import ScreenshotViewer from './ScreenshotViewer.astro';
 			<div><dt>Outcome</dt><dd>{project.outcome}</dd></div>
 		</dl>
 	</header>
-	<nav class="case-navigation" aria-label="Case study sections"><a href="#project-overview">Overview <span aria-hidden="true">↓</span></a><a href="#project-capabilities">What I built <span aria-hidden="true">↓</span></a><a href="#project-screens">Screens <span aria-hidden="true">↓</span></a></nav>
+	<nav class="case-navigation" aria-label="Case study sections"><a href="#project-overview">Technical decision <span aria-hidden="true">↓</span></a><a href="#project-capabilities">What I built <span aria-hidden="true">↓</span></a><a href="#project-screens">Screens <span aria-hidden="true">↓</span></a></nav>
 	<section class="case-overview" id="project-overview" aria-labelledby="overview-title">
-		<div><p class="field-label">The context</p><h2 id="overview-title">From manual logs<br /> to connected workflows.</h2></div>
-		<div><p>I built this system as the solo full-stack developer for Word of Hope Caloocan, connecting check-in at the entrance with the records and tools used by church staff.</p><p>The work spans the Vue.js scanning interface, Laravel tracking logic, MySQL records, REST API integration, and a Buefy administration dashboard.</p></div>
+		<div><p class="field-label">Technical decision</p><h2 id="overview-title">Use check-in records for follow-up</h2></div>
+		<div><p>I used the same attendance records for check-in and pastoral follow-up. The Vue interface handles scanning at the entrance, while Laravel checks weekly records for consecutive absences and flags members for the pastoral team.</p></div>
 	</section>
 	<div class="workflow-band"><p class="field-label">System workflow</p><ol class="system-flow"><li><span aria-hidden="true">01</span><strong>QR check-in</strong><p>Vue.js scanning interface</p></li><li><span aria-hidden="true">02</span><strong>Attendance records</strong><p>Laravel · MySQL · REST API</p></li><li><span aria-hidden="true">03</span><strong>Pastoral follow-up</strong><p>Members flagged for follow-up</p></li></ol></div>
 	<section class="capabilities-section" id="project-capabilities" aria-labelledby="capabilities-title">
-		<p class="field-label">Scope of delivery</p><h2 id="capabilities-title">What I built</h2>
+		<h2 id="capabilities-title">What I built</h2>
 		<ol class="capabilities">{project.features.map((feature, index) => <li class="capability"><span class="capability-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><h3>{feature.title}</h3><div><p>{feature.description}</p><p class="implementation-detail"><span class="field-label">Implementation</span>{feature.implementation}</p></div></li>)}</ol>
 	</section>
 	<section class="screens-section" id="project-screens" aria-labelledby="screens-title">
@@ -59,10 +59,9 @@ import ScreenshotViewer from './ScreenshotViewer.astro';
 	.case-navigation a { display: inline-flex; align-items: center; gap: 0.75rem; min-height: 44px; font-size: 0.85rem; }
 	.case-navigation a:hover { text-decoration: underline; text-underline-offset: 0.25em; }
 	h2 { margin: 0; font-size: var(--text-section, 1.85rem); font-weight: 500; line-height: 1.15; }
-	.case-overview .field-label, .capabilities-section > .field-label, .screens-heading .field-label { margin-bottom: 0.5rem; }
+	.case-overview .field-label, .screens-heading .field-label { margin-bottom: 0.5rem; }
 	.case-overview { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: 2rem 4rem; padding-block: 2.5rem; }
-	.case-overview > div:last-child p { margin: 0 0 1rem; font-size: var(--text-body, 0.95rem); line-height: var(--line-body, 1.7); }
-	.case-overview > div:last-child p:last-child { margin-bottom: 0; color: var(--color-muted); }
+	.case-overview > div:last-child p { max-width: 62ch; margin: 0; font-size: var(--text-body); line-height: var(--line-body); }
 	.workflow-band { padding: 1rem 1.25rem; background: #eeede7; }
 	.workflow-band > .field-label { margin-bottom: 1rem; }
 	.system-flow { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; list-style: none; margin: 0; padding: 0; }
